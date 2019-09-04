@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bpa.entity.Player;
 
 public class Main implements ApplicationListener {
 
@@ -16,15 +17,16 @@ public class Main implements ApplicationListener {
 	Texture t;
 	Sprite s;
 	BitmapFont font;
+	Player p;
 	
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
 		t = new Texture("badlogic.jpg");
-		s = new Sprite(t);
-		s.setPosition(0, 0);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
+		p = new Player(t);
+		p.setPosition(0, 0);
 	}
 
 	@Override
@@ -38,15 +40,10 @@ public class Main implements ApplicationListener {
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			s.translateX(-1f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			s.translateX(1f);
-		}
 		batch.begin();
 		font.draw(batch, "Test", 20, 20, 200, 0, false);
-		s.draw(batch);
+		p.update();
+		p.draw(batch);
 		batch.end();
 	}
 
