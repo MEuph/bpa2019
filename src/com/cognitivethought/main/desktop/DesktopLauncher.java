@@ -1,8 +1,8 @@
-package com.bpa.main.desktop;
+package com.cognitivethought.main.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.bpa.main.Main;
+import com.cognitivethought.main.Main;
 
 public class DesktopLauncher {
 	public static void main (String args[]) {

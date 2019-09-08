@@ -1,49 +1,54 @@
-package com.bpa.main;
+package com.cognitivethought.main;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bpa.entity.Player;
+import com.cognitivethought.entity.Player;
+import com.cognitivethought.level.Level;
 
 public class Main implements ApplicationListener {
-
+	
 	SpriteBatch batch;
-	Texture t;
-	Sprite s;
-	BitmapFont font;
-	Player p;
+	
+	Player player;
+	Level level;
 	
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		t = new Texture("badlogic.jpg");
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		p = new Player(t);
-		p.setPosition(0, 0);
+		
+		try {
+			level = new Level("/testlevel.level");
+		} catch (FileNotFoundException | URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		player = new Player(new Texture("base.png"));
+		player.setPosition(0, 0);
 	}
 
 	@Override
 	public void dispose() {
 		batch.dispose();
-		font.dispose();
-		t.dispose();
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor(0,0,0,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
-		font.draw(batch, "Test", 20, 20, 200, 0, false);
-		p.update();
-		p.draw(batch);
+		
+		player.update(level);
+		player.render(batch);
+		
+		level.render(batch);
+		
 		batch.end();
 	}
 
