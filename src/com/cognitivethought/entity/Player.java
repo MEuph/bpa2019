@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 
-public class Player extends Sprite {
+public class Player extends Sprite  {
 	
 	// The velocity of the player
 	private float dx, dy;
@@ -23,7 +23,7 @@ public class Player extends Sprite {
 	
 	// Whether the sprite is facing right (flipped)
 	private boolean facingRight;
-
+	
 	// Instantiates a new Player in the scene
 	public Player(Texture t) {
 		super(t);
@@ -32,7 +32,7 @@ public class Player extends Sprite {
 	
 	// Controls player physics and movement
 	public void update(Level l) {
-		dy = dy > -15f ? (getY() > 0 ? dy - g : 0) : dy;
+		dy = dy > -15f ? (dy - g) : dy;
 		
 		float vxChange = .5f;
 		float maxSpeed = 5f;
@@ -63,12 +63,6 @@ public class Player extends Sprite {
 				jumps = 0;
 				break;
 			}
-		}
-		
-		if (getY() < 0) {
-			dy = 0;
-			setY(0);
-			jumps = 0;
 		}
 		
 		setX(getX() + dx * speed);

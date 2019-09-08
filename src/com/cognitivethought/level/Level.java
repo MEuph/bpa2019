@@ -51,8 +51,8 @@ public class Level {
 	}
 	
 	public void render(Batch b) {
-		for (Platform p : platforms) {
-			p.draw(b);
+		for (Platform plat : platforms) {
+			plat.draw(b);
 		}
 	}
 }

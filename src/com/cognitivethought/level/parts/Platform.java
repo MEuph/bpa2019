@@ -11,5 +11,4 @@ public class Platform extends Sprite {
 		super.setY(y);
 		super.setSize(w, h);
 	}
-	
 }
