@@ -1,0 +1,8 @@
+In Eclipse, go to File > Import
+Select Git > Projects from Git (With Smart Import)
+Select Clone URI
+Use the following URI: https://github.com/MEuph/bpa2019.git
+Select any destination
+Click Finish.
+
+If everything went right, you should now be able to use the Git project as a regular Java Eclipse project, but with Git integration!
