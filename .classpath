@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="Ext Jars/ashley-1.7.0-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/ashley-1.7.0.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/box2dlights-1.4-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/box2dlights-1.4.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-ai-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-ai-1.8.0.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-backend-headless-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-backend-headless-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-backend-lwjgl-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-backend-lwjgl-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-box2d-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-box2d-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-box2d-platform-1.9.10-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-bullet-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-bullet-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-bullet-platform-1.9.10-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-controllers-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-controllers-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-controllers-desktop-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-controllers-desktop-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-controllers-platform-1.9.10-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-freetype-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-freetype-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-freetype-platform-1.9.10-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-platform-1.9.10-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-tools-1.9.10-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/gdx-tools-1.9.10.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jinput-2.0.5-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jinput-2.0.5.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jinput-platform-2.0.5-natives-linux.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jinput-platform-2.0.5-natives-osx.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jinput-platform-2.0.5-natives-windows.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jlayer-1.0.1-gdx-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jlayer-1.0.1-gdx.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jorbis-0.0.17-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jorbis-0.0.17.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jutils-1.0.0-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/jutils-1.0.0.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl_util-2.9.3-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl_util-2.9.3.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl-2.9.3-sources.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl-2.9.3.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl-platform-2.9.3-natives-linux.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl-platform-2.9.3-natives-osx.jar"/>
+	<classpathentry kind="lib" path="Ext Jars/lwjgl-platform-2.9.3-natives-windows.jar"/>
+	<classpathentry kind="lib" path="gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
