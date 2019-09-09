@@ -18,51 +18,48 @@ import com.cognitivethought.entity.Player;
 import com.cognitivethought.level.Level;
 
 public class GameScreen implements Screen {
-	
-	SpriteBatch batch;
-	
-	Player player;
-	Level level;
-	
-	BitmapFont font;
-	
-	OrthographicCamera c;
-	
-	final float smoothCamera = .1f;
-	
-	String fps = "FPS:";
-	float timer = 0;
-	
-	float fade = 1f;
-	
+
+	SpriteBatch batch; // The batch renderer that helps to render sprites faster than usual
+	Player player; // The player character
+	Level level; // Holds current level information
+	BitmapFont font; // For FPS Counter
+	OrthographicCamera c; // Camera
+
+	final float smoothCamera = .1f; // How much to smooth the camera's movement by
+	float timer = 0; // Timer for updating FPS counter
+	float fade = 1f; // Timer/Opacity for screen fade-in
+
+	String fps = "FPS:"; // Shows the current FPS
+
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
-		
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-		
+
 		try {
-			level = new Level("/testlevel.level");
+			level = new Level("/testlevel.level"); // Initialize level with 'testlevel.level'
 		} catch (FileNotFoundException | URISyntaxException e) {
 			e.printStackTrace();
 		}
-		
+
 		c = new OrthographicCamera();
-		c.setToOrtho(false, 1280, 720);
-		c.position.set(0f,0f,0f);
-		
-		player = new Player(new Texture("base.png"));
+		c.setToOrtho(false, 1280, 720); // Create camera, and set size to window size
+		c.position.set(0f, 0f, 0f);
+
+		player = new Player(new Texture("base.png")); // Create Player
 		player.setPosition(0, 0);
-		
+
+		// Run new Thread that will process the fading in of the scene
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				c.position.set(new Vector3(c.position.x, c.position.y+100, c.position.z));
+				c.position.set(new Vector3(c.position.x, c.position.y + 200, c.position.z));
 				while (fade > 0f) {
 					fade -= .01f;
-					System.out.println(fade);
-					c.translate(0,-1,0);
+//					System.out.println(fade);
+					c.translate(0, -1f, 0);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -72,11 +69,11 @@ public class GameScreen implements Screen {
 			}
 		}).start();
 	}
-	
+
 	public GameScreen() {
-		
+
 	}
-	
+
 	@Override
 	public void dispose() {
 		batch.dispose();
@@ -89,63 +86,75 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-		
+
 	}
 
 	@Override
 	public void render(float arg0) {
-		Gdx.gl.glClearColor(95f/255f,205f/255f,228f/255f,1f);
+		Gdx.gl.glClearColor(95f / 255f, 205f / 255f, 228f / 255f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
+		// Smooth camera fade
 		Vector3 position = c.position;
-		
+
 		if (!(fade > 0)) {
 			position.x += (player.getX() - position.x) * smoothCamera;
-			position.y += (player.getY() - position.y) * smoothCamera;
+			position.y += (player.getY() - position.y + 100) * smoothCamera;
 		}
 		c.update();
-		
+		// End smooth camera fade
+
+		// Set the projection matrix of the sprite batch to the camera's combined matrix
 		batch.setProjectionMatrix(c.combined);
 
 		batch.begin();
-		
+
 		level.render(batch);
-		
+
+		// If the level has faded in, process physics on the player
 		if (!(fade > 0)) {
 			player.update(level);
 		}
 		player.render(batch);
-		
+
+		// Increment the FPS timer
 		timer += Gdx.graphics.getDeltaTime();
-		
-		if(timer > .5f) {
+
+		// If the timer has surpassed 0.5, then reset the timer and update the FPS
+		// counter
+		if (timer > .5f) {
 			timer = 0f;
-			fps = "FPS: " + (int)(1 / Gdx.graphics.getDeltaTime());
+			fps = "FPS: " + (int) (1 / Gdx.graphics.getDeltaTime());
 		}
-		
+
+		// Draw the FPS counter
 		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2) + 20f);
-		
+
 		batch.end();
+
+		// Enable transparency blending
 		Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		// If still fading, then draw the black fade rectangle
 		if (fade > 0f) {
 			ShapeRenderer sp = new ShapeRenderer();
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0,0,0,fade));
+			sp.setColor(new Color(0, 0, 0, fade));
 			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1300, 800);
 			sp.end();
 		}
+		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	@Override
-	public void resize(int arg0, int arg1) {
-		
+	public void resize(int w, int h) {
+		// c.setToOrtho(false, w, h);
 	}
 
 	@Override
 	public void resume() {
-		
+
 	}
 }
