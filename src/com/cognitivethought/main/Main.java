@@ -6,9 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.cognitivethought.screens.GameScreen;
 
 public class Main extends Game implements ApplicationListener {
-	
+
+	// The screen used for gameplay
 	GameScreen g;
-	
+
 	@Override
 	public void create() {
 		g = new GameScreen();
