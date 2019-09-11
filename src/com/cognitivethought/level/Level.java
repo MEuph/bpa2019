@@ -1,5 +1,6 @@
 package com.cognitivethought.level;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -49,7 +50,46 @@ public class Level {
 
 		sc.close();
 	}
-
+	
+	public Level(BufferedImage b) {
+		int[][] data = new int[b.getHeight()][b.getWidth()];
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				data[i][j] = b.getRGB(i, j);			// Populate data array
+			}
+		}
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				switch(data[i][j]) {
+				case(0xFFFFFF):
+					break;
+				case(0xFF0000):
+					addPlatform(new Platform(new Texture("/bigplat.png"), i*32,j*32,32,32));
+					break;
+				case(0x22B14C):
+					addPlatform(new Platform(new Texture("/leftplat.png"), i*32, j*32, 32, 32));
+					break;
+				case(0x008040):
+					addPlatform(new Platform(new Texture("/rightplat.png"), i*32, j*32, 32, 32));
+					break;	
+				case(0xFF7F27):
+					addPlatform(new Platform(new Texture("/normalplat.png"), i*32, j*32, 32, 32));
+					break;
+				case(0x004040):
+					addPlatform(new Platform(new Texture("/bottomright.png"), i*32, j*32, 32, 32));
+					break;
+				case(0xB5E61D):
+					addPlatform(new Platform(new Texture("/bottomleft.png"), i*32, j*32, 32, 32));
+					break;
+				case(0xFFF200):
+					addPlatform(new Platform(new Texture("/filledtopplat.png"), i*32, j*32, 32, 32));
+					break;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * @return The ArrayList containing all platforms in this level
 	 */

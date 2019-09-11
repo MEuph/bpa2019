@@ -46,22 +46,24 @@ public class Player extends Sprite {
 
 		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
 		float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
-
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)) {
 			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
 			dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
-			facingRight = false; // player is not facing right
-		} else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+			facingRight = false;
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)) {
 			dx += dx < maxSpeed ? vxChange : 0; // if dx has not yet reached maximum speed, increment it
 			dx = dx > maxSpeed ? maxSpeed : dx; // cap dx at its maximum speed
-			facingRight = true; // player is not facing right
+			facingRight = true;
 		} else {
 			dx = dx != 0 ? (dx < 0 ? dx + vxChange : dx - vxChange) : 0; // normalize dx to 0 by using vxChange
 			dx = dx > -1 && dx < 1 ? 0 : dx; // if dx is between -1 and 1, just set it to 0. This makes it so vxChange
 												// can be any value
 		}
-
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)) {
 			jump();
 			jumps++;
 		}
@@ -79,7 +81,7 @@ public class Player extends Sprite {
 			}
 		}
 
-		setX(getX() + dx * speed); // Could use translate, but this is cooler
+		setX(getX() + dx * speed); // Could use translate, but this works too
 		setY(getY() + dy * speed);
 	}
 
