@@ -1,26 +1,24 @@
 package com.cognitivethought.screens;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
-import com.cognitivethought.entity.Player;
 import com.cognitivethought.level.Level;
 
 public class GameScreen implements Screen {
 
 	SpriteBatch batch; // The batch renderer that helps to render sprites faster than usual
-	Player player; // The player character
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
@@ -39,8 +37,8 @@ public class GameScreen implements Screen {
 		font.setColor(Color.WHITE);
 
 		try {
-			level = new Level("/testlevel.level"); // Initialize level with 'testlevel.level'
-		} catch (FileNotFoundException | URISyntaxException e) {
+			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/level1.png"))); // Initialize level with 'testlevel.level'
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -48,8 +46,7 @@ public class GameScreen implements Screen {
 		c.setToOrtho(false, 1280, 720); // Create camera, and set size to window size
 		c.position.set(0f, 0f, 0f);
 
-		player = new Player(new Texture("base.png")); // Create Player
-		player.setPosition(0, 0);
+		
 
 		// Run new Thread that will process the fading in of the scene
 		new Thread(new Runnable() {
@@ -91,15 +88,15 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float arg0) {
-		Gdx.gl.glClearColor(95f / 255f, 205f / 255f, 228f / 255f, 1f);
+		Gdx.gl.glClearColor(0f,1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// Smooth camera fade
 		Vector3 position = c.position;
-
+		
 		if (!(fade > 0)) {
-			position.x += (player.getX() - position.x) * smoothCamera;
-			position.y += (player.getY() - position.y + 100) * smoothCamera;
+			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
+			position.y += (level.getSpawnpoint().getPlayer().getY() - position.y + 100) * smoothCamera;
 		}
 		c.update();
 		// End smooth camera fade
@@ -113,9 +110,9 @@ public class GameScreen implements Screen {
 
 		// If the level has faded in, process physics on the player
 		if (!(fade > 0)) {
-			player.update(level);
+			level.getSpawnpoint().getPlayer().update(level);
 		}
-		player.render(batch);
+		level.getSpawnpoint().getPlayer().render(batch);
 
 		// Increment the FPS timer
 		timer += Gdx.graphics.getDeltaTime();

@@ -73,9 +73,15 @@ public class Player extends Sprite {
 		for (Platform p : l.getPlatforms()) {
 			// If the platform overlaps the player, and the player is moving down, and the
 			// player's y is greater than the platform's y
-			if (super.getBoundingRectangle().overlaps(p.getBoundingRectangle()) && dy < 0 && getY() > p.getY()) {
+			if (super.getBoundingRectangle().overlaps(p.getBoundingRectangle()) && dy < 0 && getY() > p.getY() && p.collideTop) {
 				dy = 0; // Stop all vertical movement
 				setY(p.getY() + p.getHeight()); // Make sure y is correctly set
+				jumps = 0; // Reset jump counter
+				break;
+			}
+			if (super.getBoundingRectangle().overlaps(p.getBoundingRectangle()) && dy > 0 && getY() - getHeight() < p.getY() && p.collideBottom) {
+				dy = 0; // Stop all vertical movement
+				setY(p.getY() - getHeight()); // Make sure y is correctly set
 				jumps = 0; // Reset jump counter
 				break;
 			}

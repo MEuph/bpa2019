@@ -15,7 +15,9 @@ public class Level {
 
 	// All the platforms in the level
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
-
+	
+	Spawnpoint sp;
+	
 	/**
 	 * @param s The path of the level file that will be parsed and loaded into this
 	 *          level
@@ -51,6 +53,8 @@ public class Level {
 		sc.close();
 	}
 	
+	final int scale = 32;
+	
 	public Level(BufferedImage b) {
 		int[][] data = new int[b.getHeight()][b.getWidth()];
 		for (int i = 0; i < data.length; i++) {
@@ -60,34 +64,69 @@ public class Level {
 		}
 		
 		for (int i = 0; i < data.length; i++) {
+			for(int j = 0; j < data[i].length; j++) {
+				System.out.print(data[j][i] + " ");
+			}
+			System.out.println();
+		}
+		
+		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
-				switch(data[i][j]) {
-				case(0xFFFFFF):
+				switch(data[j][i]) {
+				case(-1):
 					break;
-				case(0xFF0000):
-					addPlatform(new Platform(new Texture("/bigplat.png"), i*32,j*32,32,32));
+				case(-1237980):
+					addPlatform(new Platform(new Texture("assets/groundplat.png"), -j*scale,-i*scale,scale,scale));
 					break;
-				case(0x22B14C):
-					addPlatform(new Platform(new Texture("/leftplat.png"), i*32, j*32, 32, 32));
+				case(-14503604):
+					addPlatform(new Platform(new Texture("assets/leftplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
-				case(0x008040):
-					addPlatform(new Platform(new Texture("/rightplat.png"), i*32, j*32, 32, 32));
+				case(-3620889):
+					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-16744416):
+					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale,-i*scale,scale,scale));
+					break;
+				case(-16744384):
+					addPlatform(new Platform(new Texture("assets/rightplat.png"), -j*scale, -i*scale, scale, scale));
 					break;	
-				case(0xFF7F27):
-					addPlatform(new Platform(new Texture("/normalplat.png"), i*32, j*32, 32, 32));
+				case(-32985):
+					addPlatform(new Platform(new Texture("assets/normalplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
-				case(0x004040):
-					addPlatform(new Platform(new Texture("/bottomright.png"), i*32, j*32, 32, 32));
+				case(-16760768):
+					addPlatform(new Platform(new Texture("assets/bottomright.png"), -j*scale, -i*scale, scale, scale));
 					break;
-				case(0xB5E61D):
-					addPlatform(new Platform(new Texture("/bottomleft.png"), i*32, j*32, 32, 32));
+				case(-4856291):
+					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale));
 					break;
-				case(0xFFF200):
-					addPlatform(new Platform(new Texture("/filledtopplat.png"), i*32, j*32, 32, 32));
+				case(-3584):
+					addPlatform(new Platform(new Texture("assets/filledtopplat.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-4621737):
+					addPlatform(new Platform(new Texture("assets/filledplat.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-16735512):
+					addPlatform(new Platform(new Texture("assets/wall.png"), -j*scale, -i*scale, scale, scale,true,true,true,true));
+					break;
+				case(-16777216):
+					addSpawnpoint(new Spawnpoint(-j*scale,-i*scale));
 					break;
 				}
 			}
 		}
+	}
+	/**
+	 * @param spawnpoint The spawnpoint that the player will be initialized
+	 */
+	public void addSpawnpoint(Spawnpoint spawnpoint) {
+		this.sp = spawnpoint;
+	}
+	
+	/**
+	 * @return The Spawnpoint of this level
+	 */
+	public Spawnpoint getSpawnpoint() {
+		return this.sp;
 	}
 	
 	/**
