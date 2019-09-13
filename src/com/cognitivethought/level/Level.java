@@ -79,34 +79,34 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/groundplat.png"), -j*scale,-i*scale,scale,scale));
 					break;
 				case(-14503604):
-					addPlatform(new Platform(new Texture("assets/leftplat.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/rightplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-3620889):
-					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale, -i*scale, scale, scale, true, true, false, false));
 					break;
 				case(-16744416):
-					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale,-i*scale,scale,scale));
+					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale,-i*scale,scale,scale));
 					break;
 				case(-16744384):
-					addPlatform(new Platform(new Texture("assets/rightplat.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/leftplat.png"), -j*scale, -i*scale, scale, scale));
 					break;	
 				case(-32985):
 					addPlatform(new Platform(new Texture("assets/normalplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-16760768):
-					addPlatform(new Platform(new Texture("assets/bottomright.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-4856291):
-					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/bottomright.png"), -j*scale, -i*scale, scale, scale, false, true, false, true));
 					break;
 				case(-3584):
 					addPlatform(new Platform(new Texture("assets/filledtopplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-4621737):
-					addPlatform(new Platform(new Texture("assets/filledplat.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/filledplat.png"), -j*scale, -i*scale, scale, scale, true, false, false, true));
 					break;
 				case(-16735512):
-					addPlatform(new Platform(new Texture("assets/wall.png"), -j*scale, -i*scale, scale, scale,true,true,true,true));
+					addPlatform(new Platform(new Texture("assets/wall.png"), -j*scale, -i*scale, scale, scale, false, true, true, false));
 					break;
 				case(-16777216):
 					addSpawnpoint(new Spawnpoint(-j*scale,-i*scale));

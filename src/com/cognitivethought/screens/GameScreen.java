@@ -43,11 +43,9 @@ public class GameScreen implements Screen {
 		}
 
 		c = new OrthographicCamera();
-		c.setToOrtho(false, 1280, 720); // Create camera, and set size to window size
-		c.position.set(0f, 0f, 0f);
-
+		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
+		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
 		
-
 		// Run new Thread that will process the fading in of the scene
 		new Thread(new Runnable() {
 			@Override
@@ -58,7 +56,7 @@ public class GameScreen implements Screen {
 //					System.out.println(fade);
 					c.translate(0, -1f, 0);
 					try {
-						Thread.sleep(10);
+						Thread.sleep(5);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -88,9 +86,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float arg0) {
-		Gdx.gl.glClearColor(0f,1f,0f,1f);
+		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
 		// Smooth camera fade
 		Vector3 position = c.position;
 		
@@ -138,7 +136,7 @@ public class GameScreen implements Screen {
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
 			sp.setColor(new Color(0, 0, 0, fade));
-			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1300, 800);
+			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
 			sp.end();
 		}
 		// Disable transparency blending
