@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
+import com.cognitivethought.ui.HealthBar;
 
 public class GameScreen implements Screen {
 
@@ -23,7 +23,9 @@ public class GameScreen implements Screen {
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
-
+	
+	HealthBar hb = new HealthBar();
+	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
 	float fade = 1f; // Timer/Opacity for screen fade-in
@@ -86,7 +88,7 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void render(float arg0) {
+	public void render(float deltaTime) {
 		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -125,7 +127,7 @@ public class GameScreen implements Screen {
 		}
 
 		// Draw the FPS counter
-		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2) + 20f);
+		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
 
 		batch.end();
 
@@ -144,18 +146,20 @@ public class GameScreen implements Screen {
 		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {
-			c.zoom += c.zoom < 1f ? 0.25f : 0f;
-		}
+		// Zoom In-Out Support
+//		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {
+//			c.zoom += c.zoom < 1f ? 0.25f : 0f;
+//		}
+//		
+//		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT_BRACKET)) {
+//			c.zoom -= c.zoom > 0.25f ? 0.25f : 0f;
+//		}
+//
+//		if (c.zoom < 0.25f) {
+//			c.zoom = 0.25f;
+//		}
 		
-		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT_BRACKET)) {
-			c.zoom -= c.zoom > 0.25f ? 0.25f : 0f;
-		}
-
-		if (c.zoom < 0.25f) {
-			c.zoom = 0.25f;
-		}
+		hb.render(batch, c);
 	}
 
 	@Override
