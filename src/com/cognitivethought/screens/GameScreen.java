@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -23,7 +24,7 @@ public class GameScreen implements Screen {
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
 
-	final float smoothCamera = .1f; // How much to smooth the camera's movement by
+	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
 	float fade = 1f; // Timer/Opacity for screen fade-in
 
@@ -91,6 +92,7 @@ public class GameScreen implements Screen {
 		
 		// Smooth camera fade
 		Vector3 position = c.position;
+		smoothCamera = 0.1f / c.zoom;
 		
 		if (!(fade > 0)) {
 			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
@@ -141,6 +143,19 @@ public class GameScreen implements Screen {
 		}
 		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {
+			c.zoom += c.zoom < 1f ? 0.25f : 0f;
+		}
+		
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT_BRACKET)) {
+			c.zoom -= c.zoom > 0.25f ? 0.25f : 0f;
+		}
+
+		if (c.zoom < 0.25f) {
+			c.zoom = 0.25f;
+		}
 	}
 
 	@Override

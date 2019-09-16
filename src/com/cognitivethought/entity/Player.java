@@ -73,14 +73,14 @@ public class Player extends Sprite {
 		for (Platform plat : l.getPlatforms()) {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
 				dy = 0;
-				setY(plat.getY() + plat.getHeight() - 1f); // Reset y position to the top of the platform
+				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
 				jumps = 0;
 			}
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 				System.out.println(getY() + getHeight() + " " + plat.getY());
 				dy = 0;
-				setY(plat.getY() - getHeight() + plat.getHeight() + 1f); // Reset y position to the bottom of the platform
+				setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of the platform
 				break;
 			}
 			
