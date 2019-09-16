@@ -74,6 +74,7 @@ public class Level {
 			for (int j = 0; j < data[i].length; j++) {
 				switch(data[j][i]) {
 				case(-1):
+					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), -j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
 				case(-1237980):
 					addPlatform(new Platform(new Texture("assets/groundplat.png"), -j*scale,-i*scale,scale,scale));
@@ -82,10 +83,10 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/rightplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-3620889):
-					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale, -i*scale, scale, scale, true, true, false, false));
+					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale, -i*scale, scale, scale, true, false, true, false));
 					break;
 				case(-16744416):
-					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale,-i*scale,scale,scale));
+					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale,-i*scale,scale,scale, true, true, false, false));
 					break;
 				case(-16744384):
 					addPlatform(new Platform(new Texture("assets/leftplat.png"), -j*scale, -i*scale, scale, scale));
@@ -94,7 +95,7 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/normalplat.png"), -j*scale, -i*scale, scale, scale));
 					break;
 				case(-16760768):
-					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale, false, true, false, false));
 					break;
 				case(-4856291):
 					addPlatform(new Platform(new Texture("assets/bottomright.png"), -j*scale, -i*scale, scale, scale, false, true, false, true));
@@ -109,6 +110,7 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/wall.png"), -j*scale, -i*scale, scale, scale, false, true, true, false));
 					break;
 				case(-16777216):
+					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), -j*scale,-i*scale,scale,scale, false, false, false, false));
 					addSpawnpoint(new Spawnpoint(-j*scale,-i*scale));
 					break;
 				}

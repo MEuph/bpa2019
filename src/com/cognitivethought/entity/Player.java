@@ -80,17 +80,18 @@ public class Player extends Sprite {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 				System.out.println(getY() + getHeight() + " " + plat.getY());
 				dy = 0;
-				setY(plat.getY() - getHeight() + plat.getHeight() + 1f); // Reset y position to the top of the platform
+				setY(plat.getY() - getHeight() + plat.getHeight() + 1f); // Reset y position to the bottom of the platform
+				break;
 			}
 			
 			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
-			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft) {
+			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx = 0;
 				setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
 			}
 			
 			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
-			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight) {
+			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx = 0;
 				setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 			}
