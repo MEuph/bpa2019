@@ -8,8 +8,10 @@ public class DesktopLauncher {
 	public static void main(String args[]) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Tree Game";
-		config.width = 1280;
-		config.height = 720;
+		config.width = 1920;
+		config.height = 1080;
+		config.fullscreen = true;
+		config.vSyncEnabled = true;
 		new LwjglApplication(new Main(), config);
 	}
 }

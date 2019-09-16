@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 
@@ -24,7 +25,9 @@ public class Player extends Sprite {
 
 	// Whether the sprite is facing right (flipped)
 	private boolean facingRight;
-
+	
+	private boolean left, right;
+	
 	/**
 	 * Instantiates a new Player in the scene
 	 * 
@@ -46,50 +49,80 @@ public class Player extends Sprite {
 
 		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
 		float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
-
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
-			dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
-			facingRight = false; // player is not facing right
-		} else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			dx += dx < maxSpeed ? vxChange : 0; // if dx has not yet reached maximum speed, increment it
-			dx = dx > maxSpeed ? maxSpeed : dx; // cap dx at its maximum speed
-			facingRight = true; // player is not facing right
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)) {
+			left = true;
+			right = false;
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)) {
+			right = true;
+			left = false;
 		} else {
-			dx = dx != 0 ? (dx < 0 ? dx + vxChange : dx - vxChange) : 0; // normalize dx to 0 by using vxChange
-			dx = dx > -1 && dx < 1 ? 0 : dx; // if dx is between -1 and 1, just set it to 0. This makes it so vxChange
-												// can be any value
+			left = false;
+			right = false;
 		}
-
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)) {
 			jump();
 			jumps++;
 		}
 
 		// If colliding with platform top
 		// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
-		for (Platform p : l.getPlatforms()) {
-			// If the platform overlaps the player, and the player is moving down, and the
-			// player's y is greater than the platform's y
-			if (super.getBoundingRectangle().overlaps(p.getBoundingRectangle()) && dy < 0 && getY() > p.getY()) {
-				dy = 0; // Stop all vertical movement
-				setY(p.getY() + p.getHeight()); // Make sure y is correctly set
-				jumps = 0; // Reset jump counter
+		for (Platform plat : l.getPlatforms()) {
+			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
+				dy = 0;
+				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
+				jumps = 0;
+			}
+			
+			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
+				System.out.println(getY() + getHeight() + " " + plat.getY());
+				dy = 0;
+				setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of the platform
 				break;
 			}
+			
+			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
+			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx = 0;
+				setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
+			}
+			
+			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
+			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx = 0;
+				setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
+			}
+		}
+		
+		if (left) {
+			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
+			dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
+			facingRight = false;
+		} else if (right) {
+			dx += dx < maxSpeed ? vxChange : 0; // if dx has not yet reached maximum speed, increment it
+			dx = dx > maxSpeed ? maxSpeed : dx; // cap dx at its maximum speed
+			facingRight = true;
+		} else {
+			dx = dx != 0 ? (dx < 0 ? dx + vxChange : dx - vxChange) : 0; // normalize dx to 0 by using vxChange
+			dx = dx > -1 && dx < 1 ? 0 : dx; // if dx is between -1 and 1, just set it to 0. This makes it so vxChange
 		}
 
-		setX(getX() + dx * speed); // Could use translate, but this is cooler
+		setX(getX() + dx * speed); // Could use translate, but this works too
 		setY(getY() + dy * speed);
 	}
 
 	/**
 	 * Makes the player jump
 	 */
-	void jump() {
+	boolean jump() {
 		if (jumps >= 2)
-			return;
+			return false;
 		dy = 4f; // Literally all jump does is set vertical velocity to +4 instantly.
+		translateY(1);
+		return true;
 	}
 
 	/**

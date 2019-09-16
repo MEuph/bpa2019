@@ -1,5 +1,6 @@
 package com.cognitivethought.level;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -14,7 +15,9 @@ public class Level {
 
 	// All the platforms in the level
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
-
+	
+	Spawnpoint sp;
+	
 	/**
 	 * @param s The path of the level file that will be parsed and loaded into this
 	 *          level
@@ -49,7 +52,85 @@ public class Level {
 
 		sc.close();
 	}
-
+	
+	final int scale = 32;
+	
+	public Level(BufferedImage b) {
+		int[][] data = new int[b.getHeight()][b.getWidth()];
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				data[i][j] = b.getRGB(i, j);			// Populate data array
+			}
+		}
+		
+		for (int i = 0; i < data.length; i++) {
+			for(int j = 0; j < data[i].length; j++) {
+				System.out.print(data[j][i] + " ");
+			}
+			System.out.println();
+		}
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				switch(data[j][i]) {
+				case(-1):
+					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), -j*scale,-i*scale,scale,scale, false, false, false, false));
+					break;
+				case(-1237980):
+					addPlatform(new Platform(new Texture("assets/groundplat.png"), -j*scale,-i*scale,scale,scale));
+					break;
+				case(-14503604):
+					addPlatform(new Platform(new Texture("assets/rightplat.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-3620889):
+					addPlatform(new Platform(new Texture("assets/topright.png"), -j*scale, -i*scale, scale, scale, true, false, true, false));
+					break;
+				case(-16744416):
+					addPlatform(new Platform(new Texture("assets/topleft.png"), -j*scale,-i*scale,scale,scale, true, true, false, false));
+					break;
+				case(-16744384):
+					addPlatform(new Platform(new Texture("assets/leftplat.png"), -j*scale, -i*scale, scale, scale));
+					break;	
+				case(-32985):
+					addPlatform(new Platform(new Texture("assets/normalplat.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-16760768):
+					addPlatform(new Platform(new Texture("assets/bottomleft.png"), -j*scale, -i*scale, scale, scale, false, true, false, false));
+					break;
+				case(-4856291):
+					addPlatform(new Platform(new Texture("assets/bottomright.png"), -j*scale, -i*scale, scale, scale, false, true, false, true));
+					break;
+				case(-3584):
+					addPlatform(new Platform(new Texture("assets/filledtopplat.png"), -j*scale, -i*scale, scale, scale));
+					break;
+				case(-4621737):
+					addPlatform(new Platform(new Texture("assets/filledplat.png"), -j*scale, -i*scale, scale, scale, true, false, false, true));
+					break;
+				case(-16735512):
+					addPlatform(new Platform(new Texture("assets/wall.png"), -j*scale, -i*scale, scale, scale, false, true, true, false));
+					break;
+				case(-16777216):
+					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), -j*scale,-i*scale,scale,scale, false, false, false, false));
+					addSpawnpoint(new Spawnpoint(-j*scale,-i*scale));
+					break;
+				}
+			}
+		}
+	}
+	/**
+	 * @param spawnpoint The spawnpoint that the player will be initialized
+	 */
+	public void addSpawnpoint(Spawnpoint spawnpoint) {
+		this.sp = spawnpoint;
+	}
+	
+	/**
+	 * @return The Spawnpoint of this level
+	 */
+	public Spawnpoint getSpawnpoint() {
+		return this.sp;
+	}
+	
 	/**
 	 * @return The ArrayList containing all platforms in this level
 	 */
