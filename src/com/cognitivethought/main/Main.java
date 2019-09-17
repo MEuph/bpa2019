@@ -3,41 +3,44 @@ package com.cognitivethought.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.cognitivethought.gui.LoginScreen;
 import com.cognitivethought.screens.GameScreen;
 
 public class Main extends Game implements ApplicationListener {
 
 	// The screen used for gameplay
 	GameScreen g;
-
+	LoginScreen l;
 	@Override
 	public void create() {
 		g = new GameScreen();
-		setScreen(g);
+		l= new LoginScreen();
+		setScreen(l);
+		
 	}
 
 	@Override
 	public void dispose() {
-		g.dispose();
+		l.dispose();
 	}
 
 	@Override
 	public void render() {
-		g.render(Gdx.graphics.getDeltaTime());
+		l.render(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		g.resize(width, height);
+		l.resize(width, height);
 	}
 
 	@Override
 	public void pause() {
-		g.pause();
+		l.pause();
 	}
 
 	@Override
 	public void resume() {
-		g.resume();
+		l.resume();
 	}
 }
