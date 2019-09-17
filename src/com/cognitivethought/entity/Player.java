@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
 
@@ -43,7 +44,7 @@ public class Player extends Sprite {
 	 * 
 	 * @param l Used for collision detection purposes
 	 */
-	public void update(Level l) {
+	public void update(Level l, HealthBar hb) {
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 
@@ -75,6 +76,11 @@ public class Player extends Sprite {
 				dy = 0;
 				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
 				jumps = 0;
+				if (plat.canHarm) {
+					if (hb.bark > 0) {
+						hb.bark--;
+					}
+				}
 			}
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
