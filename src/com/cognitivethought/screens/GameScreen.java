@@ -112,7 +112,7 @@ public class GameScreen implements Screen {
 
 		// If the level has faded in, process physics on the player
 		if (!(fade > 0)) {
-			level.getSpawnpoint().getPlayer().update(level);
+			level.getSpawnpoint().getPlayer().update(level, hb);
 		}
 		level.getSpawnpoint().getPlayer().render(batch);
 
