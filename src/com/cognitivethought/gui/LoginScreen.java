@@ -19,25 +19,32 @@ import com.cognitivethought.screens.GameScreen;
 public class LoginScreen implements Screen {
 	private GameScreen game;
 	private Stage stage;
+	private Image background;
 	private ImageButton play;
 	private ImageButton quit;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	
 	
 	public LoginScreen() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
+		Texture backgroundTexture = new Texture("index.jpg");
 		Texture playTexture = new Texture("PlayButton.png");
 		Texture quitTexture = new Texture("QuitButton.png");
+		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
 		play = new ImageButton(new TextureRegionDrawable(new TextureRegion(playTexture)));
 		quit = new ImageButton(new TextureRegionDrawable(new TextureRegion(quitTexture)));
 		
+		background.setPosition(0, 0);
+		background.setSize(screenSize.width, screenSize.height);
 		play.setPosition(screenSize.width/2-144, screenSize.height/2-150);
 		play.setSize(287, 143);
 		quit.setPosition(screenSize.width/2-144, screenSize.height/2-300);
 		quit.setSize(287, 143);
 		
+		stage.addActor(background);
 		stage.addActor(play);
 		stage.addActor(quit);
 		
