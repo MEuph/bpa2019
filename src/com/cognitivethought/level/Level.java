@@ -74,10 +74,10 @@ public class Level {
 			for (int j = 0; j < data[i].length; j++) {
 				switch(data[j][i]) {
 				case(-1):
-					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
+			//		addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
 				case(-1237980):
-					addPlatform(new Platform(new Texture("assets/groundplat.png"), j*scale,-i*scale,scale,scale, true, true, true, true));
+					addPlatform(new Platform(new Texture("assets/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, true));
 					break;
 				case(-14503604):
 					addPlatform(new Platform(new Texture("assets/rightplat.png"), j*scale, -i*scale, scale, scale));
@@ -110,10 +110,11 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/wall.png"), j*scale, -i*scale, scale, scale, false, true, true, false));
 					break;
 				case(-7864299):
+				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					addPlatform(new Platform(new Texture("assets/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false));
 					break;
 				case(-16777216):
-					addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
+				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					addSpawnpoint(new Spawnpoint(j*scale,-i*scale));
 					break;
 				}
