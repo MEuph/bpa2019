@@ -8,11 +8,15 @@ import com.cognitivethought.screens.GameScreen;
 
 public class Main extends Game implements ApplicationListener {
 	
+	// Used for static access of otherwise non-static items
 	public static Main main;
 	
-	// The screen used for gameplay
-	public static GameScreen gameScreen;
-	public static LoginScreen loginScreen;
+	// The screen used for game-play
+	public GameScreen gameScreen;
+	
+	// The screen used for logging in
+	public LoginScreen loginScreen;
+	
 	@Override
 	public void create() {
 		main = this;

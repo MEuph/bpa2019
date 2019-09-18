@@ -62,7 +62,7 @@ public class LoginScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		
-		if (play.isPressed()) Main.main.setScreen(Main.gameScreen);
+		if (play.isPressed()) Main.main.setScreen(Main.main.gameScreen);
 	}
 
 	@Override
