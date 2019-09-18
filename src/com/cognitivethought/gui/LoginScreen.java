@@ -7,13 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.cognitivethought.screens.GameScreen;
+import com.cognitivethought.main.Main;
 
 public class LoginScreen implements Screen {
-	private GameScreen game;
 	private Stage stage;
 	private ImageButton play;
 	
@@ -23,7 +21,6 @@ public class LoginScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		
 		Texture playTexture = new Texture("wall.png");
-		Image playImage = new Image(playTexture);
 		play = new ImageButton(new TextureRegionDrawable(new TextureRegion(playTexture)));
 		
 		play.setPosition(300, 300);
@@ -61,7 +58,7 @@ public class LoginScreen implements Screen {
 		stage.act(delta);
 		stage.draw();
 		
-		if (play.isPressed()) System.exit(0);
+		if (play.isPressed()) Main.main.setScreen(Main.main.gameScreen);
 	}
 
 	@Override
