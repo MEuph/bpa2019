@@ -1,6 +1,9 @@
 package com.cognitivethought.gui;
 
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,20 +20,26 @@ public class LoginScreen implements Screen {
 	private GameScreen game;
 	private Stage stage;
 	private ImageButton play;
+	private ImageButton quit;
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	
 	public LoginScreen() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
-		Texture playTexture = new Texture("Button.png.png");
-		Image playImage = new Image(playTexture);
+		Texture playTexture = new Texture("PlayButton.png");
+		Texture quitTexture = new Texture("QuitButton.png");
 		play = new ImageButton(new TextureRegionDrawable(new TextureRegion(playTexture)));
+		quit = new ImageButton(new TextureRegionDrawable(new TextureRegion(quitTexture)));
 		
-		play.setPosition(300, 300);
-		play.setSize(448, 448);
+		play.setPosition(screenSize.width/2-144, screenSize.height/2-150);
+		play.setSize(287, 143);
+		quit.setPosition(screenSize.width/2-144, screenSize.height/2-300);
+		quit.setSize(287, 143);
 		
 		stage.addActor(play);
+		stage.addActor(quit);
 		
 	}
 	
@@ -63,6 +72,7 @@ public class LoginScreen implements Screen {
 		stage.draw();
 		
 		if (play.isPressed()) Main.main.setScreen(Main.main.gameScreen);
+		if (quit.isPressed()) System.exit(0);
 	}
 
 	@Override
