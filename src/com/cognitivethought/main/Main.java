@@ -7,40 +7,47 @@ import com.cognitivethought.gui.LoginScreen;
 import com.cognitivethought.screens.GameScreen;
 
 public class Main extends Game implements ApplicationListener {
-
-	// The screen used for gameplay
-	GameScreen g;
-	LoginScreen l;
+	
+	// Used for static access of otherwise non-static items
+	public static Main main;
+	
+	// The screen used for game-play
+	public GameScreen gameScreen;
+	
+	// The screen used for logging in
+	public LoginScreen loginScreen;
+	
 	@Override
 	public void create() {
-		g = new GameScreen();
-		l= new LoginScreen();
-		setScreen(l);
+		Main.main = this;
+		gameScreen = new GameScreen();
+		loginScreen= new LoginScreen();
+		main.setScreen(loginScreen);
 		
 	}
 
 	@Override
 	public void dispose() {
-		l.dispose();
+		main.getScreen().dispose();
 	}
 
 	@Override
 	public void render() {
-		l.render(Gdx.graphics.getDeltaTime());
+		main.getScreen().render(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		l.resize(width, height);
+		main.getScreen().resize(width, height);
 	}
 
 	@Override
 	public void pause() {
-		l.pause();
+		main.getScreen().pause();
 	}
 
 	@Override
 	public void resume() {
-		l.resume();
+		main.getScreen().resume();
 	}
 }

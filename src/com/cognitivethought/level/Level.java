@@ -98,7 +98,7 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/bottomleft.png"), j*scale, -i*scale, scale, scale, false, true, false, false));
 					break;
 				case(-4856291):
-					addPlatform(new Platform(new Texture("assets/bottomright.png"), j*scale, -i*scale, scale, scale, false, true, false, true));
+					addPlatform(new Platform(new Texture("assets/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
 					break;
 				case(-3584):
 					addPlatform(new Platform(new Texture("assets/filledtopplat.png"), j*scale, -i*scale, scale, scale));
