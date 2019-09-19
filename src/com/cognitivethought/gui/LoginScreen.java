@@ -3,6 +3,7 @@ package com.cognitivethought.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,7 +24,11 @@ public class LoginScreen implements Screen {
 	private ImageButton play;
 	private ImageButton quit;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	
+	private Image cloud;
+	private int cloudXPos = -1;
+	private Random random = new Random();
+	private int cloudYPos = random.nextInt(screenSize.height);
+	private int cloudSpeed = random.nextInt(5);
 	
 	
 	public LoginScreen() {
@@ -45,10 +50,35 @@ public class LoginScreen implements Screen {
 		quit.setSize(287, 143);
 		
 		stage.addActor(background);
+		cloud();
 		stage.addActor(play);
 		stage.addActor(quit);
 		
 	}
+	
+	public void cloud() {
+		Texture playTexture = new Texture("cloud.jpg");
+		cloud = new Image(new TextureRegionDrawable(new TextureRegion(playTexture)));
+		
+		
+	}
+	
+	public void animateBackground(Image x) {
+		if(cloudXPos <= 0) {
+			
+			stage.addActor(x);
+		}
+		cloudXPos += cloudSpeed;
+		x.setPosition(cloudXPos, cloudYPos);
+		if(cloudXPos >= screenSize.width) {
+			cloudYPos = random.nextInt(screenSize.height);
+			cloudXPos = 0;
+			cloudSpeed = random.nextInt(5);
+		}
+		
+		
+	}
+	
 	
 	@Override
 	public void dispose() {
@@ -74,6 +104,7 @@ public class LoginScreen implements Screen {
 		
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		animateBackground(cloud);
 	
 		stage.act(delta);
 		stage.draw();
