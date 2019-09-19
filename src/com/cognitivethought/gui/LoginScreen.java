@@ -3,6 +3,8 @@ package com.cognitivethought.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -28,8 +30,9 @@ public class LoginScreen implements Screen {
 	private int cloudXPos = -1;
 	private Random random = new Random();
 	private int cloudYPos = random.nextInt(screenSize.height);
-	private int cloudSpeed = random.nextInt(5);
-	
+	private int cloudSpeed = 1 + random.nextInt(4);
+	private int cloudWidth;
+	private int cloudHeight;
 	
 	public LoginScreen() {
 		stage = new Stage();
@@ -44,9 +47,9 @@ public class LoginScreen implements Screen {
 		
 		background.setPosition(0, 0);
 		background.setSize(screenSize.width, screenSize.height);
-		play.setPosition(screenSize.width/2-144, screenSize.height/2-150);
+		play.setPosition(screenSize.width/2-144, screenSize.height/2-200);
 		play.setSize(287, 143);
-		quit.setPosition(screenSize.width/2-144, screenSize.height/2-300);
+		quit.setPosition(screenSize.width/2-144, screenSize.height/2-344);
 		quit.setSize(287, 143);
 		
 		stage.addActor(background);
@@ -57,23 +60,26 @@ public class LoginScreen implements Screen {
 	}
 	
 	public void cloud() {
-		Texture playTexture = new Texture("cloud.jpg");
-		cloud = new Image(new TextureRegionDrawable(new TextureRegion(playTexture)));
+		Texture cloudTexture = new Texture("cloud.png.png");
+		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
 		
 		
 	}
 	
 	public void animateBackground(Image x) {
 		if(cloudXPos <= 0) {
-			
 			stage.addActor(x);
 		}
 		cloudXPos += cloudSpeed;
 		x.setPosition(cloudXPos, cloudYPos);
 		if(cloudXPos >= screenSize.width) {
+			cloudWidth = 140 + random.nextInt(140);
+			cloudHeight = cloudWidth*197/280;
+			
+			x.setSize(cloudWidth, cloudHeight);
 			cloudYPos = random.nextInt(screenSize.height);
 			cloudXPos = 0;
-			cloudSpeed = random.nextInt(5);
+			cloudSpeed = 1 + random.nextInt(4);
 		}
 		
 		
@@ -101,13 +107,13 @@ public class LoginScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		animateBackground(cloud);
 	
 		stage.act(delta);
 		stage.draw();
+		
 		
 		if (play.isPressed()) Main.main.setScreen(Main.main.gameScreen);
 		if (quit.isPressed()) System.exit(0);
