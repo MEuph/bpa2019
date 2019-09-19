@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class HealthBar {
 	
-	public int health = 15;
-	public int bark = 7;
+	public int health = 3;
+	public int bark = -1;
 	
 	public void render(Batch b, OrthographicCamera c) {
 		// Enable transparency blending
