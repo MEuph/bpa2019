@@ -21,6 +21,8 @@ public class Player extends Sprite {
 	// Multiplied by the velocity when moving the player
 	private final float speed = 2f;
 
+	private float flashTimer = 0f;
+
 	// How many times the player has jumped in a given jump-cycle
 	private int jumps = 0;
 
@@ -28,6 +30,9 @@ public class Player extends Sprite {
 	private boolean facingRight;
 	
 	private boolean left, right;
+	
+	private boolean flashing = false;
+	
 	
 	/**
 	 * Instantiates a new Player in the scene
@@ -76,11 +81,23 @@ public class Player extends Sprite {
 				dy = 0;
 				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
 				jumps = 0;
-				if (plat.canHarm) {
-					if (hb.bark > 0) {
+				if (plat.canHarm && !this.flashing) {
+					if (hb.bark >= 0) {
 						hb.bark--;
+					} else {
+						hb.health--;
 					}
+					this.flashing = true;
+					this.flashTimer = 500f;
 				}
+			}
+			
+			if (this.flashing && flashTimer > 0f) {
+				flashTimer -= 0.05f; 
+			}
+			else {
+				flashTimer = 500f;
+				flashing = false;
 			}
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
@@ -140,6 +157,7 @@ public class Player extends Sprite {
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
+		if (this.flashing && Math.random() > 0.5f) return;
 		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
 				!facingRight ? getWidth() : -getWidth(), getHeight());
 	}

@@ -111,7 +111,7 @@ public class Level {
 					break;
 				case(-7864299):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
-					addPlatform(new Platform(new Texture("assets/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false));
+					addPlatform(new Platform(new Texture("assets/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
 					break;
 				case(-16777216):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
