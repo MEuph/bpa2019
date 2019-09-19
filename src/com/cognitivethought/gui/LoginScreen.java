@@ -25,9 +25,7 @@ public class LoginScreen implements Screen {
 	private ImageButton play;
 	private ImageButton quit;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private Image cloud;
-	private Image cloud2;
-	private Image cloud3;
+	private Cloud[] cloudArray;
 	private int cloudXPos = -1;
 	private Random random = new Random();
 	private int cloudYPos = random.nextInt(screenSize.height);
@@ -39,6 +37,10 @@ public class LoginScreen implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
+		cloudArray = new Cloud[3];
+		cloudArray[0] = new Cloud();
+		cloudArray[1] = new Cloud();
+		cloudArray[2] = new Cloud();
 		Texture backgroundTexture = new Texture("index.jpg");
 		Texture playTexture = new Texture("PlayButton.png");
 		Texture quitTexture = new Texture("QuitButton.png");
@@ -53,32 +55,17 @@ public class LoginScreen implements Screen {
 		quit.setPosition(screenSize.width/2-144, screenSize.height/2-344);
 		quit.setSize(287, 143);
 		
+		
 		stage.addActor(background);
-		cloud(1);
-		cloud(2);
-		cloud(3);
+		cloudArray[0].cloud();
+		cloudArray[1].cloud();
+		cloudArray[2].cloud();
 		stage.addActor(play);
 		stage.addActor(quit);
 		
 	}
 	
-	public void cloud(int x) {
-		Texture cloudTexture = new Texture("cloud.png.png");
-		if(x == 1) {
-		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
-		cloud.setSize(cloudWidth, cloudHeight);
-		}
-		if(x == 2) {
-			cloud2 = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
-			cloud2.setSize(cloudWidth, cloudHeight);
-		}
-		if(x == 3) {
-			cloud3 = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
-			cloud3.setSize(cloudWidth, cloudHeight);
-		}
-		
-		
-	}
+
 	
 	public void animateBackground(Image x) {
 		if(cloudXPos <= 0) {
@@ -123,9 +110,9 @@ public class LoginScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		animateBackground(cloud);
-		animateBackground(cloud2);
-		animateBackground(cloud3);
+		for(int i = 0; i < cloudArray.length; i++) {
+			cloudArray[i].animateBackground(cloudArray[i].cloud);
+		}
 		
 		stage.act(delta);
 		stage.draw();

@@ -10,11 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Cloud {
-	private Image cloud;
+	public Image cloud;
 	private int cloudXPos = -1;
 	private Random random = new Random();
 	private int cloudYPos = random.nextInt(LoginScreen.screenSize.height);
-	private int cloudSpeed = 1 + random.nextInt(1);
+	private double cloudSpeed = 1.0 + random.nextDouble()* 2;
 	private int cloudWidth = 70 + random.nextInt(100);
 	private int cloudHeight = cloudWidth*197/280;
 	
@@ -22,6 +22,7 @@ public class Cloud {
 		Texture cloudTexture = new Texture("cloud.png.png");
 		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
 		cloud.setSize(cloudWidth, cloudHeight);
+		LoginScreen.stage.addActor(cloud);
 	}
 	
 	public void animateBackground(Image x) {
