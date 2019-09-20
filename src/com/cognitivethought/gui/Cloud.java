@@ -1,7 +1,5 @@
 package com.cognitivethought.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +12,7 @@ public class Cloud {
 	private int cloudXPos = -1;
 	private Random random = new Random();
 	private int cloudYPos = random.nextInt(LoginScreen.screenSize.height);
-	private double cloudSpeed = 1.0 + random.nextDouble()* 2;
+	private double cloudSpeed = 1 + random.nextInt(7+1);
 	private int cloudWidth = 70 + random.nextInt(100);
 	private int cloudHeight = cloudWidth*197/280;
 	
@@ -36,9 +34,9 @@ public class Cloud {
 			cloudHeight = cloudWidth*197/280;
 			
 			x.setSize(cloudWidth, cloudHeight);
-			cloudYPos = random.nextInt(LoginScreen.screenSize.height);
+			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)+1);
 			cloudXPos = 0 - cloudWidth*2;
-			cloudSpeed = 1 + random.nextInt(1);
+			cloudSpeed =  1 + random.nextInt(7+1);
 		}
 		
 		

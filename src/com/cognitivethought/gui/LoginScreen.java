@@ -3,10 +3,6 @@ package com.cognitivethought.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.cognitivethought.main.Main;
-import com.cognitivethought.screens.GameScreen;
 
 public class LoginScreen implements Screen {
 	public static Stage stage;
@@ -26,13 +21,6 @@ public class LoginScreen implements Screen {
 	private ImageButton quit;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private Cloud[] cloudArray;
-	private int cloudXPos = -1;
-	private Random random = new Random();
-	private int cloudYPos = random.nextInt(screenSize.height);
-	private int cloudSpeed = 1 + random.nextInt(1);
-	private int cloudWidth = 70 + random.nextInt(100);
-	private int cloudHeight = cloudWidth*197/280;
-	
 	public LoginScreen() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -62,27 +50,6 @@ public class LoginScreen implements Screen {
 		cloudArray[2].cloud();
 		stage.addActor(play);
 		stage.addActor(quit);
-		
-	}
-	
-
-	
-	public void animateBackground(Image x) {
-		if(cloudXPos <= 0) {
-			stage.addActor(x);
-		}
-		cloudXPos += cloudSpeed;
-		x.setPosition(cloudXPos, cloudYPos);
-		if(cloudXPos >= screenSize.width) {
-			cloudWidth = 140 + random.nextInt(50);
-			cloudHeight = cloudWidth*197/280;
-			
-			x.setSize(cloudWidth, cloudHeight);
-			cloudYPos = random.nextInt(screenSize.height);
-			cloudXPos = 0 - cloudWidth*2;
-			cloudSpeed = 1 + random.nextInt(1);
-		}
-		
 		
 	}
 	
