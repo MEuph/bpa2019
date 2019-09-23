@@ -92,13 +92,6 @@ public class Player extends Sprite {
 				}
 			}
 			
-			if (this.flashing && flashTimer > 0f) {
-				flashTimer -= 0.05f; 
-			}
-			else {
-				flashTimer = 500f;
-				flashing = false;
-			}
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 				System.out.println(getY() + getHeight() + " " + plat.getY());
@@ -118,7 +111,16 @@ public class Player extends Sprite {
 				dx = 0;
 				setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 			}
+
+			if (this.flashing && flashTimer > 0f) {
+				flashTimer -= 0.05f; 
+			}
+			else {
+				flashTimer = 500f;
+				flashing = false;
+			}
 		}
+
 		
 		if (left) {
 			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
