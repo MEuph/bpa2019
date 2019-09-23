@@ -1,8 +1,11 @@
-package com.cognitivethought.gui;
+package com.cognitivethought.screens;
 
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.cognitivethought.gui.Cloud;
 import com.cognitivethought.main.Main;
 
 public class LoginScreen implements Screen {
@@ -20,15 +24,19 @@ public class LoginScreen implements Screen {
 	private ImageButton play;
 	private ImageButton quit;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private Cloud[] cloudArray;
+	
+	private ArrayList<Cloud> clouds;
+	
 	public LoginScreen() {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
-		cloudArray = new Cloud[3];
-		cloudArray[0] = new Cloud();
-		cloudArray[1] = new Cloud();
-		cloudArray[2] = new Cloud();
+		clouds = new ArrayList<>();
+		
+		for (int i = 0; i < new Random().nextInt(20) + 10; i++) {
+			clouds.add(new Cloud());
+		}
+		
 		Texture backgroundTexture = new Texture("index.jpg");
 		Texture playTexture = new Texture("PlayButton.png");
 		Texture quitTexture = new Texture("QuitButton.png");
@@ -45,9 +53,9 @@ public class LoginScreen implements Screen {
 		
 		
 		stage.addActor(background);
-		cloudArray[0].cloud();
-		cloudArray[1].cloud();
-		cloudArray[2].cloud();
+		for(Cloud c : clouds) {
+			c.cloud();
+		}
 		stage.addActor(play);
 		stage.addActor(quit);
 		
@@ -77,8 +85,9 @@ public class LoginScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		for(int i = 0; i < cloudArray.length; i++) {
-			cloudArray[i].animateBackground(cloudArray[i].cloud);
+
+		for (Cloud c : clouds) {
+			c.animateBackground(c.cloud);
 		}
 		
 		stage.act(delta);

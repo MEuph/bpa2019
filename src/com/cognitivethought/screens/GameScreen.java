@@ -9,11 +9,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+import com.cognitivethought.entity.enemy.EnemySpawner;
+import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.ui.HealthBar;
 
@@ -23,6 +26,8 @@ public class GameScreen implements Screen {
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
+	
+	EnemySpawner es;
 	
 	HealthBar hb = new HealthBar();
 	
@@ -38,7 +43,11 @@ public class GameScreen implements Screen {
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-
+		
+		es = new EnemySpawner();
+		Texture t = new Texture("trashmonster.png");
+		es.addEnemy(new TrashMonster(1, t));
+		
 		try {
 			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/level1.png"))); // Initialize level with 'testlevel.level'
 		} catch (IOException e) {
@@ -108,6 +117,7 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 
+
 		level.render(batch);
 
 		// If the level has faded in, process physics on the player
@@ -128,6 +138,8 @@ public class GameScreen implements Screen {
 
 		// Draw the FPS counter
 		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
+
+		es.render(batch);
 
 		batch.end();
 

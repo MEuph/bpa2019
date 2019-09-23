@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
 	
@@ -19,6 +20,7 @@ public class TrashMonster extends Enemy {
 	float left, right;
 	float pauseTimer;
 	float flashTimer;
+	float attackTimer;
 	float dx, dy;
 	
 	public TrashMonster(float damageValue, Texture texture) {
@@ -62,7 +64,7 @@ public class TrashMonster extends Enemy {
 	}
 
 	@Override
-	void update(Level l) {
+	void update(HealthBar hb, Level l) {
 		for (Platform plat : l.getPlatforms()) {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
 				dy = 0;
@@ -74,7 +76,6 @@ public class TrashMonster extends Enemy {
 					this.flashTimer = 500f;
 				}
 			}
-			
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 				System.out.println(getY() + getHeight() + " " + plat.getY());
@@ -103,21 +104,27 @@ public class TrashMonster extends Enemy {
 				flashing = false;
 			}
 		}
+		
+		attack(hb, l);
 	}
 
 	@Override
-	void attack(Level l) {
+	void attack(HealthBar hb, Level l) {
 		boolean canAttack =
 					new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + attackRange * 2, getHeight() + attackRange * 2).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
 		if (canAttack) {
-			
+			if (attackTimer <= 0) {
+				if (hb.bark >= 0) {
+					hb.bark-=damageValue;
+					attackTimer=1000f;
+				} else {
+					hb.health-=damageValue;
+					attackTimer=1000f;
+				}
+			} else {
+				attackTimer -= 1f;
+			}
 		}
 	}
-
-	@Override
-	void render(Batch b) {
-		this.render(b);
-	}
-
 }
