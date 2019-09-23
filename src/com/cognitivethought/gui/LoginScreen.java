@@ -29,7 +29,7 @@ public class LoginScreen implements Screen {
 		cloudArray[0] = new Cloud();
 		cloudArray[1] = new Cloud();
 		cloudArray[2] = new Cloud();
-		Texture backgroundTexture = new Texture("index.jpg");
+		Texture backgroundTexture = new Texture("backgroundlogin.png");
 		Texture playTexture = new Texture("PlayButton.png");
 		Texture quitTexture = new Texture("QuitButton.png");
 		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));

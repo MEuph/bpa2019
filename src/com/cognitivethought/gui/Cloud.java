@@ -11,10 +11,11 @@ public class Cloud {
 	public Image cloud;
 	private int cloudXPos = -1;
 	private Random random = new Random();
-	private int cloudYPos = random.nextInt(LoginScreen.screenSize.height);
-	private double cloudSpeed = 1 + random.nextInt(7+1);
 	private int cloudWidth = 70 + random.nextInt(100);
 	private int cloudHeight = cloudWidth*197/280;
+	private int cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
+	private double cloudSpeed = 1 + random.nextInt(3);
+	
 	
 	public void cloud() {
 		Texture cloudTexture = new Texture("cloud.png.png");
@@ -34,9 +35,9 @@ public class Cloud {
 			cloudHeight = cloudWidth*197/280;
 			
 			x.setSize(cloudWidth, cloudHeight);
-			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)+1);
+			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
 			cloudXPos = 0 - cloudWidth*2;
-			cloudSpeed =  1 + random.nextInt(7+1);
+			cloudSpeed =  1 + random.nextInt(3);
 		}
 		
 		
