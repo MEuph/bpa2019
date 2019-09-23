@@ -1,7 +1,5 @@
 package com.cognitivethought.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -10,11 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Cloud {
-	private Image cloud;
+	public Image cloud;
 	private int cloudXPos = -1;
 	private Random random = new Random();
 	private int cloudYPos = random.nextInt(LoginScreen.screenSize.height);
-	private int cloudSpeed = 1 + random.nextInt(1);
+	private double cloudSpeed = 1 + random.nextInt(7+1);
 	private int cloudWidth = 70 + random.nextInt(100);
 	private int cloudHeight = cloudWidth*197/280;
 	
@@ -22,6 +20,7 @@ public class Cloud {
 		Texture cloudTexture = new Texture("cloud.png.png");
 		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
 		cloud.setSize(cloudWidth, cloudHeight);
+		LoginScreen.stage.addActor(cloud);
 	}
 	
 	public void animateBackground(Image x) {
@@ -35,9 +34,9 @@ public class Cloud {
 			cloudHeight = cloudWidth*197/280;
 			
 			x.setSize(cloudWidth, cloudHeight);
-			cloudYPos = random.nextInt(LoginScreen.screenSize.height);
+			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)+1);
 			cloudXPos = 0 - cloudWidth*2;
-			cloudSpeed = 1 + random.nextInt(1);
+			cloudSpeed =  1 + random.nextInt(7+1);
 		}
 		
 		
