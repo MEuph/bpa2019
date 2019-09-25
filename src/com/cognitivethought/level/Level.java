@@ -7,14 +7,20 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.cognitivethought.entity.enemy.Enemy;
+import com.cognitivethought.entity.enemy.EnemySpawner;
+import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.ui.HealthBar;
 
 public class Level {
 
 	// All the platforms in the level
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
+	ArrayList<EnemySpawner> es = new ArrayList<>();
 	
 	Spawnpoint sp;
 	
@@ -53,7 +59,7 @@ public class Level {
 		sc.close();
 	}
 	
-	final int scale = 32;
+	final int scale = 48;
 	
 	public Level(BufferedImage b) {
 		int[][] data = new int[b.getHeight()][b.getWidth()];
@@ -117,6 +123,11 @@ public class Level {
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					addSpawnpoint(new Spawnpoint(j*scale,-i*scale));
 					break;
+				case(-6075996):
+					EnemySpawner es = new EnemySpawner();
+					es.addEnemy(new TrashMonster(1, new Texture("assets/trashmonster.png")), j*scale, -i*scale);
+					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
+					addSpawner(es);
 				}
 			}
 		}
@@ -126,6 +137,10 @@ public class Level {
 	 */
 	public void addSpawnpoint(Spawnpoint spawnpoint) {
 		this.sp = spawnpoint;
+	}
+	
+	public void addSpawner(EnemySpawner spawner) {
+		this.es.add(spawner);
 	}
 	
 	/**
@@ -166,9 +181,16 @@ public class Level {
 	 * 
 	 * @param b The batch that also renders everything else in the screen
 	 */
-	public void render(Batch b) {
+	public void render(Batch b, HealthBar hb, OrthographicCamera c) {
 		for (Platform plat : platforms) {
 			plat.draw(b);
+		}
+		
+		for (EnemySpawner e : es) {
+			for (Enemy en : e.enemies) {
+				en.update(hb, this);
+				en.draw(b);
+			}
 		}
 	}
 }

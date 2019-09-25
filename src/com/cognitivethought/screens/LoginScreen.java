@@ -21,6 +21,7 @@ import com.cognitivethought.main.Main;
 public class LoginScreen implements Screen {
 	public static Stage stage;
 	private Image background;
+	private Image title;
 	private ImageButton play;
 	private ImageButton quit;
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -37,13 +38,16 @@ public class LoginScreen implements Screen {
 			clouds.add(new Cloud());
 		}
 		
-		Texture backgroundTexture = new Texture("index.jpg");
+		Texture title = new Texture("placeholdertitle.png");
+		Texture backgroundTexture = new Texture("placeholderbackground.png");
 		Texture playTexture = new Texture("PlayButton.png");
 		Texture quitTexture = new Texture("QuitButton.png");
+		this.title = new Image(new TextureRegionDrawable(new TextureRegion(title)));
 		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
 		play = new ImageButton(new TextureRegionDrawable(new TextureRegion(playTexture)));
 		quit = new ImageButton(new TextureRegionDrawable(new TextureRegion(quitTexture)));
 		
+		this.title.setPosition(screenSize.width/2-this.title.getWidth()/2, screenSize.height-150);
 		background.setPosition(0, 0);
 		background.setSize(screenSize.width, screenSize.height);
 		play.setPosition(screenSize.width/2-144, screenSize.height/2-200);
@@ -58,6 +62,7 @@ public class LoginScreen implements Screen {
 		}
 		stage.addActor(play);
 		stage.addActor(quit);
+		stage.addActor(this.title);
 		
 	}
 	
