@@ -16,7 +16,7 @@ public class Cloud {
 	private int cloudHeight = cloudWidth*197/280;
 
 	private int cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
-	private double cloudSpeed = 1 + random.nextInt(3);
+	private double cloudSpeed = 1.0 + Math.random() + (double)random.nextInt(2);
 	
 
 	private int cloudXPos = -1;
@@ -37,21 +37,22 @@ public class Cloud {
 		if(cloudXPos <= 0) {
 			LoginScreen.stage.addActor(x);
 		}
+		if(cloudXPos >= LoginScreen.screenSize.width) {
+			
+			cloudSpeed = 1.0 + Math.random() + (double)random.nextInt(2);
+			cloudWidth = 140 + random.nextInt(50);
+			cloudHeight = cloudWidth*197/280;
+			
+			x.setSize(cloudWidth, cloudHeight);
+			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
+			cloudXPos = 0 - cloudWidth*2;
+		}
 		
 		cloudXPos += cloudSpeed;
 		
 		x.setPosition(cloudXPos, cloudYPos);
 		
-		if(cloudXPos >= LoginScreen.screenSize.width) {
-			cloudWidth = 140 + random.nextInt(50);
-			cloudHeight = cloudWidth*197/280;
-			
-			x.setSize(cloudWidth, cloudHeight);
-
-			cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
-			cloudXPos = 0 - cloudWidth*2;
-			cloudSpeed =  1 + random.nextInt(3);
-		}
+		
 		
 		
 	}
