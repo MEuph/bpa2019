@@ -20,9 +20,7 @@ public class Cloud {
 	
 
 	private int cloudXPos = -1;
-	
 
-	
 	public void cloud() {
 		Texture cloudTexture = new Texture("cloud.png.png");
 		

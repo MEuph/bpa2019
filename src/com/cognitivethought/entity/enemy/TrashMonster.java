@@ -9,54 +9,71 @@ import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
 	
-	Platform toBeOn;
+	Platform toBeOn;				// The platform the monster should be on
 	
-	int health;
+	int health;						// The health this monster has
 	
-	boolean movingLeft, movingRight;
+	boolean movingLeft, movingRight;// Whether or not the monster is moving right or left
 	
-	float left, right;
+	float leftBound, rightBound;	// The left bound and right bound of the monster's movement
 	
-	float pauseTimer;
+	float pauseTimer;				// How long to pause in between movements
 	
-	float dx, dy;
+	float dx, dy;					// The velocity of the monster
 	
-	boolean facingRight;
+	boolean facingRight;			// Whether the monster is facing right or not
 	
-	private final float g = 0.198f;
+	private final float g = 0.198f; // Gravitational constant
 	
+	/**
+	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
+	 *  - for the sake of the player's nose - contained in a trash can.
+	 * @param damageValue
+	 * 		How much damage this particular trash monster will do
+	 * @param texture
+	 * 		The appearance of this particular trash monster
+	 */
 	public TrashMonster(float damageValue, Texture texture) {
 		super(Behavior.EDGE_TO_EDGE, Behavior.MELEE, damageValue, texture);
-		this.speed = 1f;
-		this.dx = -speed;
+		this.speed = 1f;	// Default speed to 1f
+		this.dx = -speed;	// Default movement to the left
 	}
-
+	
+	/**
+	 * @see com.cognitivethought.entity.enemy.Enemy.move
+	 */
 	@Override
 	void move(Level l) {
+		// Check what platform the monster is on if the platform to be on is null
 		if (toBeOn == null) {
 			for (Platform p : l.getPlatforms()) {
 				if (p.getBoundingRectangle().overlaps(getBoundingRectangle())) {
 					toBeOn = p;
-					left = p.getX() - p.getWidth();
-					right = p.getX() + p.getWidth() * 2;
-					System.out.println(left + ", " + right);
+					leftBound = p.getX() - p.getWidth();
+					rightBound = p.getX() + p.getWidth() * 2;
+					System.out.println(leftBound + ", " + rightBound);
 					System.out.println(getX() + ", "  + getY());
 					break;
 				}
 			}
 		}
 		
-		if (getX() <= left || getX() >= right) {
+		// If the monster hits either the left bound or the right bound, just flip it
+		if (getX() <= leftBound || getX() >= rightBound) {
 			dx *= -1;
 			this.flip(true, false);
 		}
 	}
-
+	
+	/**
+	 * Update the monster
+	 */
 	@Override
 	public void update(HealthBar hb, Level l) {
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 		
+		// Same collision detection code as the player
 		for (Platform plat : l.getPlatforms()) {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
 				dy = 0;
@@ -83,20 +100,26 @@ public class TrashMonster extends Enemy {
 			}
 		}
 		
-		move(l);
+		move(l); // Do movement code
 		
-		translateY(dy);
+		translateY(dy); // Do translations
 		translateX(dx);
 		
-		attack(hb, l);
+		attack(hb, l); // Do attacking
 	}
 
+	/**
+	 * Process monster attacking
+	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
 		attackRange = 5f;
+		// if the player is in range, the monster can attack
 		boolean canAttack =
-					new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + (attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
+			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
+			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
+		// attack if the monster can attack
 		if (canAttack) {
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 				if (hb.bark >= 0) {
@@ -112,6 +135,9 @@ public class TrashMonster extends Enemy {
 		}
 	}
 	
+	/**
+	 * Draw the monster
+	 */
 	@Override
 	public void draw(Batch batch) {
 		super.draw(batch);
