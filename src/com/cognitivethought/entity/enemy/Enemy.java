@@ -7,15 +7,23 @@ import com.cognitivethought.ui.HealthBar;
 
 public abstract class Enemy extends Sprite {
 	
-	protected float attackTimer;
-	protected float damageValue;
-	protected float detectionRange;
-	protected float attackRange;
-	protected float speed;
+	protected float attackTimer;	// How long the enemy has between attacks
+	protected float damageValue;	// How hard the enemy hits. IE, how many hearts it takes from the player
+	protected float detectionRange; // How far the detection range of the enemy is
+	protected float attackRange;	// How far away the enemy can attack from
+	protected float speed;			// The speed of the enemy
 	
-	protected Behavior movementBehavior;
-	protected Behavior attackBehavior;
+	protected Behavior movementBehavior;	// The behavior of movement
+	protected Behavior attackBehavior;		// The behavior of attacking
 	
+	/**
+	 * The superclass of all enemies
+	 * 
+	 * @param movementBehavior
+	 * @param attackBehavior
+	 * @param damageValue
+	 * @param texture
+	 */
 	public Enemy(Behavior movementBehavior, Behavior attackBehavior, float damageValue, Texture texture) {
 		super(texture);
 		this.movementBehavior = movementBehavior;
@@ -24,11 +32,12 @@ public abstract class Enemy extends Sprite {
 		super.setSize(getTexture().getWidth(), getTexture().getHeight());
 	}
 	
-	abstract void move(Level l);
-	public abstract void update(HealthBar hb, Level l);
-	abstract void attack(HealthBar hb, Level l);
+	abstract void move(Level l);						// How the enemy will move
+	public abstract void update(HealthBar hb, Level l); // How the enemy will be updated
+	abstract void attack(HealthBar hb, Level l);		// How the enemy will attack
 }
 
+// The types of behaviors possible for an enemy
 enum Behavior {
 	EDGE_TO_EDGE,
 	PLAT_TO_PLAT,

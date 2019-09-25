@@ -50,7 +50,7 @@ public class Player extends Sprite {
 	 * @param l Used for collision detection purposes
 	 */
 	public void update(Level l, HealthBar hb) {
-		if (dy > -15f)
+		if (dy > -15f) // Cap the y velocity in the downward direction at 15 pixels per frame
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 
 		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
@@ -78,41 +78,40 @@ public class Player extends Sprite {
 		// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
 		for (Platform plat : l.getPlatforms()) {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
-				dy = 0;
+				dy = 0; // Stop vertical movement
 				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
-				jumps = 0;
-				if (plat.canHarm && !this.flashing) {
-					if (hb.bark >= 0) {
+				jumps = 0; // Reset jump counter
+				if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already being harmed
+					if (hb.bark >= 0) { // Decrease bark first
 						hb.bark--;
 					} else {
-						hb.health--;
+						hb.health--; // Then decrease health after bark reaches 0
 					}
-					this.flashing = true;
-					this.flashTimer = 500f;
+					this.flashing = true; // Set flashing to true because the player is being harmed
+					this.flashTimer = 500f; // Set the time to be flashing
 				}
 			}
 			
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
-				System.out.println(getY() + getHeight() + " " + plat.getY());
-				dy = 0;
+//				System.out.println(getY() + getHeight() + " " + plat.getY()); // For debugging purposes
+				dy = 0; // Stop vertical movement
 				setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of the platform
-				break;
 			}
 			
 			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
 			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft && !(getY()>(plat.getY()+plat.getHeight())-4)) {
-				dx = 0;
+				dx = 0; // Stop horizontal movement
 				setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
 			}
 			
 			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
 			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
-				dx = 0;
+				dx = 0; // Stop horizontal movement
 				setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 			}
-
-			if (this.flashing && flashTimer > 0f) {
+			
+			if (this.flashing && flashTimer > 0f) { // If the player is flashing and being harmed, but the timer is more than 0
 				flashTimer -= 0.05f; 
 			}
 			else {
@@ -143,9 +142,9 @@ public class Player extends Sprite {
 	 * Makes the player jump
 	 */
 	boolean jump() {
-		if (jumps >= 2)
+		if (jumps >= 2) // If there's been 2 or more jumps, the player has hit the jump limit
 			return false;
-		dy = 4f; // Literally all jump does is set vertical velocity to +4 instantly.
+		dy = 4f; // All jump does is set vertical velocity to +4 instantly.
 		translateY(1);
 		return true;
 	}
