@@ -21,7 +21,7 @@ public class Player extends Sprite {
 	// Multiplied by the velocity when moving the player
 	private final float speed = 2f;
 
-	private float flashTimer = 0f;
+	public float flashTimer = 0f;
 
 	// How many times the player has jumped in a given jump-cycle
 	private int jumps = 0;
@@ -31,7 +31,7 @@ public class Player extends Sprite {
 	
 	private boolean left, right;
 	
-	private boolean flashing = false;
+	public boolean flashing = false;
 	
 	
 	/**

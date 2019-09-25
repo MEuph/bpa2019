@@ -3,8 +3,8 @@ package com.cognitivethought.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.cognitivethought.gui.LoginScreen;
 import com.cognitivethought.screens.GameScreen;
+import com.cognitivethought.screens.LoginScreen;
 
 public class Main extends Game implements ApplicationListener {
 	

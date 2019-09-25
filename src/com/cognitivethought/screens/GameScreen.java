@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-
+		
 		try {
 			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/level1.png"))); // Initialize level with 'testlevel.level'
 		} catch (IOException e) {
@@ -108,7 +108,7 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 
-		level.render(batch);
+		level.render(batch, hb, c);
 
 		// If the level has faded in, process physics on the player
 		if (!(fade > 0)) {
