@@ -1,5 +1,6 @@
 package com.cognitivethought.entity.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,20 +11,29 @@ import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
-
-	private final float g = 0.198f; // Gravitational constant
 	
-	Platform toBeOn;				// The platform the monster should be on
+	final int attackCol = 3, attackRow = 3;
+	float attackTime;
+	
 	Animation<TextureRegion> attackAnimation;
+	Texture attackSheet;
 	
-	int health;						// The health this monster has
+	Animation<TextureRegion> deathAnimation;
+	Texture deathSheet;
 	
-	boolean movingLeft, movingRight;// Whether or not the monster is moving right or left
-	boolean facingRight;			// Whether the monster is facing right or not
+	private final float g = 0.198f;	 	// Gravitational constant
 	
-	float leftBound, rightBound;	// The left bound and right bound of the monster's movement
-	float pauseTimer;				// How long to pause in between movements
-	float dx, dy;					// The velocity of the monster
+	Platform toBeOn;					// The platform the monster should be on
+	
+	int health;							// The health this monster has
+	
+	boolean movingLeft, movingRight;	// Whether or not the monster is moving right or left
+	boolean facingRight;				// Whether the monster is facing right or not
+	boolean attacking = false;
+	
+	float leftBound, rightBound;		// The left bound and right bound of the monster's movement
+	float pauseTimer;					// How long to pause in between movements
+	float dx, dy;						// The velocity of the monster
 	
 	/**
 	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
@@ -37,6 +47,26 @@ public class TrashMonster extends Enemy {
 		super(Behavior.EDGE_TO_EDGE, Behavior.MELEE, damageValue, texture);
 		this.speed = 1f;	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
+		createAnimations();
+	}
+	
+	void createAnimations() {
+		attackSheet = new Texture("assets/Monsters/Trash Monster/attack.png");
+		
+		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
+				attackSheet.getHeight() / attackRow);
+		
+		TextureRegion[] attackFrames = new TextureRegion[attackCol * attackRow];
+		int x = 0;
+		for (int i = 0; i < attackRow; i++) {
+			for (int j = 0; j < attackCol; j++) {
+				attackFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		
+		attackTime = 0f;
 	}
 	
 	/**
@@ -113,6 +143,7 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
+		attacking = true;
 		attackRange = 5f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
@@ -140,8 +171,18 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch) {
-		super.draw(batch);
-		
-		if (facingRight) this.setFlip(true, false);
+		if (attacking) {
+			attackTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
+			currentFrame.flip(facingRight, false);
+			batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+			if (attackTime > 1f) {
+				attacking = false;
+			}
+		} else {
+			attackTime = 0f;
+			this.flip(facingRight, false);
+			super.draw(batch);
+		}
 	}
 }
