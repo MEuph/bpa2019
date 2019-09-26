@@ -38,10 +38,10 @@ public class LoginScreen implements Screen {
 			clouds.add(new Cloud());
 		}
 		
-		Texture title = new Texture("placeholdertitle.png");
-		Texture backgroundTexture = new Texture("placeholderbackground.png");
-		Texture playTexture = new Texture("PlayButton.png");
-		Texture quitTexture = new Texture("QuitButton.png");
+		Texture title = new Texture("assets/UI/placeholdertitle.png");
+		Texture backgroundTexture = new Texture("assets/UI/placeholderbackground.png");
+		Texture playTexture = new Texture("assets/UI/PlayButton.png");
+		Texture quitTexture = new Texture("assets/UI/QuitButton.png");
 		this.title = new Image(new TextureRegionDrawable(new TextureRegion(title)));
 		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
 		play = new ImageButton(new TextureRegionDrawable(new TextureRegion(playTexture)));

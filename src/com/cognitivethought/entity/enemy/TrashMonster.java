@@ -1,29 +1,29 @@
 package com.cognitivethought.entity.enemy;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
+
+	private final float g = 0.198f; // Gravitational constant
 	
 	Platform toBeOn;				// The platform the monster should be on
+	Animation<TextureRegion> attackAnimation;
 	
 	int health;						// The health this monster has
 	
 	boolean movingLeft, movingRight;// Whether or not the monster is moving right or left
-	
-	float leftBound, rightBound;	// The left bound and right bound of the monster's movement
-	
-	float pauseTimer;				// How long to pause in between movements
-	
-	float dx, dy;					// The velocity of the monster
-	
 	boolean facingRight;			// Whether the monster is facing right or not
 	
-	private final float g = 0.198f; // Gravitational constant
+	float leftBound, rightBound;	// The left bound and right bound of the monster's movement
+	float pauseTimer;				// How long to pause in between movements
+	float dx, dy;					// The velocity of the monster
 	
 	/**
 	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
