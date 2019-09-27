@@ -10,6 +10,7 @@ import java.util.Scanner;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashMonster;
@@ -125,9 +126,14 @@ public class Level {
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
-					es.addEnemy(new TrashMonster(1, new Texture("assets/Monsters/Trash Monster/trashmonster.png")), j*scale, -i*scale);
+					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png")), j*scale, -i*scale);
 					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es);
+				case(-65408):
+					EnemySpawner es2 = new EnemySpawner();
+					es2.addEnemy(new TrashMonster(Behavior.WALL_TO_WALL, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png")), j*scale, -i*scale);
+					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
+					addSpawner(es2);
 				}
 			}
 		}

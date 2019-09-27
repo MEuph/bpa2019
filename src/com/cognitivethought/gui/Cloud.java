@@ -16,10 +16,9 @@ public class Cloud {
 	private int cloudHeight = cloudWidth*197/280;
 
 	private int cloudYPos = random.nextInt((LoginScreen.screenSize.height-cloudHeight)-(LoginScreen.screenSize.height/2)+1)+(LoginScreen.screenSize.height/2);
-	private double cloudSpeed = 1 + random.nextInt(3);
-	
+	private float cloudSpeed = 0.1f + random.nextFloat();
 
-	private int cloudXPos = -1;
+	private float cloudXPos = -1;
 
 	public void cloud() {
 		Texture cloudTexture = new Texture("assets/UI/cloud.png.png");
