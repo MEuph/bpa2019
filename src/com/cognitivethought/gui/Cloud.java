@@ -19,10 +19,11 @@ public class Cloud {
 	private double cloudSpeed = 1.0 + Math.random() + (double)random.nextInt(2);
 	
 
-	private int cloudXPos = -1;
+
+	private float cloudXPos = -1;
 
 	public void cloud() {
-		Texture cloudTexture = new Texture("cloud.png.png");
+		Texture cloudTexture = new Texture("assets/UI/cloud.png.png");
 		
 		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
 		cloud.setSize(cloudWidth, cloudHeight);

@@ -158,7 +158,7 @@ public class Player extends Sprite {
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
-		if (this.flashing && Math.random() > 0.5f) return;
+		if (this.flashing && Math.random() > 0.75f) return;
 		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
 				!facingRight ? getWidth() : -getWidth(), getHeight());
 	}

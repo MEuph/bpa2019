@@ -1,7 +1,10 @@
 package com.cognitivethought.entity.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
@@ -9,21 +12,30 @@ import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
 	
-	Platform toBeOn;				// The platform the monster should be on
+	final int attackCol = 3, attackRow = 3;
+	float attackTime;
 	
-	int health;						// The health this monster has
+	Animation<TextureRegion> attackAnimation;
+	Texture attackSheet;
 	
-	boolean movingLeft, movingRight;// Whether or not the monster is moving right or left
+	Animation<TextureRegion> deathAnimation;
+	Texture deathSheet;
 	
-	float leftBound, rightBound;	// The left bound and right bound of the monster's movement
+	Texture idle;
 	
-	float pauseTimer;				// How long to pause in between movements
+	private final float g = 0.198f;	 	// Gravitational constant
 	
-	float dx, dy;					// The velocity of the monster
+	Platform toBeOn;					// The platform the monster should be on
 	
-	boolean facingRight;			// Whether the monster is facing right or not
+	int health;							// The health this monster has
 	
-	private final float g = 0.198f; // Gravitational constant
+	boolean movingLeft, movingRight;	// Whether or not the monster is moving right or left
+	boolean facingRight;				// Whether the monster is facing right or not
+	boolean attacking = false;
+	
+	float leftBound, rightBound;		// The left bound and right bound of the monster's movement
+	float pauseTimer;					// How long to pause in between movements
+	float dx, dy;						// The velocity of the monster
 	
 	/**
 	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
@@ -33,10 +45,31 @@ public class TrashMonster extends Enemy {
 	 * @param texture
 	 * 		The appearance of this particular trash monster
 	 */
-	public TrashMonster(float damageValue, Texture texture) {
-		super(Behavior.EDGE_TO_EDGE, Behavior.MELEE, damageValue, texture);
-		this.speed = 1f;	// Default speed to 1f
+	public TrashMonster(Behavior b, float damageValue, Texture texture) {
+		super(b, Behavior.MELEE, damageValue, texture);
+		this.speed = 2f - (float)Math.random();	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
+		this.idle = texture;
+		createAnimations();
+	}
+
+	void createAnimations() {
+		attackSheet = new Texture("assets/Monsters/Trash Monster/attack.png");
+		
+		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
+				attackSheet.getHeight() / attackRow);
+		
+		TextureRegion[] attackFrames = new TextureRegion[attackCol * attackRow];
+		int x = 0;
+		for (int i = 0; i < attackRow; i++) {
+			for (int j = 0; j < attackCol; j++) {
+				attackFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		
+		attackTime = 0f;
 	}
 	
 	/**
@@ -59,7 +92,7 @@ public class TrashMonster extends Enemy {
 		}
 		
 		// If the monster hits either the left bound or the right bound, just flip it
-		if (getX() <= leftBound || getX() >= rightBound) {
+		if (getX() <= leftBound || getX() >= rightBound && this.movementBehavior == Behavior.EDGE_TO_EDGE) {
 			dx *= -1;
 			this.flip(true, false);
 		}
@@ -96,14 +129,23 @@ public class TrashMonster extends Enemy {
 			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
 			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx *= -1;
+				facingRight = false;
 				this.flip(true, false);
 			}
+		}
+		
+		if (attacking) {
+			attackTimer-=1f;
+		}
+		
+		if (attackTimer <= 0f) {
+			attacking = false;
 		}
 		
 		move(l); // Do movement code
 		
 		translateY(dy); // Do translations
-		translateX(dx);
+		if (!attacking) translateX(dx);
 		
 		attack(hb, l); // Do attacking
 	}
@@ -113,7 +155,7 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
-		attackRange = 5f;
+		attackRange = 1f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
@@ -121,13 +163,14 @@ public class TrashMonster extends Enemy {
 		
 		// attack if the monster can attack
 		if (canAttack) {
+			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 				if (hb.bark >= 0) {
 					hb.bark-=damageValue;
-					attackTimer=100f;
+					attackTimer=50f;
 				} else {
 					hb.health-=damageValue;
-					attackTimer=100;
+					attackTimer=50f;
 				}
 				l.getSpawnpoint().getPlayer().flashing = true;
 				l.getSpawnpoint().getPlayer().flashTimer = 500f;
@@ -135,13 +178,30 @@ public class TrashMonster extends Enemy {
 		}
 	}
 	
+	float prevDx = 0f;
+	
 	/**
 	 * Draw the monster
 	 */
 	@Override
 	public void draw(Batch batch) {
-		super.draw(batch);
-		
-		if (facingRight) this.setFlip(true, false);
+		if (attacking) {
+			attackTime+=Gdx.graphics.getDeltaTime();
+//			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
+//			System.out.println(facingRight);
+//			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+//			this.setFlip(this.isFlipX(), false);
+//			batch.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight());
+			setTexture(idle);
+			super.draw(batch);
+			if (attackTime > 1f) {
+				attacking = false;
+			}
+		} else {
+			attackTime = 0f;
+			setTexture(idle);
+			//this.flip(facingRight, false);
+			super.draw(batch);
+		}
 	}
 }

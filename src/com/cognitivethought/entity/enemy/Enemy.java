@@ -36,11 +36,3 @@ public abstract class Enemy extends Sprite {
 	public abstract void update(HealthBar hb, Level l); // How the enemy will be updated
 	abstract void attack(HealthBar hb, Level l);		// How the enemy will attack
 }
-
-// The types of behaviors possible for an enemy
-enum Behavior {
-	EDGE_TO_EDGE,
-	PLAT_TO_PLAT,
-	MELEE,
-	RANGED
-}

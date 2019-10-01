@@ -17,22 +17,21 @@ import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.ui.HealthBar;
 
-public class GameScreen implements Screen {
-
+public class LevelSelect implements Screen {
 	SpriteBatch batch; // The batch renderer that helps to render sprites faster than usual
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
 	
-	HealthBar hb = new HealthBar();
-	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
 	float fade = 1f; // Timer/Opacity for screen fade-in
-
+	
+	HealthBar hb = new HealthBar();
+	
 	String fps = "FPS:"; // Shows the current FPS
 
-	@Override
+	
 	public void show() {
 		batch = new SpriteBatch();
 
@@ -40,7 +39,7 @@ public class GameScreen implements Screen {
 		font.setColor(Color.WHITE);
 		
 		try {
-			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png"))); // Initialize level with 'testlevel.level'
+			level = new Level(ImageIO.read(LevelSelect.class.getResourceAsStream("/Levels/Development Level/levelselect.png"))); // Initialize level with 'testlevel.level'
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +67,7 @@ public class GameScreen implements Screen {
 		}).start();
 	}
 
-	public GameScreen() {
+	public void LoginScreen() {
 
 	}
 
@@ -163,12 +162,17 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void resize(int w, int h) {
-		// c.setToOrtho(false, w, h);
+	public void resize(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void resume() {
-
+		// TODO Auto-generated method stub
+		
 	}
+
+	
+
 }

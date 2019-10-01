@@ -10,7 +10,7 @@ public class Spawnpoint {
 	private Player player;
 	
 	public Spawnpoint(float x, float y) {
-		player = new Player(new Texture("base.png")); // Create Player
+		player = new Player(new Texture("assets/Player/base.png")); // Create Player
 		player.setPosition(x, y);
 	}
 

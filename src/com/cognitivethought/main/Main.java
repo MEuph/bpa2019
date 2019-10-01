@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.cognitivethought.screens.GameScreen;
+import com.cognitivethought.screens.LevelSelect;
 import com.cognitivethought.screens.LoginScreen;
 
 public class Main extends Game implements ApplicationListener {
@@ -17,12 +18,16 @@ public class Main extends Game implements ApplicationListener {
 	// The screen used for logging in
 	public LoginScreen loginScreen;
 	
+	// The screen used to select levels
+	public LevelSelect levelselect;
+	
 	@Override
 	public void create() {
 		main = this;
 		gameScreen = new GameScreen();
 		loginScreen= new LoginScreen();
-		setScreen(loginScreen);
+		levelselect= new LevelSelect();
+		setScreen(levelselect);
 		
 	}
 

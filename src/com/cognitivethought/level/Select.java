@@ -17,7 +17,7 @@ import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
 
-public class Level {
+public class Select {
 
 	// All the platforms in the level
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
@@ -38,8 +38,8 @@ public class Level {
 	 *                               PERMANENT. DO NOT MAKE ANY PERMAMENT LEVELS IN
 	 *                               THIS FILE FORMAT
 	 */
-	public Level(String s) throws FileNotFoundException, URISyntaxException {
-		Scanner sc = new Scanner(new File(Level.class.getResource(s).toURI()));
+	public Select(String s) throws FileNotFoundException, URISyntaxException {
+		Scanner sc = new Scanner(new File(Select.class.getResource(s).toURI()));
 		ArrayList<String> file = new ArrayList<>(); // All of the data in the file
 		while (sc.hasNextLine())
 			file.add(sc.nextLine()); // Populate the ArrayList, 'file'
@@ -62,7 +62,7 @@ public class Level {
 	
 	final int scale = 48;
 	
-	public Level(BufferedImage b) {
+	public Select(BufferedImage b) {
 		int[][] data = new int[b.getHeight()][b.getWidth()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
@@ -83,7 +83,7 @@ public class Level {
 				case(-1):
 			//		addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
-				case(-1237980):
+				case(-1237980): 
 					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, true));
 					break;
 				case(-14503604):
