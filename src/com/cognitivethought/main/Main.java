@@ -27,7 +27,7 @@ public class Main extends Game implements ApplicationListener {
 		gameScreen = new GameScreen();
 		loginScreen= new LoginScreen();
 		levelselect= new LevelSelect();
-		setScreen(levelselect);
+		setScreen(loginScreen);
 		
 	}
 
