@@ -19,8 +19,8 @@ public class Select extends Level {
 		super(s);
 	}
 	
-	@Override
 	public Select(BufferedImage b) {
+		super(b);
 		int[][] data = new int[b.getHeight()][b.getWidth()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {

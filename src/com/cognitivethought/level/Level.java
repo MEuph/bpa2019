@@ -63,7 +63,7 @@ public class Level {
 	final int scale = 48;
 	
 	public Level(BufferedImage b) {
-		int[][] data = new int[b.getHeight()][b.getWidth()];
+		int[][] data = new int[b.getWidth()][b.getHeight()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				data[i][j] = b.getRGB(i, j);			// Populate data array
@@ -72,14 +72,14 @@ public class Level {
 		
 		for (int i = 0; i < data.length; i++) {
 			for(int j = 0; j < data[i].length; j++) {
-				System.out.print(data[j][i] + " ");
+				System.out.print(data[i][j] + " ");
 			}
 			System.out.println();
 		}
 		
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
-				switch(data[j][i]) {
+				switch(data[i][j]) {
 				case(-1):
 			//		addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;

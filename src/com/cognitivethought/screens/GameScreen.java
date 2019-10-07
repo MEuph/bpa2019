@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
 		font.setColor(Color.WHITE);
 		
 		try {
-			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png"))); // Initialize level with 'testlevel.level'
+			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/leve2.png"))); // Initialize level with 'testlevel.level'
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
