@@ -1,164 +1,82 @@
 package com.cognitivethought.screens;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector3;
-import com.cognitivethought.level.Level;
-import com.cognitivethought.ui.HealthBar;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.cognitivethought.gui.Cloud;
+import com.cognitivethought.gui.LevelButton;
+import com.cognitivethought.main.Main;
 
 public class LevelSelect implements Screen {
-	SpriteBatch batch; // The batch renderer that helps to render sprites faster than usual
-	Level level; // Holds current level information
-	BitmapFont font; // For FPS Counter
-	OrthographicCamera c; // Camera
+	public static Stage stage;
+	private Image background;
+	private ArrayList<LevelButton> levels;
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	float smoothCamera = .1f; // How much to smooth the camera's movement by
-	float timer = 0; // Timer for updating FPS counter
-	float fade = 1f; // Timer/Opacity for screen fade-in
-	
-	HealthBar hb = new HealthBar();
-	
-	String fps = "FPS:"; // Shows the current FPS
-
-	
-	public void show() {
-		batch = new SpriteBatch();
-
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
+	public LevelSelect() {
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
 		
-		try {
-			level = new Level(ImageIO.read(LevelSelect.class.getResourceAsStream("/Levels/Development Level/levelselect.png"))); // Initialize level with 'testlevel.level'
-		} catch (IOException e) {
-			e.printStackTrace();
+		levels = new ArrayList<>();
+		
+		for (int i = 0; i < new Random().nextInt(20) + 10; i++) {
+			levels.add(new LevelButton());
 		}
-
-		c = new OrthographicCamera();
-		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
-		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
 		
-		// Run new Thread that will process the fading in of the scene
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				c.position.set(new Vector3(c.position.x, c.position.y + 200, c.position.z));
-				while (fade > 0f) {
-					fade -= .01f;
-//					System.out.println(fade);
-					c.translate(0, -1f, 0);
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}).start();
+		Texture title = new Texture("assets/UI/placeholdertitle.png");
+		Texture backgroundTexture = new Texture("assets/UI/placeholderbackground.png");
+		Texture playTexture = new Texture("assets/UI/PlayButton.png");
+		Texture quitTexture = new Texture("assets/UI/QuitButton.png");
+		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
+		background.setPosition(0, 0);
+		background.setSize(screenSize.width, screenSize.height);
+		
+		
+		stage.addActor(background);
+		for(LevelButton c : levels) {
+			c.button();
+		}
+		
 	}
-
-	public void LoginScreen() {
-
-	}
-
+	
+	
 	@Override
 	public void dispose() {
-		batch.dispose();
+		// TODO Auto-generated method stub
+		stage.dispose();
 	}
 
 	@Override
 	public void hide() {
-		dispose();
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void pause() {
-
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void render(float deltaTime) {
+	public void render(float delta) {
+		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		// Smooth camera fade
-		Vector3 position = c.position;
-		smoothCamera = 0.1f / c.zoom;
-		
-		if (!(fade > 0)) {
-			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
-			position.y += (level.getSpawnpoint().getPlayer().getY() - position.y + 100) * smoothCamera;
-		}
-		c.update();
-		// End smooth camera fade
-
-		// Set the projection matrix of the sprite batch to the camera's combined matrix
-		batch.setProjectionMatrix(c.combined);
-
-		batch.begin();
-
-		level.render(batch, hb, c);
-
-		// If the level has faded in, process physics on the player
-		if (!(fade > 0)) {
-			level.getSpawnpoint().getPlayer().update(level, hb);
-		}
-		level.getSpawnpoint().getPlayer().render(batch);
-
-		// Increment the FPS timer
-		timer += Gdx.graphics.getDeltaTime();
-
-		// If the timer has surpassed 0.5, then reset the timer and update the FPS
-		// counter
-		if (timer > .5f) {
-			timer = 0f;
-			fps = "FPS: " + (int) (1 / Gdx.graphics.getDeltaTime());
-		}
-
-		// Draw the FPS counter
-		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
-
-		batch.end();
-
-		// Enable transparency blending
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		// If still fading, then draw the black fade rectangle
-		if (fade > 0f) {
-			ShapeRenderer sp = new ShapeRenderer();
-			sp.setProjectionMatrix(c.combined);
-			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0, 0, 0, fade));
-			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
-			sp.end();
-		}
-		// Disable transparency blending
-		Gdx.gl.glDisable(GL20.GL_BLEND);
-		
-		// Zoom In-Out Support
-//		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {
-//			c.zoom += c.zoom < 1f ? 0.25f : 0f;
-//		}
-//		
-//		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT_BRACKET)) {
-//			c.zoom -= c.zoom > 0.25f ? 0.25f : 0f;
-//		}
-//
-//		if (c.zoom < 0.25f) {
-//			c.zoom = 0.25f;
-//		}
-		
-		hb.render(batch, c);
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override
@@ -173,6 +91,10 @@ public class LevelSelect implements Screen {
 		
 	}
 
-	
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
