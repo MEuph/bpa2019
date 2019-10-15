@@ -33,7 +33,6 @@ public class TrashMonster extends Enemy {
 	boolean facingRight;				// Whether the monster is facing right or not
 	boolean attacking = false;
 	
-	float leftBound, rightBound;		// The left bound and right bound of the monster's movement
 	float pauseTimer;					// How long to pause in between movements
 	float dx, dy;						// The velocity of the monster
 	
@@ -77,35 +76,7 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	void move(Level l) {
-		// Check what platform the monster is on if the platform to be on is null
-		if (toBeOn == null) {
-			for (Platform p : l.getPlatforms()) {
-				if (p.getBoundingRectangle().overlaps(getBoundingRectangle())) {
-					toBeOn = p;
-					leftBound = p.getX() - p.getWidth();
-					rightBound = p.getX() + p.getWidth() * 2;
-					System.out.println(leftBound + ", " + rightBound);
-					System.out.println(getX() + ", "  + getY());
-					break;
-				}
-			}
-		}
-		
 		// If the monster hits either the left bound or the right bound, just flip it
-		if (getX() <= leftBound || getX() >= rightBound && this.movementBehavior == Behavior.EDGE_TO_EDGE) {
-			dx *= -1;
-			this.flip(true, false);
-		}
-	}
-	
-	/**
-	 * Update the monster
-	 */
-	@Override
-	public void update(HealthBar hb, Level l) {
-		if (dy > -15f)
-			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
-		
 		// Same collision detection code as the player
 		for (Platform plat : l.getPlatforms()) {
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
@@ -123,6 +94,7 @@ public class TrashMonster extends Enemy {
 			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
 			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx *= -1;
+				facingRight = true;
 				this.flip(true, false);
 			}
 			
@@ -133,6 +105,15 @@ public class TrashMonster extends Enemy {
 				this.flip(true, false);
 			}
 		}
+	}
+	
+	/**
+	 * Update the monster
+	 */
+	@Override
+	public void update(HealthBar hb, Level l) {
+		if (dy > -15f)
+			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 		
 		if (attacking) {
 			attackTimer-=1f;
