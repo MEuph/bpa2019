@@ -128,7 +128,9 @@ public class GameScreen implements Screen {
 
 		// Draw the FPS counter
 		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
-
+		
+		hb.render(batch, c);
+		
 		batch.end();
 
 		// Enable transparency blending
@@ -158,8 +160,6 @@ public class GameScreen implements Screen {
 //		if (c.zoom < 0.25f) {
 //			c.zoom = 0.25f;
 //		}
-		
-		hb.render(batch, c);
 	}
 
 	@Override

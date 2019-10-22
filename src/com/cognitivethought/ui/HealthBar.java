@@ -1,39 +1,30 @@
 package com.cognitivethought.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class HealthBar {
 	
 	public int health = 9;
 	public int bark = 8;
 	
-	public void render(Batch b, OrthographicCamera c) {
-		// Enable transparency blending
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		ShapeRenderer sp = new ShapeRenderer();
-		sp.setProjectionMatrix(c.combined);
-		sp.begin(ShapeType.Filled);
-		sp.setColor(new Color(1f, 0f, 0f, 0.5f));
-		for (int i = 0; i < health; i++) {
-				if (i <= bark) {
-					sp.setColor(new Color(124f/255f, 78f/255f, 52f/255f, 0.5f));
-					sp.rect((c.position.x + 25 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 25 - c.viewportHeight / 2) / c.zoom, 50, 50);
-				} else {
-					sp.setColor(new Color(1f, 0f, 0f, 0.5f));
-				}
-				sp.rect((c.position.x + 25 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 25 - c.viewportHeight / 2) / c.zoom, 50, 50);
-		}
-		sp.end();
-		// Disable transparency blending
-		Gdx.gl.glDisable(GL20.GL_BLEND);
-		sp.dispose();
+	private Sprite heartImg;
+	private Sprite barkImg;
+	
+	public HealthBar() {
+		heartImg = new Sprite(new Texture("assets/UI/heart.png"));
+		barkImg = new Sprite(new Texture("assets/UI/bark.png"));
 	}
 	
+	public void render(Batch b, OrthographicCamera c) {
+		for (int i = 0; i < health; i++) {
+			if (i <= bark) {
+				b.draw(barkImg, (c.position.x + 32 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 32 - c.viewportHeight / 2) / c.zoom, 64, 64);
+			} else {
+				b.draw(heartImg, (c.position.x + 32 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 32 - c.viewportHeight / 2) / c.zoom, 64, 64);
+			}
+		}
+	}
 }
