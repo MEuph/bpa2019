@@ -23,6 +23,6 @@ public class LevelButton {
 		level.setPosition(buttonX, buttonY);
 		
 		
-		MenuScreen.stage.addActor(level);
+	//	MenuScreen.stage.addActor(level);
 	}
 }
