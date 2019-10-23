@@ -16,7 +16,6 @@ import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.main.Main;
 
 public class LevelSelect implements Screen {
-	
 	LevelButton[] levels = new LevelButton[5];
 	
 	Texture background = new Texture("assets/UI/placeholderbackground.png");
