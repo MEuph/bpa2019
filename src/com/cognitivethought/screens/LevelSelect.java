@@ -1,60 +1,95 @@
 package com.cognitivethought.screens;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.cognitivethought.gui.Cloud;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.main.Main;
 
 public class LevelSelect implements Screen {
-	public static Stage stage;
-	private Image background;
-	private ArrayList<LevelButton> levels;
-	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	LevelButton[] levels = new LevelButton[5];
+	
+	Texture background = new Texture("assets/UI/placeholderbackground.png");
+	
+	SpriteBatch batch = new SpriteBatch();
+	
+	float y;
+	float fade;
 	
 	public LevelSelect() {
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		for (int i = 0; i < 5; i++) {
+			levels[i] = new LevelButton();
+			levels[i].addButton(i);
+			switch (i) {
+			  case 0:
+				  levels[i].level.setClickListener(new ClickListener() {
+					  @Override
+					  public void clicked(InputEvent event, float x, float y) {
+						  Main.main.setScreen(Main.main.gameScreen);
+					  }
+				  });
+			    break;
+			  case 1:
+				  levels[i].level.setClickListener(new ClickListener() {
+					  @Override
+					  public void clicked(InputEvent event, float x, float y) {
+						  Main.main.setScreen(Main.main.gameScreen);
+					  }
+				  });
+			    break;
+			  case 2:
+				  levels[i].level.setClickListener(new ClickListener() {
+					  @Override
+					  public void clicked(InputEvent event, float x, float y) {
+						  Main.main.setScreen(Main.main.gameScreen);
+					  }
+				  });
+			    break;
+			  case 3:
+				  levels[i].level.setClickListener(new ClickListener() {
+					  @Override
+					  public void clicked(InputEvent event, float x, float y) {
+						  Main.main.setScreen(Main.main.gameScreen);
+					  }
+				  });
+			    break;
+			  case 4:
+				  levels[i].level.setClickListener(new ClickListener() {
+					  @Override
+					  public void clicked(InputEvent event, float x, float y) {
+						  Main.main.setScreen(Main.main.gameScreen);
+					  }
+				  });
+			    break;
+			    default:
+					  levels[i].level.setClickListener(new ClickListener() {
+						  @Override
+						  public void clicked(InputEvent event, float x, float y) {
+							  System.exit(0);
+						  }
+					  });
+				    break;
+			
+			}
 		
-		levels = new ArrayList<>();
-		
-		for (int i = 0; i < new Random().nextInt(20) + 10; i++) {
-			levels.add(new LevelButton());
 		}
-		
-		Texture title = new Texture("assets/UI/placeholdertitle.png");
-		Texture backgroundTexture = new Texture("assets/UI/placeholderbackground.png");
-		Texture playTexture = new Texture("assets/UI/PlayButton.png");
-		Texture quitTexture = new Texture("assets/UI/QuitButton.png");
-		background = new Image(new TextureRegionDrawable(new TextureRegion(backgroundTexture)));
-		background.setPosition(0, 0);
-		background.setSize(screenSize.width, screenSize.height);
-		
-		
-		stage.addActor(background);
-		for(LevelButton c : levels) {
-			c.button();
-		}
-		
+
 	}
-	
 	
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		stage.dispose();
+		
 	}
 
 	@Override
@@ -71,12 +106,43 @@ public class LevelSelect implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
+		Gdx.gl.glClearColor(0f, 0.1f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		stage.act(delta);
-		stage.draw();
+		batch.begin();
+		batch.draw(background, 0, -805, 1920, 1920);
+		for(int i = 0; i < levels.length; i++) {
+			levels[i].level.render(batch);
+		}
+//		for (Cloud c : clouds) {
+//			c.animateBackground(c.cloud);
+//			c.cloud.setY((y+c.cloud.getY()) + 1920 / 2 - 100);
+//			c.cloud.draw(batch, delta);
+//		}
+		batch.end();
+
+		
+		
+		
+		
+		if (fade <= 0f) {
+			for(int i = 0; i < levels.length; i++) {
+				levels[i].level.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
+			}
+		}
+		// Enable transparency blending
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		// If still fading, then draw the black fade rectangle
+		if (fade > 0f) {
+			ShapeRenderer sp = new ShapeRenderer();
+			sp.begin(ShapeType.Filled);
+			sp.setColor(new Color(0, 0, 0, fade));
+			sp.rect(0f, 0f, 1920f, 1080f);
+			sp.end();
+		}
+		// Disable transparency blending
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	@Override
@@ -96,5 +162,5 @@ public class LevelSelect implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }
