@@ -88,7 +88,7 @@ public class Player extends Sprite {
 						hb.health--; // Then decrease health after bark reaches 0
 					}
 					this.flashing = true; // Set flashing to true because the player is being harmed
-					this.flashTimer = 500f; // Set the time to be flashing
+					this.flashTimer = 2000f; // Set the time to be flashing
 				}
 			}
 			
@@ -115,7 +115,7 @@ public class Player extends Sprite {
 				flashTimer -= 0.05f; 
 			}
 			else {
-				flashTimer = 500f;
+				flashTimer = 2000f;
 				flashing = false;
 			}
 		}

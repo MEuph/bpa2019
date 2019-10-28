@@ -12,9 +12,13 @@ public abstract class Enemy extends Sprite {
 	protected float detectionRange; // How far the detection range of the enemy is
 	protected float attackRange;	// How far away the enemy can attack from
 	protected float speed;			// The speed of the enemy
+	protected int health;
 	
 	protected Behavior movementBehavior;	// The behavior of movement
 	protected Behavior attackBehavior;		// The behavior of attacking
+	
+	protected Thread deathThread;
+	protected int deathThreadTime;
 	
 	/**
 	 * The superclass of all enemies
@@ -32,7 +36,16 @@ public abstract class Enemy extends Sprite {
 		super.setSize(getTexture().getWidth(), getTexture().getHeight());
 	}
 	
+	public abstract void die();
 	abstract void move(Level l);						// How the enemy will move
 	public abstract void update(HealthBar hb, Level l); // How the enemy will be updated
 	abstract void attack(HealthBar hb, Level l);		// How the enemy will attack
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
 }

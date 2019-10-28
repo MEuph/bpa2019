@@ -44,7 +44,7 @@ public class GameScreen implements Screen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
 		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
 		}
 		c.update();
 		// End smooth camera fade
-
+		
 		// Set the projection matrix of the sprite batch to the camera's combined matrix
 		batch.setProjectionMatrix(c.combined);
 

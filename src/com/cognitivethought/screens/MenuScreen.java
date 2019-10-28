@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.Cloud;
 import com.cognitivethought.gui.ImageButton;
@@ -92,7 +91,7 @@ public class MenuScreen implements Screen {
 
 		
 		if (y >= -800) {
-			y-=5;
+			y-=8;
 		}
 		
 		fade = 1-((float)y / -800f);

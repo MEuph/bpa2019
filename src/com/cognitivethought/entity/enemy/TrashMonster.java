@@ -1,5 +1,8 @@
 package com.cognitivethought.entity.enemy;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,8 +15,17 @@ import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
 	
-	final int attackCol = 3, attackRow = 3;
+	final int attackCol = 9, attackRow = 1;
+	final int jumpCol = 15, jumpRow = 1;
+	final int deathCol = 3, deathRow = 4;
+	
 	float attackTime;
+	float jumpTime;
+	float deathTime;
+	
+	final float propWidth = 72f, propHeight = 94.28571f;
+	
+	boolean deathThreadPaused;
 	
 	Animation<TextureRegion> attackAnimation;
 	Texture attackSheet;
@@ -21,13 +33,14 @@ public class TrashMonster extends Enemy {
 	Animation<TextureRegion> deathAnimation;
 	Texture deathSheet;
 	
+	Animation<TextureRegion> jumpAnimation;
+	Texture jumpSheet;
+	
 	Texture idle;
 	
 	private final float g = 0.198f;	 	// Gravitational constant
 	
 	Platform toBeOn;					// The platform the monster should be on
-	
-	int health;							// The health this monster has
 	
 	boolean movingLeft, movingRight;	// Whether or not the monster is moving right or left
 	boolean facingRight;				// Whether the monster is facing right or not
@@ -44,16 +57,38 @@ public class TrashMonster extends Enemy {
 	 * @param texture
 	 * 		The appearance of this particular trash monster
 	 */
-	public TrashMonster(Behavior b, float damageValue, Texture texture) {
+	public TrashMonster(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies) {
 		super(b, Behavior.MELEE, damageValue, texture);
 		this.speed = 2f - (float)Math.random();	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
 		this.idle = texture;
+		
+		this.health = 1;
+		
+		TrashMonster t = this;
+		
+		deathThread = new Thread() {
+			@SuppressWarnings("static-access")
+			public void run() {
+				try {
+					die();
+					dx = 0;
+					System.out.println("DIED!");
+					this.sleep(1950);
+					enemies.remove(t);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		};
+		
 		createAnimations();
 	}
 
 	void createAnimations() {
 		attackSheet = new Texture("assets/Monsters/Trash Monster/attack.png");
+		jumpSheet = new Texture("assets/Monsters/Trash Monster/jump.png");
+		deathSheet = new Texture("assets/Monsters/Trash Monster/death.png");
 		
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
 				attackSheet.getHeight() / attackRow);
@@ -66,9 +101,30 @@ public class TrashMonster extends Enemy {
 			}
 		}
 		
+		tmp = TextureRegion.split(jumpSheet, jumpSheet.getWidth() / jumpCol, jumpSheet.getHeight() / jumpRow);
+		TextureRegion[] jumpFrames = new TextureRegion[jumpCol * jumpRow];
+		x = 0;
+		for (int i = 0; i < jumpRow; i++) {
+			for (int j = 0; j < jumpCol; j++) {
+				jumpFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		tmp = TextureRegion.split(deathSheet, deathSheet.getWidth() / deathCol, deathSheet.getHeight() / deathRow);
+		TextureRegion[] deathFrames = new TextureRegion[deathCol * deathRow];
+		x = 0;
+		for (int i = 0; i < deathRow; i++) {
+			for (int j = 0; j < deathCol; j++) {
+				deathFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		jumpAnimation = new Animation<TextureRegion>((float)(new Random().nextInt(4) + 5) / 100f, jumpFrames);
 		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		
 		attackTime = 0f;
+		deathTime = 0f;
 	}
 	
 	/**
@@ -119,6 +175,10 @@ public class TrashMonster extends Enemy {
 			attackTimer-=1f;
 		}
 		
+		if (deathThreadPaused) {
+			deathThreadTime++;
+		}
+		
 		if (attackTimer <= 0f) {
 			attacking = false;
 		}
@@ -130,7 +190,7 @@ public class TrashMonster extends Enemy {
 		
 		attack(hb, l); // Do attacking
 	}
-
+	
 	/**
 	 * Process monster attacking
 	 */
@@ -146,6 +206,7 @@ public class TrashMonster extends Enemy {
 		if (canAttack) {
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
+//				this.setHealth(0);
 				if (hb.bark >= 0) {
 					hb.bark-=damageValue;
 					attackTimer=50f;
@@ -161,6 +222,14 @@ public class TrashMonster extends Enemy {
 	
 	float prevDx = 0f;
 	
+	@Override
+	public void die() {
+		health = 0;
+		deathThreadPaused = true;
+		attacking = false;
+		deathTime = 0f;
+	}
+	
 	/**
 	 * Draw the monster
 	 */
@@ -168,21 +237,38 @@ public class TrashMonster extends Enemy {
 	public void draw(Batch batch) {
 		if (attacking) {
 			attackTime+=Gdx.graphics.getDeltaTime();
-//			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
+			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
-//			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
-//			this.setFlip(this.isFlipX(), false);
-//			batch.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight());
-			setTexture(idle);
-			super.draw(batch);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX(), false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);
+//			setTexture(idle);
+			//super.draw(batch);
 			if (attackTime > 1f) {
 				attacking = false;
 			}
-		} else {
+		} else if (health > 0) {
 			attackTime = 0f;
+			jumpTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
+//			System.out.println(facingRight);
+			System.out.println(this.propWidth + ", " + this.propHeight);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);
 			setTexture(idle);
 			//this.flip(facingRight, false);
-			super.draw(batch);
+			//super.draw(batch);
+			if (jumpTime > 1f) {
+				jumpTime = 0f;
+			}
+		} else if (health <= 0) {
+			attacking = false;
+			deathTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		}
 	}
 }

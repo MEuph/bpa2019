@@ -41,6 +41,20 @@ public class EnemySpawner {
 	public void update(HealthBar hb, Level l) {
 		for (Enemy e : enemies) {
 			e.update(hb, l);
+			
+			if (e.getHealth() <= 0f) {
+				if (e.deathThread.isAlive()) {
+					if (e.deathThreadTime >= 2000) {
+						enemies.remove(e);
+					}
+				} else {
+					try {
+						e.deathThread.start();
+					} catch (IllegalThreadStateException itse) {
+						itse.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 	

@@ -3,13 +3,11 @@ package com.cognitivethought.gui;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Cloud {
 
-	public Image cloud;
+	public Sprite cloud;
 	private Random random = new Random();
 	private int cloudWidth = 70 + random.nextInt(100);
 	private int cloudHeight = cloudWidth*197/280;
@@ -24,14 +22,14 @@ public class Cloud {
 	public void cloud() {
 		Texture cloudTexture = new Texture("assets/UI/cloud.png.png");
 		
-		cloud = new Image(new TextureRegionDrawable(new TextureRegion(cloudTexture)));
+		cloud = new Sprite(cloudTexture);
 		cloud.setSize(cloudWidth, cloudHeight);
 		
 	//	cloudXPos = random.nextInt(MenuScreen.screenSize.width);
 	//	MenuScreen.stage.addActor(cloud);
 	}
 	
-	public void animateBackground(Image x) {
+	public void animateBackground(Sprite x) {
 		if(cloudXPos <= 0) {
 		//	MenuScreen.stage.addActor(x);
 		}

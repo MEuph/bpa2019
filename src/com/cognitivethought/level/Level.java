@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.cognitivethought.entity.enemy.Behavior;
-import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
@@ -126,12 +125,12 @@ public class Level {
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
-					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png")), j*scale, -i*scale);
+					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies), j*scale, -i*scale);
 					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es);
 				case(-65408):
 					EnemySpawner es2 = new EnemySpawner();
-					es2.addEnemy(new TrashMonster(Behavior.WALL_TO_WALL, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png")), j*scale, -i*scale);
+					es2.addEnemy(new TrashMonster(Behavior.WALL_TO_WALL, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies), j*scale, -i*scale);
 					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es2);
 				}
@@ -163,6 +162,12 @@ public class Level {
 		return platforms;
 	}
 
+	public ArrayList<EnemySpawner> getEnemySpawners() {
+		return es;
+	}
+	public void setEs(ArrayList<EnemySpawner> es) {
+		this.es = es;
+	}
 	/**
 	 * Adds a platform to the arraylist, platforms
 	 * 
@@ -193,10 +198,8 @@ public class Level {
 		}
 		
 		for (EnemySpawner e : es) {
-			for (Enemy en : e.enemies) {
-				en.update(hb, this);
-				en.draw(b);
-			}
+			e.update(hb, this);
+			e.draw(b);
 		}
 	}
 }
