@@ -119,7 +119,7 @@ public class TrashMonster extends Enemy {
 			}
 		}
 		
-		jumpAnimation = new Animation<TextureRegion>((float)(new Random().nextInt(4) + 5) / 100f, jumpFrames);
+		jumpAnimation = new Animation<TextureRegion>((float)(new Random().nextInt(3) + 6) / 100f, jumpFrames);
 		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		
@@ -174,6 +174,8 @@ public class TrashMonster extends Enemy {
 		if (attacking) {
 			attackTimer-=1f;
 		}
+		
+		facingRight = dx < 0;
 		
 		if (deathThreadPaused) {
 			deathThreadTime++;
