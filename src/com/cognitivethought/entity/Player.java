@@ -1,11 +1,15 @@
 package com.cognitivethought.entity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.cognitivethought.entity.enemy.Enemy;
+import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
@@ -33,6 +37,7 @@ public class Player extends Sprite {
 	
 	public boolean flashing = false;
 	
+	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	
 	/**
 	 * Instantiates a new Player in the scene
@@ -73,7 +78,26 @@ public class Player extends Sprite {
 			jump();
 			jumps++;
 		}
-
+		
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+			System.out.println("test");
+			
+			float vx = Gdx.input.getX() <= (1920 / 2) ? -2 : 2;
+			
+			Projectile p = new Projectile(new Texture("assets/Tilesets/Development Tileset/spike.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 2), vx, 0, 1000, 100);
+			projectiles.add(p);
+		}
+		
+		for (Projectile p : projectiles) {
+			p.update();
+			for (EnemySpawner es : l.getEnemySpawners()) {
+				for (Enemy e : es.enemies) {
+					p.checkHit(e);
+				}
+			}
+			if (p.life <= 0) projectiles.remove(p);
+		}
+		
 		// If colliding with platform top
 		// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
 		for (Platform plat : l.getPlatforms()) {
@@ -161,5 +185,9 @@ public class Player extends Sprite {
 		if (this.flashing && Math.random() > 0.75f) return;
 		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
 				!facingRight ? getWidth() : -getWidth(), getHeight());
+		
+		for (Projectile p : projectiles) {
+			sb.draw(p, p.getX(), p.getY());
+		}
 	}
 }

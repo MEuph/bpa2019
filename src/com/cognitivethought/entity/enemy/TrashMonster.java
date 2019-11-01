@@ -254,7 +254,6 @@ public class TrashMonster extends Enemy {
 			jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
 //			System.out.println(facingRight);
-			System.out.println(this.propWidth + ", " + this.propHeight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);

@@ -4,16 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.cognitivethought.entity.enemy.Enemy;
 
 public class Projectile extends Sprite {
 	
-	public float dx, dy, life, size;
+	public float life, size, dx, dy;
 	
-	public Projectile(Texture t, float x, float y, float dx, float dy, float life, float size) {
+	public Vector2 target;
+	
+	public Projectile(Texture t, float x, float y, float vx, float vy, float life, float size) {
 		super(t);
-		this.dx = dx;
-		this.dy = dy;
+		setX(x);
+		setY(y);
+		this.dx = vx;
+		this.dy = vy;
 		this.life = life;
 		this.size = size;
 	}
@@ -24,7 +29,7 @@ public class Projectile extends Sprite {
 		life -= Gdx.graphics.getDeltaTime();
 	}
 	
-	public void onHit(Enemy e) {
+	public void checkHit(Enemy e) {
 		if (e.getBoundingRectangle().contains(this.getBoundingRectangle())) {
 			e.die();
 		}
