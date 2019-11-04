@@ -82,20 +82,29 @@ public class Player extends Sprite {
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 			System.out.println("test");
 			
-			float vx = Gdx.input.getX() <= (1920 / 2) ? -2 : 2;
+			float vx = Gdx.input.getX() <= (1920 / 2) ? -5 : 5;
 			
-			Projectile p = new Projectile(new Texture("assets/Tilesets/Development Tileset/spike.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 2), vx, 0, 1000, 100);
+			Projectile p = new Projectile(new Texture("assets/Tilesets/Development Tileset/spike.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, 0, 5f, 100);
 			projectiles.add(p);
 		}
 		
 		for (Projectile p : projectiles) {
+			if (p.life <= 0) {
+				projectiles.remove(p);
+				break;
+			}
 			p.update();
 			for (EnemySpawner es : l.getEnemySpawners()) {
 				for (Enemy e : es.enemies) {
-					p.checkHit(e);
+					if (p.checkHit(e)) {
+						p.life = 0;
+						break;
+					}
+				}
+				if (p.life <= 0) {
+					break;
 				}
 			}
-			if (p.life <= 0) projectiles.remove(p);
 		}
 		
 		// If colliding with platform top

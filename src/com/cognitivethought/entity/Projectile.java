@@ -29,10 +29,12 @@ public class Projectile extends Sprite {
 		life -= Gdx.graphics.getDeltaTime();
 	}
 	
-	public void checkHit(Enemy e) {
-		if (e.getBoundingRectangle().contains(this.getBoundingRectangle())) {
+	public boolean checkHit(Enemy e) {
+		if (e.getBoundingRectangle().contains(this.getBoundingRectangle()) && !(e.deathThreadTime > 0)) {
 			e.die();
+			return true;
 		}
+		return false;
 	}
 	
 	public void render(Batch b) {

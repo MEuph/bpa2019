@@ -18,7 +18,7 @@ public abstract class Enemy extends Sprite {
 	protected Behavior attackBehavior;		// The behavior of attacking
 	
 	protected Thread deathThread;
-	protected int deathThreadTime;
+	public int deathThreadTime;
 	
 	/**
 	 * The superclass of all enemies

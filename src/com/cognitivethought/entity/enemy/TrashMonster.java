@@ -198,6 +198,7 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
+		if (!deathThreadPaused) return;
 		attackRange = 1f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
@@ -237,7 +238,7 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch) {
-		if (attacking) {
+		if (attacking && !deathThreadPaused) {
 			attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
@@ -249,7 +250,7 @@ public class TrashMonster extends Enemy {
 			if (attackTime > 1f) {
 				attacking = false;
 			}
-		} else if (health > 0) {
+		} else if (health > 0 && !deathThreadPaused) {
 			attackTime = 0f;
 			jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
@@ -264,6 +265,13 @@ public class TrashMonster extends Enemy {
 				jumpTime = 0f;
 			}
 		} else if (health <= 0) {
+			attacking = false;
+			deathTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
+		} else {
 			attacking = false;
 			deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);

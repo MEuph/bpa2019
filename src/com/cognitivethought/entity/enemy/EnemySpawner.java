@@ -44,7 +44,7 @@ public class EnemySpawner {
 			
 			if (e.getHealth() <= 0f) {
 				if (e.deathThread.isAlive()) {
-					if (e.deathThreadTime >= 2000) {
+					if (e.deathThreadTime >= 1700) {
 						enemies.remove(e);
 					}
 				} else {
