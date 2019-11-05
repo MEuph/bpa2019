@@ -3,12 +3,14 @@ package com.cognitivethought.entity.enemy;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.ui.HealthBar;
 
 public class EnemySpawner {
 	
 	public ArrayList<Enemy> enemies; // The Array of enemies that this spawner can pull from
+	public ArrayList<ParticleEmitter> particles;
 	
 	/**
 	 * A "tile" that allows enemies to be spawned on it

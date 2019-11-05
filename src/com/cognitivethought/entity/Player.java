@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
@@ -15,7 +17,10 @@ import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
-
+	
+	final int attackCol = 4, attackRow = 4;
+	final int deathCol = 2, deathRow = 11;
+	
 	// The velocity of the player
 	private float dx, dy;
 
@@ -37,7 +42,18 @@ public class Player extends Sprite {
 	
 	public boolean flashing = false;
 	
+	float attackTime, deathTime;
+	
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	
+	Animation<TextureRegion> attackAnimation;
+	Texture attackSheet;
+	
+	Animation<TextureRegion> throwAnimation;
+	Texture throwSheet;
+	
+	Animation<TextureRegion> deathAnimation;
+	Texture deathSheet;
 	
 	/**
 	 * Instantiates a new Player in the scene
@@ -49,6 +65,34 @@ public class Player extends Sprite {
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
 	}
 
+	void createAnimations() {
+		attackSheet = new Texture("assets/Player/throw.png");
+		deathSheet = new Texture("assets/Player/death.png");
+		
+		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
+				attackSheet.getHeight() / attackRow);
+		
+		TextureRegion[] attackFrames = new TextureRegion[attackCol * attackRow];
+		int x = 0;
+		for (int i = 0; i < attackRow; i++) {
+			for (int j = 0; j < attackCol; j++) {
+				attackFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		tmp = TextureRegion.split(deathSheet, deathSheet.getWidth() / deathCol, deathSheet.getHeight() / deathRow);
+		TextureRegion[] deathFrames = new TextureRegion[deathCol * deathRow];
+		x = 0;
+		for (int i = 0; i < deathRow; i++) {
+			for (int j = 0; j < deathCol; j++) {
+				deathFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
+	}
+	
 	/**
 	 * Controls player physics and movement
 	 * 
@@ -82,9 +126,12 @@ public class Player extends Sprite {
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 			System.out.println("test");
 			
-			float vx = Gdx.input.getX() <= (1920 / 2) ? -5 : 5;
+			float div = 240f;
 			
-			Projectile p = new Projectile(new Texture("assets/Tilesets/Development Tileset/spike.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, 0, 5f, 100);
+			float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
+			float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
+			
+			Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, 5f, 100);
 			projectiles.add(p);
 		}
 		

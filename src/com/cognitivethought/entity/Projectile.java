@@ -26,6 +26,12 @@ public class Projectile extends Sprite {
 	public void update() {
 		translate(dx, dy);
 		
+		dy -= 9.81 * Gdx.graphics.getDeltaTime();
+		
+		if (dy < -9.81*2) {
+			dy = -9.81f*2;
+		}
+		
 		life -= Gdx.graphics.getDeltaTime();
 	}
 	
