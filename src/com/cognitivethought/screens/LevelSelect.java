@@ -1,5 +1,9 @@
 package com.cognitivethought.screens;
 
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -11,6 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.LevelButton;
+import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 
 public class LevelSelect implements Screen {
@@ -33,6 +38,12 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) {
 						  Main.main.setScreen(Main.main.gameScreen);
+						  try {
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
+						  } catch (IOException e) {
+							  // TODO Auto-generated catch block
+							  e.printStackTrace();
+						  }
 					  }
 				  });
 			    break;
@@ -41,6 +52,12 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) {
 						  Main.main.setScreen(Main.main.gameScreen);
+						  try {
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+						  } catch (IOException e) {
+							  // TODO Auto-generated catch block
+							  e.printStackTrace();
+						  }
 					  }
 				  });
 			    break;
