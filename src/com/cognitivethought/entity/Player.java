@@ -63,6 +63,7 @@ public class Player extends Sprite {
 	public Player(Texture t) {
 		super(t);
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
+		createAnimations();
 	}
 
 	void createAnimations() {
@@ -123,37 +124,6 @@ public class Player extends Sprite {
 			jumps++;
 		}
 		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-			System.out.println("test");
-			
-			float div = 240f;
-			
-			float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
-			float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
-			
-			Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, 5f, 100);
-			projectiles.add(p);
-		}
-		
-		for (Projectile p : projectiles) {
-			if (p.life <= 0) {
-				projectiles.remove(p);
-				break;
-			}
-			p.update();
-			for (EnemySpawner es : l.getEnemySpawners()) {
-				for (Enemy e : es.enemies) {
-					if (p.checkHit(e)) {
-						p.life = 0;
-						break;
-					}
-				}
-				if (p.life <= 0) {
-					break;
-				}
-			}
-		}
-		
 		// If colliding with platform top
 		// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
 		for (Platform plat : l.getPlatforms()) {
@@ -171,7 +141,6 @@ public class Player extends Sprite {
 					this.flashTimer = 2000f; // Set the time to be flashing
 				}
 			}
-			
 			
 			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 //				System.out.println(getY() + getHeight() + " " + plat.getY()); // For debugging purposes
@@ -200,6 +169,11 @@ public class Player extends Sprite {
 			}
 		}
 
+		shoot(l);
+		
+		if (attackTime < 1f) attackTime += 5 * Gdx.graphics.getDeltaTime();
+		
+		System.out.println(attackTime);
 		
 		if (left) {
 			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
@@ -228,6 +202,43 @@ public class Player extends Sprite {
 		translateY(1);
 		return true;
 	}
+	
+	void shoot(Level l) {
+		if (attackTime < 1f && attackTime >= 0f) return;
+		
+		attackTime = 0f;
+		
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+			System.out.println("test");
+			
+			float div = 240f;
+			
+			float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
+			float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
+			
+			Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, vy > 1f ? vy : 1f, 100);
+			projectiles.add(p);
+		}
+		
+		for (Projectile p : projectiles) {
+			if (p.life <= 0) {
+				projectiles.remove(p);
+				break;
+			}
+			p.update();
+			for (EnemySpawner es : l.getEnemySpawners()) {
+				for (Enemy e : es.enemies) {
+					if (p.checkHit(e) || p.hitWall(l.getPlatforms())) {
+						p.life = 0;
+						break;
+					}
+				}
+				if (p.life <= 0) {
+					break;
+				}
+			}
+		}
+	}
 
 	/**
 	 * Draws the player
@@ -239,6 +250,7 @@ public class Player extends Sprite {
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
 		if (this.flashing && Math.random() > 0.75f) return;
+		
 		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
 				!facingRight ? getWidth() : -getWidth(), getHeight());
 		

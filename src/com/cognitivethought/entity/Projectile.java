@@ -1,11 +1,15 @@
 package com.cognitivethought.entity;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cognitivethought.entity.enemy.Enemy;
+import com.cognitivethought.level.parts.Platform;
 
 public class Projectile extends Sprite {
 	
@@ -45,5 +49,12 @@ public class Projectile extends Sprite {
 	
 	public void render(Batch b) {
 		this.draw(b);
+	}
+
+	public boolean hitWall(ArrayList<Platform> platforms) {
+		for(Platform p : platforms) {
+			return new Rectangle(p.getX(), p.getY(), p.getWidth(), p.getHeight()).overlaps(getBoundingRectangle());
+		}
+		return false;
 	}
 }
