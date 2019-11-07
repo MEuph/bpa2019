@@ -66,6 +66,12 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) {
 						  Main.main.setScreen(Main.main.gameScreen);
+						  try {
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+						  } catch (IOException e) {
+							  // TODO Auto-generated catch block
+							  e.printStackTrace();
+						  }
 					  }
 				  });
 			    break;
