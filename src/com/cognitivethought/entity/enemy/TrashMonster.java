@@ -198,7 +198,6 @@ public class TrashMonster extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
-		if (!deathThreadPaused) return;
 		attackRange = 1f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
