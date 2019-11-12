@@ -12,6 +12,7 @@ public class Spawnpoint {
 	public Spawnpoint(float x, float y) {
 		player = new Player(new Texture("assets/Player/base.png")); // Create Player
 		player.setPosition(x, y);
+		player.setSize(36f * 2f, 52f * 2f);
 	}
 
 	public Player getPlayer() {

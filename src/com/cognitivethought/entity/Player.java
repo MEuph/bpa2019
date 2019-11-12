@@ -20,6 +20,7 @@ public class Player extends Sprite {
 	
 	final int attackCol = 4, attackRow = 4;
 	final int deathCol = 2, deathRow = 11;
+	final int idleCol = 4, idleRow = 4;
 	
 	// The velocity of the player
 	private float dx, dy;
@@ -42,7 +43,7 @@ public class Player extends Sprite {
 	
 	public boolean flashing = false;
 	
-	float attackTime, deathTime;
+	float attackTime, deathTime, idleTime;
 	
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	
@@ -54,6 +55,9 @@ public class Player extends Sprite {
 	
 	Animation<TextureRegion> deathAnimation;
 	Texture deathSheet;
+	
+	Animation<TextureRegion> idleAnimation;
+	Texture idleSheet;
 	
 	/**
 	 * Instantiates a new Player in the scene
@@ -69,6 +73,7 @@ public class Player extends Sprite {
 	void createAnimations() {
 		attackSheet = new Texture("assets/Player/throw.png");
 		deathSheet = new Texture("assets/Player/death.png");
+		idleSheet = new Texture("assets/Player/idle.png");
 		
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
 				attackSheet.getHeight() / attackRow);
@@ -90,8 +95,18 @@ public class Player extends Sprite {
 			}
 		}
 		
+		tmp = TextureRegion.split(idleSheet, idleSheet.getWidth() / idleCol, idleSheet.getHeight() / idleRow);
+		TextureRegion[] idleFrames = new TextureRegion[idleCol * idleRow];
+		x = 0;
+		for (int i = 0; i < idleRow; i++) {
+			for (int j = 0; j < idleCol; j++) {
+				idleFrames[x++] = tmp[i][j];
+			}
+		}
+		
 		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
+		idleAnimation = new Animation<TextureRegion>(0.09f, idleFrames);
 	}
 	
 	/**
@@ -109,9 +124,11 @@ public class Player extends Sprite {
 		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)) {
 			left = true;
 			right = false;
+			idleTime = 0f;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)) {
 			right = true;
 			left = false;
+			idleTime = 0f;
 		} else {
 			left = false;
 			right = false;
@@ -122,6 +139,7 @@ public class Player extends Sprite {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)) {
 			jump();
 			jumps++;
+			idleTime = 0f;
 		}
 		
 		// If colliding with platform top
@@ -168,10 +186,31 @@ public class Player extends Sprite {
 				flashing = false;
 			}
 		}
-
-		shoot(l);
 		
-		if (attackTime < 1f) attackTime += 5 * Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+			shoot(l);
+		}
+
+		for (Projectile p : projectiles) {
+			if (p.life <= 0) {
+				projectiles.remove(p);
+				break;
+			}
+			p.update();
+			for (EnemySpawner es : l.getEnemySpawners()) {
+				for (Enemy e : es.enemies) {
+					if (p.checkHit(e) || p.hitWall(l.getPlatforms())) {
+						p.life = 0;
+						break;
+					}
+				}
+				if (p.life <= 0) {
+					break;
+				}
+			}
+		}
+		
+		if (attackTime < 1f) attackTime += .1;
 		
 		System.out.println(attackTime);
 		
@@ -204,40 +243,19 @@ public class Player extends Sprite {
 	}
 	
 	void shoot(Level l) {
-		if (attackTime < 1f && attackTime >= 0f) return;
+		if (attackTime < .95f) return; // Due to potential floating point rounding errors, there is a .05 tolerance in attack time
+		
+		System.out.println("test");
+		
+		float div = 240f;
+		
+		float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
+		float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
+		
+		Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, vy > 1f ? vy : 1f, 100);
+		projectiles.add(p);
 		
 		attackTime = 0f;
-		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-			System.out.println("test");
-			
-			float div = 240f;
-			
-			float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
-			float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
-			
-			Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, vy > 1f ? vy : 1f, 100);
-			projectiles.add(p);
-		}
-		
-		for (Projectile p : projectiles) {
-			if (p.life <= 0) {
-				projectiles.remove(p);
-				break;
-			}
-			p.update();
-			for (EnemySpawner es : l.getEnemySpawners()) {
-				for (Enemy e : es.enemies) {
-					if (p.checkHit(e) || p.hitWall(l.getPlatforms())) {
-						p.life = 0;
-						break;
-					}
-				}
-				if (p.life <= 0) {
-					break;
-				}
-			}
-		}
 	}
 
 	/**
@@ -249,13 +267,28 @@ public class Player extends Sprite {
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
-		if (this.flashing && Math.random() > 0.75f) return;
-		
-		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
-				!facingRight ? getWidth() : -getWidth(), getHeight());
-		
 		for (Projectile p : projectiles) {
 			sb.draw(p, p.getX(), p.getY());
 		}
+
+		if (this.flashing && Math.random() > 0.75f) return;
+		
+		attackTime = 0f;
+		idleTime+=Gdx.graphics.getDeltaTime();
+		TextureRegion currentFrame = idleAnimation.getKeyFrame(idleTime, true);
+//		System.out.println(facingRight);
+		currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+		this.setFlip(this.isFlipX() || facingRight, false);
+		sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight());
+//		setTexture();
+		//this.flip(facingRight, false);
+		//super.draw(batch);
+		if (idleTime > 1f) {
+			idleTime = 0f;
+		}
+		
+//		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
+//				!facingRight ? getWidth() : -getWidth(), getHeight());
+		
 	}
 }
