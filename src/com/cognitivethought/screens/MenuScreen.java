@@ -17,40 +17,42 @@ import com.cognitivethought.gui.Cloud;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
 
+//Main title screen
+
 public class MenuScreen implements Screen {
 	
-	ArrayList<Cloud> clouds = new ArrayList<Cloud>();
+	ArrayList<Cloud> clouds = new ArrayList<Cloud>(); //arraylist for clouds
 	
-	Texture background = new Texture("assets/UI/placeholderbackground.png");
+	Texture background = new Texture("assets/UI/placeholderbackground.png"); //the background texture
 	
-	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250);
+	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250); //initializing the buttons
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
 	
-	SpriteBatch batch = new SpriteBatch();
+	SpriteBatch batch = new SpriteBatch(); //initializing the spritebatch
 	
-	float y;
+	float y; //
 	float fade;
 	
-	public MenuScreen() {
-		for (int i = 0; i < new Random().nextInt(20) + 10; i++) {
-			clouds.add(new Cloud());
+	public MenuScreen() {  //main function for the Menu screen
+		for (int i = 0; i < new Random().nextInt(20) + 10; i++) { //adds a random amount of clouds to the ArrayList
+			clouds.add(new Cloud()); 
 		}
 		
-		playButton.setClickListener(new ClickListener() {
+		playButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Main.main.setScreen(Main.main.levelselect);
 			}
 		});
 		
-		quitButton.setClickListener(new ClickListener() {
+		quitButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				System.exit(0);
 			}
 		});
 		
-		for (Cloud c : clouds) {
+		for (Cloud c : clouds) { //assigns the clouds with textures and size
 			c.cloud();
 		}
 	}
@@ -74,7 +76,7 @@ public class MenuScreen implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) { //what to do when the screen needs to be rendered
 		Gdx.gl.glClearColor(0f, 0.1f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -90,7 +92,7 @@ public class MenuScreen implements Screen {
 		batch.end();
 
 		
-		if (y >= -800) {
+		if (y >= -800) { //scrolls up the screen y value
 			y-=8;
 		}
 		
