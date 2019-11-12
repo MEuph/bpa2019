@@ -17,26 +17,26 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
-
+//screen to select the level
 public class LevelSelect implements Screen {
-	LevelButton[] levels = new LevelButton[5];
+	LevelButton[] levels = new LevelButton[5]; //list that stores the level buttons
 	
-	Texture background = new Texture("assets/UI/placeholderbackground.png");
+	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
 	
-	SpriteBatch batch = new SpriteBatch();
+	SpriteBatch batch = new SpriteBatch(); //spritebatch initialization
 	
 	float y;
 	float fade;
 	
-	public LevelSelect() {
-		for (int i = 0; i < 5; i++) {
+	public LevelSelect() { //main method of the level selection
+		for (int i = 0; i < levels.length; i++) { //adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
 			levels[i].addButton(i);
-			switch (i) {
+			switch (i) { //switch to determine which level the button takes you to 
 			  case 0:
-				  levels[i].level.setClickListener(new ClickListener() {
+				  levels[i].level.setClickListener(new ClickListener() { 
 					  @Override
-					  public void clicked(InputEvent event, float x, float y) {
+					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 1
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
@@ -50,7 +50,7 @@ public class LevelSelect implements Screen {
 			  case 1:
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
-					  public void clicked(InputEvent event, float x, float y) {
+					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 2
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
@@ -64,7 +64,7 @@ public class LevelSelect implements Screen {
 			  case 2:
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
-					  public void clicked(InputEvent event, float x, float y) {
+					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 3
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
@@ -78,7 +78,7 @@ public class LevelSelect implements Screen {
 			  case 3:
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
-					  public void clicked(InputEvent event, float x, float y) {
+					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 4
 						  Main.main.setScreen(Main.main.gameScreen);
 					  }
 				  });
@@ -86,7 +86,7 @@ public class LevelSelect implements Screen {
 			  case 4:
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
-					  public void clicked(InputEvent event, float x, float y) {
+					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 5
 						  Main.main.setScreen(Main.main.gameScreen);
 					  }
 				  });
@@ -94,7 +94,7 @@ public class LevelSelect implements Screen {
 			    default:
 					  levels[i].level.setClickListener(new ClickListener() {
 						  @Override
-						  public void clicked(InputEvent event, float x, float y) {
+						  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked as a default
 							  System.exit(0);
 						  }
 					  });
@@ -147,7 +147,7 @@ public class LevelSelect implements Screen {
 		
 		if (fade <= 0f) {
 			for(int i = 0; i < levels.length; i++) {
-				levels[i].level.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
+				levels[i].level.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY())); //checks if the button has been clicked per frame
 			}
 		}
 		// Enable transparency blending
