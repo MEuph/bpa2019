@@ -21,7 +21,7 @@ import com.cognitivethought.main.Main;
 //screen to select the level
 public class LevelSelect implements Screen {
 	LevelButton[] levels = new LevelButton[5]; //list that stores the level buttons
-	
+	public static int levelNumber = 0;
 	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
 	
@@ -43,6 +43,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
+							  levelNumber = 1;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -57,6 +58,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+							  levelNumber = 2;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -71,6 +73,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+							  levelNumber = 3;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -83,6 +86,7 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 4
 						  Main.main.setScreen(Main.main.gameScreen);
+						  levelNumber = 4;
 					  }
 				  });
 			    break;
@@ -91,6 +95,7 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 5
 						  Main.main.setScreen(Main.main.gameScreen);
+						  levelNumber = 5;
 					  }
 				  });
 			    break;

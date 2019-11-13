@@ -14,13 +14,17 @@ import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.screens.LevelSelect;
 import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
 	
+	
+	
 	final int attackCol = 4, attackRow = 4;
 	final int deathCol = 2, deathRow = 11;
 	
+	public int levelsPassed = 0;
 	// The velocity of the player
 	private float dx, dy;
 
@@ -136,6 +140,22 @@ public class Player extends Sprite {
 						hb.bark--;
 					} else {
 						hb.health--; // Then decrease health after bark reaches 0
+						if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) {
+							levelsPassed = 1;
+						}
+						if (LevelSelect.levelNumber == 2 && levelsPassed < LevelSelect.levelNumber) {
+							levelsPassed = 2;
+						}
+						if (LevelSelect.levelNumber == 3 && levelsPassed < LevelSelect.levelNumber) {
+							levelsPassed = 3;
+						}
+						if (LevelSelect.levelNumber == 4 && levelsPassed < LevelSelect.levelNumber) {
+							levelsPassed = 4;
+						}
+						if (LevelSelect.levelNumber == 5 && levelsPassed < LevelSelect.levelNumber) {
+							levelsPassed = 5;
+						}
+						System.out.println("levels passed:" + levelsPassed);
 					}
 					this.flashing = true; // Set flashing to true because the player is being harmed
 					this.flashTimer = 2000f; // Set the time to be flashing
