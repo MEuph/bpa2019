@@ -18,7 +18,7 @@ import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
 	
-	final int attackCol = 4, attackRow = 4;
+	final int attackCol = 4, attackRow = 3;
 	final int deathCol = 2, deathRow = 11;
 	final int idleCol = 4, idleRow = 4;
 	
@@ -104,9 +104,9 @@ public class Player extends Sprite {
 			}
 		}
 		
-		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		attackAnimation = new Animation<TextureRegion>(2f / (float)(attackRow * attackCol), attackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
-		idleAnimation = new Animation<TextureRegion>(0.09f, idleFrames);
+		idleAnimation = new Animation<TextureRegion>(3f / (float)(idleRow * idleCol), idleFrames);
 	}
 	
 	/**
@@ -187,7 +187,7 @@ public class Player extends Sprite {
 			}
 		}
 		
-		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 			shoot(l);
 		}
 
@@ -209,11 +209,7 @@ public class Player extends Sprite {
 				}
 			}
 		}
-		
-		if (attackTime < 1f) attackTime += .1;
-		
-		System.out.println(attackTime);
-		
+	
 		if (left) {
 			dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
 			dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
@@ -243,7 +239,9 @@ public class Player extends Sprite {
 	}
 	
 	void shoot(Level l) {
-		if (attackTime < .95f) return; // Due to potential floating point rounding errors, there is a .05 tolerance in attack time
+		if (attackTime > 0.01f) return; // Due to potential floating point rounding errors, there is a .01 tolerance in attack time
+		
+		attackTime = 0.02f;
 		
 		System.out.println("test");
 		
@@ -254,8 +252,6 @@ public class Player extends Sprite {
 		
 		Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, vy > 1f ? vy : 1f, 100);
 		projectiles.add(p);
-		
-		attackTime = 0f;
 	}
 
 	/**
@@ -273,18 +269,34 @@ public class Player extends Sprite {
 
 		if (this.flashing && Math.random() > 0.75f) return;
 		
-		attackTime = 0f;
-		idleTime+=Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = idleAnimation.getKeyFrame(idleTime, true);
-//		System.out.println(facingRight);
-		currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
-		this.setFlip(this.isFlipX() || facingRight, false);
-		sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight());
-//		setTexture();
-		//this.flip(facingRight, false);
-		//super.draw(batch);
-		if (idleTime > 1f) {
+		 if (attackTime > 0f && attackTime <= 2f){
+			System.out.println(attackTime);
+			attackTime+=Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
+			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight()*1.25f);
+	//		setTexture();
+			//this.flip(facingRight, false);
+			//super.draw(batch);
+			if (attackTime >= 2f) {
+				attackTime = 0f;
+			}
+		} else {
+			System.out.println(idleTime);
+			idleTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
+	//		System.out.println(facingRight);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(), facingRight ? -getWidth() : getWidth(), getHeight());
+	//		setTexture();
+			//this.flip(facingRight, false);
+			//super.draw(batch);
+			if (idleTime > 5f) {
+				idleTime = 0f;
+			}
 		}
 		
 //		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),

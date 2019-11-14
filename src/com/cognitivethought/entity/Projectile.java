@@ -32,8 +32,6 @@ public class Projectile extends Sprite {
 		
 		dy -= 9.81 * Gdx.graphics.getDeltaTime();
 		
-		System.out.println(Gdx.graphics.getDeltaTime());
-		
 		if (dy < -9.81*2) {
 			dy = -9.81f*2;
 		}
