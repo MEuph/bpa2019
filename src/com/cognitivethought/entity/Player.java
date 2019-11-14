@@ -266,8 +266,6 @@ public class Player extends Sprite {
 	void shoot(Level l) {
 		if (attackTime > 0.01f) return; // Due to potential floating point rounding errors, there is a .01 tolerance in attack time
 
-		float div = 240f;
-		
 		facingRight = Gdx.input.getX() >= 1920 / 2;
 		
 		p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0), l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100);
@@ -276,14 +274,6 @@ public class Player extends Sprite {
 			public void run() {
 				attackTime = 0.02f;
 				
-				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
-				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
-				float vx = Gdx.input.getX() <= (1920 / 2) ? -5 : 5; //(((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
-				float vy = 0;
-				p.dx = vx;
-				p.dy = vy;
-				//float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
-				
 				System.out.println("test");
 				
 				try {
@@ -291,6 +281,14 @@ public class Player extends Sprite {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				
+				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
+				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
+				float vx = Gdx.input.getX() <= (1920 / 2) ? -5 : 5; //(((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
+				float vy = 0;
+				p.dx = vx;
+				p.dy = vy;
+				//float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
 				
 				projectiles.add(p);
 			}
