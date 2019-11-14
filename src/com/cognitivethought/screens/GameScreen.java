@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
+import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
 
 public class GameScreen implements Screen {
@@ -160,6 +162,10 @@ public class GameScreen implements Screen {
 //		if (c.zoom < 0.25f) {
 //			c.zoom = 0.25f;
 //		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { 
+			Main.main.setScreen(Main.main.levelselect);
+		}
 	}
 
 	@Override

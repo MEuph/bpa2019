@@ -24,7 +24,7 @@ public class Player extends Sprite {
 	final int attackCol = 4, attackRow = 4;
 	final int deathCol = 2, deathRow = 11;
 	
-	public int levelsPassed = 0;
+	public static int levelsPassed = 0;
 	// The velocity of the player
 	private float dx, dy;
 
@@ -120,8 +120,6 @@ public class Player extends Sprite {
 			left = false;
 			right = false;
 		}
-		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)) {
 			jump();

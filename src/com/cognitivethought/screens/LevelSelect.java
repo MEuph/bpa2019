@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.gui.LevelButton;
+import com.cognitivethought.entity.Player;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 //screen to select the level
@@ -42,6 +43,7 @@ public class LevelSelect implements Screen {
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 1
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
+							  Main.main.setScreen(Main.main.gameScreen);
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
 							  levelNumber = 1;
 						  } catch (IOException e) {
@@ -55,14 +57,17 @@ public class LevelSelect implements Screen {
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 2
-						  Main.main.setScreen(Main.main.gameScreen);
-						  try {
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
-							  levelNumber = 2;
-						  } catch (IOException e) {
-							  // TODO Auto-generated catch block
-							  e.printStackTrace();
-						  }
+						  
+						  if (Player.levelsPassed == 1) {
+							  try {
+								  Main.main.setScreen(Main.main.gameScreen);
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+								  levelNumber = 2;
+							  } catch (IOException e) {
+								  // TODO Auto-generated catch block
+								  e.printStackTrace();
+							  }
+						  } 
 					  }
 				  });
 			    break;
@@ -70,13 +75,15 @@ public class LevelSelect implements Screen {
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 3
-						  Main.main.setScreen(Main.main.gameScreen);
-						  try {
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
-							  levelNumber = 3;
-						  } catch (IOException e) {
-							  // TODO Auto-generated catch block
-							  e.printStackTrace();
+						  if (Player.levelsPassed == 2) {
+							  try {
+								  Main.main.setScreen(Main.main.gameScreen);
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+								  levelNumber = 3;
+							  } catch (IOException e) {
+								  // TODO Auto-generated catch block
+								  e.printStackTrace();
+							  }
 						  }
 					  }
 				  });
