@@ -123,11 +123,11 @@ public class Player extends Sprite {
 		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
 		float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)) {
+		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && !(attackTime > 0f && attackTime <= 2f)) {
 			left = true;
 			right = false;
 			idleTime = 0f;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)) {
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && !(attackTime > 0f && attackTime <= 2f)) {
 			right = true;
 			left = false;
 			idleTime = 0f;
@@ -136,7 +136,14 @@ public class Player extends Sprite {
 			right = false;
 		}
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)) {
+		if (attackTime > 0f && attackTime <= 2f) {
+			left = false;
+			right = false;
+		}
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4) && (attackTime > 0f && attackTime <= 2f)) {
 			jump();
 			jumps++;
 			idleTime = 0f;
@@ -169,7 +176,6 @@ public class Player extends Sprite {
 						if (LevelSelect.levelNumber == 5 && levelsPassed < LevelSelect.levelNumber) {
 							levelsPassed = 5;
 						}
-						System.out.println("levels passed:" + levelsPassed);
 					}
 					this.flashing = true; // Set flashing to true because the player is being harmed
 					this.flashTimer = 2000f; // Set the time to be flashing
@@ -241,6 +247,7 @@ public class Player extends Sprite {
 
 		setX(getX() + dx * speed); // Could use translate, but this works too
 		setY(getY() + dy * speed);
+		
 	}
 
 	/**
@@ -254,20 +261,40 @@ public class Player extends Sprite {
 		return true;
 	}
 	
+	Projectile p;
+	
 	void shoot(Level l) {
 		if (attackTime > 0.01f) return; // Due to potential floating point rounding errors, there is a .01 tolerance in attack time
-		
-		attackTime = 0.02f;
-		
-		System.out.println("test");
-		
+
 		float div = 240f;
 		
-		float vx = Gdx.input.getX() <= (1920 / 2) ? (((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
-		float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
+		facingRight = Gdx.input.getX() >= 1920 / 2;
 		
-		Projectile p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX(), l.getSpawnpoint().getPlayer().getY() + (getHeight() / 3), vx, vy, vy > 1f ? vy : 1f, 100);
-		projectiles.add(p);
+		p = new Projectile(new Texture("assets/Player/apple.png"), l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0), l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100);
+		
+		new Thread() {
+			public void run() {
+				attackTime = 0.02f;
+				
+				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
+				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
+				float vx = Gdx.input.getX() <= (1920 / 2) ? -5 : 5; //(((Gdx.input.getX() - 960f) * 2f) / div) : ((Gdx.input.getX() - 960f) * 2f / div);
+				float vy = 0;
+				p.dx = vx;
+				p.dy = vy;
+				//float vy = ((520f - Gdx.input.getY()) * 2f / 110f) > 0f ? ((520f - Gdx.input.getY()) * 2f / 110f) : 0f;
+				
+				System.out.println("test");
+				
+				try {
+					sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				projectiles.add(p);
+			}
+		}.start();
 	}
 
 	/**
@@ -286,7 +313,9 @@ public class Player extends Sprite {
 		if (this.flashing && Math.random() > 0.75f) return;
 		
 		 if (attackTime > 0f && attackTime <= 2f){
-			System.out.println(attackTime);
+			left = false;
+			right = false;
+			jumps = 3;
 			attackTime+=Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
@@ -300,7 +329,6 @@ public class Player extends Sprite {
 				attackTime = 0f;
 			}
 		} else {
-			System.out.println(idleTime);
 			idleTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
 	//		System.out.println(facingRight);
