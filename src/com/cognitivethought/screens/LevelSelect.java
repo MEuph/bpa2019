@@ -14,21 +14,24 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 //screen to select the level
 public class LevelSelect implements Screen {
 	LevelButton[] levels = new LevelButton[5]; //list that stores the level buttons
-	
+	public static int levelNumber = 0;
 	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
+	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
 	
 	SpriteBatch batch = new SpriteBatch(); //spritebatch initialization
-	
+
 	float y;
 	float fade;
 	
 	public LevelSelect() { //main method of the level selection
+		
 		for (int i = 0; i < levels.length; i++) { //adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
 			levels[i].addButton(i);
@@ -40,6 +43,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
+							  levelNumber = 1;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -54,6 +58,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+							  levelNumber = 2;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -68,6 +73,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+							  levelNumber = 3;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
@@ -80,6 +86,7 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 4
 						  Main.main.setScreen(Main.main.gameScreen);
+						  levelNumber = 4;
 					  }
 				  });
 			    break;
@@ -88,6 +95,7 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 5
 						  Main.main.setScreen(Main.main.gameScreen);
+						  levelNumber = 5;
 					  }
 				  });
 			    break;
@@ -101,6 +109,12 @@ public class LevelSelect implements Screen {
 				    break;
 			
 			}
+			quitButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					System.exit(0);
+				}
+			});
 		
 		}
 
@@ -128,41 +142,26 @@ public class LevelSelect implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0f, 0.1f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		batch.begin();
 		batch.draw(background, 0, -805, 1920, 1920);
+
 		for(int i = 0; i < levels.length; i++) {
 			levels[i].level.render(batch);
 		}
+		quitButton.render(batch);
 //		for (Cloud c : clouds) {
 //			c.animateBackground(c.cloud);
 //			c.cloud.setY((y+c.cloud.getY()) + 1920 / 2 - 100);
 //			c.cloud.draw(batch, delta);
 //		}
 		batch.end();
-
-		
-		
-		
-		
 		if (fade <= 0f) {
 			for(int i = 0; i < levels.length; i++) {
 				levels[i].level.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY())); //checks if the button has been clicked per frame
+				quitButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 			}
 		}
-		// Enable transparency blending
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		// If still fading, then draw the black fade rectangle
-		if (fade > 0f) {
-			ShapeRenderer sp = new ShapeRenderer();
-			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0, 0, 0, fade));
-			sp.rect(0f, 0f, 1920f, 1080f);
-			sp.end();
-		}
-		// Disable transparency blending
-		Gdx.gl.glDisable(GL20.GL_BLEND);
+
 	}
 
 	@Override
