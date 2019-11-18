@@ -19,6 +19,8 @@ import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
 	
+	final float timeToAttack = 0.5f;
+	
 	final int attackCol = 4, attackRow = 3;
 	final int deathCol = 2, deathRow = 11;
 	final int idleCol = 4, idleRow = 4;
@@ -106,7 +108,7 @@ public class Player extends Sprite {
 			}
 		}
 		
-		attackAnimation = new Animation<TextureRegion>(2f / (float)(attackRow * attackCol), attackFrames);
+		attackAnimation = new Animation<TextureRegion>(timeToAttack / (float)(attackRow * attackCol), attackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		idleAnimation = new Animation<TextureRegion>(3f / (float)(idleRow * idleCol), idleFrames);
 	}
@@ -123,11 +125,11 @@ public class Player extends Sprite {
 		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
 		float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && !(attackTime > 0f && attackTime <= 2f)) {
+		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && (dy == 0 && !(attackTime > 0f && attackTime <= timeToAttack))) {
 			left = true;
 			right = false;
 			idleTime = 0f;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && !(attackTime > 0f && attackTime <= 2f)) {
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && (dy == 0 && !(attackTime > 0f && attackTime <= timeToAttack))) {
 			right = true;
 			left = false;
 			idleTime = 0f;
@@ -136,14 +138,14 @@ public class Player extends Sprite {
 			right = false;
 		}
 		
-		if (attackTime > 0f && attackTime <= 2f) {
+		if (attackTime > 0f && attackTime <= timeToAttack) {
 			left = false;
 			right = false;
 		}
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4) && (attackTime > 0f && attackTime <= 2f)) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4) && (attackTime > 0f && attackTime <= timeToAttack)) {
 			jump();
 			jumps++;
 			idleTime = 0f;
@@ -223,6 +225,7 @@ public class Player extends Sprite {
 				for (Enemy e : es.enemies) {
 					if (p.checkHit(e) || p.hitWall(l.getPlatforms())) {
 						p.life = 0;
+						System.out.println("test");
 						break;
 					}
 				}
@@ -274,10 +277,8 @@ public class Player extends Sprite {
 			public void run() {
 				attackTime = 0.02f;
 				
-				System.out.println("test");
-				
 				try {
-					sleep(2000);
+					sleep((int)(timeToAttack * 1000f));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -310,7 +311,7 @@ public class Player extends Sprite {
 
 		if (this.flashing && Math.random() > 0.75f) return;
 		
-		 if (attackTime > 0f && attackTime <= 2f){
+		 if (attackTime > 0f && attackTime <= timeToAttack){
 			left = false;
 			right = false;
 			jumps = 3;
@@ -323,7 +324,7 @@ public class Player extends Sprite {
 	//		setTexture();
 			//this.flip(facingRight, false);
 			//super.draw(batch);
-			if (attackTime >= 2f) {
+			if (attackTime >= timeToAttack) {
 				attackTime = 0f;
 			}
 		} else {
