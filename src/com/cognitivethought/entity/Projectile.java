@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.level.parts.Platform;
@@ -40,7 +39,7 @@ public class Projectile extends Sprite {
 	}
 	
 	public boolean checkHit(Enemy e) {
-		if (e.getBoundingRectangle().contains(this.getBoundingRectangle()) && !(e.deathThreadTime > 0)) {
+		if (e.getBoundingRectangle().overlaps(this.getBoundingRectangle()) && !(e.deathThread.isAlive())) {
 			e.die();
 			return true;
 		}
@@ -52,8 +51,12 @@ public class Projectile extends Sprite {
 	}
 
 	public boolean hitWall(ArrayList<Platform> platforms) {
-		for(Platform p : platforms) {
-			return new Rectangle(p.getX(), p.getY(), p.getWidth(), p.getHeight()).overlaps(getBoundingRectangle());
+		for (Platform p : platforms) {
+			if (p.collideBottom && p.collideTop && p.collideRight && p.collideLeft) {
+				if (p.getBoundingRectangle().overlaps(getBoundingRectangle())) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}

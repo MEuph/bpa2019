@@ -113,7 +113,7 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/filledplat.png"), j*scale, -i*scale, scale, scale, true, false, false, true));
 					break;
 				case(-16735512):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/wall.png"), j*scale, -i*scale, scale, scale, false, true, true, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/wall.png"), j*scale, -i*scale, scale, scale, true, true, true, true));
 					break;
 				case(-7864299):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));

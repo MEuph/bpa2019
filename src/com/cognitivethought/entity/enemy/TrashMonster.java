@@ -23,7 +23,7 @@ public class TrashMonster extends Enemy {
 	float jumpTime;
 	float deathTime;
 	
-	final float propWidth = 72f, propHeight = 94.28571f;
+	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
 	boolean deathThreadPaused;
 	
