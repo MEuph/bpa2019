@@ -58,7 +58,7 @@ public class LevelSelect implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 2
 						  
-						  if (Player.levelsPassed == 1) {
+						  if (Player.levelsPassed >= 1) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
 								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
@@ -75,7 +75,7 @@ public class LevelSelect implements Screen {
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 3
-						  if (Player.levelsPassed == 2) {
+						  if (Player.levelsPassed >= 2) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
 								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
