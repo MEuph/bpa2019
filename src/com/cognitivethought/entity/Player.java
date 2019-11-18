@@ -144,6 +144,7 @@ public class Player extends Sprite {
 	 * @param l Used for collision detection purposes
 	 */
 	public void update(Level l, HealthBar hb) {
+<<<<<<< HEAD
 		if (deathThreadPaused) {
 			if (dy > -15f) // Cap the y velocity in the downward direction at 15 pixels per frame
 				dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
@@ -208,6 +209,53 @@ public class Player extends Sprite {
 							if (LevelSelectScreen.levelNumber == 5 && levelsPassed < LevelSelectScreen.levelNumber) {
 								levelsPassed = 5;
 							}
+=======
+		if (dy > -15f) // Cap the y velocity in the downward direction at 15 pixels per frame
+			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
+
+		float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
+		float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4) && (dy == 0 && !(attackTime > 0f && attackTime <= timeToAttack))) {
+			left = true;
+			right = false;
+			idleTime = 0f;
+		} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6) && (dy == 0 && !(attackTime > 0f && attackTime <= timeToAttack))) {
+			right = true;
+			left = false;
+			idleTime = 0f;
+		} else {
+			left = false;
+			right = false;
+		}
+		
+		if (attackTime > 0f && attackTime <= timeToAttack) {
+			left = false;
+			right = false;
+		}
+		
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4) && (attackTime > 0f && attackTime <= timeToAttack)) {
+			jump();
+			jumps++;
+			idleTime = 0f;
+		}
+		
+		// If colliding with platform top
+		// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
+		for (Platform plat : l.getPlatforms()) {
+			if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
+				dy = 0; // Stop vertical movement
+				setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
+				jumps = 0; // Reset jump counter
+				if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already being harmed
+					if (hb.bark >= 0) { // Decrease bark first
+						hb.bark--;
+					} else {
+						hb.health--; // Then decrease health after bark reaches 0 
+						if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) { //temporary level passed detection for when you hurt hearts on a level
+							levelsPassed = 1;
+>>>>>>> refs/remotes/origin/master
 						}
 						this.flashing = true; // Set flashing to true because the player is being harmed
 						this.flashTimer = 2000f; // Set the time to be flashing
