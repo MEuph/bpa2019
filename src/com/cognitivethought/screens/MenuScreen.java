@@ -41,7 +41,7 @@ public class MenuScreen implements Screen {
 		playButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Main.main.setScreen(Main.main.levelselect);
+				Main.main.setScreen(Main.main.levelSelectScreen);
 			}
 		});
 		

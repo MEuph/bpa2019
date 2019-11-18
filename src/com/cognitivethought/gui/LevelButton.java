@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.cognitivethought.screens.LevelSelect;
+import com.cognitivethought.screens.LevelSelectScreen;
 //Object class fot the level buttons
 public class LevelButton {
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //gets the screen size

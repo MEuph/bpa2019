@@ -6,21 +6,18 @@ import javax.imageio.ImageIO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.cognitivethought.entity.Player;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.gui.LevelButton;
-import com.cognitivethought.entity.Player;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 //screen to select the level
-public class LevelSelect implements Screen {
+public class LevelSelectScreen implements Screen {
 	LevelButton[] levels = new LevelButton[5]; //list that stores the level buttons
 	public static int levelNumber = 0;
 	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
@@ -31,7 +28,7 @@ public class LevelSelect implements Screen {
 	float y;
 	float fade;
 	
-	public LevelSelect() { //main method of the level selection
+	public LevelSelectScreen() { //main method of the level selection
 		
 		for (int i = 0; i < levels.length; i++) { //adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
@@ -44,7 +41,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.setScreen(Main.main.gameScreen);
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
 							  levelNumber = 1;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
@@ -61,7 +58,7 @@ public class LevelSelect implements Screen {
 						  if (Player.levelsPassed == 1) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")), Main.main.gameScreen);
 								  levelNumber = 2;
 							  } catch (IOException e) {
 								  // TODO Auto-generated catch block
@@ -78,7 +75,7 @@ public class LevelSelect implements Screen {
 						  if (Player.levelsPassed == 2) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")), Main.main.gameScreen);
 								  levelNumber = 3;
 							  } catch (IOException e) {
 								  // TODO Auto-generated catch block

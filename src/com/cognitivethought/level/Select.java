@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,8 +17,8 @@ public class Select extends Level {
 		super(s);
 	}
 	
-	public Select(BufferedImage b) {
-		super(b);
+	public Select(BufferedImage b, Screen s) {
+		super(b, s);
 		int[][] data = new int[b.getHeight()][b.getWidth()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
@@ -74,10 +75,6 @@ public class Select extends Level {
 				case(-7864299):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
-					break;
-				case(-16777216):
-				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
-					addSpawnpoint(new Spawnpoint(j*scale,-i*scale));
 					break;
 				}
 			}

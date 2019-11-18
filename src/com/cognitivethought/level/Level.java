@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -61,7 +62,7 @@ public class Level {
 	
 	final int scale = 48;
 	
-	public Level(BufferedImage b) {
+	public Level(BufferedImage b, Screen s) {
 		int[][] data = new int[b.getWidth()][b.getHeight()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
@@ -121,7 +122,7 @@ public class Level {
 					break;
 				case(-16777216):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
-					addSpawnpoint(new Spawnpoint(j*scale,-i*scale));
+					addSpawnpoint(new Spawnpoint(j*scale,-i*scale, s));
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();

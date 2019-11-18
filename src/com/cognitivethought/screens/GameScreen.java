@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
 		font.setColor(Color.WHITE);
 		
 		try {
-			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png"))); // Initialize level with 'testlevel.level'
+			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), this); // Initialize level with 'testlevel.level'
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -164,7 +164,7 @@ public class GameScreen implements Screen {
 //		}
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { 
-			Main.main.setScreen(Main.main.levelselect);
+			Main.main.setScreen(Main.main.levelSelectScreen);
 		}
 	}
 

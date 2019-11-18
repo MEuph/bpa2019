@@ -1,5 +1,6 @@
 package com.cognitivethought.level;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.cognitivethought.entity.Player;
 
@@ -9,8 +10,8 @@ public class Spawnpoint {
 	
 	private Player player;
 	
-	public Spawnpoint(float x, float y) {
-		player = new Player(new Texture("assets/Player/base.png")); // Create Player
+	public Spawnpoint(float x, float y, Screen s) {
+		player = new Player(new Texture("assets/Player/base.png"), s); // Create Player
 		player.setPosition(x, y);
 		player.setSize(36f * 2f, 52f * 2f);
 	}
