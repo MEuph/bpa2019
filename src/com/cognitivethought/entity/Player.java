@@ -141,7 +141,6 @@ public class Player extends Sprite {
 			right = false;
 		}
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) Gdx.app.exit();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4) && (attackTime > 0f && attackTime <= 2f)) {
 			jump();
@@ -160,8 +159,8 @@ public class Player extends Sprite {
 					if (hb.bark >= 0) { // Decrease bark first
 						hb.bark--;
 					} else {
-						hb.health--; // Then decrease health after bark reaches 0
-						if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) {
+						hb.health--; // Then decrease health after bark reaches 0 
+						if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) { //temporary level passed detection for when you hurt hearts on a level
 							levelsPassed = 1;
 						}
 						if (LevelSelect.levelNumber == 2 && levelsPassed < LevelSelect.levelNumber) {
