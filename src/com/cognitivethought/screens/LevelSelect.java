@@ -32,6 +32,7 @@ public class LevelSelect implements Screen {
 	float fade;
 	
 	public LevelSelect() { //main method of the level selection
+		final LevelSelect ls = this;
 		
 		for (int i = 0; i < levels.length; i++) { //adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
@@ -44,7 +45,7 @@ public class LevelSelect implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.setScreen(Main.main.gameScreen);
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")));
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), ls);
 							  levelNumber = 1;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
@@ -61,7 +62,7 @@ public class LevelSelect implements Screen {
 						  if (Player.levelsPassed >= 1) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")));
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")), ls);
 								  levelNumber = 2;
 							  } catch (IOException e) {
 								  // TODO Auto-generated catch block
@@ -78,7 +79,7 @@ public class LevelSelect implements Screen {
 						  if (Player.levelsPassed >= 2) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")));
+								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")), ls);
 								  levelNumber = 3;
 							  } catch (IOException e) {
 								  // TODO Auto-generated catch block
