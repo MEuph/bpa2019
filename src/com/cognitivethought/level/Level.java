@@ -15,6 +15,7 @@ import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.ui.HealthBar;
 
 public class Level {

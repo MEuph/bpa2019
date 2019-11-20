@@ -174,8 +174,6 @@ public class Player extends Sprite {
 				right = false;
 			}
 
-			if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-				Gdx.app.exit();
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
 					|| Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)
