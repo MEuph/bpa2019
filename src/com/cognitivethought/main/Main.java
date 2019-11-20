@@ -5,7 +5,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
-import com.cognitivethought.screens.InventoryScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.screens.MenuScreen;
 
@@ -24,7 +23,6 @@ public class Main extends Game implements ApplicationListener {
 	public LevelSelectScreen levelSelectScreen;
 	
 	public DeathScreen deathScreen;
-	//public InventoryScreen inventoryScreen;
 	
 	@Override
 	public void create() {
@@ -33,7 +31,6 @@ public class Main extends Game implements ApplicationListener {
 		menuScreen			= new MenuScreen();
 		levelSelectScreen	= new LevelSelectScreen();
 		deathScreen 		= new DeathScreen(null);
-		//inventoryScreen 	= new InventoryScreen();
 		setScreen(menuScreen);
 	}
 
