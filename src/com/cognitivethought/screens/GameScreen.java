@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.ui.InventoryBar;
 
 public class GameScreen implements Screen {
 
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
 	OrthographicCamera c; // Camera
 	
 	HealthBar hb = new HealthBar();
+	InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt");
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
@@ -132,6 +134,7 @@ public class GameScreen implements Screen {
 		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
 		
 		hb.render(batch, c);
+		ib.render(batch, c);
 		
 		batch.end();
 

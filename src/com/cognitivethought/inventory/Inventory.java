@@ -1,14 +1,17 @@
 package com.cognitivethought.inventory;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Inventory {
 	
-	ArrayList<Item> items;
+	ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Inventory() {
 		
@@ -25,15 +28,26 @@ public class Inventory {
 			data.add(Integer.parseInt(sc.next()));
 		}
 		
-		for (int i = 0; i < data.size(); i+=2) {
-			items.add(new Item(data.get(i), data.get(i+1)));
+		for (int i = 0; i < data.size(); i+=3) {
+			items.add(new Item(data.get(i), data.get(i+1), data.get(i+2)));
 		}
 		
 		sc.close();
 	}
 	
-	public void save(String toSaveTo) {
+	public void save(String toSaveTo) throws IOException {
+		String data = "";
 		
+		for (Item i : items) {
+			data += i.getId() + ";" + i.getQuantity() + ";" + i.getPosition() + ";";
+		}
+		
+		BufferedWriter writer = new BufferedWriter(new FileWriter(toSaveTo));
+		writer.write(data);
+		writer.close();
 	}
 	
+	public ArrayList<Item> getItems() {
+		return items;
+	}
 }
