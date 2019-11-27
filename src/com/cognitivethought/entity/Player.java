@@ -17,8 +17,6 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.screens.DeathScreen;
-import com.cognitivethought.screens.LevelSelect;
-import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
@@ -173,7 +171,20 @@ public class Player extends Sprite {
 				left = false;
 				right = false;
 			}
-
+			
+			if (left) {
+				dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
+				dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
+				facingRight = false;
+			} else if (right) {
+				dx += dx < maxSpeed ? vxChange : 0; // if dx has not yet reached maximum speed, increment it
+				dx = dx > maxSpeed ? maxSpeed : dx; // cap dx at its maximum speed
+				facingRight = true;
+			} else {
+				dx = dx != 0 ? (dx < 0 ? dx + vxChange : dx - vxChange) : 0; // normalize dx to 0 by using vxChange
+				dx = dx > -1 && dx < 1 ? 0 : dx; // if dx is between -1 and 1, just set it to 0. This makes it so
+													// vxChange
+			}
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
 					|| Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)
@@ -190,93 +201,38 @@ public class Player extends Sprite {
 			// If colliding with platform top
 			// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
 			for (Platform plat : l.getPlatforms()) {
-				if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
-						.overlaps(getBoundingRectangle()) && dy < 0
-						&& getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
+				if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy < 0 && getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
 					dy = 0; // Stop vertical movement
 					setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
 					jumps = 0; // Reset jump counter
-					if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
-															// being harmed
+					if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already being harmed
 						if (hb.bark >= 0) { // Decrease bark first
 							hb.bark--;
-							this.flashing = true;
-							this.flashTimer = 100f;
 						} else {
-							this.flashing = true;
-							this.flashTimer = 100f;
 							hb.health--; // Then decrease health after bark reaches 0
-							if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 1;
-							}
-							if (LevelSelectScreen.levelNumber == 2 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 2;
-							}
-							if (LevelSelectScreen.levelNumber == 3 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 3;
-							}
-							if (LevelSelectScreen.levelNumber == 4 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 4;
-							}
-							if (LevelSelectScreen.levelNumber == 5 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 5;
-							}
 						}
+						this.flashing = true; // Set flashing to true because the player is being harmed
+						this.flashTimer = 2000f; // Set the time to be flashing
 					}
 				}
-			}
-
-			// If colliding with platform top
-			// SOON TO BE OBSOLETE. DO NOT RELY ON THIS CODE
-			for (Platform plat : l.getPlatforms()) {
-				if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
-						.overlaps(getBoundingRectangle()) && dy < 0
-						&& getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
+				
+				
+				if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
+//					System.out.println(getY() + getHeight() + " " + plat.getY()); // For debugging purposes
 					dy = 0; // Stop vertical movement
-					setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
-					jumps = 0; // Reset jump counter
-					if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
-															// being harmed
-						if (hb.bark >= 0) { // Decrease bark first
-							hb.bark--;
-							this.flashing = true; // Set flashing to true because the player is being harmed
-							this.flashTimer = 100f; // Set the time to be flashing
-						} else {
-							hb.health--; // Then decrease health after bark reaches 0
-							if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) {
-								levelsPassed = 1;
-							}
-							this.flashing = true; // Set flashing to true because the player is being harmed
-							this.flashTimer = 100f; // Set the time to be flashing
-						}
-					}
-
-					if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
-							.overlaps(getBoundingRectangle()) && dy > 0
-							&& getY() + getHeight() >= plat.getY() + plat.getHeight() && plat.collideBottom) {
-						// System.out.println(getY() + getHeight() + " " + plat.getY()); // For
-						// debugging purposes
-						dy = 0; // Stop vertical movement
-						setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of
-																					// the platform
-					}
-
-					Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
-					if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0
-							&& getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft
-							&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-						dx = 0; // Stop horizontal movement
-						setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
-					}
-
-					Rectangle rightOfPlatform = new Rectangle(plat.getX() + plat.getWidth() - 2f, plat.getY(), 2f,
-							plat.getHeight());
-					if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0
-							&& getX() <= plat.getX() + plat.getWidth() && plat.collideRight
-							&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-						dx = 0; // Stop horizontal movement
-						setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
-					}
+					setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of the platform
+				}
+				
+				Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
+				if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+					dx = 0; // Stop horizontal movement
+					setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
+				}
+				
+				Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
+				if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+					dx = 0; // Stop horizontal movement
+					setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 				}
 			}
 			
@@ -314,20 +270,6 @@ public class Player extends Sprite {
 						break;
 					}
 				}
-			}
-
-			if (left) {
-				dx += dx > -maxSpeed ? -vxChange : 0; // if dx has not yet reached maximum speed, increment it
-				dx = dx < -maxSpeed ? -maxSpeed : dx; // cap dx at its maximum speed
-				facingRight = false;
-			} else if (right) {
-				dx += dx < maxSpeed ? vxChange : 0; // if dx has not yet reached maximum speed, increment it
-				dx = dx > maxSpeed ? maxSpeed : dx; // cap dx at its maximum speed
-				facingRight = true;
-			} else {
-				dx = dx != 0 ? (dx < 0 ? dx + vxChange : dx - vxChange) : 0; // normalize dx to 0 by using vxChange
-				dx = dx > -1 && dx < 1 ? 0 : dx; // if dx is between -1 and 1, just set it to 0. This makes it so
-													// vxChange
 			}
 
 			setX(getX() + dx * speed); // Could use translate, but this works too
