@@ -2,25 +2,25 @@ package com.cognitivethought.level;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.cognitivethought.entity.Player;
+import com.cognitivethought.entity.TreePlayer;
 
 public class Spawnpoint {
 
 	float x, y;
 	
-	private Player player;
+	private TreePlayer player;
 	
 	public Spawnpoint(float x, float y, Screen s) {
-		player = new Player(new Texture("assets/Player/base.png"), s); // Create Player
+		player = new TreePlayer(new Texture("assets/Player/base.png"), s); // Create Player
 		player.setPosition(x, y);
 		player.setSize(36f * 2f, 52f * 2f);
 	}
 
-	public Player getPlayer() {
+	public TreePlayer getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(TreePlayer player) {
 		this.player = player;
 	}
 	

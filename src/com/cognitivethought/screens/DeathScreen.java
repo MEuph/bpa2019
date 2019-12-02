@@ -14,17 +14,23 @@ import com.cognitivethought.main.Main;
 
 public class DeathScreen implements Screen {
 	
-	Texture background = new Texture("assets/UI/placeholderbackground.png"); //the background texture
+	Texture background; //the background texture
 	
-	ImageButton retryButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250); //initializing the buttons
-	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
+	ImageButton retryButton; //initializing the buttons
+	ImageButton quitButton;
 	
-	SpriteBatch batch = new SpriteBatch(); //initializing the spritebatch
+	SpriteBatch batch; //initializing the spritebatch
 	
-	Screen toResetTo;
+	public Screen toResetTo;
 	
 	public DeathScreen(Screen toRestartTo) {  //main function for the Death screen
 		this.toResetTo = toRestartTo;
+		
+		background = new Texture("assets/UI/placeholderbackground.png");
+		retryButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250);
+		quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
+		
+		batch = new SpriteBatch();
 		
 		retryButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override

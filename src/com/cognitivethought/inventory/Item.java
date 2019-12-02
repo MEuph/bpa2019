@@ -20,7 +20,7 @@ public class Item {
 	private static HashMap<Integer, Texture> textureKey = new HashMap<Integer, Texture>();
 	static {
 		textureKey.put(SEED, new Texture("assets/Inventory/Items/apple.png"));
-		textureKey.put(APPLE, new Texture("assets/Inventory/Items/apple.png"));
+		textureKey.put(APPLE, new Texture("assets/Inventory/Items/seed.png"));
 		textureKey.put(ORGANIC_MATTER, new Texture("assets/Inventory/Items/apple.png"));
 	}
 	

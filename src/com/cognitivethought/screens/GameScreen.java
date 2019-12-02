@@ -27,8 +27,8 @@ public class GameScreen implements Screen {
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
 	
-	HealthBar hb = new HealthBar();
-	InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt");
+	public HealthBar hb = new HealthBar();
+	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt");
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
@@ -78,7 +78,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
+//		batch.dispose();
 	}
 
 	@Override

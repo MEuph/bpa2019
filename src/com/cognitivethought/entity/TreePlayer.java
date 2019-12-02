@@ -15,13 +15,10 @@ import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
-import com.cognitivethought.main.Main;
-import com.cognitivethought.screens.DeathScreen;
-import com.cognitivethought.screens.LevelSelect;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
-public class Player extends Sprite {
+public class TreePlayer extends Sprite {
 
 	final float timeToAttack = 0.5f, timeToDie = 1f;
 
@@ -31,29 +28,29 @@ public class Player extends Sprite {
 
 	public static int levelsPassed = 0;
 	// The velocity of the player
-	private float dx, dy;
+	public float dx, dy;
 
 	// Gravitational constant
-	private final float g = 0.198f;
+	public final float g = 0.198f;
 
 	// Multiplied by the velocity when moving the player
-	private final float speed = 2f;
+	public final float speed = 2f;
 
 	public float flashTimer = 0f;
 
 	// How many times the player has jumped in a given jump-cycle
-	private int jumps = 0;
+	public int jumps = 0;
 
 	// Whether the sprite is facing right (flipped)
-	private boolean facingRight;
+	public boolean facingRight;
 
-	private boolean left, right;
+	public boolean left, right;
 
 	public boolean flashing = false;
 
 	public boolean deathThreadPaused = true;
 
-	float attackTime, deathTime, idleTime;
+	public float attackTime, deathTime, idleTime;
 
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
@@ -69,35 +66,17 @@ public class Player extends Sprite {
 	Animation<TextureRegion> idleAnimation;
 	Texture idleSheet;
 
-	Thread deathThread;
+	public Thread deathThread;
 
 	/**
 	 * Instantiates a new Player in the scene
 	 * 
 	 * @param t The image of the player
 	 */
-	public Player(Texture t, Screen s) {
+	public TreePlayer(Texture t, Screen s) {
 		super(t);
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
 		createAnimations();
-
-		deathThread = new Thread() {
-			@SuppressWarnings("static-access")
-			@Override
-			public void run() {
-				try {
-					die();
-					left = right = false;
-					dy = 0;
-					jumps = 4;
-					this.sleep(1);
-					Main.main.deathScreen = new DeathScreen(s);
-					Main.main.setScreen(Main.main.deathScreen);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
 	}
 
 	void createAnimations() {
@@ -175,8 +154,8 @@ public class Player extends Sprite {
 			}
 
 
-			if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
-					|| Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_4)
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
+					|| Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)
 							&& (attackTime > 0f && attackTime <= timeToAttack)) {
 				jump();
 				jumps++;
@@ -243,7 +222,7 @@ public class Player extends Sprite {
 							this.flashTimer = 100f; // Set the time to be flashing
 						} else {
 							hb.health--; // Then decrease health after bark reaches 0
-							if (LevelSelect.levelNumber == 1 && levelsPassed < LevelSelect.levelNumber) {
+							if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
 								levelsPassed = 1;
 							}
 							this.flashing = true; // Set flashing to true because the player is being harmed
@@ -338,7 +317,7 @@ public class Player extends Sprite {
 		}
 	}
 
-	void die() {
+	public void die() {
 		deathThreadPaused = false;
 		attackTime = 0f;
 		deathTime = 0f;
@@ -452,7 +431,7 @@ public class Player extends Sprite {
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(),
-					facingRight ? -getWidth() : getWidth(), getHeight() * 1.25f);
+					facingRight ? -getWidth() : getWidth(), getHeight() * 1f);
 			// setTexture();
 			// this.flip(facingRight, false);
 			// super.draw(batch);

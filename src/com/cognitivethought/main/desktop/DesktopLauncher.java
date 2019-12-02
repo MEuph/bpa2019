@@ -7,7 +7,7 @@ import com.cognitivethought.main.Main;
 public class DesktopLauncher {
 	public static void main(String args[]) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Tree Game";
+		config.title = "Casha";
 		config.width = 1920;
 		config.height = 1080;
 		config.fullscreen = false;

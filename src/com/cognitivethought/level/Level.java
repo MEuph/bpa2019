@@ -15,7 +15,7 @@ import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
-import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
 
 public class Level {
@@ -25,6 +25,7 @@ public class Level {
 	ArrayList<EnemySpawner> es = new ArrayList<>();
 	
 	Spawnpoint sp;
+	Screen screen;
 	
 	/**
 	 * @param s The path of the level file that will be parsed and loaded into this
@@ -39,7 +40,9 @@ public class Level {
 	 *                               PERMANENT. DO NOT MAKE ANY PERMAMENT LEVELS IN
 	 *                               THIS FILE FORMAT
 	 */
-	public Level(String s) throws FileNotFoundException, URISyntaxException {
+	public Level(String s, Screen screen) throws FileNotFoundException, URISyntaxException {
+		this.screen = screen;
+		
 		Scanner sc = new Scanner(new File(Level.class.getResource(s).toURI()));
 		ArrayList<String> file = new ArrayList<>(); // All of the data in the file
 		while (sc.hasNextLine())
@@ -64,6 +67,8 @@ public class Level {
 	final int scale = 48;
 	
 	public Level(BufferedImage b, Screen s) {
+		this.screen = s;
+		
 		int[][] data = new int[b.getWidth()][b.getHeight()];
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
@@ -124,6 +129,7 @@ public class Level {
 				case(-16777216):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					addSpawnpoint(new Spawnpoint(j*scale,-i*scale, s));
+					
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
@@ -144,6 +150,26 @@ public class Level {
 	 */
 	public void addSpawnpoint(Spawnpoint spawnpoint) {
 		this.sp = spawnpoint;
+		
+		sp.getPlayer().deathThread = new Thread() {
+			@SuppressWarnings("static-access")
+			@Override
+			public void run() {
+				try {
+					sp.getPlayer().die();
+					sp.getPlayer().left = sp.getPlayer().right = false;
+					sp.getPlayer().dy = 0;
+					sp.getPlayer().jumps = 4;
+					this.sleep(3000);
+					Main.main.gameScreen.hb.health = 3;
+					Main.main.gameScreen.hb.bark = 2;
+					Main.main.deathScreen.toResetTo = screen;
+					Main.main.setScreen(Main.main.deathScreen);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
 	}
 	
 	public void addSpawner(EnemySpawner spawner) {

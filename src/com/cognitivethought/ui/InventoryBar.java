@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.cognitivethought.inventory.Inventory;
 import com.cognitivethought.inventory.Item;
+import com.cognitivethought.main.Main;
 
 public class InventoryBar {
 	Inventory i;
@@ -30,9 +31,9 @@ public class InventoryBar {
 	
 	public void render(Batch b, OrthographicCamera c) {
 		for (int i = 0; i < this.i.getItems().size(); i++) {
-			int xDisplacement = i*150;
-			float y = c.position.y+425;
-			float x = c.position.x + xDisplacement;
+			int yDisplacement = i*150;
+			float y = c.position.y + (c.viewportHeight / 2) + yDisplacement;
+			float x = c.position.x - (c.viewportWidth / 2) + 10;
 			
 			b.end();
 			ShapeRenderer sp = new ShapeRenderer();

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.cognitivethought.entity.Player;
+import com.cognitivethought.entity.TreePlayer;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.level.Level;
@@ -55,7 +55,7 @@ public class LevelSelectScreen implements Screen {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 2
 						  
-						  if (Player.levelsPassed == 1) {
+						  if (TreePlayer.levelsPassed == 1) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
 								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")), Main.main.gameScreen);
@@ -72,7 +72,7 @@ public class LevelSelectScreen implements Screen {
 				  levels[i].level.setClickListener(new ClickListener() {
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 3
-						  if (Player.levelsPassed == 2) {
+						  if (TreePlayer.levelsPassed == 2) {
 							  try {
 								  Main.main.setScreen(Main.main.gameScreen);
 								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/lvl 3.png")), Main.main.gameScreen);
