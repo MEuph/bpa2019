@@ -17,6 +17,7 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.screens.DeathScreen;
+import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Player extends Sprite {
@@ -215,7 +216,27 @@ public class Player extends Sprite {
 						this.flashTimer = 2000f; // Set the time to be flashing
 					}
 				}
-				
+				if (plat.endsLevel = true) {
+					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 1;
+					}
+
+					if (LevelSelectScreen.levelNumber == 2 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 2;
+					}
+
+					if (LevelSelectScreen.levelNumber == 3 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 3;
+					}
+
+					if (LevelSelectScreen.levelNumber == 4 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 4;
+					}
+
+					if (LevelSelectScreen.levelNumber == 5 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 5;
+					}
+				}
 				
 				if (new Rectangle(plat.getX()+1f, plat.getY()+1f, plat.getWidth()-2f, plat.getHeight()-2f).overlaps(getBoundingRectangle()) && dy > 0 && getY() + getHeight() >= plat.getY() + plat.getHeight()  && plat.collideBottom) {
 //					System.out.println(getY() + getHeight() + " " + plat.getY()); // For debugging purposes
