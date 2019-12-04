@@ -142,6 +142,7 @@ public class Level {
 					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es2);
 				}
+				
 			}
 		}
 	}
