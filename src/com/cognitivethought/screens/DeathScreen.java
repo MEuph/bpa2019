@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.ImageButton;
@@ -19,6 +21,9 @@ public class DeathScreen implements Screen {
 	ImageButton retryButton; //initializing the buttons
 	ImageButton quitButton;
 	
+	Animation<TextureRegion> retryAnimation;
+	Animation<TextureRegion> quitAnimation;
+	
 	SpriteBatch batch; //initializing the spritebatch
 	
 	public Screen toResetTo;
@@ -26,9 +31,12 @@ public class DeathScreen implements Screen {
 	public DeathScreen(Screen toRestartTo) {  //main function for the Death screen
 		this.toResetTo = toRestartTo;
 		
+		retryAnimation = new Animation<TextureRegion>(0, new TextureRegion[0]);
+		quitAnimation = new Animation<TextureRegion>(0, new TextureRegion[0]);
+		
 		background = new Texture("assets/UI/placeholderbackground.png");
-		retryButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250);
-		quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
+		retryButton = new ImageButton(new Texture("assets/UI/Retry Button-1.png.png"), new Texture("assets/UI/Retry Button-2.png.png"), (1920 / 2) - (250 / 2), 500, 250, 250);
+		quitButton = new ImageButton(new Texture("assets/UI/Exit Button-1.png.png"), new Texture("assets/UI/Exit Button-2.png.png"), (1920 / 2) - (250 / 2), 150, 250, 250);
 		
 		batch = new SpriteBatch();
 		

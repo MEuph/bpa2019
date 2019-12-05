@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class HealthBar {
 	
-	public int health = 3;
-	public int bark = 2;
+	public int health = 1;
+	public int bark = -1;
 	
 	private Sprite heartImg;
 	private Sprite barkImg;
