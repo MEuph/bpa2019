@@ -10,6 +10,8 @@ public class Item {
 	public static final int APPLE = 1;
 	public static final int ORGANIC_MATTER = 2;
 	
+	int x, y;
+	
 	private static HashMap<Integer, String> nameKey = new HashMap<Integer, String>();
 	static {
 		nameKey.put(SEED, "Seed");
@@ -72,5 +74,21 @@ public class Item {
 	
 	public static Texture getTexture(int id) {
 		return textureKey.get(id);
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 }
