@@ -41,7 +41,7 @@ public class LevelSelectScreen implements Screen {
 						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
 							  Main.main.setScreen(Main.main.gameScreen);
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
+							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
 							  levelNumber = 1;
 						  } catch (IOException e) {
 							  // TODO Auto-generated catch block
