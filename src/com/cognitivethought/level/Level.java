@@ -131,6 +131,25 @@ public class Level {
 					addSpawnpoint(new Spawnpoint(j*scale,-i*scale, s));
 					
 					break;
+				case(-16760431):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/jump.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+
+				case(-16479106):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/left.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+
+				case(-8025339):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/shoot.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+
+				case(-16419701):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/right.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+
+				case(-6837608):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/finish.png"), j*scale, -i*scale, scale, scale, false, false, false, false, false, true));
+					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
 					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies), j*scale, -i*scale);
