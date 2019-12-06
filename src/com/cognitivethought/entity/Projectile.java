@@ -13,10 +13,11 @@ import com.cognitivethought.level.parts.Platform;
 public class Projectile extends Sprite {
 	
 	public float life, size, dx, dy;
+	public int damageValue;
 	
 	public Vector2 target;
 	
-	public Projectile(Texture t, float x, float y, float vx, float vy, float life, float size) {
+	public Projectile(Texture t, float x, float y, float vx, float vy, float life, float size, int dmgValue) {
 		super(t);
 		setX(x);
 		setY(y);
@@ -24,6 +25,7 @@ public class Projectile extends Sprite {
 		this.dy = vy;
 		this.life = life;
 		this.size = size;
+		this.damageValue = dmgValue;
 	}
 	
 	public void update() {
@@ -40,7 +42,7 @@ public class Projectile extends Sprite {
 	
 	public boolean checkHit(Enemy e) {
 		if (e.getBoundingRectangle().overlaps(this.getBoundingRectangle()) && !(e.deathThread.isAlive())) {
-			e.die();
+			e.hurt((int) damageValue);
 			return true;
 		}
 		return false;

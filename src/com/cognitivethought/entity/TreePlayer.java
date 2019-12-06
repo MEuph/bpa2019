@@ -13,10 +13,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
+import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.ui.InventoryBar;
 
 public class TreePlayer extends Sprite {
 
@@ -123,7 +125,7 @@ public class TreePlayer extends Sprite {
 	 * 
 	 * @param l Used for collision detection purposes
 	 */
-	public void update(Level l, HealthBar hb) {
+	public void update(Level l, HealthBar hb, InventoryBar b) {
 		if (deathThreadPaused) {
 			if (dy > -15f) // Cap the y velocity in the downward direction at 15 pixels per frame
 				dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
@@ -272,7 +274,7 @@ public class TreePlayer extends Sprite {
 			}
 			
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-				shoot(l);
+				shoot(l, b);
 			}
 
 			for (Projectile p : projectiles) {
@@ -336,16 +338,28 @@ public class TreePlayer extends Sprite {
 
 	Projectile p;
 
-	void shoot(Level l) {
+	void shoot(Level l, InventoryBar ib) {
 		if (attackTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
 
 		facingRight = Gdx.input.getX() >= 1920 / 2;
 
-		p = new Projectile(new Texture("assets/Player/apple.png"),
-				l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
-				l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100);
+		if (Item.getTexture(ib.i.getItems().get(ib.selected).getId()) == Item.getTexture(Item.APPLE)
+				&& ib.i.getItems().get(ib.selected).getQuantity() > 0) {
+			p = new Projectile(Item.getTexture(Item.APPLE),
+					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
+					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 1);
+			ib.i.getItems().get(ib.selected).decrement();
+		} else if (Item.getTexture(ib.i.getItems().get(ib.selected).getId()) == Item.getTexture(Item.SEED)
+				&& ib.i.getItems().get(ib.selected).getQuantity() > 0) {
+			p = new Projectile(Item.getTexture(Item.SEED),
+					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
+					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 2);
+			ib.i.getItems().get(ib.selected).decrement();
+		} else {
+			return;
+		}
 
 		new Thread() {
 			public void run() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -63,15 +64,13 @@ public class HumanEnemy extends Enemy {
 		this.dx = -speed;	// Default movement to the left
 		this.idle = texture;
 		
-		this.health = 1;
-		
 		HumanEnemy t = this;
 		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
-					die();
+					hurt(0);
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
@@ -224,14 +223,6 @@ public class HumanEnemy extends Enemy {
 	
 	float prevDx = 0f;
 	
-	@Override
-	public void die() {
-		health = 0;
-		deathThreadPaused = true;
-		attacking = false;
-		deathTime = 0f;
-	}
-	
 	/**
 	 * Draw the monster
 	 */
@@ -249,7 +240,7 @@ public class HumanEnemy extends Enemy {
 			if (attackTime > 1f) {
 				attacking = false;
 			}
-		} else if (health > 0 && !deathThreadPaused) {
+		} else if (/*health > 0 &&*/ !deathThreadPaused) {
 			attackTime = 0f;
 			jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
@@ -263,7 +254,7 @@ public class HumanEnemy extends Enemy {
 			if (jumpTime > 1f) {
 				jumpTime = 0f;
 			}
-		} else if (health <= 0) {
+		} else if (0 <= 0) {
 			attacking = false;
 			deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
@@ -278,5 +269,29 @@ public class HumanEnemy extends Enemy {
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		}
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hurt(int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected float getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void draw(Batch batch, OrthographicCamera c) {
+		// TODO Auto-generated method stub
+		
 	}
 }

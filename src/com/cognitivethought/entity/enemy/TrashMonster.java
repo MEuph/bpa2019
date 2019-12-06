@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -26,6 +27,8 @@ public class TrashMonster extends Enemy {
 	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
 	boolean deathThreadPaused;
+	
+	HealthBar hb;
 	
 	Animation<TextureRegion> attackAnimation;
 	Texture attackSheet;
@@ -63,9 +66,9 @@ public class TrashMonster extends Enemy {
 		this.dx = -speed;	// Default movement to the left
 		this.idle = texture;
 		
-		this.health = 1;
-		
 		TrashMonster t = this;
+		
+		hb = new HealthBar(this, 3);
 		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
@@ -226,17 +229,31 @@ public class TrashMonster extends Enemy {
 	
 	@Override
 	public void die() {
-		health = 0;
-		deathThreadPaused = true;
+		deathThreadPaused = false;
 		attacking = false;
 		deathTime = 0f;
+	}
+	
+	@Override
+	public void hurt(int value) {
+		System.out.println("SHOT");
+		System.out.println(hb.health);
+		hb.health -= value;
+		System.out.println(hb.health);
+		deathThreadPaused = false;
+		attacking = false;
+		deathTime = 1f;
+		
+		if (hb.health <= 0f) {
+			die();
+		}
 	}
 	
 	/**
 	 * Draw the monster
 	 */
 	@Override
-	public void draw(Batch batch) {
+	public void draw(Batch batch, OrthographicCamera c) {
 		if (attacking && !deathThreadPaused) {
 			attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
@@ -249,7 +266,7 @@ public class TrashMonster extends Enemy {
 			if (attackTime > 1f) {
 				attacking = false;
 			}
-		} else if (health > 0 && !deathThreadPaused) {
+		} else if (hb.health > 0 && !deathThreadPaused) {
 			attackTime = 0f;
 			jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
@@ -263,7 +280,7 @@ public class TrashMonster extends Enemy {
 			if (jumpTime > 1f) {
 				jumpTime = 0f;
 			}
-		} else if (health <= 0) {
+		} else if (hb.health <= 0) {
 			attacking = false;
 			deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
@@ -278,5 +295,12 @@ public class TrashMonster extends Enemy {
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		}
+		
+		hb.render(batch, c);
+	}
+	
+	@Override
+	protected float getHealth() {
+		return hb.health;
 	}
 }

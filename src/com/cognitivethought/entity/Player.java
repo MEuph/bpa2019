@@ -326,10 +326,10 @@ public class Player extends Sprite {
 					// attack time
 
 		facingRight = Gdx.input.getX() >= 1920 / 2;
-
-		p = new Projectile(new Texture("assets/Player/apple.png"),
-				l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
-				l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100);
+//
+//		p = new Projectile(new Texture("assets/Player/apple.png"),
+//				l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
+//				l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100);
 
 		new Thread() {
 			public void run() {

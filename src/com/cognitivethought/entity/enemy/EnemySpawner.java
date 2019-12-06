@@ -2,6 +2,7 @@ package com.cognitivethought.entity.enemy;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.cognitivethought.level.Level;
@@ -65,9 +66,9 @@ public class EnemySpawner {
 	 * @param b
 	 * 		Batch that can do Batch-rendering
 	 */
-	public void draw(Batch b) {
+	public void draw(Batch b, OrthographicCamera c) {
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).draw(b);
+			enemies.get(i).draw(b, c);
 		}
 	}
 	

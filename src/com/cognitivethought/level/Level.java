@@ -228,7 +228,7 @@ public class Level {
 		
 		for (EnemySpawner e : es) {
 			e.update(hb, this);
-			e.draw(b);
+			e.draw(b, c);
 		}
 	}
 }
