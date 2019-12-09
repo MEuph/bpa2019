@@ -90,41 +90,41 @@ public class Level {
 			//		addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
 				case(-1237980):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, false));
 					break;
 				case(-14503604):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/rightplat.png"), j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"), j*scale, -i*scale, scale, scale));
 					break;
 				case(-3620889):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/topright.png"), j*scale, -i*scale, scale, scale, true, false, true, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topright.png"), j*scale, -i*scale, scale, scale, true, false, true, false));
 					break;
 				case(-16744416):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/topleft.png"), j*scale,-i*scale,scale,scale, true, true, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topleft.png"), j*scale,-i*scale,scale,scale, true, true, false, false));
 					break;
 				case(-16744384):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/leftplat.png"), j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"), j*scale, -i*scale, scale, scale));
 					break;	
 				case(-32985):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/normalplat.png"), j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"), j*scale, -i*scale, scale, scale));
 					break;
 				case(-16760768):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/bottomleft.png"), j*scale, -i*scale, scale, scale, false, true, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomleft.png"), j*scale, -i*scale, scale, scale, false, true, false, false));
 					break;
 				case(-4856291):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
 					break;
 				case(-3584):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/filledtopplat.png"), j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png"), j*scale, -i*scale, scale, scale));
 					break;
 				case(-4621737):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/filledplat.png"), j*scale, -i*scale, scale, scale, true, false, false, true));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"), j*scale, -i*scale, scale, scale, true, false, false, true));
 					break;
 				case(-16735512):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/wall.png"), j*scale, -i*scale, scale, scale, true, true, true, true));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale, -i*scale, scale, scale, true, true, true, true));
 					break;
 				case(-7864299):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
 					break;
 				case(-16777216):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
@@ -132,23 +132,23 @@ public class Level {
 					
 					break;
 				case(-16760431):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/jump.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/jump.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
 				case(-16479106):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/left.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/left.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
 				case(-8025339):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/shoot.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/shoot.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
 				case(-16419701):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/right.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/right.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
 				case(-6837608):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Development Tileset/finish.png"), j*scale, -i*scale, scale, scale, false, false, false, false, false, true));
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/finish.png"), j*scale, -i*scale, scale, scale, false, false, false, false, false, true));
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();

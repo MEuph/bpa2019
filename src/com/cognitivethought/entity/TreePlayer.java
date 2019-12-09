@@ -155,9 +155,8 @@ public class TreePlayer extends Sprite {
 				right = false;
 			}
 
-
-			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
-					|| Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
+					|| Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)
 							&& (attackTime > 0f && attackTime <= timeToAttack)) {
 				jump();
 				jumps++;
@@ -231,36 +230,36 @@ public class TreePlayer extends Sprite {
 							this.flashTimer = 100f; // Set the time to be flashing
 						}
 					}
+				}
 
-					if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
-							.overlaps(getBoundingRectangle()) && dy > 0
-							&& getY() + getHeight() >= plat.getY() + plat.getHeight() && plat.collideBottom) {
-						// System.out.println(getY() + getHeight() + " " + plat.getY()); // For
-						// debugging purposes
-						dy = 0; // Stop vertical movement
-						setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of
-																					// the platform
-					}
+				if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
+						.overlaps(getBoundingRectangle()) && dy > 0
+						&& getY() + getHeight() >= plat.getY() + plat.getHeight() && plat.collideBottom) {
+					// System.out.println(getY() + getHeight() + " " + plat.getY()); // For
+					// debugging purposes
+					dy = 0; // Stop vertical movement
+					setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of
+																				// the platform
+				}
 
-					Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
-					if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0
-							&& getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft
-							&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-						dx = 0; // Stop horizontal movement
-						setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
-					}
+				Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
+				if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0
+						&& getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collideLeft
+						&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
+					dx = 0; // Stop horizontal movement
+					setX(plat.getX() - getWidth()); // Reset x position to the left of the platform
+				}
 
-					Rectangle rightOfPlatform = new Rectangle(plat.getX() + plat.getWidth() - 2f, plat.getY(), 2f,
-							plat.getHeight());
-					if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0
-							&& getX() <= plat.getX() + plat.getWidth() && plat.collideRight
-							&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-						dx = 0; // Stop horizontal movement
-						setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
-					}
+				Rectangle rightOfPlatform = new Rectangle(plat.getX() + plat.getWidth() - 2f, plat.getY(), 2f,
+						plat.getHeight());
+				if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0
+						&& getX() <= plat.getX() + plat.getWidth() && plat.collideRight
+						&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
+					dx = 0; // Stop horizontal movement
+					setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 				}
 			}
-			
+
 			if (flashTimer > 0f) {
 				flashTimer--;
 				System.out.println(flashTimer);
@@ -268,11 +267,11 @@ public class TreePlayer extends Sprite {
 			} else {
 				flashing = false;
 			}
-			
+
 			if (flashTimer > 100f) {
 				flashTimer = 100f;
 			}
-			
+
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 				shoot(l, b);
 			}
@@ -331,7 +330,7 @@ public class TreePlayer extends Sprite {
 	boolean jump() {
 		if (jumps >= 2) // If there's been 2 or more jumps, the player has hit the jump limit
 			return false;
-		dy = 4f; // All jump does is set vertical velocity to +4 instantly.
+		dy = 5f; // All jump does is set vertical velocity to +4 instantly.
 		translateY(1);
 		return true;
 	}
@@ -374,7 +373,7 @@ public class TreePlayer extends Sprite {
 				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
 				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
 				float vx = Gdx.input.getX() <= (1920 / 2) ? -10 : 10; // (((Gdx.input.getX() - 960f) * 2f) / div) :
-																	// ((Gdx.input.getX() - 960f) * 2f / div);
+																		// ((Gdx.input.getX() - 960f) * 2f / div);
 				float vy = 0;
 				p.dx = vx;
 				p.dy = vy;
