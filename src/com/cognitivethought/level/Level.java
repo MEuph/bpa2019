@@ -87,7 +87,7 @@ public class Level {
 			for (int j = 0; j < data[i].length; j++) {
 				switch(data[i][j]) {
 				case(-1):
-			//		addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
+//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
 				case(-1237980):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, false));
@@ -114,10 +114,10 @@ public class Level {
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
 					break;
 				case(-3584):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png"), j*scale, -i*scale, scale, scale));
+					addPlatform(new Platform(Platform.GRASS, j*scale, -i*scale, scale, scale, j, i));
 					break;
 				case(-4621737):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"), j*scale, -i*scale, scale, scale, true, false, false, true));
+					addPlatform(new Platform(Platform.DIRT, j*scale, -i*scale, scale, scale, j, i));
 					break;
 				case(-16735512):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale, -i*scale, scale, scale, true, true, true, true));
@@ -166,7 +166,7 @@ public class Level {
 		}
 		
 		for (Platform p : platforms) {
-			p.updateTexture(platforms, data[0].length);
+			p.updateTexture(platforms, data);
 		}
 	}
 	/**

@@ -7,15 +7,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Platform extends Sprite {
 	
+	public static final Texture GRASS = new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png");
+	public static final Texture DIRT = new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png");
+	
 	public boolean collideTop;
 	public boolean collideBottom;
 	public boolean collideRight;
 	public boolean collideLeft;
 	public boolean canHarm;
 	public boolean endsLevel;
-	
+
 	private int posX, posY;
-	
+
 	/**
 	 * Basically just a placeholder of values for the player to interact with
 	 * 
@@ -35,21 +38,26 @@ public class Platform extends Sprite {
 		this.collideRight = false;
 		this.collideBottom = false;
 	}
-	
+
 	/**
 	 * Basically just a placeholder of values for the player to interact with
 	 * 
-	 * @param t The texture to draw when rendering the platform
-	 * @param x The horizontal position
-	 * @param y The vertical position
-	 * @param w The horizontal size
-	 * @param h The vertical size
-	 * @param collideTop Whether or not the player can collide with the top of the platform
-	 * @param collideLeft Whether or not the player can collide with the left of the platform
-	 * @param collideRight Whether or not the player can collide with the right of the platform
-	 * @param collideBottom Whether or not the player can collide with the bottom of the platform
+	 * @param t             The texture to draw when rendering the platform
+	 * @param x             The horizontal position
+	 * @param y             The vertical position
+	 * @param w             The horizontal size
+	 * @param h             The vertical size
+	 * @param collideTop    Whether or not the player can collide with the top of
+	 *                      the platform
+	 * @param collideLeft   Whether or not the player can collide with the left of
+	 *                      the platform
+	 * @param collideRight  Whether or not the player can collide with the right of
+	 *                      the platform
+	 * @param collideBottom Whether or not the player can collide with the bottom of
+	 *                      the platform
 	 */
-	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft, boolean collideRight, boolean collideBottom) {
+	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
+			boolean collideRight, boolean collideBottom) {
 		super(t);
 		super.setX(x);
 		super.setY(y);
@@ -59,22 +67,27 @@ public class Platform extends Sprite {
 		this.collideRight = collideRight;
 		this.collideBottom = collideBottom;
 	}
-	
+
 	/**
 	 * Basically just a placeholder of values for the player to interact with
 	 * 
-	 * @param t The texture to draw when rendering the platform
-	 * @param x The horizontal position
-	 * @param y The vertical position
-	 * @param w The horizontal size
-	 * @param h The vertical size
-	 * @param collideTop Whether or not the player can collide with the top of the platform
-	 * @param collideLeft Whether or not the player can collide with the left of the platform
-	 * @param collideRight Whether or not the player can collide with the right of the platform
-	 * @param collideBottom Whether or not the player can collide with the bottom of the platform
-	 * @param canHarm Whether or not the player can be hurt by this platform
+	 * @param t             The texture to draw when rendering the platform
+	 * @param x             The horizontal position
+	 * @param y             The vertical position
+	 * @param w             The horizontal size
+	 * @param h             The vertical size
+	 * @param collideTop    Whether or not the player can collide with the top of
+	 *                      the platform
+	 * @param collideLeft   Whether or not the player can collide with the left of
+	 *                      the platform
+	 * @param collideRight  Whether or not the player can collide with the right of
+	 *                      the platform
+	 * @param collideBottom Whether or not the player can collide with the bottom of
+	 *                      the platform
+	 * @param canHarm       Whether or not the player can be hurt by this platform
 	 */
-	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft, boolean collideRight, boolean collideBottom, boolean canHarm) {
+	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
+			boolean collideRight, boolean collideBottom, boolean canHarm) {
 		super(t);
 		super.setX(x);
 		super.setY(y);
@@ -85,22 +98,29 @@ public class Platform extends Sprite {
 		this.collideBottom = collideBottom;
 		this.canHarm = canHarm;
 	}
+
 	/**
 	 * Basically just a placeholder of values for the player to interact with
 	 * 
-	 * @param t The texture to draw when rendering the platform
-	 * @param x The horizontal position
-	 * @param y The vertical position
-	 * @param w The horizontal size
-	 * @param h The vertical size
-	 * @param collideTop Whether or not the player can collide with the top of the platform
-	 * @param collideLeft Whether or not the player can collide with the left of the platform
-	 * @param collideRight Whether or not the player can collide with the right of the platform
-	 * @param collideBottom Whether or not the player can collide with the bottom of the platform
-	 * @param canHarm Whether or not the player can be hurt by this platform
-	 * @param endsLevel Whether or not the player can end the level with this platform
+	 * @param t             The texture to draw when rendering the platform
+	 * @param x             The horizontal position
+	 * @param y             The vertical position
+	 * @param w             The horizontal size
+	 * @param h             The vertical size
+	 * @param collideTop    Whether or not the player can collide with the top of
+	 *                      the platform
+	 * @param collideLeft   Whether or not the player can collide with the left of
+	 *                      the platform
+	 * @param collideRight  Whether or not the player can collide with the right of
+	 *                      the platform
+	 * @param collideBottom Whether or not the player can collide with the bottom of
+	 *                      the platform
+	 * @param canHarm       Whether or not the player can be hurt by this platform
+	 * @param endsLevel     Whether or not the player can end the level with this
+	 *                      platform
 	 */
-	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft, boolean collideRight, boolean collideBottom, boolean canHarm, boolean endsLevel) {
+	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
+			boolean collideRight, boolean collideBottom, boolean canHarm, boolean endsLevel) {
 		super(t);
 		super.setX(x);
 		super.setY(y);
@@ -112,7 +132,7 @@ public class Platform extends Sprite {
 		this.canHarm = canHarm;
 		this.endsLevel = endsLevel;
 	}
-	
+
 	public Platform(Texture t, float x, float y, float w, float h, int posX, int posY) {
 		super(t);
 		super.setX(x);
@@ -122,72 +142,101 @@ public class Platform extends Sprite {
 		this.posY = posY;
 	}
 
-	public void updateTexture(ArrayList<Platform> platforms, int width) {
-		ArrayList<Platform> temp = new ArrayList<Platform>();
-		Platform[][] change = new Platform[platforms.size() / width][width];
+	public void updateTexture(ArrayList<Platform> platforms, int[][] data) {
+		boolean grass = this.getTexture().equals(GRASS);
+		boolean dirt = this.getTexture().equals(DIRT);
 		
-		int pos = platforms.indexOf(this);
-		boolean dirt = this.getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png");
-		boolean grass = this.getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png");
-		
-		boolean top, bottom, left, right;
-		top = bottom = left = right = false;
-		
-		if (dirt) {
-			if (platforms.get(above(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
-				top = true;
-			}
-			if (platforms.get(below(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
-				bottom = true;
-			}
-			if (platforms.get(left(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
-				left = true;
-			}
-			if (platforms.get(right(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
-				right = true;
-			}
-			
-			if (top && right && left && !bottom) {
-				
-			}
-		} else if (grass) {
-			if (platforms.get(above(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
-				top = true;
-			}
-			if (platforms.get(below(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
-				bottom = true;
-			}
-			if (platforms.get(left(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
-				left = true;
-			}
-			if (platforms.get(right(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
-				right = true;
-			}
-		} else {
+		if (!grass && !dirt)
 			return;
+		
+		boolean top, bottom, right, left;
+		top = bottom = right = left = false;
+		
+		if (posY > 0) {
+			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408;
 		}
 		
-		for (int i = 0; i < change.length; i++) {
-			for (int j = 0; j < change[i].length; j++) {
-				temp.add(change[i][j]);
+		if (posY < data.length - 1) {
+			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408;
+		}
+
+		if (posX > 0) {
+			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408;
+		}
+
+		if (posX < data[posY].length - 1) {
+			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408;
+		}
+
+		if (!top && !bottom && !right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"));
+			collideTop = true;
+		} else if (!top && !bottom && !right && !left) {
+			if (grass) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassn.png"));
+			} else {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtn.png"));
 			}
+			collideTop = true;
+		} else if (!top && !bottom && right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"));
+			collideTop = true;
+		} else if (!top && !bottom && right && !left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"));
+			collideTop = true;
+		} else if (!top && bottom && !right && left) {
+			if (grass) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassr.png"));
+			} else {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+			}
+			collideTop = collideRight = true;
+		} else if (!top && bottom && !right && !left) {
+			if (grass) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grasslr.png"));
+			} else {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+			}
+			collideTop = collideRight = collideLeft = true;
+		} else if (!top && bottom && right && left) {
+			if (grass) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"));
+			} else {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
+			}
+			collideTop = collideRight = collideLeft = true;
+		} else if (!top && bottom && right && !left) {
+			if (grass) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassl.png"));
+			} else {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttl.png"));
+			}
+			collideTop = collideLeft = true;
+		} else if (top && !bottom && !right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+			collideBottom = collideRight = true;
+		} else if (top && !bottom && !right && !left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));
+			collideBottom = collideLeft = collideRight = true;
+		} else if (top && !bottom && right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
+			collideBottom = true;
+		} else if (top && !bottom && right && !left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));
+			collideBottom = collideLeft = true;
+		} else if (top && bottom && !right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtr.png"));
+			collideRight = true;
+		} else if (top && bottom && !right && !left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+			collideRight = true;
+		} else if (top && bottom && right && left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
+		} else if (top && bottom && right && !left) {
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
+			collideLeft = true;
+		} else {
+			System.err.println("\n\n\nwhat.");
 		}
 	}
-	
-	int above(int pos, int width) {
-		return pos - width;
-	}
-	
-	int below(int pos, int width) {
-		return pos + width;
-	}
-	
-	int left(int pos, int width) {
-		return pos - 1;
-	}
-	
-	int right(int pos, int width) {
-		return pos + 1;
-	}
-
 }
