@@ -10,7 +10,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -33,7 +35,9 @@ public class GameScreen implements Screen {
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
 	float fade = 1f; // Timer/Opacity for screen fade-in
-
+	
+	Sprite background;
+	
 	String fps = "FPS:"; // Shows the current FPS
 
 	@Override
@@ -42,6 +46,9 @@ public class GameScreen implements Screen {
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
+		
+		background = new Sprite(new Texture("assets/background.png"));
+		
 		
 		try {
 			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), this); // Initialize level with 'testlevel.level'
@@ -99,6 +106,9 @@ public class GameScreen implements Screen {
 		// Smooth camera fade
 		Vector3 position = c.position;
 		smoothCamera = 0.1f / c.zoom;
+ 
+		background.setSize(1920 * 4, 1080 * 2);
+		background.setPosition(-1920, -1080 * 2f);
 		
 		if (!(fade > 0)) {
 			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
@@ -109,9 +119,10 @@ public class GameScreen implements Screen {
 		
 		// Set the projection matrix of the sprite batch to the camera's combined matrix
 		batch.setProjectionMatrix(c.combined);
-
+		
 		batch.begin();
-
+		background.draw(batch);
+		
 		level.render(batch, hb, c);
 
 		// If the level has faded in, process physics on the player

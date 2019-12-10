@@ -164,6 +164,10 @@ public class Level {
 				
 			}
 		}
+		
+		for (Platform p : platforms) {
+			p.updateTexture(platforms, data[0].length);
+		}
 	}
 	/**
 	 * @param spawnpoint The spawnpoint that the player will be initialized

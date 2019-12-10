@@ -1,5 +1,7 @@
 package com.cognitivethought.level.parts;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -11,6 +13,8 @@ public class Platform extends Sprite {
 	public boolean collideLeft;
 	public boolean canHarm;
 	public boolean endsLevel;
+	
+	private int posX, posY;
 	
 	/**
 	 * Basically just a placeholder of values for the player to interact with
@@ -107,6 +111,83 @@ public class Platform extends Sprite {
 		this.collideBottom = collideBottom;
 		this.canHarm = canHarm;
 		this.endsLevel = endsLevel;
+	}
+	
+	public Platform(Texture t, float x, float y, float w, float h, int posX, int posY) {
+		super(t);
+		super.setX(x);
+		super.setY(y);
+		super.setSize(w, h);
+		this.posX = posX;
+		this.posY = posY;
+	}
+
+	public void updateTexture(ArrayList<Platform> platforms, int width) {
+		ArrayList<Platform> temp = new ArrayList<Platform>();
+		Platform[][] change = new Platform[platforms.size() / width][width];
+		
+		int pos = platforms.indexOf(this);
+		boolean dirt = this.getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png");
+		boolean grass = this.getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png");
+		
+		boolean top, bottom, left, right;
+		top = bottom = left = right = false;
+		
+		if (dirt) {
+			if (platforms.get(above(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
+				top = true;
+			}
+			if (platforms.get(below(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
+				bottom = true;
+			}
+			if (platforms.get(left(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
+				left = true;
+			}
+			if (platforms.get(right(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png")) {
+				right = true;
+			}
+			
+			if (top && right && left && !bottom) {
+				
+			}
+		} else if (grass) {
+			if (platforms.get(above(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
+				top = true;
+			}
+			if (platforms.get(below(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
+				bottom = true;
+			}
+			if (platforms.get(left(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
+				left = true;
+			}
+			if (platforms.get(right(pos, width)).getTexture() == new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png")) {
+				right = true;
+			}
+		} else {
+			return;
+		}
+		
+		for (int i = 0; i < change.length; i++) {
+			for (int j = 0; j < change[i].length; j++) {
+				temp.add(change[i][j]);
+			}
+		}
+	}
+	
+	int above(int pos, int width) {
+		return pos - width;
+	}
+	
+	int below(int pos, int width) {
+		return pos + width;
+	}
+	
+	int left(int pos, int width) {
+		return pos - 1;
+	}
+	
+	int right(int pos, int width) {
+		return pos + 1;
 	}
 
 }
