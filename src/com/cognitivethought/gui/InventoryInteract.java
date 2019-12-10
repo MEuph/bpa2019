@@ -1,4 +1,4 @@
-package com.cognitivethought.ui;
+package com.cognitivethought.gui;
 
 import java.io.FileNotFoundException;
 
@@ -17,15 +17,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.inventory.Inventory;
 import com.cognitivethought.inventory.Item;
+import com.cognitivethought.ui.InventoryBar;
 
-public class InventoryBar {
-	
-	public static Inventory i = new Inventory();
+public class InventoryInteract {
+	public Inventory i = InventoryBar.i;
 	public BitmapFont font;
-	
 	public int selected;
-	
-	public InventoryBar(String invFile) {
+	public InventoryInteract(String invFile) {
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle("assets/Fonts/times-new-roman.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -37,17 +35,12 @@ public class InventoryBar {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		for (Item item : i.getItems()) {
-			System.out.println(Item.getName(item.getId()) + "(x" + item.getQuantity() + ") at slot " + item.getPosition());
-		}
 	}
-	
 	public void render(Batch b, OrthographicCamera c) {
 		for (int i = 0; i < this.i.getItems().size(); i++) {
 			int yDisplacement = -i*100;
-			float y = c.position.y - (c.viewportHeight / 2) + yDisplacement + 800;
-			float x = c.position.x - (c.viewportWidth / 2) + 10;
+			float y = c.position.y;
+			float x = c.position.x;
 			
 //			this.i.getItems().get(i).setX((int)x);
 //			this.i.getItems().get(i).setY((int)y);
@@ -97,4 +90,5 @@ public class InventoryBar {
 			font.draw(b, "" + Integer.toString(this.i.getItems().get(i).getQuantity()), x+5, y+90);
 		}
 	}
+	
 }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+import com.cognitivethought.gui.InventoryInteract;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
 	
 	public HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt");
+	public InventoryInteract ii = new InventoryInteract("assets/Inventory/inv1.txt");
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
@@ -146,6 +148,10 @@ public class GameScreen implements Screen {
 		
 		hb.render(batch, c);
 		ib.render(batch, c);
+		if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+			ii.render(batch, c);
+	
+		}
 		
 		batch.end();
 
