@@ -16,6 +16,7 @@ import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.ui.InventoryBar;
@@ -82,9 +83,9 @@ public class TreePlayer extends Sprite {
 	}
 
 	void createAnimations() {
-		attackSheet = new Texture("assets/Player/throw.png");
-		deathSheet = new Texture("assets/Player/death.png");
-		idleSheet = new Texture("assets/Player/idle.png");
+		attackSheet = Resources.PLAYER_THROW;
+		deathSheet = Resources.PLAYER_DEATH;
+		idleSheet = Resources.PLAYER_IDLE;
 
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol,
 				attackSheet.getHeight() / attackRow);
@@ -257,6 +258,27 @@ public class TreePlayer extends Sprite {
 						&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
 					dx = 0; // Stop horizontal movement
 					setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
+				}
+				if (plat.endsLevel == true) {
+					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 1;
+					}
+
+					if (LevelSelectScreen.levelNumber == 2 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 2;
+					}
+
+					if (LevelSelectScreen.levelNumber == 3 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 3;
+					}
+
+					if (LevelSelectScreen.levelNumber == 4 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 4;
+					}
+
+					if (LevelSelectScreen.levelNumber == 5 && levelsPassed < LevelSelectScreen.levelNumber) {
+						levelsPassed = 5;
+					}
 				}
 			}
 

@@ -17,6 +17,7 @@ import com.cognitivethought.gui.InventoryInteract;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
@@ -101,9 +102,9 @@ public class Player extends Sprite {
 	}
 
 	void createAnimations() {
-		attackSheet = new Texture("assets/Player/throw.png");
-		deathSheet = new Texture("assets/Player/death.png");
-		idleSheet = new Texture("assets/Player/idle.png");
+		attackSheet = Resources.PLAYER_THROW;
+		deathSheet = Resources.PLAYER_DEATH;
+		idleSheet = Resources.PLAYER_IDLE;
 
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol,
 				attackSheet.getHeight() / attackRow);
