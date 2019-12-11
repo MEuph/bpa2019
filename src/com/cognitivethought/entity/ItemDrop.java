@@ -1,9 +1,10 @@
 package com.cognitivethought.entity;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ItemDrop {
+public class ItemDrop extends Sprite {
 	
 	public Texture t;
 	
@@ -13,8 +14,11 @@ public class ItemDrop {
 		t = new Texture(path);
 	}
 	
+	public void update (TreePlayer p) {
+		
+	}
+	
 	public void draw(SpriteBatch b) {
 		b.draw(t, x, y, w, h);
 	}
-	
 }
