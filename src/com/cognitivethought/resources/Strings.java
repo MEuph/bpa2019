@@ -4,7 +4,7 @@ public class Strings {
 
 	public static final String FONTS_DIR = "assets/Fonts/";
 	public static final String INV_DIR = "assets/Inventory/";
-	public static final String ITEMS_DIR = INV_DIR + "Inventory Items/";
+	public static final String ITEMS_DIR = INV_DIR + "Inventory.Items/";
 	public static final String LEVELS_DIR = "assets/Levels/";
 	public static final String DEV_LEVEL_DIR = LEVELS_DIR + "Development Level/";
 	public static final String MONSTERS_DIR = "assets/Monsters/";
