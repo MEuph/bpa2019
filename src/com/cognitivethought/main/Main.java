@@ -27,14 +27,14 @@ public class Main extends Game implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		Resources.loadTextures();
+
 		main = this;
 		gameScreen 			= new GameScreen();
 		menuScreen			= new MenuScreen();
 		levelSelectScreen	= new LevelSelectScreen();
 		deathScreen 		= new DeathScreen(null);
 		setScreen(menuScreen);
-		
-		Resources.loadTextures();
 	}
 
 	@Override

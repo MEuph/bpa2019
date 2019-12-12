@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.ui.InventoryBar;
 
@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
-		background = new Sprite(new Texture("assets/background.png"));
+		background = new Sprite(Resources.BG);
 		
 //		try {
 //			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), this); // Initialize level with 'testlevel.level'
