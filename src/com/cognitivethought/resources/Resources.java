@@ -1,37 +1,63 @@
 package com.cognitivethought.resources;
 
+import java.io.File;
+
 import com.badlogic.gdx.graphics.Texture;
 
 public class Resources {
+
+	public static Texture APPLE;
+	public static Texture SEED;
+
+	public static Texture TRASH_ATTACK;
+	public static Texture TRASH_DEATH;
+	public static Texture TRASH_JUMP;
+	public static Texture TRASH_MONSTER;
+
+	public static Texture PLAYER_ATTACK;
+	public static Texture PLAYER_BASE;
+	public static Texture PLAYER_DEATH;
+	public static Texture PLAYER_IDLE;
+	public static Texture PLAYER_THROW;
+
+	public static File INV_1;
 	
-	public static final Texture APPLE = new Texture(Strings.ITEMS_DIR + "apple.png");
-	public static final Texture SEED = new Texture(Strings.ITEMS_DIR + "seed.png");
+	public static Texture BARK;
+	public static Texture EXIT;
+	public static Texture EXIT1;
+	public static Texture EXIT2;
+	public static Texture HEART;
+	public static Texture LVL1;
+	public static Texture LVL2;
+	public static Texture LVL3;
+	public static Texture LVL4;
+	public static Texture LVL5;
+	public static Texture MONSTER_HEART;
+	public static Texture UI_BACKGROUND;
+	public static Texture UI_TITLE;
+	public static Texture PLAY_BUTTON;
+	public static Texture QUIT_BUTTON;
+	public static Texture RETRY;
+	public static Texture RETRY1;
+	public static Texture RETRY2;
 	
-	public static final Texture TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
-	public static final Texture TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");
-	public static final Texture TRASH_JUMP = new Texture(Strings.TRASH_MONSTER_DIR + "jump.png");
-	public static final Texture TRASH_MONSTER = new Texture(Strings.TRASH_MONSTER_DIR + "trashmonster.png");
+	public static Texture BG;
 	
-	public static final Texture PLAYER_ATTACK = new Texture(Strings.PLAYER_DIR + "attack.png");
-	public static final Texture PLAYER_BASE = new Texture(Strings.PLAYER_DIR + "base.png");
-	public static final Texture PLAYER_DEATH = new Texture(Strings.PLAYER_DIR + "death.png");
-	public static final Texture PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
-	public static final Texture PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
-	
-	public static final Texture DEV_BIGPLAT = new Texture(Strings.DEV_TILESET_DIR + "bigplat.png");
-	public static final Texture DEV_BOTTOMLEFT = new Texture(Strings.DEV_TILESET_DIR + "bottomleft.png");
-	public static final Texture DEV_BOTTOMPLAT = new Texture(Strings.DEV_TILESET_DIR + "bottomplat.png");
-	public static final Texture DEV_BOTTOMRIGHT = new Texture(Strings.DEV_TILESET_DIR + "bottomright.png");
-	public static final Texture DEV_FILLEDPLAT = new Texture(Strings.DEV_TILESET_DIR + "filledplat.png");
-	public static final Texture DEV_FILLEDTOPPLAT = new Texture(Strings.DEV_TILESET_DIR + "filledtopplat.png");
-	public static final Texture DEV_GROUND = new Texture(Strings.DEV_TILESET_DIR + "ground.png");
-	public static final Texture DEV_GROUNDPLAT = new Texture(Strings.DEV_TILESET_DIR + "groundplat.png");
-	public static final Texture DEV_LEFTPLAT = new Texture(Strings.DEV_TILESET_DIR + "leftplat.png");
-	public static final Texture DEV_NORMALPLAT = new Texture(Strings.DEV_TILESET_DIR + "normalplat.png");
-	public static final Texture DEV_PLAT = new Texture(Strings.DEV_TILESET_DIR + "devplat.png");
-	public static final Texture DEV_RIGHTPLAT = new Texture(Strings.DEV_TILESET_DIR + "rightplat.png");
-	public static final Texture DEV_SPIKE = new Texture(Strings.DEV_TILESET_DIR + "spike.png");
-	public static final Texture DEV_TOPLEFT = new Texture(Strings.DEV_TILESET_DIR + "topleft.png");
-	public static final Texture DEV_TOPRIGHT = new Texture(Strings.DEV_TILESET_DIR + "topright.png");
-	public static final Texture DEV_WALL = new Texture(Strings.DEV_TILESET_DIR + "wall.png");
+	public static void loadTextures() {
+		APPLE = new Texture(Strings.ITEMS_DIR + "apple.png");
+		SEED = new Texture(Strings.ITEMS_DIR + "seed.png");
+
+		TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
+		TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");
+		TRASH_JUMP = new Texture(Strings.TRASH_MONSTER_DIR + "jump.png");
+		TRASH_MONSTER = new Texture(Strings.TRASH_MONSTER_DIR + "trashmonster.png");
+
+		PLAYER_ATTACK = new Texture(Strings.PLAYER_DIR + "attack.png");
+		PLAYER_BASE = new Texture(Strings.PLAYER_DIR + "base.png");
+		PLAYER_DEATH = new Texture(Strings.PLAYER_DIR + "death.png");
+		PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
+		PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
+		
+		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
+	}
 }

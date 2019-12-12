@@ -3,6 +3,7 @@ package com.cognitivethought.main;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
@@ -32,6 +33,8 @@ public class Main extends Game implements ApplicationListener {
 		levelSelectScreen	= new LevelSelectScreen();
 		deathScreen 		= new DeathScreen(null);
 		setScreen(menuScreen);
+		
+		Resources.loadTextures();
 	}
 
 	@Override
