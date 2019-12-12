@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.TrashMonster;
 
 public class HealthBar {
@@ -15,7 +16,7 @@ public class HealthBar {
 	private Sprite barkImg;
 	private Sprite monsterHeart;
 	
-	private TrashMonster tm = null;
+	private Enemy tm = null;
 	
 	private float size;
 	
@@ -24,7 +25,7 @@ public class HealthBar {
 		barkImg = new Sprite(new Texture("assets/UI/bark.png"));
 	}
 	
-	public HealthBar(TrashMonster trashMonster, int initialHealth) {
+	public HealthBar(Enemy trashMonster, int initialHealth) {
 		this.tm = trashMonster;
 		heartImg = new Sprite(new Texture("assets/UI/heart.png"));
 		monsterHeart = new Sprite(new Texture("assets/UI/monsterHeart.png"));
