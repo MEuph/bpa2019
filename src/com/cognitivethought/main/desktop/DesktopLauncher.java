@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.title = "Casha";
 		config.width = 1920;
 		config.height = 1080;
-		config.fullscreen = false;
+		config.fullscreen = true;
 		config.vSyncEnabled = true;
 		new LwjglApplication(new Main(), config);
 	}

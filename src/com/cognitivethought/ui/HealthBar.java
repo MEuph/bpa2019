@@ -8,8 +8,8 @@ import com.cognitivethought.entity.enemy.TrashMonster;
 
 public class HealthBar {
 	
-	public int health = 1;
-	public int bark = -1;
+	public int health = 3;
+	public int bark = 2;
 	
 	private Sprite heartImg;
 	private Sprite barkImg;

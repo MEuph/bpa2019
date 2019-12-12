@@ -83,6 +83,8 @@ public class Level {
 			System.out.println();
 		}
 		
+		System.out.println("test");
+		
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
 				switch(data[i][j]) {
@@ -155,13 +157,9 @@ public class Level {
 					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies), j*scale, -i*scale);
 					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es);
-				case(-65408):
-					EnemySpawner es2 = new EnemySpawner();
-					es2.addEnemy(new TrashMonster(Behavior.WALL_TO_WALL, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies), j*scale, -i*scale);
-					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
-					addSpawner(es2);
+					es.debugInfo();
+					System.out.println();
 				}
-				
 			}
 		}
 		

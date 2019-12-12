@@ -213,7 +213,7 @@ public class Platform extends Sprite {
 			}
 			collideTop = collideLeft = true;
 		} else if (top && !bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbr.png"));
 			collideBottom = collideRight = true;
 		} else if (top && !bottom && !right && !left) {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));

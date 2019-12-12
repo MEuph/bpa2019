@@ -59,6 +59,7 @@ public class TrashMonster extends Enemy {
 	 * 		How much damage this particular trash monster will do
 	 * @param texture
 	 * 		The appearance of this particular trash monster
+	 * @throws Exception 
 	 */
 	public TrashMonster(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies) {
 		super(b, Behavior.MELEE, damageValue, texture);
@@ -84,7 +85,7 @@ public class TrashMonster extends Enemy {
 				}
 			}
 		};
-		
+
 		createAnimations();
 	}
 
@@ -208,7 +209,7 @@ public class TrashMonster extends Enemy {
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
 		// attack if the monster can attack
-		if (canAttack) {
+		if (canAttack && deathTime == 0f) {
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);

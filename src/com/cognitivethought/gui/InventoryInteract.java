@@ -1,7 +1,5 @@
 package com.cognitivethought.gui;
 
-import java.io.FileNotFoundException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
@@ -30,16 +28,12 @@ public class InventoryInteract {
 		parameter.size = 40;
 		font = generator.generateFont(parameter); // font size 12 pixels
 		generator.dispose();
-		try {
-			i.read(invFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
+	
 	public void render(Batch b, OrthographicCamera c) {
 		for (int i = 0; i < this.i.getItems().size(); i++) {
 			int yDisplacement = -i*100;
-			float y = c.position.y;
+			float y = c.position.y + yDisplacement;
 			float x = c.position.x;
 			
 //			this.i.getItems().get(i).setX((int)x);
@@ -51,31 +45,7 @@ public class InventoryInteract {
 			sp.begin(ShapeType.Filled);
 			Gdx.gl20.glEnable(GL20.GL_BLEND_SRC_ALPHA);
 			
-			Rectangle itemBoundingBox = new Rectangle(x, y, 100, 100);
-			
-			if (Gdx.input.isKeyJustPressed(Keys.R)) {
-				selected -= 1;
-				System.out.println(selected);
-			}
-			
-			if (Gdx.input.isKeyJustPressed(Keys.F)) {
-				selected += 1;
-				System.out.println(selected);
-			}
-			
-			if (selected > 1) {
-				selected = 1;
-				System.out.println(selected);
-			} else if (selected < 0) {
-				selected = 0;
-				System.out.println(selected);
-			}
-			
-			if (selected == i) {
-				sp.setColor(new Color(0.5f, 0.5f, 0.5f, 1f));
-			} else {
-				sp.setColor(new Color(0.1f, 0.1f, 0.1f, 1f));
-			}
+			sp.setColor(new Color(0.1f, 0.1f, 0.1f, 1f));
 			
 			sp.rect(x, y, 100, 100);
 			sp.setColor(new Color(1f, 1f, 1f, 1f));

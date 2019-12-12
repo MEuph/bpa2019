@@ -21,6 +21,7 @@ import com.cognitivethought.inventory.Item;
 public class InventoryBar {
 	
 	public static Inventory i = new Inventory();
+	
 	public BitmapFont font;
 	
 	public int selected;
@@ -30,7 +31,7 @@ public class InventoryBar {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle("assets/Fonts/times-new-roman.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
-		font = generator.generateFont(parameter); // font size 12 pixels
+		font = generator.generateFont(parameter);
 		generator.dispose();
 		try {
 			i.read(invFile);

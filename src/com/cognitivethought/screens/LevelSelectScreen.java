@@ -38,12 +38,11 @@ public class LevelSelectScreen implements Screen {
 				  levels[i].level.setClickListener(new ClickListener() { 
 					  @Override
 					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 1
-						  Main.main.setScreen(Main.main.gameScreen);
 						  try {
-							  Main.main.setScreen(Main.main.gameScreen);
 							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+							  Main.main.setScreen(Main.main.gameScreen);
 							  levelNumber = 1;
-						  } catch (IOException e) {
+						  } catch (Exception e) {
 							  // TODO Auto-generated catch block
 							  e.printStackTrace();
 						  }
