@@ -34,7 +34,6 @@ public class Resources {
 	public static Texture LVL5;
 	public static Texture MONSTER_HEART;
 	public static Texture UI_BACKGROUND;
-	public static Texture UI_TITLE;
 	public static Texture PLAY_BUTTON;
 	public static Texture QUIT_BUTTON;
 	public static Texture RETRY;
@@ -57,6 +56,26 @@ public class Resources {
 		PLAYER_DEATH = new Texture(Strings.PLAYER_DIR + "death.png");
 		PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
 		PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
+		
+		BARK = new Texture(Strings.UI_DIR + "bark.png");
+		EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");
+		EXIT1 = new Texture(Strings.UI_DIR + "Exit Button-1.png.png");
+		EXIT2 = new Texture(Strings.UI_DIR + "Exit Button-2.png.png");
+		HEART = new Texture(Strings.UI_DIR + "heart.png");
+		LVL1 = new Texture(Strings.UI_DIR + "LeveloneButton.png.png");
+		LVL2 = new Texture(Strings.UI_DIR + "LeveltwoButton.png.png");
+		LVL3 = new Texture(Strings.UI_DIR + "LevelthreeButton.png.png");
+		LVL4 = new Texture(Strings.UI_DIR + "LevelfourButton.png.png");
+		LVL5 = new Texture(Strings.UI_DIR + "LevelfiveButton.png.png");
+		MONSTER_HEART = new Texture(Strings.UI_DIR + "monsterHeart.png");
+		UI_BACKGROUND = new Texture(Strings.UI_DIR + "placeholderbackground.png");
+		PLAY_BUTTON = new Texture(Strings.UI_DIR + "PlayButton.png");
+		QUIT_BUTTON = new Texture(Strings.UI_DIR + "QuitButton.png");
+		RETRY = new Texture(Strings.UI_DIR + "RetryButton.png");
+		RETRY1 = new Texture(Strings.UI_DIR + "Retry Button-1.png.png");
+		RETRY2 = new Texture(Strings.UI_DIR + "Retry Button-2.png.png");
+		
+		BG = new Texture(Strings.UI_DIR + "background.png");
 		
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
 	}

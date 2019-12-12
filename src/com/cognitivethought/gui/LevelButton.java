@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.LevelSelectScreen;
 //Object class fot the level buttons
 public class LevelButton {
@@ -18,22 +19,22 @@ public class LevelButton {
 		Texture texture; //initializes a texture for the button
 		switch (levelNum) { //based on the button number in the list it changes the texture of the buttons
 			case (0):            
-				texture = new Texture("assets/UI/LeveloneButton.png.png");
+				texture = Resources.LVL1;
 				break;
 			case (1):
-				texture = new Texture("assets/UI/LeveltwoButton.png.png");
+				texture = Resources.LVL2;
 				break;
 			case (2):
-				texture = new Texture("assets/UI/LevelthreeButton.png.png");
+				texture = Resources.LVL3;
 				break;
 			case (3):
-				texture = new Texture("assets/UI/LevelfourButton.png.png");
+				texture = Resources.LVL4;
 				break;
 			case (4):
-				texture = new Texture("assets/UI/LevelfiveButton.png.png");
+				texture = Resources.LVL5;
 				break;
 			default:
-				texture = new Texture("assets/UI/LeveloneButton.png.png");
+				texture = Resources.LVL1;
 				break;
 			
 		}

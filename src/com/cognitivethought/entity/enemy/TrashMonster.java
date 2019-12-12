@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
@@ -90,9 +91,9 @@ public class TrashMonster extends Enemy {
 	}
 
 	void createAnimations() {
-		attackSheet = new Texture("assets/Monsters/Trash Monster/attack.png");
-		jumpSheet = new Texture("assets/Monsters/Trash Monster/jump.png");
-		deathSheet = new Texture("assets/Monsters/Trash Monster/death.png");
+		attackSheet = Resources.TRASH_ATTACK;
+		jumpSheet = Resources.TRASH_JUMP;
+		deathSheet = Resources.TRASH_DEATH;
 		
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
 				attackSheet.getHeight() / attackRow);

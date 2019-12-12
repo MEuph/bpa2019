@@ -3,6 +3,7 @@ package com.cognitivethought.inventory;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.cognitivethought.resources.Resources;
 
 public class Item {
 	
@@ -21,9 +22,9 @@ public class Item {
 	
 	private static HashMap<Integer, Texture> textureKey = new HashMap<Integer, Texture>();
 	static {
-		textureKey.put(SEED, new Texture("assets/Inventory/Items/apple.png"));
-		textureKey.put(APPLE, new Texture("assets/Inventory/Items/seed.png"));
-		textureKey.put(ORGANIC_MATTER, new Texture("assets/Inventory/Items/apple.png"));
+		textureKey.put(SEED, Resources.SEED);
+		textureKey.put(APPLE, Resources.APPLE);
+		textureKey.put(ORGANIC_MATTER, Resources.APPLE);
 	}
 	
 	private int id;
