@@ -10,6 +10,9 @@ public class Item {
 	public static final int SEED = 0;
 	public static final int APPLE = 1;
 	public static final int ORGANIC_MATTER = 2;
+	public static final int STICK = 3;
+	public static final int COIN = 4;
+	public static final int NONE = 5;
 	
 	int x, y;
 	
@@ -18,13 +21,19 @@ public class Item {
 		nameKey.put(SEED, "Seed");
 		nameKey.put(APPLE, "Apple");
 		nameKey.put(ORGANIC_MATTER, "Organic Matter");
+		nameKey.put(STICK, "Stick");
+		nameKey.put(COIN, "Coin");
+		nameKey.put(NONE, "");
 	}
 	
 	private static HashMap<Integer, Texture> textureKey = new HashMap<Integer, Texture>();
 	static {
 		textureKey.put(SEED, Resources.SEED);
 		textureKey.put(APPLE, Resources.APPLE);
-		textureKey.put(ORGANIC_MATTER, Resources.APPLE);
+		textureKey.put(ORGANIC_MATTER, Resources.ORGANIC_MATTER);
+		textureKey.put(STICK, Resources.STICK);
+		textureKey.put(COIN, Resources.COIN);
+		textureKey.put(NONE, Resources.NONE);
 	}
 	
 	private int id;
@@ -35,6 +44,13 @@ public class Item {
 		this.id = id;
 		this.quantity = quantity;
 		this.position = position;
+	}
+	
+	public void updateItem() {
+		if (quantity <= 0) {
+			id = NONE;
+			quantity = 0;
+		}
 	}
 	
 	public int getId() {

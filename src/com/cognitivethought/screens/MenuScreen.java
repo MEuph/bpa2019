@@ -16,14 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.Cloud;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.resources.Resources;
 
 //Main title screen
 
 public class MenuScreen implements Screen {
 	
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>(); //arraylist for clouds
-	
-	Texture background = new Texture("assets/UI/placeholderbackground.png"); //the background texture
 	
 	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250); //initializing the buttons
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
@@ -81,7 +80,8 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		batch.draw(background, 0, y, 1920, 1920);
+		batch.draw(Resources.UI_BACKGROUND, 0, y, 1920, 1920);
+		batch.draw(Resources.TITLE, 900, y + 1250, 800, 800);
 		playButton.render(batch);
 		quitButton.render(batch);
 //		for (Cloud c : clouds) {
@@ -90,7 +90,6 @@ public class MenuScreen implements Screen {
 //			c.cloud.draw(batch, delta);
 //		}
 		batch.end();
-
 		
 		if (y >= -800) { //scrolls up the screen y value
 			y-=8;

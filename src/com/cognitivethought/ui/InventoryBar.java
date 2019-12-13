@@ -26,6 +26,9 @@ public class InventoryBar {
 	
 	public int selected;
 	
+	public float timer = 0f;
+	public float timer2 = 0f;
+	
 	public InventoryBar(String invFile) {
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle("assets/Fonts/times-new-roman.ttf"));
@@ -61,18 +64,26 @@ public class InventoryBar {
 			
 			Rectangle itemBoundingBox = new Rectangle(x, y, 100, 100);
 			
-			if (Gdx.input.isKeyJustPressed(Keys.R)) {
-				selected -= 1;
-				System.out.println(selected);
+			if (timer <= 0f) {
+				if (Gdx.input.isKeyJustPressed(Keys.R)) {
+					selected -= 1;
+					System.out.println(selected);
+					timer = 5f;
+					timer2 = 300f;
+				}
+				
+				if (Gdx.input.isKeyJustPressed(Keys.F)) {
+					selected += 1;
+					System.out.println(selected);
+					timer = 5f;
+					timer2 = 300f;
+				}
+			} else {
+				timer--;
 			}
 			
-			if (Gdx.input.isKeyJustPressed(Keys.F)) {
-				selected += 1;
-				System.out.println(selected);
-			}
-			
-			if (selected > 1) {
-				selected = 1;
+			if (selected > InventoryBar.i.getItems().size() - 1) {
+				selected = InventoryBar.i.getItems().size() - 1;
 				System.out.println(selected);
 			} else if (selected < 0) {
 				selected = 0;
@@ -94,8 +105,17 @@ public class InventoryBar {
 			Gdx.gl20.glDisable(GL20.GL_BLEND_SRC_ALPHA);
 			sp.end();
 			b.begin();
-			b.draw(Item.getTexture(this.i.getItems().get(i).getId()), x+10, y+10, 80, 80);
-			font.draw(b, "" + Integer.toString(this.i.getItems().get(i).getQuantity()), x+5, y+90);
+			if (InventoryBar.i.getItems().get(i).getQuantity() > 0) {
+				b.draw(Item.getTexture(this.i.getItems().get(i).getId()), x+10, y+10, 80, 80);
+				font.draw(b, "" + Integer.toString(this.i.getItems().get(i).getQuantity()), x+5, y+90);
+				if (selected == i && timer2 > 0f) {
+					font.draw(b, Item.getName(InventoryBar.i.getItems().get(i).getId()), x + 105 ,y + 60);
+				} else if(timer2 > 0f) {
+					timer2--;
+				}
+			} else {
+				InventoryBar.i.getItems().get(i).updateItem();
+			}
 		}
 	}
 }

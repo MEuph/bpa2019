@@ -7,8 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 public class Resources {
 
 	public static Texture APPLE;
+	public static Texture ORGANIC_MATTER;
 	public static Texture SEED;
-
+	public static Texture STICK;
+	public static Texture COIN;
+	public static Texture NONE;
+	
 	public static Texture TRASH_ATTACK;
 	public static Texture TRASH_DEATH;
 	public static Texture TRASH_JUMP;
@@ -39,12 +43,17 @@ public class Resources {
 	public static Texture RETRY;
 	public static Texture RETRY1;
 	public static Texture RETRY2;
+	public static Texture TITLE;
 	
 	public static Texture BG;
 	
 	public static void loadTextures() {
 		APPLE = new Texture(Strings.ITEMS_DIR + "apple.png");
 		SEED = new Texture(Strings.ITEMS_DIR + "seed.png");
+		ORGANIC_MATTER = new Texture(Strings.ITEMS_DIR + "organic_matter.png");
+		STICK = new Texture(Strings.ITEMS_DIR + "stick.png");
+		COIN = new Texture(Strings.ITEMS_DIR + "coin.png");
+		NONE = new Texture(Strings.ITEMS_DIR + "none.png");
 
 		TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
 		TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");
@@ -74,6 +83,7 @@ public class Resources {
 		RETRY = new Texture(Strings.UI_DIR + "RetryButton.png");
 		RETRY1 = new Texture(Strings.UI_DIR + "Retry Button-1.png.png");
 		RETRY2 = new Texture(Strings.UI_DIR + "Retry Button-2.png.png");
+		TITLE = new Texture(Strings.UI_DIR + "title.png");
 		
 		BG = new Texture(Strings.UI_DIR + "background.png");
 		
