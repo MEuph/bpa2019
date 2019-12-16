@@ -26,6 +26,8 @@ public class Resources {
 
 	public static File INV_1;
 	
+	public static Texture BIRD;
+	
 	public static Texture BARK;
 	public static Texture EXIT;
 	public static Texture EXIT1;
@@ -88,6 +90,8 @@ public class Resources {
 		UI_CRAFTING = new Texture(Strings.UI_DIR + "craftingicon.png");
 		
 		BG = new Texture(Strings.UI_DIR + "background.png");
+		
+		BIRD = new Texture(Strings.DEV_LEVEL_DIR + "tutbird.png");
 		
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
 	}

@@ -16,6 +16,7 @@ import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
 import com.cognitivethought.entity.enemy.TrashMonster;
+import com.cognitivethought.gui.TextBubble;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
@@ -27,6 +28,7 @@ public class Level {
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
 	ArrayList<EnemySpawner> es = new ArrayList<>();
 	ArrayList<ItemDrop> itemDrops = new ArrayList<ItemDrop>();
+	ArrayList<TextBubble> bubbles = new ArrayList<TextBubble>();
 	
 	Spawnpoint sp;
 	Screen screen;
@@ -170,6 +172,8 @@ public class Level {
 					addSpawner(es2);
 					es2.debugInfo();
 					System.out.println();
+				case(-13640667):
+					
 				}
 			}
 		}
