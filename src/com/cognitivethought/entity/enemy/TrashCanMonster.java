@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.cognitivethought.entity.ItemDrop;
+import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashCanMonster extends Enemy {
@@ -22,7 +25,7 @@ public class TrashCanMonster extends Enemy {
 	
 	float attackTime;
 	float jumpTime;
-	float deathTime;
+	float deathTime = 1f;
 	
 	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
@@ -61,7 +64,7 @@ public class TrashCanMonster extends Enemy {
 	 * 		The appearance of this particular trash monster
 	 * @throws Exception 
 	 */
-	public TrashCanMonster(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies) {
+	public TrashCanMonster(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
 		this.speed = 2f - (float)Math.random();	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
@@ -79,6 +82,17 @@ public class TrashCanMonster extends Enemy {
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
+					int organicMatterToDrop = new Random().nextInt(4) + 1;
+					for (int i = 0; i < organicMatterToDrop; i++) {
+						ItemDrop om = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
+						om.dy = 2f;
+						om.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
+						l.getItemDrops().add(om);
+					}
+					ItemDrop coin = new ItemDrop(Resources.COIN, (int)t.getX(), (int)t.getY(), 40, 40, Item.COIN);
+					coin.dy = 2f;
+					coin.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2);
+					l.getItemDrops().add(coin);
 					enemies.remove(t);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
@@ -128,7 +142,7 @@ public class TrashCanMonster extends Enemy {
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		
 		attackTime = 0f;
-		deathTime = 0f;
+		deathTime = 1f;
 	}
 	
 	/**
@@ -175,8 +189,12 @@ public class TrashCanMonster extends Enemy {
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 		
+		if (hurtTimer > 0f) {
+			hurtTimer--;
+		}
+		
 		if (attacking) {
-			attackTimer-=1f;
+			attackTimer-=2f;
 		}
 		
 		facingRight = dx < 0;
@@ -202,14 +220,24 @@ public class TrashCanMonster extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
+		//if (l.getSpawnpoint().getPlayer().isAttacking) return;
+		
+		if (hb.health <= 0f) return;
+		
 		attackRange = 1f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
+		if (!canAttack) return;
+		
+//		System.out.println(canAttack);
+//		System.out.println(deathTime);
+//		System.out.println();
+		
 		// attack if the monster can attack
-		if (canAttack && deathTime == 0f) {
+		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
@@ -237,17 +265,18 @@ public class TrashCanMonster extends Enemy {
 	
 	@Override
 	public void hurt(int value) {
-		System.out.println("SHOT");
-		System.out.println(hb.health);
-		hb.health -= value;
-		System.out.println(hb.health);
-		deathThreadPaused = false;
-		attacking = false;
-		deathTime = 1f;
-		
 		if (hb.health <= 0f) {
 			die();
+			return;
 		}
+		if (hurtTimer > 0f) {
+			return;
+		} else {
+			hurtTimer = 60f;
+		}
+		deathTime = 1f;
+		attacking = false;
+		hb.health -= value;
 	}
 	
 	/**
@@ -255,7 +284,7 @@ public class TrashCanMonster extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch, OrthographicCamera c) {
-		if (attacking && !deathThreadPaused) {
+		if (attacking && !deathThreadPaused && hb.health > 0f) {
 			attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);

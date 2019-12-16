@@ -12,6 +12,8 @@ public class HealthBar {
 	public int health = 3;
 	public int bark = 2;
 	
+	private float uiSize = 100;
+	
 	private Sprite heartImg;
 	private Sprite barkImg;
 	private Sprite monsterHeart;
@@ -42,9 +44,9 @@ public class HealthBar {
 		if (tm == null) {
 			for (int i = 0; i < health; i++) {
 				if (i <= bark) {
-					b.draw(barkImg, (c.position.x + 32 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 32 - c.viewportHeight / 2) / c.zoom, 64, 64);
+					b.draw(barkImg, (c.position.x + (uiSize / 2) + ((uiSize - 10)*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + (uiSize / 2) - c.viewportHeight / 2) / c.zoom, uiSize, uiSize);
 				} else {
-					b.draw(heartImg, (c.position.x + 32 + (60*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + 32 - c.viewportHeight / 2) / c.zoom, 64, 64);
+					b.draw(heartImg, (c.position.x + (uiSize / 2) + ((uiSize - 10)*i) - c.viewportWidth / 2) / c.zoom, (c.position.y + (uiSize / 2) - c.viewportHeight / 2) / c.zoom, uiSize, uiSize);
 				}
 			}
 		} else {

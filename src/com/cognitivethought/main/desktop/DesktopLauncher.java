@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.title = "Casha | The Chosen One";
 		config.width = 1920;
 		config.height = 1080;
-		config.fullscreen = true;
+		config.fullscreen = false;
 		config.vSyncEnabled = true;
 		new LwjglApplication(new Main(), config);
 	}

@@ -11,19 +11,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
-import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.ui.InventoryBar;
 
 public class Level {
 
 	// All the platforms in the level
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
 	ArrayList<EnemySpawner> es = new ArrayList<>();
+	ArrayList<ItemDrop> itemDrops = new ArrayList<ItemDrop>();
 	
 	Spawnpoint sp;
 	Screen screen;
@@ -155,7 +157,7 @@ public class Level {
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
-					es.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies), j*scale, -i*scale);
+					es.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies, this), j*scale, -i*scale);
 					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es);
 					es.debugInfo();
@@ -238,6 +240,14 @@ public class Level {
 		this.platforms = platforms;
 	}
 
+	public ArrayList<ItemDrop> getItemDrops() {
+		return itemDrops;
+	}
+	
+	public void setItemDrops(ArrayList<ItemDrop> itemDrops) {
+		this.itemDrops = itemDrops;
+	}
+	
 	/**
 	 * Draw this level
 	 * 
@@ -251,6 +261,17 @@ public class Level {
 		for (EnemySpawner e : es) {
 			e.update(hb, this);
 			e.draw(b, c);
+		}
+		
+		for (ItemDrop id : itemDrops) {
+			id.update(this, InventoryBar.i, this.sp.getPlayer());
+			id.render(b);
+		}
+		
+		for (int i = 0; i < itemDrops.size(); i++) {
+			if (itemDrops.get(i).remove) {
+				itemDrops.remove(i);
+			}
 		}
 	}
 }

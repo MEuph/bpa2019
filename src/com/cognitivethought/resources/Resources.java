@@ -44,6 +44,7 @@ public class Resources {
 	public static Texture RETRY1;
 	public static Texture RETRY2;
 	public static Texture TITLE;
+	public static Texture UI_CRAFTING;
 	
 	public static Texture BG;
 	
@@ -84,6 +85,7 @@ public class Resources {
 		RETRY1 = new Texture(Strings.UI_DIR + "Retry Button-1.png.png");
 		RETRY2 = new Texture(Strings.UI_DIR + "Retry Button-2.png.png");
 		TITLE = new Texture(Strings.UI_DIR + "title.png");
+		UI_CRAFTING = new Texture(Strings.UI_DIR + "craftingicon.png");
 		
 		BG = new Texture(Strings.UI_DIR + "background.png");
 		

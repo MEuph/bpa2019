@@ -17,17 +17,21 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.inventory.Inventory;
 import com.cognitivethought.inventory.Item;
+import com.cognitivethought.resources.Resources;
 
 public class InventoryBar {
 	
 	public static Inventory i = new Inventory();
 	
 	public BitmapFont font;
+	public BitmapFont smallFont;
 	
 	public int selected;
 	
 	public float timer = 0f;
 	public float timer2 = 0f;
+	
+	public CraftingGrid grid;
 	
 	public InventoryBar(String invFile) {
 		
@@ -35,6 +39,8 @@ public class InventoryBar {
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
 		font = generator.generateFont(parameter);
+		parameter.size = 20;
+		smallFont = generator.generateFont(parameter);
 		generator.dispose();
 		try {
 			i.read(invFile);
@@ -48,10 +54,11 @@ public class InventoryBar {
 	}
 	
 	public void render(Batch b, OrthographicCamera c) {
+		float y = c.position.y - (c.viewportHeight / 2) + 800;
+		float x = c.position.x - (c.viewportWidth / 2) + 10;
 		for (int i = 0; i < this.i.getItems().size(); i++) {
 			int yDisplacement = -i*100;
-			float y = c.position.y - (c.viewportHeight / 2) + yDisplacement + 800;
-			float x = c.position.x - (c.viewportWidth / 2) + 10;
+			y = c.position.y - (c.viewportHeight / 2) + yDisplacement + 800;
 			
 //			this.i.getItems().get(i).setX((int)x);
 //			this.i.getItems().get(i).setY((int)y);
@@ -117,5 +124,73 @@ public class InventoryBar {
 				InventoryBar.i.getItems().get(i).updateItem();
 			}
 		}
+		
+		if (Gdx.input.isButtonJustPressed(Keys.C)) {
+			int om = 0;
+			int locOm = 0;
+			for (Item i : InventoryBar.i.getItems()) {
+				if (i.getId() == Item.ORGANIC_MATTER) { 
+					locOm++; 
+					break;
+				} else {
+					locOm++;
+				}
+			}
+			om = InventoryBar.i.getItems().get(locOm).getQuantity();
+			
+			int seed = 0;
+			int locS = 0;
+			for (Item i : InventoryBar.i.getItems()) {
+				if (i.getId() == Item.SEED) { 
+					locS++; 
+					break;
+				} else {
+					locS++;
+				}
+			}
+			seed = InventoryBar.i.getItems().get(locS).getQuantity();
+			
+			if (seed >= 1 && om >= 3) {
+				InventoryBar.i.getItems().get(locOm).decrement();
+				InventoryBar.i.getItems().get(locOm).decrement();
+				InventoryBar.i.getItems().get(locOm).decrement();
+				InventoryBar.i.getItems().get(locS).decrement();
+				for (int j = 0; j < i.getItems().size(); j++) {
+					if (i.getItems().get(j).getId() == Item.APPLE) {
+						i.getItems().get(j).increment();
+						return;
+					} else continue;
+				}
+				
+				int pos = 0;
+				for (; pos < i.getItems().size(); pos++) {
+					if (i.getItems().get(pos).getId() == Item.NONE) break;
+				}
+				
+				InventoryBar.i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
+			}
+		}
+		
+		y -= 100;
+		
+		b.end();
+		ShapeRenderer sp = new ShapeRenderer();
+		sp.setColor(new Color(0.1f, 0.1f, 0.1f, 1f));
+		sp.setProjectionMatrix(c.combined);
+		sp.begin(ShapeType.Filled);
+		Gdx.gl20.glEnable(GL20.GL_BLEND_SRC_ALPHA);
+		sp.rect(x, y, 100, 100);
+		sp.setColor(new Color(1f, 1f, 1f, 1f));
+		sp.rectLine(x, y, x, y+100, 3);
+		sp.rectLine(x, y+100, x+100, y+100, 3);
+		sp.rectLine(x+100, y+100, x+100, y, 3);
+		sp.rectLine(x, y, x+100, y, 3);
+		Gdx.gl20.glDisable(GL20.GL_BLEND_SRC_ALPHA);
+		sp.end();
+		b.begin();
+		b.draw(Resources.UI_CRAFTING, x + 27, y + 7, 8 * 5, 17 * 5);
+		
+		smallFont.draw(b, "Press [C] to Make Apples", x + 5, y - 20);
+		smallFont.draw(b, "(x3 Organic Matter, x1 Seed)", x + 5, y - 40);
 	}
 }

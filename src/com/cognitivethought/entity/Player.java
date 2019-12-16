@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
-import com.cognitivethought.gui.InventoryInteract;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;

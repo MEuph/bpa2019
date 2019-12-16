@@ -18,6 +18,8 @@ public class Inventory {
 	}
 	
 	public void read(String s) throws FileNotFoundException {
+		items.clear();
+		
 		ArrayList<Integer> data = new ArrayList<>();
 		
 		File f = new File(s);

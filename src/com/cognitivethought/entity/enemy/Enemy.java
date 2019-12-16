@@ -14,6 +14,7 @@ public abstract class Enemy extends Sprite {
 	protected float detectionRange; // How far the detection range of the enemy is
 	protected float attackRange;	// How far away the enemy can attack from
 	protected float speed;			// The speed of the enemy
+	protected float hurtTimer;
 	
 	protected Behavior movementBehavior;	// The behavior of movement
 	protected Behavior attackBehavior;		// The behavior of attacking

@@ -1,5 +1,7 @@
 package com.cognitivethought.screens;
 
+import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.ui.InventoryBar;
 
@@ -44,6 +47,12 @@ public class GameScreen implements Screen {
 		font.setColor(Color.WHITE);
 		
 		background = new Sprite(Resources.BG);
+		
+		try {
+			InventoryBar.i.read(Strings.INV_DIR + "/inv1.txt");
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		
 //		try {
 //			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), this); // Initialize level with 'testlevel.level'
