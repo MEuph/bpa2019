@@ -82,12 +82,19 @@ public class TrashMonster extends Enemy {
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
-					int organicMatterToDrop = new Random().nextInt(4) + 1;
+					int organicMatterToDrop = new Random().nextInt(2);
 					for (int i = 0; i < organicMatterToDrop; i++) {
 						ItemDrop om = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
 						om.dy = 2f;
 						om.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
 						l.getItemDrops().add(om);
+					}
+					int seedsToDrop = new Random().nextInt(3);
+					for (int i = 0; i < seedsToDrop; i++) {
+						ItemDrop s = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
+						s.dy = 2f;
+						s.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
+						l.getItemDrops().add(s);
 					}
 					ItemDrop coin = new ItemDrop(Resources.COIN, (int)t.getX(), (int)t.getY(), 40, 40, Item.COIN);
 					coin.dy = 2f;
@@ -104,9 +111,9 @@ public class TrashMonster extends Enemy {
 	}
 
 	void createAnimations() {
-		attackSheet = new Texture("assets/Monsters/Trashcan Monster/attack.png");
-		jumpSheet = new Texture("assets/Monsters/Trashcan Monster/move.png");
-		deathSheet = new Texture("assets/Monsters/Trashcan Monster/death.png");
+		attackSheet = Resources.TRASH_ATTACK;
+		jumpSheet = Resources.TRASH_JUMP;
+		deathSheet = Resources.TRASH_DEATH;
 		
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
 				attackSheet.getHeight() / attackRow);
@@ -266,7 +273,7 @@ public class TrashMonster extends Enemy {
 		if (hurtTimer > 0f) {
 			return;
 		} else {
-			hurtTimer = 60f;
+			hurtTimer = 40f;
 		}
 		deathTime = 1f;
 		attacking = false;

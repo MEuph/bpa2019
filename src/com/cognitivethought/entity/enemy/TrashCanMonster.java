@@ -272,7 +272,7 @@ public class TrashCanMonster extends Enemy {
 		if (hurtTimer > 0f) {
 			return;
 		} else {
-			hurtTimer = 60f;
+			hurtTimer = 40f;
 		}
 		deathTime = 1f;
 		attacking = false;
