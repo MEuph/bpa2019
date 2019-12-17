@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.ui.HealthBar;
 
@@ -67,8 +68,12 @@ public class EnemySpawner {
 	 * 		Batch that can do Batch-rendering
 	 */
 	public void draw(Batch b, OrthographicCamera c) {
+		Rectangle r = new Rectangle(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), c.viewportWidth, c.viewportHeight);
+		
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).draw(b, c);
+			if (enemies.get(i).getBoundingRectangle().overlaps(r)) {
+				enemies.get(i).draw(b, c);
+			}
 		}
 	}
 	

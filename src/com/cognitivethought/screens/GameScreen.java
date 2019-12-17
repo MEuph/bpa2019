@@ -48,6 +48,9 @@ public class GameScreen implements Screen {
 		
 		background = new Sprite(Resources.BG);
 		
+		background.setSize(1920 * 4, 1080 * 2);
+		background.setPosition(-1920, -1080 * 2f);
+		
 		try {
 			InventoryBar.i.read(Strings.INV_DIR + "/inv1.txt");
 		} catch (FileNotFoundException e1) {
@@ -110,9 +113,6 @@ public class GameScreen implements Screen {
 		// Smooth camera fade
 		Vector3 position = c.position;
 		smoothCamera = 0.1f / c.zoom;
- 
-		background.setSize(1920 * 4, 1080 * 2);
-		background.setPosition(-1920, -1080 * 2f);
 		
 		if (!(fade > 0)) {
 			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
@@ -126,6 +126,18 @@ public class GameScreen implements Screen {
 		
 		batch.begin();
 		background.draw(batch);
+		
+		if (batch == null) {
+			System.out.println("batch");
+		}
+
+		if (hb == null) {
+			System.out.println("hb");
+		}
+
+		if (c == null) {
+			System.out.println("c");
+		}
 		
 		level.render(batch, hb, c);
 

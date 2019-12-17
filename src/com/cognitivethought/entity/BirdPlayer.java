@@ -540,7 +540,7 @@ public class BirdPlayer extends Sprite {
 				deathTime = timeToDie;
 			}
 		}
-
+		
 //		sb.draw(getTexture(), !facingRight ? getX() : getX() + getWidth(), getY(),
 //				!facingRight ? getWidth() : -getWidth(), getHeight());
 

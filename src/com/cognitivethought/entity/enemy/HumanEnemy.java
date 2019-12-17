@@ -254,13 +254,6 @@ public class HumanEnemy extends Enemy {
 			if (jumpTime > 1f) {
 				jumpTime = 0f;
 			}
-		} else if (0 <= 0) {
-			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
-			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
-			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
-			this.setFlip(this.isFlipX() || facingRight, false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		} else {
 			attacking = false;
 			deathTime+=Gdx.graphics.getDeltaTime();

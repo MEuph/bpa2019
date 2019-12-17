@@ -452,6 +452,8 @@ public class TreePlayer extends Sprite {
 		
 	}
 	
+	TextureRegion currentFrame;
+	
 	/**
 	 * Draws the player
 	 * 
@@ -475,7 +477,7 @@ public class TreePlayer extends Sprite {
 			jumps = 3;
 			shootTime += Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
-			TextureRegion currentFrame = shootAnimation.getKeyFrame(shootTime, true);
+			currentFrame = shootAnimation.getKeyFrame(shootTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			sb.draw(currentFrame, facingRight ? getX() + getWidth() : getX(), getY(),
@@ -493,7 +495,7 @@ public class TreePlayer extends Sprite {
 			attackTime += Gdx.graphics.getDeltaTime();
 			isAttacking = true;
 			idleTime = 0f;
-			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
+			currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			sb.draw(currentFrame, facingRight ? getX() + (getWidth() + 84f) : (getX() - getWidth() - 12f), getY(),
@@ -507,7 +509,7 @@ public class TreePlayer extends Sprite {
 		} else if (deathThreadPaused) {
 			idleTime += Gdx.graphics.getDeltaTime();
 			isAttacking = false;
-			TextureRegion currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
+			currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
 			// System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);

@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.inventory.Inventory;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.resources.Resources;
@@ -69,8 +68,6 @@ public class InventoryBar {
 			sp.begin(ShapeType.Filled);
 			Gdx.gl20.glEnable(GL20.GL_BLEND_SRC_ALPHA);
 			
-			Rectangle itemBoundingBox = new Rectangle(x, y, 100, 100);
-			
 			if (timer <= 0f) {
 				if (Gdx.input.isKeyJustPressed(Keys.R)) {
 					selected -= 1;
@@ -124,53 +121,7 @@ public class InventoryBar {
 				InventoryBar.i.getItems().get(i).updateItem();
 			}
 		}
-		
-		if (Gdx.input.isButtonJustPressed(Keys.C)) {
-			int om = 0;
-			int locOm = 0;
-			for (Item i : InventoryBar.i.getItems()) {
-				if (i.getId() == Item.ORGANIC_MATTER) { 
-					locOm++; 
-					break;
-				} else {
-					locOm++;
-				}
-			}
-			om = InventoryBar.i.getItems().get(locOm).getQuantity();
-			
-			int seed = 0;
-			int locS = 0;
-			for (Item i : InventoryBar.i.getItems()) {
-				if (i.getId() == Item.SEED) { 
-					locS++; 
-					break;
-				} else {
-					locS++;
-				}
-			}
-			seed = InventoryBar.i.getItems().get(locS).getQuantity();
-			
-			if (seed >= 1 && om >= 3) {
-				InventoryBar.i.getItems().get(locOm).decrement();
-				InventoryBar.i.getItems().get(locOm).decrement();
-				InventoryBar.i.getItems().get(locOm).decrement();
-				InventoryBar.i.getItems().get(locS).decrement();
-				for (int j = 0; j < i.getItems().size(); j++) {
-					if (i.getItems().get(j).getId() == Item.APPLE) {
-						i.getItems().get(j).increment();
-						return;
-					} else continue;
-				}
-				
-				int pos = 0;
-				for (; pos < i.getItems().size(); pos++) {
-					if (i.getItems().get(pos).getId() == Item.NONE) break;
-				}
-				
-				InventoryBar.i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
-			}
-		}
-		
+
 		y -= 100;
 		
 		b.end();
@@ -192,5 +143,54 @@ public class InventoryBar {
 		
 		smallFont.draw(b, "Press [C] to Make Apples", x + 5, y - 20);
 		smallFont.draw(b, "(x3 Organic Matter, x1 Seed)", x + 5, y - 40);
+		
+		if (Gdx.input.isKeyJustPressed(Keys.C)) {
+			int m = 0;
+			for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+				if (InventoryBar.i.getItems().get(i).getId() == Item.ORGANIC_MATTER) {
+					m = InventoryBar.i.getItems().get(i).getQuantity();
+				}
+			}
+			System.out.println(m);
+			
+			int s = 0;
+			for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+				if (InventoryBar.i.getItems().get(i).getId() == Item.SEED) {
+					s = InventoryBar.i.getItems().get(i).getQuantity();
+				}
+			}
+			System.out.println(s);
+			
+			if (m >= 3 && s >= 1) {
+				for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+					if (InventoryBar.i.getItems().get(i).getId() == Item.SEED) {
+						InventoryBar.i.getItems().get(i).decrement();
+					}
+				}
+				
+				for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+					if (InventoryBar.i.getItems().get(i).getId() == Item.ORGANIC_MATTER) {
+						InventoryBar.i.getItems().get(i).decrement();
+						InventoryBar.i.getItems().get(i).decrement();
+						InventoryBar.i.getItems().get(i).decrement();
+					}
+				}
+				
+				for (int j = 0; j < i.getItems().size(); j++) {
+					if (i.getItems().get(j).getId() == Item.APPLE) {
+						i.getItems().get(j).increment();
+						return;
+					} else continue;
+				}
+				
+				int pos = 0;
+				for (; pos < i.getItems().size(); pos++) {
+					if (i.getItems().get(pos).getId() == Item.NONE) break;
+				}
+				
+				i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
+			}
+		}
+		
 	}
 }

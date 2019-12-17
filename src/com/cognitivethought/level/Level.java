@@ -11,6 +11,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
@@ -165,6 +166,7 @@ public class Level {
 					addSpawner(es);
 					es.debugInfo();
 					System.out.println();
+					break;
 				case(-16760832):
 					EnemySpawner es2 = new EnemySpawner();
 					es2.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies, this), j*scale, -i*scale);
@@ -172,8 +174,9 @@ public class Level {
 					addSpawner(es2);
 					es2.debugInfo();
 					System.out.println();
-				case(-13640667):
-					
+					break;
+//				case(-13640667):
+//					
 				}
 			}
 		}
@@ -266,8 +269,13 @@ public class Level {
 	 * @param b The batch that also renders everything else in the screen
 	 */
 	public void render(Batch b, HealthBar hb, OrthographicCamera c) {
+		float cx = c.position.x - (c.viewportWidth / 2);
+		float cy = c.position.y - (c.viewportHeight / 2);
+		Rectangle r = new Rectangle(cx, cy, c.viewportWidth, c.viewportHeight);
 		for (Platform plat : platforms) {
-			plat.draw(b);
+			if (plat.getBoundingRectangle().overlaps(r)) {
+				plat.draw(b);
+			}
 		}
 		
 		for (EnemySpawner e : es) {
