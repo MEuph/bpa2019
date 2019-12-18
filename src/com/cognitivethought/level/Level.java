@@ -167,7 +167,7 @@ public class Level {
 					es.debugInfo();
 					System.out.println();
 					break;
-				case(-16760832):
+				case(-20791):
 					EnemySpawner es2 = new EnemySpawner();
 					es2.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies, this), j*scale, -i*scale);
 					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
@@ -210,18 +210,7 @@ public class Level {
 				}
 			}
 		};
-		sp.getPlayer().completeThread = new Thread() {
-			@SuppressWarnings("static-access")
-			@Override
-			public void run() {
-				try {
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				this.interrupt();
-			}
-		};
+		
 	}
 	
 	public void addSpawner(EnemySpawner spawner) {
