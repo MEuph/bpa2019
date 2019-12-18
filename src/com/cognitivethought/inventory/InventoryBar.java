@@ -26,7 +26,8 @@ public class InventoryBar implements InputProcessor {
 	public static Item currentlyHeldItem;
 	public static Inventory i = new Inventory();
 	public static CraftingGrid grid;
-
+	public static boolean click = false;
+	
 	public BitmapFont font;
 
 	public BitmapFont smallFont;
@@ -251,8 +252,8 @@ public class InventoryBar implements InputProcessor {
 	public boolean mouseMoved(int mx, int my) {
 		highlighted = craftingButton.contains((float) mx, (float) my);
 		TreePlayer.canShoot = !highlighted;
-
-		grid.update(mx, my, false);
+		
+		grid.updateHighlight(mx, my);
 		
 		if (!grid.clickInGrid) {
 			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
@@ -303,8 +304,8 @@ public class InventoryBar implements InputProcessor {
 			else
 				grid.open();
 		}
-
-		grid.update(mx, my, true);
+		
+		grid.updateClick(mx, my);
 		
 		if (!grid.clickInGrid) {
 			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);

@@ -23,7 +23,9 @@ public class Resources {
 	public static Texture PLAYER_DEATH;
 	public static Texture PLAYER_IDLE;
 	public static Texture PLAYER_THROW;
-
+	
+	public static Texture CHECK;
+	
 	public static File INV_1;
 	public static File CRAFTING_FILE;
 	
@@ -89,6 +91,7 @@ public class Resources {
 		RETRY2 = new Texture(Strings.UI_DIR + "Retry Button-2.png.png");
 		TITLE = new Texture(Strings.UI_DIR + "title.png");
 		UI_CRAFTING = new Texture(Strings.UI_DIR + "craftingicon.png");
+		CHECK = new Texture(Strings.UI_DIR + "check.png");
 		
 		BG = new Texture(Strings.UI_DIR + "background.png");
 		

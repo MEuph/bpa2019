@@ -32,19 +32,18 @@ public class Slot {
 		return heldItem;
 	}
 	
-	public void update(int mx, int my, boolean click) {
+	public void updateHighlight(int mx, int my) {
 		highlighted = new Rectangle(this.x, this.y, this.size, this.size).contains(mx, my);
+	}
+	
+	public boolean updateClick(int mx, int my) {
+		if(!highlighted) return false;
 		
-		if(!highlighted) return;
+		Item temp = InventoryBar.currentlyHeldItem;
+		InventoryBar.currentlyHeldItem = heldItem;
+		heldItem = temp;
 		
-		if (click) {
-			Item temp = InventoryBar.currentlyHeldItem;
-			heldItem = temp;
-			InventoryBar.currentlyHeldItem = temp;
-			return;
-		}
-		
-		return;
+		return true;
 	}
 	
 	public void render(Batch b, OrthographicCamera c, float x, float y, float size, BitmapFont font) {
