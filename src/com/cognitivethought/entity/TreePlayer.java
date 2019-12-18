@@ -79,11 +79,13 @@ public class TreePlayer extends Sprite {
 	
 	public Thread deathThread;
 
+	public Thread completeThread;
 	/**
 	 * Instantiates a new Player in the scene
 	 * 
 	 * @param t The image of the player
 	 */
+	
 	public TreePlayer(Texture t, Screen s) {
 		super(t);
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
@@ -301,7 +303,7 @@ public class TreePlayer extends Sprite {
 						levelsPassed = 5;
 						
 					}
-					Main.main.setScreen(Main.main.levelSelectScreen);
+					completeThread.start();
 				}
 			}
 
@@ -448,6 +450,10 @@ public class TreePlayer extends Sprite {
 	}
 	
 	TextureRegion currentFrame;
+
+	
+
+
 	
 	/**
 	 * Draws the player

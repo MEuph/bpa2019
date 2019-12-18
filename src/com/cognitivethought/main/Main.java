@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.screens.CompleteScreen;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
@@ -25,6 +26,8 @@ public class Main extends Game implements ApplicationListener {
 	
 	public DeathScreen deathScreen;
 	
+	public CompleteScreen completeScreen;
+	
 	@Override
 	public void create() {
 		Resources.loadTextures();
@@ -34,6 +37,7 @@ public class Main extends Game implements ApplicationListener {
 		menuScreen			= new MenuScreen();
 		levelSelectScreen	= new LevelSelectScreen();
 		deathScreen 		= new DeathScreen(null);
+		completeScreen 		= new CompleteScreen(null);
 		setScreen(menuScreen);
 	}
 
