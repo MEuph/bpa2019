@@ -326,6 +326,8 @@ public class TrashCanMonster extends Enemy {
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		}
 		
+		
+		
 		hb.render(batch, c);
 	}
 	
