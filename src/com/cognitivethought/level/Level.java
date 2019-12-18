@@ -175,6 +175,9 @@ public class Level {
 					es2.debugInfo();
 					System.out.println();
 					break;
+				case(-7649845):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
 //				case(-13640667):
 //					
 				}
