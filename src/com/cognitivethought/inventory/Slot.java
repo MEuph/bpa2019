@@ -53,8 +53,6 @@ public class Slot {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		if (!b.isDrawing()) b.begin();
 		
-		System.out.println("ALL RENDERED BUT FONT: " + this.quantity);
-		
 		// TODO: MAKE IT SO THAT WHEN YOU CLICK ON ONE OF THESE SLOTS, THE ITEM GETS PUT INTO THE SLOT!!!
 		
 		font.draw(b, this.quantity > 0 ? Integer.toString(this.quantity) : "", x+5, y+90);

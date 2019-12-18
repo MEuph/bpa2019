@@ -307,10 +307,42 @@ public class InventoryBar implements InputProcessor {
 		if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
 				|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
 				|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) {
-			currentlyHeldItem = InventoryBar.i.getItems().get(selected);
-			System.out.println(Item.getName(currentlyHeldItem.getId()));
+			if (selected != currentlyHeldItem.getPosition()) {
+				if (InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId()) {
+					for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {
+						InventoryBar.i.getItems().get(selected).increment();
+					}
+				} else {
+					Item temp = currentlyHeldItem;
+					temp.setPosition(selected);
+					currentlyHeldItem = InventoryBar.i.getItems().get(selected);
+					InventoryBar.i.getItems().set(selected, temp);
+				}
+			} else {
+				if (i.getItems().get(selected).getId() == Item.NONE) {
+					InventoryBar.i.getItems().set(selected, currentlyHeldItem);
+					currentlyHeldItem = new Item(Item.NONE, 0, 0);
+				} else {
+					Item temp = currentlyHeldItem;
+					temp.setPosition(selected);
+					currentlyHeldItem = InventoryBar.i.getItems().get(selected);
+					InventoryBar.i.getItems().set(selected, temp);
+				}
+			}
 			TreePlayer.canShoot = false;
 		} else {
+			if (i.getItems().get(currentlyHeldItem.getPosition()).getId() == Item.NONE) {
+				i.getItems().set(currentlyHeldItem.getPosition(), currentlyHeldItem);
+			} else {
+				int emptyPos = 0;
+				for (; emptyPos < i.getItems().size(); emptyPos++) {
+					if (i.getItems().get(emptyPos).getId() == Item.NONE) break;
+				}
+				if (emptyPos != -1) {
+					i.getItems().set(emptyPos, currentlyHeldItem);
+					currentlyHeldItem = new Item(Item.NONE, 0, 0);
+				}
+			}
 			currentlyHeldItem = new Item(Item.NONE, 0, 0);
 		}
 
