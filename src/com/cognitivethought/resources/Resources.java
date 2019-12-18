@@ -98,6 +98,6 @@ public class Resources {
 		BIRD = new Texture(Strings.DEV_LEVEL_DIR + "tutbird.png");
 		
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
-		INV_1 = new File(Strings.INV_DIR + "recipes.txt");
+		CRAFTING_FILE = new File(Strings.INV_DIR + "recipes.txt");
 	}
 }

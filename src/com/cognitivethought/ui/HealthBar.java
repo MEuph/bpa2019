@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.cognitivethought.entity.enemy.Enemy;
-import com.cognitivethought.entity.enemy.TrashMonster;
 
 public class HealthBar {
 	

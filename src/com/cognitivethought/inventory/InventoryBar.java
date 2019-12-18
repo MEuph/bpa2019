@@ -253,6 +253,12 @@ public class InventoryBar implements InputProcessor {
 		highlighted = craftingButton.contains((float) mx, (float) my);
 		TreePlayer.canShoot = !highlighted;
 		
+		if (grid.craftButton.contains(mx, my)) {
+			grid.highlighted = true;
+		} else {
+			grid.highlighted = false;
+		}
+		
 		grid.updateHighlight(mx, my);
 		
 		if (!grid.clickInGrid) {
@@ -305,6 +311,10 @@ public class InventoryBar implements InputProcessor {
 				grid.open();
 		}
 		
+		if (grid.craftButton.contains(relMousePos.x, relMousePos.y)) {
+			grid.craft();
+		}
+		
 		grid.updateClick(mx, my);
 		
 		if (!grid.clickInGrid) {
@@ -323,6 +333,7 @@ public class InventoryBar implements InputProcessor {
 						for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {
 							InventoryBar.i.getItems().get(selected).increment();
 						}
+						currentlyHeldItem = new Item(Item.NONE, 0, 0);
 					} else {
 						Item temp = currentlyHeldItem;
 						temp.setPosition(selected);

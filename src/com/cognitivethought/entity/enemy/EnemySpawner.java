@@ -43,17 +43,18 @@ public class EnemySpawner {
 	 * 		The level the enemy is in
 	 */
 	public void update(HealthBar hb, Level l) {
-		for (Enemy e : enemies) {
-			e.update(hb, l);
+		for (int i = 0; i < enemies.size(); i++) {
+			enemies.get(i).update(hb, l);
 			
-			if (e.getHealth() <= 0f) {
-				if (e.deathThread.isAlive()) {
-					if (e.deathThreadTime >= 1700) {
-						enemies.remove(e);
+			if (enemies.get(i).getHealth() <= 0f) {
+				if (enemies.get(i).deathThread.isAlive()) {
+					if (enemies.get(i).deathThreadTime >= 1700) {
+						enemies.remove(i);
+						break;
 					}
 				} else {
 					try {
-						e.deathThread.start();
+						enemies.get(i).deathThread.start();
 					} catch (IllegalThreadStateException itse) {
 						itse.printStackTrace();
 					}
