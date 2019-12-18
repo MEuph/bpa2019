@@ -79,7 +79,6 @@ public class TreePlayer extends Sprite {
 	
 	public Thread deathThread;
 
-	public Thread completeThread;
 	/**
 	 * Instantiates a new Player in the scene
 	 * 

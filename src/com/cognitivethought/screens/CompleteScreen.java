@@ -39,7 +39,7 @@ Texture background; //the background texture
 		
 		background = new Texture("assets/UI/placeholderbackground.png");
 		retryButton = new ImageButton(new Texture("assets/UI/Retry Button-1.png.png"), new Texture("assets/UI/Retry Button-2.png.png"), (1920 / 2) - (250 / 2), 500, 250, 250);
-		nextButton = new ImageButton(new Texture("assets/UI/Exit Button-1.png.png"), new Texture("assets/UI/Exit Button-2.png.png"), (1920 / 2) - (250 / 2), 150, 250, 250);
+		nextButton = new ImageButton(new Texture("assets/UI/Level Select-1.png.png"), new Texture("assets/UI/Level Select-2.png.png"), (1920 / 2) - (250 / 2), 150, 250, 250);
 		
 		batch = new SpriteBatch();
 		

@@ -210,18 +210,7 @@ public class Level {
 				}
 			}
 		};
-		sp.getPlayer().completeThread = new Thread() {
-			@SuppressWarnings("static-access")
-			@Override
-			public void run() {
-				try {
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				this.interrupt();
-			}
-		};
+		
 	}
 	
 	public void addSpawner(EnemySpawner spawner) {
