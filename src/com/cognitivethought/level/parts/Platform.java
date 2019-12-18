@@ -18,6 +18,7 @@ public class Platform extends Sprite {
 	public boolean endsLevel;
 
 	private int posX, posY;
+	private boolean collidesEnemy;
 
 	/**
 	 * Basically just a placeholder of values for the player to interact with
@@ -132,7 +133,20 @@ public class Platform extends Sprite {
 		this.canHarm = canHarm;
 		this.endsLevel = endsLevel;
 	}
-
+	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
+			boolean collideRight, boolean collideBottom, boolean canHarm, boolean endsLevel, boolean collideEnemy) {
+		super(t);
+		super.setX(x);
+		super.setY(y);
+		super.setSize(w, h);
+		this.collideTop = collideTop;
+		this.collideLeft = collideLeft;
+		this.collideRight = collideRight;
+		this.collideBottom = collideBottom;
+		this.canHarm = canHarm;
+		this.endsLevel = endsLevel;
+		this.collidesEnemy = collideEnemy;
+	}
 	public Platform(Texture t, float x, float y, float w, float h, int posX, int posY) {
 		super(t);
 		super.setX(x);
