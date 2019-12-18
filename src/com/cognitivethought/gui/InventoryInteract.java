@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.cognitivethought.inventory.Inventory;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
-import com.cognitivethought.ui.InventoryBar;
 
 public class InventoryInteract {
 	public Inventory i = InventoryBar.i;

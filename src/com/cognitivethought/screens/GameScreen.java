@@ -14,16 +14,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
-import com.cognitivethought.ui.InventoryBar;
 
 public class GameScreen implements Screen {
 
-	SpriteBatch batch; // The batch renderer that helps to render sprites faster than usual
+	SpriteBatch b; // The batch renderer that helps to render sprites faster than usual
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
 	OrthographicCamera c; // Camera
@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		batch = new SpriteBatch();
+		b = new SpriteBatch();
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
@@ -122,12 +122,12 @@ public class GameScreen implements Screen {
 		// End smooth camera fade
 		
 		// Set the projection matrix of the sprite batch to the camera's combined matrix
-		batch.setProjectionMatrix(c.combined);
+		b.setProjectionMatrix(c.combined);
 		
-		batch.begin();
-		background.draw(batch);
+		if (!b.isDrawing()) b.begin();
+		background.draw(b);
 		
-		if (batch == null) {
+		if (b == null) {
 			System.out.println("batch");
 		}
 
@@ -139,13 +139,13 @@ public class GameScreen implements Screen {
 			System.out.println("c");
 		}
 		
-		level.render(batch, hb, c);
+		level.render(b, hb, c);
 
 		// If the level has faded in, process physics on the player
-		if (!(fade > 0)) {
+		if (!(fade > 0) && !InventoryBar.grid.shown) {
 			level.getSpawnpoint().getPlayer().update(level, hb, ib);
 		}
-		level.getSpawnpoint().getPlayer().render(batch);
+		level.getSpawnpoint().getPlayer().render(b);
 
 		// Increment the FPS timer
 		timer += Gdx.graphics.getDeltaTime();
@@ -158,28 +158,29 @@ public class GameScreen implements Screen {
 		}
 
 		// Draw the FPS counter
-		font.draw(batch, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
+		font.draw(b, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
 		
-		hb.render(batch, c);
-		ib.render(batch, c);
+		hb.render(b, c);
+		if (!InventoryBar.grid.shown) ib.render(b, c);
 		
-		
-		batch.end();
+		b.end();
 
 		// Enable transparency blending
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		// If still fading, then draw the black fade rectangle
-		if (fade > 0f) {
+		if (fade > 0f || InventoryBar.grid.shown) {
 			ShapeRenderer sp = new ShapeRenderer();
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0, 0, 0, fade));
+			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown ? 0.9f : fade));
 			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
 			sp.end();
 		}
 		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
+
+		if (InventoryBar.grid.shown) ib.render(b, c);
 		
 		// Zoom In-Out Support
 //		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {

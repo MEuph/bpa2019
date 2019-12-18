@@ -18,10 +18,10 @@ import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.gui.TextBubble;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.ui.HealthBar;
-import com.cognitivethought.ui.InventoryBar;
 
 public class Level {
 
@@ -269,6 +269,12 @@ public class Level {
 	 * @param b The batch that also renders everything else in the screen
 	 */
 	public void render(Batch b, HealthBar hb, OrthographicCamera c) {
+		for (int i = 0; i < itemDrops.size(); i++) {
+			if (itemDrops.get(i).remove) {
+				itemDrops.remove(i);
+			}
+		}
+
 		float cx = c.position.x - (c.viewportWidth / 2);
 		float cy = c.position.y - (c.viewportHeight / 2);
 		Rectangle r = new Rectangle(cx, cy, c.viewportWidth, c.viewportHeight);
@@ -279,19 +285,14 @@ public class Level {
 		}
 		
 		for (EnemySpawner e : es) {
-			e.update(hb, this);
 			e.draw(b, c);
+			if (!InventoryBar.grid.shown) e.update(hb, this);
 		}
 		
 		for (ItemDrop id : itemDrops) {
-			id.update(this, InventoryBar.i, this.sp.getPlayer());
 			id.render(b);
+			if (!InventoryBar.grid.shown) id.update(this, InventoryBar.i, this.sp.getPlayer());
 		}
 		
-		for (int i = 0; i < itemDrops.size(); i++) {
-			if (itemDrops.get(i).remove) {
-				itemDrops.remove(i);
-			}
-		}
 	}
 }

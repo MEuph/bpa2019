@@ -25,6 +25,7 @@ public class Resources {
 	public static Texture PLAYER_THROW;
 
 	public static File INV_1;
+	public static File CRAFTING_FILE;
 	
 	public static Texture BIRD;
 	
@@ -94,5 +95,6 @@ public class Resources {
 		BIRD = new Texture(Strings.DEV_LEVEL_DIR + "tutbird.png");
 		
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
+		INV_1 = new File(Strings.INV_DIR + "recipes.txt");
 	}
 }

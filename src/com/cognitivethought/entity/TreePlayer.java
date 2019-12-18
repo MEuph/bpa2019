@@ -13,16 +13,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.entity.enemy.EnemySpawner;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
-import com.cognitivethought.ui.InventoryBar;
 
 public class TreePlayer extends Sprite {
-
+	
+	public static boolean canShoot;
+	
 	public final float timeToAttack = 0.5f;
 
 	final float timeToDie = 1f;
@@ -313,7 +315,6 @@ public class TreePlayer extends Sprite {
 
 			if (flashTimer > 0f) {
 				flashTimer--;
-				System.out.println(flashTimer);
 				flashing = true;
 			} else {
 				flashing = false;
@@ -393,6 +394,8 @@ public class TreePlayer extends Sprite {
 
 
 	void shoot(Level l, InventoryBar ib) {
+		if (!canShoot) return;
+		
 		if (shootTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
