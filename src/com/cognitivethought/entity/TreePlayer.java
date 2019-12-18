@@ -303,7 +303,8 @@ public class TreePlayer extends Sprite {
 						levelsPassed = 5;
 						
 					}
-					completeThread.start();
+					Main.main.completeScreen.toResetTo = l.screen;
+					Main.main.setScreen(Main.main.completeScreen);
 				}
 			}
 

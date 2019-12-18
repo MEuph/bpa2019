@@ -15,8 +15,11 @@ import com.badlogic.gdx.math.Rectangle;
 public class CraftingGrid {
 	
 	public boolean shown;
+	public boolean clickInGrid;
 	
 	public Rectangle craftButton;
+	
+	private int x, y, size;
 	
 	Slot[] slots = new Slot[4];
 	
@@ -35,20 +38,25 @@ public class CraftingGrid {
 		shown = false;
 	}
 	
-	public boolean update(int mx, int my, boolean click) {
-		if (!shown) return true;
+	public void update(int mx, int my, boolean click) {
+		if (!shown) return;
 		
-		for (Slot s : slots) {
-			if (!s.update(mx, my, click)) return false;
-		}
+		clickInGrid = new Rectangle(x, y, size, size).contains(mx, my);
 		
-		return true;
+		slots[0].update(mx, my, click);
+		slots[1].update(mx, my, click);
+		slots[2].update(mx, my, click);
+		slots[3].update(mx, my, click);
 	}
 	
 	public void render(Batch b, OrthographicCamera c, float relativeX, float relativeY, float size, BitmapFont font) {
 		if (!shown) {
 			return;
 		}
+		
+		x = (int)relativeX;
+		y = (int)relativeY;
+		size = (int)size;
 		
 		b.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);

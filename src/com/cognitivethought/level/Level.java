@@ -32,7 +32,7 @@ public class Level {
 	ArrayList<TextBubble> bubbles = new ArrayList<TextBubble>();
 	
 	Spawnpoint sp;
-	Screen screen;
+	public Screen screen;
 	
 	/**
 	 * @param s The path of the level file that will be parsed and loaded into this
@@ -215,11 +215,11 @@ public class Level {
 			@Override
 			public void run() {
 				try {
-					Main.main.completeScreen.toResetTo = screen;
-					Main.main.setScreen(Main.main.completeScreen);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				this.interrupt();
 			}
 		};
 	}

@@ -20,6 +20,8 @@ public class Slot {
 	
 	public Slot(Item heldItem) {
 		this.heldItem = heldItem;
+		
+		if (this.heldItem == null) heldItem = new Item(Item.NONE, 0, 0);
 	}
 	
 	public void setHeldItem(Item heldItem) {
@@ -30,23 +32,19 @@ public class Slot {
 		return heldItem;
 	}
 	
-	public boolean update(int mx, int my, boolean click) {
+	public void update(int mx, int my, boolean click) {
 		highlighted = new Rectangle(this.x, this.y, this.size, this.size).contains(mx, my);
 		
-		if(!highlighted) return true;
+		if(!highlighted) return;
 		
 		if (click) {
-			if (heldItem.getId() == Item.NONE) {
-				Item temp = InventoryBar.currentlyHeldItem;
-				heldItem = temp;
-				InventoryBar.currentlyHeldItem = heldItem;
-				return false;
-			} else {
-				return true;
-			}
+			Item temp = InventoryBar.currentlyHeldItem;
+			heldItem = temp;
+			InventoryBar.currentlyHeldItem = temp;
+			return;
 		}
 		
-		return true;
+		return;
 	}
 	
 	public void render(Batch b, OrthographicCamera c, float x, float y, float size, BitmapFont font) {

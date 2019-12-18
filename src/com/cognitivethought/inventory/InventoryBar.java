@@ -218,15 +218,17 @@ public class InventoryBar implements InputProcessor {
 				i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
 			}
 		}
-		
-		if (!b.isDrawing()) b.begin();
+
+		if (!b.isDrawing())
+			b.begin();
 		grid.render(b, c, x + 100, y, 700f, font);
 
 		if (currentlyHeldItem.getId() != Item.NONE) {
 			if (!b.isDrawing())
 				b.begin();
 			b.draw(Item.getTexture(currentlyHeldItem.getId()), relMousePos.x - 25, relMousePos.y - 25, 50, 50);
-			font.draw(b, "" + Integer.toString(currentlyHeldItem.getQuantity()), relMousePos.x + 25, relMousePos.y - 25);
+			font.draw(b, "" + Integer.toString(currentlyHeldItem.getQuantity()), relMousePos.x + 25,
+					relMousePos.y - 25);
 		}
 	}
 
@@ -250,7 +252,9 @@ public class InventoryBar implements InputProcessor {
 		highlighted = craftingButton.contains((float) mx, (float) my);
 		TreePlayer.canShoot = !highlighted;
 
-		if (grid.update(mx, my, false)) {
+		grid.update(mx, my, false);
+		
+		if (!grid.clickInGrid) {
 			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
 			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
 			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
@@ -300,14 +304,16 @@ public class InventoryBar implements InputProcessor {
 				grid.open();
 		}
 
-		if (grid.update(mx, my, true)) {
+		grid.update(mx, my, true);
+		
+		if (!grid.clickInGrid) {
 			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
 			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
 			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
 			Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
 			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
 			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
-	
+
 			if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
 					|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
 					|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) {
@@ -334,13 +340,14 @@ public class InventoryBar implements InputProcessor {
 					}
 				}
 				TreePlayer.canShoot = false;
-			} else {
+			} else if(!grid.shown) {
 				if (i.getItems().get(currentlyHeldItem.getPosition()).getId() == Item.NONE) {
 					i.getItems().set(currentlyHeldItem.getPosition(), currentlyHeldItem);
 				} else {
 					int emptyPos = 0;
 					for (; emptyPos < i.getItems().size(); emptyPos++) {
-						if (i.getItems().get(emptyPos).getId() == Item.NONE) break;
+						if (i.getItems().get(emptyPos).getId() == Item.NONE)
+							break;
 					}
 					if (emptyPos != -1) {
 						i.getItems().set(emptyPos, currentlyHeldItem);
@@ -350,8 +357,7 @@ public class InventoryBar implements InputProcessor {
 				currentlyHeldItem = new Item(Item.NONE, 0, 0);
 			}
 		}
-		
-		
+
 		return false;
 	}
 
