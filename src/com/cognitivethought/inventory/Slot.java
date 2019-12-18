@@ -8,41 +8,59 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Slot {
 	
-	private int id;
-	private int quantity;
+	private Item heldItem;
 	
-	public Slot(int id, int quantity) {
-		this.id = id;
-		this.quantity = quantity;
+	private float x, y, size;
+	
+	private boolean highlighted = false;
+	
+	public Slot(Item heldItem) {
+		this.heldItem = heldItem;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setHeldItem(Item heldItem) {
+		this.heldItem = heldItem;
 	}
 	
-	public int getId() {
-		return id;
+	public Item getHeldItem() {
+		return heldItem;
 	}
 	
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	
-	public int getQuantity() {
-		return quantity;
+	public boolean update(int mx, int my, boolean click) {
+		highlighted = new Rectangle(this.x, this.y, this.size, this.size).contains(mx, my);
+		
+		if(!highlighted) return true;
+		
+		if (click) {
+			if (heldItem.getId() == Item.NONE) {
+				Item temp = InventoryBar.currentlyHeldItem;
+				heldItem = temp;
+				InventoryBar.currentlyHeldItem = heldItem;
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		return true;
 	}
 	
 	public void render(Batch b, OrthographicCamera c, float x, float y, float size, BitmapFont font) {
+		this.x = x;
+		this.y = y;
+		this.size = size;
+		
 		if (b.isDrawing()) b.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		ShapeRenderer sp = new ShapeRenderer();
 		sp.setProjectionMatrix(c.combined);
 		sp.begin(ShapeType.Filled);
-		sp.setColor(new Color(0f, 0f, 0f, 1f));
+		sp.setColor(highlighted ? new Color(0.5f, 0.5f, 0.5f, 1f) : new Color(0f, 0f, 0f, 1f));
 		sp.rect(x, y, size, size);
 		sp.end();
 		sp.begin(ShapeType.Line);
@@ -53,8 +71,10 @@ public class Slot {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		if (!b.isDrawing()) b.begin();
 		
-		// TODO: MAKE IT SO THAT WHEN YOU CLICK ON ONE OF THESE SLOTS, THE ITEM GETS PUT INTO THE SLOT!!!
-		
-		font.draw(b, this.quantity > 0 ? Integer.toString(this.quantity) : "", x+5, y+90);
+		if (heldItem.getId() != Item.NONE) {
+			b.draw(Item.getTexture(heldItem.getId()), x + 5, y + 5, size - 10, size - 10);
+			font.draw(b, heldItem.getQuantity() > 0 ? Integer.toString(heldItem.getQuantity()) : "", x+5, y+90);
+		}
 	}
+
 }

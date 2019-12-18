@@ -51,6 +51,8 @@ public class GameScreen implements Screen {
 		background.setSize(1920 * 4, 1080 * 2);
 		background.setPosition(-1920, -1080 * 2f);
 		
+		InventoryBar.grid.shown = false;
+		
 		try {
 			InventoryBar.i.read(Strings.INV_DIR + "/inv1.txt");
 		} catch (FileNotFoundException e1) {

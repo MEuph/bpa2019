@@ -218,7 +218,8 @@ public class InventoryBar implements InputProcessor {
 				i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
 			}
 		}
-
+		
+		if (!b.isDrawing()) b.begin();
 		grid.render(b, c, x + 100, y, 700f, font);
 
 		if (currentlyHeldItem.getId() != Item.NONE) {
@@ -249,25 +250,27 @@ public class InventoryBar implements InputProcessor {
 		highlighted = craftingButton.contains((float) mx, (float) my);
 		TreePlayer.canShoot = !highlighted;
 
-		Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
-		Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
-		Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
-		Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
-		Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
-		Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
-
-		if (slot1.contains(mx, my)) {
-			selected = 0;
-		} else if (slot2.contains(mx, my)) {
-			selected = 1;
-		} else if (slot3.contains(mx, my)) {
-			selected = 2;
-		} else if (slot4.contains(mx, my)) {
-			selected = 3;
-		} else if (slot5.contains(mx, my)) {
-			selected = 4;
-		} else if (slot6.contains(mx, my)) {
-			selected = 5;
+		if (grid.update(mx, my, false)) {
+			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
+			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
+			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
+			Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
+			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
+			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
+	
+			if (slot1.contains(mx, my)) {
+				selected = 0;
+			} else if (slot2.contains(mx, my)) {
+				selected = 1;
+			} else if (slot3.contains(mx, my)) {
+				selected = 2;
+			} else if (slot4.contains(mx, my)) {
+				selected = 3;
+			} else if (slot5.contains(mx, my)) {
+				selected = 4;
+			} else if (slot6.contains(mx, my)) {
+				selected = 5;
+			}
 		}
 
 		return false;
@@ -297,55 +300,58 @@ public class InventoryBar implements InputProcessor {
 				grid.open();
 		}
 
-		Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
-		Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
-		Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
-		Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
-		Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
-		Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
-
-		if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
-				|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
-				|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) {
-			if (selected != currentlyHeldItem.getPosition()) {
-				if (InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId()) {
-					for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {
-						InventoryBar.i.getItems().get(selected).increment();
+		if (grid.update(mx, my, true)) {
+			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
+			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
+			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
+			Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
+			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
+			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
+	
+			if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
+					|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
+					|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) {
+				if (selected != currentlyHeldItem.getPosition()) {
+					if (InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId()) {
+						for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {
+							InventoryBar.i.getItems().get(selected).increment();
+						}
+					} else {
+						Item temp = currentlyHeldItem;
+						temp.setPosition(selected);
+						currentlyHeldItem = InventoryBar.i.getItems().get(selected);
+						InventoryBar.i.getItems().set(selected, temp);
 					}
 				} else {
-					Item temp = currentlyHeldItem;
-					temp.setPosition(selected);
-					currentlyHeldItem = InventoryBar.i.getItems().get(selected);
-					InventoryBar.i.getItems().set(selected, temp);
+					if (i.getItems().get(selected).getId() == Item.NONE) {
+						InventoryBar.i.getItems().set(selected, currentlyHeldItem);
+						currentlyHeldItem = new Item(Item.NONE, 0, 0);
+					} else {
+						Item temp = currentlyHeldItem;
+						temp.setPosition(selected);
+						currentlyHeldItem = InventoryBar.i.getItems().get(selected);
+						InventoryBar.i.getItems().set(selected, temp);
+					}
 				}
+				TreePlayer.canShoot = false;
 			} else {
-				if (i.getItems().get(selected).getId() == Item.NONE) {
-					InventoryBar.i.getItems().set(selected, currentlyHeldItem);
-					currentlyHeldItem = new Item(Item.NONE, 0, 0);
+				if (i.getItems().get(currentlyHeldItem.getPosition()).getId() == Item.NONE) {
+					i.getItems().set(currentlyHeldItem.getPosition(), currentlyHeldItem);
 				} else {
-					Item temp = currentlyHeldItem;
-					temp.setPosition(selected);
-					currentlyHeldItem = InventoryBar.i.getItems().get(selected);
-					InventoryBar.i.getItems().set(selected, temp);
+					int emptyPos = 0;
+					for (; emptyPos < i.getItems().size(); emptyPos++) {
+						if (i.getItems().get(emptyPos).getId() == Item.NONE) break;
+					}
+					if (emptyPos != -1) {
+						i.getItems().set(emptyPos, currentlyHeldItem);
+						currentlyHeldItem = new Item(Item.NONE, 0, 0);
+					}
 				}
+				currentlyHeldItem = new Item(Item.NONE, 0, 0);
 			}
-			TreePlayer.canShoot = false;
-		} else {
-			if (i.getItems().get(currentlyHeldItem.getPosition()).getId() == Item.NONE) {
-				i.getItems().set(currentlyHeldItem.getPosition(), currentlyHeldItem);
-			} else {
-				int emptyPos = 0;
-				for (; emptyPos < i.getItems().size(); emptyPos++) {
-					if (i.getItems().get(emptyPos).getId() == Item.NONE) break;
-				}
-				if (emptyPos != -1) {
-					i.getItems().set(emptyPos, currentlyHeldItem);
-					currentlyHeldItem = new Item(Item.NONE, 0, 0);
-				}
-			}
-			currentlyHeldItem = new Item(Item.NONE, 0, 0);
 		}
-
+		
+		
 		return false;
 	}
 
