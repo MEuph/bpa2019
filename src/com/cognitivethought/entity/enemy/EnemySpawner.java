@@ -46,10 +46,13 @@ public class EnemySpawner {
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).update(hb, l);
 			
+			if (enemies.size() <= 0) break;
+			
 			if (enemies.get(i).getHealth() <= 0f) {
 				if (enemies.get(i).deathThread.isAlive()) {
 					if (enemies.get(i).deathThreadTime >= 1700) {
 						enemies.remove(i);
+						if (enemies.size() <= 0) break;
 						break;
 					}
 				} else {

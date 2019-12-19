@@ -82,7 +82,7 @@ public class TrashMonster extends Enemy {
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
-					int organicMatterToDrop = new Random().nextInt(5);
+					int organicMatterToDrop = new Random().nextInt(150);
 					for (int i = 0; i < organicMatterToDrop; i++) {
 						ItemDrop om = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
 						om.dy = (float)(Math.random() * 2.0) + 1f;

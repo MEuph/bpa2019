@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.entity.TreePlayer;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.ui.HealthBar;
 
 public class InventoryBar implements InputProcessor {
 
@@ -28,6 +29,8 @@ public class InventoryBar implements InputProcessor {
 	public static Inventory i = new Inventory();
 	public static CraftingGrid grid;
 	public static boolean click = false;
+	
+	public HealthBar hb;
 	
 	public BitmapFont font;
 
@@ -45,7 +48,9 @@ public class InventoryBar implements InputProcessor {
 
 	private boolean highlighted = false;
 
-	public InventoryBar(String invFile) {
+	public InventoryBar(String invFile, HealthBar hb) {
+		this.hb = hb;
+		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle("assets/Fonts/times-new-roman.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
@@ -54,8 +59,8 @@ public class InventoryBar implements InputProcessor {
 		smallFont = generator.generateFont(parameter);
 		generator.dispose();
 		try {
-			i.read(invFile);
 			grid = new CraftingGrid(Resources.CRAFTING_FILE);
+			i.read(invFile, grid);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -68,6 +73,7 @@ public class InventoryBar implements InputProcessor {
 		currentlyHeldItem = new Item(Item.NONE, 0, 0);
 
 		Gdx.input.setInputProcessor(this);
+		
 	}
 
 	Vector2 relMousePos = new Vector2();
@@ -358,7 +364,25 @@ public class InventoryBar implements InputProcessor {
 			Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
 			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
 			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
-
+			
+			Rectangle bar = new Rectangle(slot1.getX(), slot1.getY(), 100, 600);
+			if (!bar.contains(relMousePos.x, relMousePos.y)) {
+				if (!grid.shown) {
+					if (currentlyHeldItem.getId() == Item.FERTILIZER) {
+						TreePlayer.canShoot = false;
+						hb.health+=3;
+						if (hb.health > 10) {
+							hb.health = 10;
+						}
+						
+						currentlyHeldItem.decrement();
+						if (currentlyHeldItem.getQuantity() <= 0) {
+							currentlyHeldItem = new Item(Item.NONE, 0, 0);
+						}
+					}
+				}
+			}
+			
 			if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
 					|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
 					|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) {
@@ -401,14 +425,6 @@ public class InventoryBar implements InputProcessor {
 					}
 				}
 				currentlyHeldItem = new Item(Item.NONE, 0, 0);
-			} else if (!(slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
-					|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
-					|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) && !highlighted){
-				if (currentlyHeldItem.getId() == Item.FERTILIZER) {
-					System.out.println("heal");
-					currentlyHeldItem.decrement();
-//					if (currentlyHeldItem)
-				}
 			}
 		}
 

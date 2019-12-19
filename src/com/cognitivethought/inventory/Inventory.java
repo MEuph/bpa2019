@@ -17,7 +17,9 @@ public class Inventory {
 		
 	}
 	
-	public void read(String s) throws FileNotFoundException {
+	public void read(String s, CraftingGrid grid) throws FileNotFoundException {
+		grid.clear();
+		
 		items.clear();
 		
 		ArrayList<Integer> data = new ArrayList<>();

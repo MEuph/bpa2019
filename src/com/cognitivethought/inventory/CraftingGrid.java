@@ -210,4 +210,10 @@ public class CraftingGrid {
 				r.craft(slots);
 		}
 	}
+
+	public void clear() {
+		for (int i = 0; i < slots.length; i++) {
+			slots[i] = new Slot(new Item(Item.NONE, 0, i));
+		}
+	}
 }
