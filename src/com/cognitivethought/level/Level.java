@@ -293,9 +293,9 @@ public class Level {
 			if (!InventoryBar.grid.shown) e.update(hb, this);
 		}
 		
-		for (ItemDrop id : itemDrops) {
-			id.render(b);
-			if (!InventoryBar.grid.shown) id.update(this, InventoryBar.i, this.sp.getPlayer());
+		for (int i = 0; i < itemDrops.size(); i++) {
+			itemDrops.get(i).render(b);
+			if (!InventoryBar.grid.shown) itemDrops.get(i).update(this, InventoryBar.i, this.sp.getPlayer());
 		}
 		
 	}

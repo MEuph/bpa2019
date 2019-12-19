@@ -12,6 +12,7 @@ public class Resources {
 	public static Texture STICK;
 	public static Texture COIN;
 	public static Texture NONE;
+	public static Texture FERTILIZER;
 	
 	public static Texture TRASH_ATTACK;
 	public static Texture TRASH_DEATH;
@@ -60,7 +61,8 @@ public class Resources {
 		STICK = new Texture(Strings.ITEMS_DIR + "stick.png");
 		COIN = new Texture(Strings.ITEMS_DIR + "coin.png");
 		NONE = new Texture(Strings.ITEMS_DIR + "none.png");
-
+		FERTILIZER = new Texture(Strings.ITEMS_DIR + "fertilizer.png");
+		
 		TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
 		TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");
 		TRASH_JUMP = new Texture(Strings.TRASH_MONSTER_DIR + "jump.png");

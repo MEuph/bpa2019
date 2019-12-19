@@ -396,18 +396,18 @@ public class TreePlayer extends Sprite {
 
 		facingRight = Gdx.input.getX() >= 1920 / 2;
 
-		if (Item.getTexture(InventoryBar.i.getItems().get(ib.selected).getId()) == Item.getTexture(Item.APPLE)
-				&& InventoryBar.i.getItems().get(ib.selected).getQuantity() > 0) {
+		if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.APPLE)
+				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
 			p = new Projectile(Item.getTexture(Item.APPLE),
 					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
 					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 2);
-			InventoryBar.i.getItems().get(ib.selected).decrement();
-		} else if (Item.getTexture(InventoryBar.i.getItems().get(ib.selected).getId()) == Item.getTexture(Item.SEED)
-				&& InventoryBar.i.getItems().get(ib.selected).getQuantity() > 0) {
+			InventoryBar.i.getItems().get(ib.ammoSelected).decrement();
+		} else if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.SEED)
+				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
 			p = new Projectile(Item.getTexture(Item.SEED),
 					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
 					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 1);
-			InventoryBar.i.getItems().get(ib.selected).decrement();
+			InventoryBar.i.getItems().get(ib.ammoSelected).decrement();
 		} else {
 			return;
 		}
@@ -438,6 +438,8 @@ public class TreePlayer extends Sprite {
 	}
 	
 	public void hit(Level l) {
+		if (!canShoot) return;
+		
 		if (attackTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time

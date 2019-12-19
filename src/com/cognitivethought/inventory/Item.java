@@ -13,6 +13,7 @@ public class Item {
 	public static final int STICK = 3;
 	public static final int COIN = 4;
 	public static final int NONE = 5;
+	public static final int FERTILIZER = 6;
 	
 	int x, y;
 	
@@ -24,6 +25,7 @@ public class Item {
 		nameKey.put(STICK, "Stick");
 		nameKey.put(COIN, "Coin");
 		nameKey.put(NONE, "");
+		nameKey.put(FERTILIZER, "Fertilizer");
 	}
 	
 	private static HashMap<Integer, Texture> textureKey = new HashMap<Integer, Texture>();
@@ -34,6 +36,7 @@ public class Item {
 		textureKey.put(STICK, Resources.STICK);
 		textureKey.put(COIN, Resources.COIN);
 		textureKey.put(NONE, Resources.NONE);
+		textureKey.put(FERTILIZER, Resources.FERTILIZER);
 	}
 	
 	private int id;

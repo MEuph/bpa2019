@@ -100,10 +100,11 @@ public class Recipe {
 		
 		if (emptySlots > (ids.length * 4) - (expectedItems.size() * ids.length)) {
 			System.out.println("Too many empty slots: " + emptySlots + " vs expected " + ((ids.length * 4) - (expectedItems.size() * ids.length)));
+			System.out.println("Debug info: " + Item.getName(result.getId()));
 			return false;
 		}
 		
-		// TODO: Note to self: When making sticks for a second time, there are too many empty slots. Fix it
+		// TODO: Note to self: When making sticks for a second time, there are too many empty slots. Fix it; FURTHER NOTE: It's detecting the wrong recipe
 		
 		System.out.println("Correct items");
 		
@@ -154,6 +155,8 @@ public class Recipe {
 		for (int i = 0; i < slots.length; i++) {
 			for (int j = 0; j < ids.length; j++) {
 				if (slots[i].getHeldItem().getId() == ids[j]) {
+					System.out.println(slots[i].getHeldItem().getQuantity());
+					System.out.println(amounts[j]);
 					for(int k = 0; k < amounts[j]; k++) {
 						slots[i].getHeldItem().decrement();
 					}

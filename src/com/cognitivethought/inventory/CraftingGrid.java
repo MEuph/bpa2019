@@ -130,7 +130,7 @@ public class CraftingGrid {
 		y = (int) relativeY;
 		size = (int) size;
 
-		craftButton.x = relativeX + (size / 2);
+		craftButton.x = relativeX + (size / 2) + 100;
 		craftButton.y = relativeY + (size / 2) - 50;
 
 		craftButton.width = 100;
@@ -176,23 +176,31 @@ public class CraftingGrid {
 	}
 
 	public void craft() {
+		if (!shown) return;
+		
 		int slotsFilled = 0;
 		int[] slotIds = {5, 5, 5, 5};
 		int[] slotAmts = {0, 0, 0, 0};
-		for (int i = 0; i < slots.length; i++) {
-			if(slots[i].getHeldItem().getId() != Item.NONE) {
-				slotsFilled++;
-			}
-		}
 		for (int i = 0; i < slots.length; i++) {
 			slotIds[i] = slots[i].getHeldItem().getId();
 			slotAmts[i] = slots[i].getHeldItem().getQuantity();
 		}
 		
-		ArrayList<Recipe> currentRecipes = possibleRecipes;
+		for (int i = 0; i < slotIds.length; i++) {
+			if(slots[i].getHeldItem().getId() != Item.NONE) {
+				slotsFilled++;
+			}
+		}
+		
+		ArrayList<Recipe> currentRecipes = new ArrayList<Recipe>();
+		for (int i = 0; i < possibleRecipes.size(); i++) {
+			currentRecipes.add(possibleRecipes.get(i));
+		}
+		
+		System.out.println(currentRecipes.size());
 		
 		for (int i = 0; i < currentRecipes.size(); i++) {
-			if (currentRecipes.get(i).ids.length < slotsFilled) {
+			if (currentRecipes.get(i).ids.length != slotsFilled) {
 				currentRecipes.remove(i);
 			}
 		}

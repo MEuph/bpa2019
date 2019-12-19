@@ -3,6 +3,7 @@ package com.cognitivethought.inventory;
 import java.io.FileNotFoundException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
@@ -35,7 +36,8 @@ public class InventoryBar implements InputProcessor {
 	Rectangle craftingButton = new Rectangle(0, 0, 0, 0);
 
 	public int selected;
-
+	public int ammoSelected;
+	
 	public float timer = 0f;
 	public float timer2 = 0f;
 
@@ -123,6 +125,11 @@ public class InventoryBar implements InputProcessor {
 			} else {
 				sp.setColor(new Color(0.1f, 0.1f, 0.1f, 0.9f));
 			}
+			
+			if (ammoSelected == i) {
+				sp.setColor(InventoryBar.i.getItems().get(ammoSelected).getId() == Item.APPLE || 
+						InventoryBar.i.getItems().get(ammoSelected).getId() == Item.SEED ? new Color(0.1f, 0.75f, 0.1f, 0.9f) : new Color(0.75f, 0.1f, 0.1f, 0.9f));
+			}
 
 			sp.rect(x, y, 100, 100);
 			sp.setColor(new Color(1f, 1f, 1f, 1f));
@@ -167,9 +174,6 @@ public class InventoryBar implements InputProcessor {
 		b.draw(Resources.UI_CRAFTING, x + 27, y + 7, 8 * 5, 17 * 5);
 
 		craftingButton = new Rectangle(x, y, 100, 100);
-
-		smallFont.draw(b, "Press [C] to Make Apples (x2)", x + 5, y - 20);
-		smallFont.draw(b, "(x1 Organic Matter, x1 Seed)", x + 5, y - 40);
 
 		if (Gdx.input.isKeyJustPressed(Keys.C)) {
 			int m = 0;
@@ -223,13 +227,14 @@ public class InventoryBar implements InputProcessor {
 		if (!b.isDrawing())
 			b.begin();
 		grid.render(b, c, x + 100, y, 700f, font);
-
+		
 		if (currentlyHeldItem.getId() != Item.NONE) {
 			if (!b.isDrawing())
 				b.begin();
 			b.draw(Item.getTexture(currentlyHeldItem.getId()), relMousePos.x - 25, relMousePos.y - 25, 50, 50);
 			font.draw(b, "" + Integer.toString(currentlyHeldItem.getQuantity()), relMousePos.x + 25,
 					relMousePos.y - 25);
+			smallFont.draw(b, Item.getName(currentlyHeldItem.getId()), relMousePos.x + 25, relMousePos.y + 25);
 		}
 	}
 
@@ -317,7 +322,36 @@ public class InventoryBar implements InputProcessor {
 		
 		grid.updateClick(mx, my);
 		
-		if (!grid.clickInGrid) {
+		if (button == Buttons.RIGHT) {
+			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
+			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
+			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
+			Rectangle slot4 = new Rectangle(relativeX, relativeY - 300, 100, 100);
+			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
+			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
+			
+			if (slot1.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 0;
+				TreePlayer.canShoot = false;
+			} else if (slot2.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 1;
+				TreePlayer.canShoot = false;
+			} else if (slot3.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 2;
+				TreePlayer.canShoot = false;
+			} else if (slot4.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 3;
+				TreePlayer.canShoot = false;
+			} else if (slot5.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 4;
+				TreePlayer.canShoot = false;
+			} else if (slot6.contains(relMousePos.x, relMousePos.y)) {
+				ammoSelected = 5;
+				TreePlayer.canShoot = false;
+			}
+		}
+		
+		if (!grid.clickInGrid && button == Buttons.LEFT) {
 			Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
 			Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
 			Rectangle slot3 = new Rectangle(relativeX, relativeY - 200, 100, 100);
@@ -367,6 +401,14 @@ public class InventoryBar implements InputProcessor {
 					}
 				}
 				currentlyHeldItem = new Item(Item.NONE, 0, 0);
+			} else if (!(slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
+					|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
+					|| slot5.contains(relMousePos.x, relMousePos.y) || slot6.contains(relMousePos.x, relMousePos.y)) && !highlighted){
+				if (currentlyHeldItem.getId() == Item.FERTILIZER) {
+					System.out.println("heal");
+					currentlyHeldItem.decrement();
+//					if (currentlyHeldItem)
+				}
 			}
 		}
 
