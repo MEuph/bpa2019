@@ -265,7 +265,7 @@ public class TrashMonster extends Enemy {
 	}
 	
 	@Override
-	public void hurt(int value) {
+	public void hurt(int value, boolean byProjectile) {
 		if (hb.health <= 0f) {
 			die();
 			return;
@@ -273,7 +273,7 @@ public class TrashMonster extends Enemy {
 		if (hurtTimer > 0f) {
 			return;
 		} else {
-			hurtTimer = 40f;
+			if (!byProjectile) hurtTimer = 40f;
 		}
 		deathTime = 1f;
 		attacking = false;

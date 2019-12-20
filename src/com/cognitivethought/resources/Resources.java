@@ -29,6 +29,7 @@ public class Resources {
 	
 	public static File INV_1;
 	public static File CRAFTING_FILE;
+	public static File LVL1_SHOP_FILE;
 	
 	public static Texture BIRD;
 	
@@ -52,7 +53,11 @@ public class Resources {
 	public static Texture TITLE;
 	public static Texture UI_CRAFTING;
 	
+	public static Texture WHITE_DOLLAR;
+	public static Texture GRAY_DOLLAR;
+	
 	public static Texture BG;
+	public static Texture X;
 	
 	public static void loadTextures() {
 		APPLE = new Texture(Strings.ITEMS_DIR + "apple.png");
@@ -94,6 +99,9 @@ public class Resources {
 		TITLE = new Texture(Strings.UI_DIR + "title.png");
 		UI_CRAFTING = new Texture(Strings.UI_DIR + "craftingicon.png");
 		CHECK = new Texture(Strings.UI_DIR + "check.png");
+		X = new Texture(Strings.UI_DIR + "no.png");
+		GRAY_DOLLAR = new Texture(Strings.UI_DIR + "graydollar.png");
+		WHITE_DOLLAR = new Texture(Strings.UI_DIR + "whitedollar.png");
 		
 		BG = new Texture(Strings.UI_DIR + "background.png");
 		
@@ -101,5 +109,6 @@ public class Resources {
 		
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
 		CRAFTING_FILE = new File(Strings.INV_DIR + "recipes.txt");
+		LVL1_SHOP_FILE = new File(Strings.INV_DIR + "lvl1shop.txt");
 	}
 }

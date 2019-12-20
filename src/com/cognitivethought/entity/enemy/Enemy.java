@@ -39,7 +39,7 @@ public abstract class Enemy extends Sprite {
 	}
 	
 	public abstract void die();
-	public abstract void hurt(int value);
+	public abstract void hurt(int value, boolean byProjectile);
 	abstract void move(Level l);						// How the enemy will move
 	public abstract void update(HealthBar hb, Level l); // How the enemy will be updated
 	abstract void attack(HealthBar hb, Level l);		// How the enemy will attack

@@ -23,6 +23,7 @@ import com.cognitivethought.ui.HealthBar;
 
 public class GameScreen implements Screen {
 
+	ShapeRenderer sp;
 	SpriteBatch b; // The batch renderer that helps to render sprites faster than usual
 	Level level; // Holds current level information
 	BitmapFont font; // For FPS Counter
@@ -42,7 +43,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		b = new SpriteBatch();
-
+		sp = new ShapeRenderer();
+		
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
@@ -163,7 +165,7 @@ public class GameScreen implements Screen {
 		font.draw(b, fps, c.position.x - (c.viewportWidth / 2), c.position.y + (c.viewportHeight / 2) - 20f);
 		
 		hb.render(b, c);
-		if (!InventoryBar.grid.shown) ib.render(b, c);
+		if (!InventoryBar.grid.shown) ib.render(b, c, sp);
 		
 		b.end();
 
@@ -182,7 +184,7 @@ public class GameScreen implements Screen {
 		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
-		if (InventoryBar.grid.shown) ib.render(b, c);
+		if (InventoryBar.grid.shown) ib.render(b, c, sp);
 		
 		// Zoom In-Out Support
 //		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT_BRACKET)) {

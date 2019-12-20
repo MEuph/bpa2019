@@ -161,7 +161,7 @@ public class TreePlayer extends Sprite {
 				for (EnemySpawner es : l.getEnemySpawners()) {
 					for (Enemy e : es.enemies) {
 						if (e.getBoundingRectangle().overlaps(bounds)) {
-							e.hurt(1);
+							e.hurt(1, false);
 						}
 					}
 				}

@@ -42,7 +42,7 @@ public class Projectile extends Sprite {
 	
 	public boolean checkHit(Enemy e) {
 		if (e.getBoundingRectangle().overlaps(this.getBoundingRectangle()) && !(e.deathThread.isAlive())) {
-			e.hurt((int) damageValue);
+			e.hurt((int) damageValue, true);
 			return true;
 		}
 		return false;

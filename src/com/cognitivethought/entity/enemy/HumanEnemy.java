@@ -70,7 +70,6 @@ public class HumanEnemy extends Enemy {
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
-					hurt(0);
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
@@ -271,7 +270,7 @@ public class HumanEnemy extends Enemy {
 	}
 
 	@Override
-	public void hurt(int value) {
+	public void hurt(int value, boolean byProjectile) {
 		// TODO Auto-generated method stub
 		
 	}

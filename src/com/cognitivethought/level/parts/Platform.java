@@ -250,7 +250,7 @@ public class Platform extends Sprite {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
 			collideLeft = true;
 		} else {
-			System.err.println("\n\n\nwhat.");
+			System.err.println("\n\n\n...what");
 		}
 	}
 }

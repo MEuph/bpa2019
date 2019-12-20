@@ -1,0 +1,6 @@
+2;1;1;20;6;1;15;2;3;1;5;5;
+Every 4 numbers is one slot
+#1 is the item to buy
+#2 is the quantity per purchase
+#3 is the price of the item
+#4 is the stock of the item

@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -59,7 +58,7 @@ public class InventoryBar implements InputProcessor {
 		smallFont = generator.generateFont(parameter);
 		generator.dispose();
 		try {
-			grid = new CraftingGrid(Resources.CRAFTING_FILE);
+			grid = new CraftingGrid(Resources.CRAFTING_FILE, Resources.LVL1_SHOP_FILE);
 			i.read(invFile, grid);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -79,7 +78,7 @@ public class InventoryBar implements InputProcessor {
 	Vector2 relMousePos = new Vector2();
 	Vector3 absMousePos = new Vector3();
 
-	public void render(Batch b, OrthographicCamera c) {
+	public void render(Batch b, OrthographicCamera c, ShapeRenderer sp) {
 		float y = c.position.y - (c.viewportHeight / 2) + 800;
 		float x = c.position.x - (c.viewportWidth / 2) + 10;
 
@@ -106,7 +105,6 @@ public class InventoryBar implements InputProcessor {
 				b.end();
 			Gdx.gl20.glEnable(GL20.GL_BLEND_SRC_ALPHA);
 			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			ShapeRenderer sp = new ShapeRenderer();
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
 
@@ -164,8 +162,7 @@ public class InventoryBar implements InputProcessor {
 		b.end();
 		Gdx.gl20.glEnable(GL20.GL_BLEND_SRC_ALPHA);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		ShapeRenderer sp = new ShapeRenderer();
-		sp.begin(ShapeType.Filled);
+		if (!sp.isDrawing()) sp.begin(ShapeType.Filled);
 		sp.setProjectionMatrix(c.combined);
 		sp.setColor(highlighted ? new Color(0.5f, 0.5f, 0.5f, 0.5f) : new Color(0.1f, 0.1f, 0.1f, 0.9f));
 		sp.rect(x, y, 100, 100);
@@ -174,65 +171,16 @@ public class InventoryBar implements InputProcessor {
 		sp.rectLine(x, y + 100, x + 100, y + 100, 3);
 		sp.rectLine(x + 100, y + 100, x + 100, y, 3);
 		sp.rectLine(x, y, x + 100, y, 3);
-		sp.end();
+		if (sp.isDrawing()) sp.end();
 		Gdx.gl20.glDisable(GL20.GL_BLEND_SRC_ALPHA);
 		b.begin();
 		b.draw(Resources.UI_CRAFTING, x + 27, y + 7, 8 * 5, 17 * 5);
 
 		craftingButton = new Rectangle(x, y, 100, 100);
 
-		if (Gdx.input.isKeyJustPressed(Keys.C)) {
-			int m = 0;
-			for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
-				if (InventoryBar.i.getItems().get(i).getId() == Item.ORGANIC_MATTER) {
-					m = InventoryBar.i.getItems().get(i).getQuantity();
-				}
-			}
-			System.out.println(m);
-
-			int s = 0;
-			for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
-				if (InventoryBar.i.getItems().get(i).getId() == Item.SEED) {
-					s = InventoryBar.i.getItems().get(i).getQuantity();
-				}
-			}
-			System.out.println(s);
-
-			if (m >= 1 && s >= 1) {
-				for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
-					if (InventoryBar.i.getItems().get(i).getId() == Item.SEED) {
-						InventoryBar.i.getItems().get(i).decrement();
-					}
-				}
-
-				for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
-					if (InventoryBar.i.getItems().get(i).getId() == Item.ORGANIC_MATTER) {
-						InventoryBar.i.getItems().get(i).decrement();
-					}
-				}
-
-				for (int j = 0; j < i.getItems().size(); j++) {
-					if (i.getItems().get(j).getId() == Item.APPLE) {
-						i.getItems().get(j).increment();
-						i.getItems().get(j).increment();
-						return;
-					} else
-						continue;
-				}
-
-				int pos = 0;
-				for (; pos < i.getItems().size(); pos++) {
-					if (i.getItems().get(pos).getId() == Item.NONE)
-						break;
-				}
-
-				i.getItems().set(pos, new Item(Item.APPLE, 1, pos));
-			}
-		}
-
 		if (!b.isDrawing())
 			b.begin();
-		grid.render(b, c, x + 100, y, 700f, font);
+		grid.render(b, c, x + 100, y, 700f, font, sp);
 		
 		if (currentlyHeldItem.getId() != Item.NONE) {
 			if (!b.isDrawing())
@@ -336,24 +284,36 @@ public class InventoryBar implements InputProcessor {
 			Rectangle slot5 = new Rectangle(relativeX, relativeY - 400, 100, 100);
 			Rectangle slot6 = new Rectangle(relativeX, relativeY - 500, 100, 100);
 			
-			if (slot1.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 0;
-				TreePlayer.canShoot = false;
-			} else if (slot2.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 1;
-				TreePlayer.canShoot = false;
-			} else if (slot3.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 2;
-				TreePlayer.canShoot = false;
-			} else if (slot4.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 3;
-				TreePlayer.canShoot = false;
-			} else if (slot5.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 4;
-				TreePlayer.canShoot = false;
-			} else if (slot6.contains(relMousePos.x, relMousePos.y)) {
-				ammoSelected = 5;
-				TreePlayer.canShoot = false;
+			if (currentlyHeldItem.getId() == Item.NONE) {
+				if (slot1.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 0;
+					TreePlayer.canShoot = false;
+				} else if (slot2.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 1;
+					TreePlayer.canShoot = false;
+				} else if (slot3.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 2;
+					TreePlayer.canShoot = false;
+				} else if (slot4.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 3;
+					TreePlayer.canShoot = false;
+				} else if (slot5.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 4;
+					TreePlayer.canShoot = false;
+				} else if (slot6.contains(relMousePos.x, relMousePos.y)) {
+					ammoSelected = 5;
+					TreePlayer.canShoot = false;
+				}
+			} else {
+				if (currentlyHeldItem.getQuantity() >= 1 && (InventoryBar.i.getItems().get(selected).getId() == Item.NONE
+						|| InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId())) {
+					currentlyHeldItem.decrement();
+					InventoryBar.i.getItems().get(selected).setId(currentlyHeldItem.getId());
+					InventoryBar.i.getItems().get(selected).increment();
+					if (currentlyHeldItem.getQuantity() <= 0) {
+						currentlyHeldItem = new Item(Item.NONE, 0, 0);
+					}
+				}
 			}
 		}
 		
