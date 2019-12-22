@@ -272,9 +272,9 @@ public class Level {
 	 * 
 	 * @param b The batch that also renders everything else in the screen
 	 */
-	public void render(Batch b, HealthBar hb, OrthographicCamera c) {
+	public void render(Batch b, HealthBar hb, OrthographicCamera c, boolean paused) {
 		for (int i = 0; i < itemDrops.size(); i++) {
-			if (itemDrops.get(i).remove) {
+			if (itemDrops.get(i).remove && !paused) {
 				itemDrops.remove(i);
 			}
 		}
@@ -289,13 +289,13 @@ public class Level {
 		}
 		
 		for (EnemySpawner e : es) {
-			e.draw(b, c);
-			if (!InventoryBar.grid.shown) e.update(hb, this);
+			e.draw(b, c, paused);
+			if (!InventoryBar.grid.shown && !paused) e.update(hb, this);
 		}
 		
 		for (int i = 0; i < itemDrops.size(); i++) {
 			itemDrops.get(i).render(b);
-			if (!InventoryBar.grid.shown) itemDrops.get(i).update(this, InventoryBar.i, this.sp.getPlayer());
+			if (!InventoryBar.grid.shown && !paused) itemDrops.get(i).update(this, InventoryBar.i, this.sp.getPlayer());
 		}
 		
 	}

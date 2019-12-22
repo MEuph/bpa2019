@@ -46,5 +46,5 @@ public abstract class Enemy extends Sprite {
 
 	protected abstract float getHealth();
 
-	public abstract void draw(Batch batch, OrthographicCamera c);
+	public abstract void draw(Batch batch, OrthographicCamera c, boolean paused);
 }

@@ -283,9 +283,9 @@ public class TrashCanMonster extends Enemy {
 	 * Draw the monster
 	 */
 	@Override
-	public void draw(Batch batch, OrthographicCamera c) {
+	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
 		if (attacking && !deathThreadPaused && hb.health > 0f) {
-			attackTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -298,7 +298,7 @@ public class TrashCanMonster extends Enemy {
 			}
 		} else if (hb.health > 0 && !deathThreadPaused) {
 			attackTime = 0f;
-			jumpTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -312,14 +312,14 @@ public class TrashCanMonster extends Enemy {
 			}
 		} else if (hb.health <= 0) {
 			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		} else {
 			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);

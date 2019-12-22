@@ -16,7 +16,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.Level;
-import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
@@ -31,6 +30,7 @@ public class GameScreen implements Screen {
 	
 	public HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt", hb);
+	public boolean paused;
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
@@ -143,13 +143,13 @@ public class GameScreen implements Screen {
 			System.out.println("c");
 		}
 		
-		level.render(b, hb, c);
+		level.render(b, hb, c, paused);
 
 		// If the level has faded in, process physics on the player
-		if (!(fade > 0) && !InventoryBar.grid.shown) {
+		if (!(fade > 0) && !InventoryBar.grid.shown && !paused) {
 			level.getSpawnpoint().getPlayer().update(level, hb, ib);
 		}
-		level.getSpawnpoint().getPlayer().render(b);
+		level.getSpawnpoint().getPlayer().render(b, paused);
 
 		// Increment the FPS timer
 		timer += Gdx.graphics.getDeltaTime();
@@ -173,11 +173,11 @@ public class GameScreen implements Screen {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		// If still fading, then draw the black fade rectangle
-		if (fade > 0f || InventoryBar.grid.shown) {
+		if (fade > 0f || InventoryBar.grid.shown || paused) {
 			ShapeRenderer sp = new ShapeRenderer();
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown ? 0.9f : fade));
+			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown || paused ? 0.9f : fade));
 			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
 			sp.end();
 		}
@@ -200,10 +200,25 @@ public class GameScreen implements Screen {
 //		}
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { 
-			Main.main.setScreen(Main.main.levelSelectScreen);
+			togglePause();
 		}
 	}
-
+	
+	public void togglePause() {
+		if (paused) {
+			paused = false;
+			InventoryBar.paused = false;
+		} else {
+			if (!InventoryBar.grid.shown) {
+				paused = true;
+				InventoryBar.paused = true;
+			} else {
+				InventoryBar.paused = false;
+				InventoryBar.grid.shown = false;
+			}
+		}
+	}
+	
 	@Override
 	public void resize(int w, int h) {
 		// c.setToOrtho(false, w, h);

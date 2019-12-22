@@ -462,7 +462,7 @@ public class TreePlayer extends Sprite {
 	 * 
 	 * @param sb The same SpriteBatch that is rendering other objects in the Screen
 	 */
-	public void render(SpriteBatch sb) {
+	public void render(SpriteBatch sb, boolean paused) {
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
@@ -478,7 +478,7 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			shootTime += Gdx.graphics.getDeltaTime();
+			if (!paused) shootTime += Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
 			currentFrame = shootAnimation.getKeyFrame(shootTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -495,7 +495,7 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			attackTime += Gdx.graphics.getDeltaTime();
+			if (!paused) attackTime += Gdx.graphics.getDeltaTime();
 			isAttacking = true;
 			idleTime = 0f;
 			currentFrame = attackAnimation.getKeyFrame(attackTime, true);
@@ -510,7 +510,7 @@ public class TreePlayer extends Sprite {
 				attackTime = 0f;
 			}
 		} else if (deathThreadPaused) {
-			idleTime += Gdx.graphics.getDeltaTime();
+			if (!paused) idleTime += Gdx.graphics.getDeltaTime();
 			isAttacking = false;
 			currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
 			// System.out.println(facingRight);
@@ -529,7 +529,7 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			deathTime += Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime += Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
 			shootTime = 0f;
 //			setSize(78*2, 70*1.75f);

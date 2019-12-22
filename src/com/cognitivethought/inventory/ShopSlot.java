@@ -41,6 +41,33 @@ public class ShopSlot {
 	public boolean updateClick(int mx, int my) {
 		if(!highlighted) return false;
 		
+		if (!(InventoryBar.currentlyHeldItem.getId() == Item.NONE || InventoryBar.currentlyHeldItem.getId() == toBuy.getId())) return false;
+		if (stock <= 0) return false;
+		
+		int coins = 0;
+		for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+			if (InventoryBar.i.getItems().get(i).getId() == Item.COIN) {
+				coins = InventoryBar.i.getItems().get(i).getQuantity();
+			}
+		}
+		if (coins < cost) return false;
+		if (InventoryBar.currentlyHeldItem.getId() == Item.NONE) {
+			Item i = new Item(toBuy.getId(), toBuy.getQuantity(), 0);
+			InventoryBar.currentlyHeldItem = i;
+		} else {
+			InventoryBar.currentlyHeldItem.increment();
+		}
+		
+		stock--;
+		for (int i = 0; i < InventoryBar.i.getItems().size(); i++) {
+			if (InventoryBar.i.getItems().get(i).getId() == Item.COIN) {
+				for (int j = 0; j < cost; j++) {
+					InventoryBar.i.getItems().get(i).decrement();
+				}
+			}
+		}
+		
+		
 		return true;
 	}
 	
@@ -72,8 +99,8 @@ public class ShopSlot {
 
 		b.draw(Item.getTexture(toBuy.getId()), x + 5, y + 5, size - 10, size - 10);
 		if (stock <= 0) b.draw(Resources.X, x, y, size, size);
-		gl.setText(font, stock > 0 ? Integer.toString(stock) : "All Gone!");
-		font.draw(b, stock > 0 ? Integer.toString(stock) : "All Gone!", x + (size / 2) - (gl.width / 2), y + size + gl.height + 5);
+		gl.setText(font, stock > 0 ? Integer.toString(stock) : "None!");
+		font.draw(b, stock > 0 ? Integer.toString(stock) : "None!", x + (size / 2) - (gl.width / 2), y + size + gl.height + 5);
 		gl.setText(font, "$" + Integer.toString(cost));
 		font.draw(b, "$" + Integer.toString(cost), x + (size / 2) - (gl.width / 2), y + size + (gl.height * 2) + 15);
 	}

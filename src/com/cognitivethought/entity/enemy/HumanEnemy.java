@@ -282,7 +282,7 @@ public class HumanEnemy extends Enemy {
 	}
 
 	@Override
-	public void draw(Batch batch, OrthographicCamera c) {
+	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
 		// TODO Auto-generated method stub
 		
 	}

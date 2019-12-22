@@ -13,7 +13,7 @@ public class Resources {
 	public static Texture COIN;
 	public static Texture NONE;
 	public static Texture FERTILIZER;
-	
+
 	public static Texture TRASH_ATTACK;
 	public static Texture TRASH_DEATH;
 	public static Texture TRASH_JUMP;
@@ -24,25 +24,30 @@ public class Resources {
 	public static Texture PLAYER_DEATH;
 	public static Texture PLAYER_IDLE;
 	public static Texture PLAYER_THROW;
-	
+
 	public static Texture CHECK;
-	
+
 	public static File INV_1;
 	public static File CRAFTING_FILE;
 	public static File LVL1_SHOP_FILE;
-	
+
 	public static Texture BIRD;
-	
+
 	public static Texture BARK;
 	public static Texture EXIT;
 	public static Texture EXIT1;
 	public static Texture EXIT2;
 	public static Texture HEART;
-	public static Texture LVL1;
-	public static Texture LVL2;
-	public static Texture LVL3;
-	public static Texture LVL4;
-	public static Texture LVL5;
+	public static Texture LVL1_POS;
+	public static Texture LVL2_POS;
+	public static Texture LVL3_POS;
+	public static Texture LVL4_POS;
+	public static Texture LVL5_POS;
+	public static Texture LVL1_NEG;
+	public static Texture LVL2_NEG;
+	public static Texture LVL3_NEG;
+	public static Texture LVL4_NEG;
+	public static Texture LVL5_NEG;
 	public static Texture MONSTER_HEART;
 	public static Texture UI_BACKGROUND;
 	public static Texture PLAY_BUTTON;
@@ -52,13 +57,13 @@ public class Resources {
 	public static Texture RETRY2;
 	public static Texture TITLE;
 	public static Texture UI_CRAFTING;
-	
+
 	public static Texture WHITE_DOLLAR;
 	public static Texture GRAY_DOLLAR;
-	
+
 	public static Texture BG;
 	public static Texture X;
-	
+
 	public static void loadTextures() {
 		APPLE = new Texture(Strings.ITEMS_DIR + "apple.png");
 		SEED = new Texture(Strings.ITEMS_DIR + "seed.png");
@@ -67,7 +72,7 @@ public class Resources {
 		COIN = new Texture(Strings.ITEMS_DIR + "coin.png");
 		NONE = new Texture(Strings.ITEMS_DIR + "none.png");
 		FERTILIZER = new Texture(Strings.ITEMS_DIR + "fertilizer.png");
-		
+
 		TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
 		TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");
 		TRASH_JUMP = new Texture(Strings.TRASH_MONSTER_DIR + "jump.png");
@@ -78,17 +83,22 @@ public class Resources {
 		PLAYER_DEATH = new Texture(Strings.PLAYER_DIR + "death.png");
 		PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
 		PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
-		
+
 		BARK = new Texture(Strings.UI_DIR + "bark.png");
 		EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");
 		EXIT1 = new Texture(Strings.UI_DIR + "Exit Button-1.png.png");
 		EXIT2 = new Texture(Strings.UI_DIR + "Exit Button-2.png.png");
 		HEART = new Texture(Strings.UI_DIR + "heart.png");
-		LVL1 = new Texture(Strings.UI_DIR + "LeveloneButton.png.png");
-		LVL2 = new Texture(Strings.UI_DIR + "LeveltwoButton.png.png");
-		LVL3 = new Texture(Strings.UI_DIR + "LevelthreeButton.png.png");
-		LVL4 = new Texture(Strings.UI_DIR + "LevelfourButton.png.png");
-		LVL5 = new Texture(Strings.UI_DIR + "LevelfiveButton.png.png");
+		LVL1_POS = new Texture(Strings.BUTTONS_DIR + "1pos.png");
+		LVL2_POS = new Texture(Strings.BUTTONS_DIR + "2pos.png");
+		LVL3_POS = new Texture(Strings.BUTTONS_DIR + "3pos.png");
+		LVL4_POS = new Texture(Strings.BUTTONS_DIR + "4pos.png");
+		LVL5_POS = new Texture(Strings.BUTTONS_DIR + "5pos.png");
+		LVL1_NEG = new Texture(Strings.BUTTONS_DIR + "1neg.png");
+		LVL2_NEG = new Texture(Strings.BUTTONS_DIR + "2neg.png");
+		LVL3_NEG = new Texture(Strings.BUTTONS_DIR + "3neg.png");
+		LVL4_NEG = new Texture(Strings.BUTTONS_DIR + "4neg.png");
+		LVL5_NEG = new Texture(Strings.BUTTONS_DIR + "5neg.png");
 		MONSTER_HEART = new Texture(Strings.UI_DIR + "monsterHeart.png");
 		UI_BACKGROUND = new Texture(Strings.UI_DIR + "placeholderbackground.png");
 		PLAY_BUTTON = new Texture(Strings.UI_DIR + "PlayButton.png");
@@ -102,11 +112,11 @@ public class Resources {
 		X = new Texture(Strings.UI_DIR + "no.png");
 		GRAY_DOLLAR = new Texture(Strings.UI_DIR + "graydollar.png");
 		WHITE_DOLLAR = new Texture(Strings.UI_DIR + "whitedollar.png");
-		
+
 		BG = new Texture(Strings.UI_DIR + "background.png");
-		
+
 		BIRD = new Texture(Strings.DEV_LEVEL_DIR + "tutbird.png");
-		
+
 		INV_1 = new File(Strings.INV_DIR + "inv1.txt");
 		CRAFTING_FILE = new File(Strings.INV_DIR + "recipes.txt");
 		LVL1_SHOP_FILE = new File(Strings.INV_DIR + "lvl1shop.txt");

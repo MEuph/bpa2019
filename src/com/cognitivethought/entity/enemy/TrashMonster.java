@@ -82,24 +82,27 @@ public class TrashMonster extends Enemy {
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
-					int organicMatterToDrop = new Random().nextInt(150);
+					int organicMatterToDrop = new Random().nextInt(4);
 					for (int i = 0; i < organicMatterToDrop; i++) {
 						ItemDrop om = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
 						om.dy = (float)(Math.random() * 2.0) + 1f;
 						om.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
 						l.getItemDrops().add(om);
 					}
-					int seedsToDrop = new Random().nextInt(5);
+					int seedsToDrop = new Random().nextInt(3);
 					for (int i = 0; i < seedsToDrop; i++) {
 						ItemDrop s = new ItemDrop(Resources.SEED, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.SEED);
 						s.dy = (float)(Math.random() * 2.0) + 1f;
 						s.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
 						l.getItemDrops().add(s);
 					}
-					ItemDrop coin = new ItemDrop(Resources.COIN, (int)t.getX(), (int)t.getY(), 40, 40, Item.COIN);
-					coin.dy = 2f;
-					coin.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2);
-					l.getItemDrops().add(coin);
+					int coinsToDrop = new Random().nextInt(35);
+					for (int i = 0; i < coinsToDrop; i++) {
+						ItemDrop c = new ItemDrop(Resources.COIN, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.COIN);
+						c.dy = (float)(Math.random() * 2.0) + 1f;
+						c.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
+						l.getItemDrops().add(c);
+					}
 					enemies.remove(t);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
@@ -284,9 +287,9 @@ public class TrashMonster extends Enemy {
 	 * Draw the monster
 	 */
 	@Override
-	public void draw(Batch batch, OrthographicCamera c) {
+	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
 		if (attacking && !deathThreadPaused && hb.health > 0f) {
-			attackTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -299,7 +302,7 @@ public class TrashMonster extends Enemy {
 			}
 		} else if (hb.health > 0 && !deathThreadPaused) {
 			attackTime = 0f;
-			jumpTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -313,14 +316,14 @@ public class TrashMonster extends Enemy {
 			}
 		} else if (hb.health <= 0) {
 			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		} else {
 			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);

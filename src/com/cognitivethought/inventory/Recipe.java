@@ -76,6 +76,12 @@ public class Recipe {
 	}
 	
 	public boolean canCraft(Slot[] slots) {
+		if (InventoryBar.currentlyHeldItem.getId() != Item.NONE) {
+			if (InventoryBar.currentlyHeldItem.getId() != result.getId()) {
+				return false;
+			}
+		}
+		
 		int emptySlots = 0;
 		
 		ArrayList<Integer> expectedItems = new ArrayList<Integer>();

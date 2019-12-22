@@ -19,22 +19,22 @@ public class LevelButton {
 		Texture texture; //initializes a texture for the button
 		switch (levelNum) { //based on the button number in the list it changes the texture of the buttons
 			case (0):            
-				texture = Resources.LVL1;
+				texture = Resources.LVL1_POS;
 				break;
 			case (1):
-				texture = Resources.LVL2;
+				texture = Resources.LVL2_POS;
 				break;
 			case (2):
-				texture = Resources.LVL3;
+				texture = Resources.LVL3_POS;
 				break;
 			case (3):
-				texture = Resources.LVL4;
+				texture = Resources.LVL4_POS;
 				break;
 			case (4):
-				texture = Resources.LVL5;
+				texture = Resources.LVL5_POS;
 				break;
 			default:
-				texture = Resources.LVL1;
+				texture = Resources.LVL1_POS;
 				break;
 			
 		}

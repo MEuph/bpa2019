@@ -71,12 +71,12 @@ public class EnemySpawner {
 	 * @param b
 	 * 		Batch that can do Batch-rendering
 	 */
-	public void draw(Batch b, OrthographicCamera c) {
+	public void draw(Batch b, OrthographicCamera c, boolean paused) {
 		Rectangle r = new Rectangle(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), c.viewportWidth, c.viewportHeight);
 		
 		for (int i = 0; i < enemies.size(); i++) {
 			if (enemies.get(i).getBoundingRectangle().overlaps(r)) {
-				enemies.get(i).draw(b, c);
+				enemies.get(i).draw(b, c, paused);
 			}
 		}
 	}

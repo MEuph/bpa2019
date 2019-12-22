@@ -152,11 +152,7 @@ public class LevelSelectScreen implements Screen {
 			levels[i].level.render(batch);
 		}
 		quitButton.render(batch);
-//		for (Cloud c : clouds) {
-//			c.animateBackground(c.cloud);
-//			c.cloud.setY((y+c.cloud.getY()) + 1920 / 2 - 100);
-//			c.cloud.draw(batch, delta);
-//		}
+		
 		batch.end();
 		if (fade <= 0f) {
 			for(int i = 0; i < levels.length; i++) {
