@@ -96,7 +96,7 @@ public class TrashMonster extends Enemy {
 						s.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
 						l.getItemDrops().add(s);
 					}
-					int coinsToDrop = new Random().nextInt(35);
+					int coinsToDrop = new Random().nextInt(5);
 					for (int i = 0; i < coinsToDrop; i++) {
 						ItemDrop c = new ItemDrop(Resources.COIN, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.COIN);
 						c.dy = (float)(Math.random() * 2.0) + 1f;

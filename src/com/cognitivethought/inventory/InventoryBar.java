@@ -327,7 +327,7 @@ public class InventoryBar implements InputProcessor {
 					}
 				}
 			}
-
+			
 			if (!grid.clickInGrid && button == Buttons.LEFT) {
 				Rectangle slot1 = new Rectangle(relativeX, relativeY, 100, 100);
 				Rectangle slot2 = new Rectangle(relativeX, relativeY - 100, 100, 100);
@@ -358,7 +358,7 @@ public class InventoryBar implements InputProcessor {
 						|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
 						|| slot5.contains(relMousePos.x, relMousePos.y)
 						|| slot6.contains(relMousePos.x, relMousePos.y)) {
-					if (selected != currentlyHeldItem.getPosition()) {
+//					if (selected != currentlyHeldItem.getPosition()) {
 						if (InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId()) {
 							for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {
 								InventoryBar.i.getItems().get(selected).increment();
@@ -370,17 +370,17 @@ public class InventoryBar implements InputProcessor {
 							currentlyHeldItem = InventoryBar.i.getItems().get(selected);
 							InventoryBar.i.getItems().set(selected, temp);
 						}
-					} else {
-						if (i.getItems().get(selected).getId() == Item.NONE) {
-							InventoryBar.i.getItems().set(selected, currentlyHeldItem);
-							currentlyHeldItem = new Item(Item.NONE, 0, 0);
-						} else {
-							Item temp = currentlyHeldItem;
-							temp.setPosition(selected);
-							currentlyHeldItem = InventoryBar.i.getItems().get(selected);
-							InventoryBar.i.getItems().set(selected, temp);
-						}
-					}
+//					} else {
+//						if (i.getItems().get(selected).getId() == Item.NONE) {
+//							InventoryBar.i.getItems().set(selected, currentlyHeldItem);
+//							currentlyHeldItem = new Item(Item.NONE, 0, 0);
+//						} else {
+//							Item temp = currentlyHeldItem;
+//							temp.setPosition(selected);
+//							currentlyHeldItem = InventoryBar.i.getItems().get(selected);
+//							InventoryBar.i.getItems().set(selected, temp);
+//						}
+//					}
 					TreePlayer.canShoot = false;
 				} else if (!grid.shown) {
 					if (i.getItems().get(currentlyHeldItem.getPosition()).getId() == Item.NONE) {
@@ -391,7 +391,7 @@ public class InventoryBar implements InputProcessor {
 							if (i.getItems().get(emptyPos).getId() == Item.NONE)
 								break;
 						}
-						if (emptyPos != -1) {
+						if (emptyPos != -1 && emptyPos < i.getItems().size()) {
 							i.getItems().set(emptyPos, currentlyHeldItem);
 							currentlyHeldItem = new Item(Item.NONE, 0, 0);
 						}

@@ -110,8 +110,6 @@ public class Recipe {
 			return false;
 		}
 		
-		// TODO: Note to self: When making sticks for a second time, there are too many empty slots. Fix it; FURTHER NOTE: It's detecting the wrong recipe
-		
 		System.out.println("Correct items");
 		
 		// Items are correct, but are quantities?
@@ -153,9 +151,10 @@ public class Recipe {
 					if (InventoryBar.i.getItems().get(emptyPos).getId() == Item.NONE)
 						break;
 				}
+				pos = emptyPos;
 			}
 			
-			InventoryBar.currentlyHeldItem = new Item(result.getId(), result.getQuantity(), pos);
+			InventoryBar.currentlyHeldItem = new Item(result.getId(), result.getQuantity(), -1);
 		}
 		
 		for (int i = 0; i < slots.length; i++) {
