@@ -18,7 +18,7 @@ public class Platform extends Sprite {
 	public boolean endsLevel;
 
 	private int posX, posY;
-	private boolean collidesEnemy;
+	public boolean collidesEnemy;
 
 	/**
 	 * Basically just a placeholder of values for the player to interact with

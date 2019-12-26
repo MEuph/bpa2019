@@ -171,9 +171,18 @@ public class TrashCanMonster extends Enemy {
 				facingRight = true;
 				this.flip(true, false);
 			}
+			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collidesEnemy && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx *= -1;
+				facingRight = true;
+				this.flip(true, false);
+			}
 			
 			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
 			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx *= -1;
+				facingRight = false;
+				this.flip(true, false);
+			}if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collidesEnemy && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx *= -1;
 				facingRight = false;
 				this.flip(true, false);
