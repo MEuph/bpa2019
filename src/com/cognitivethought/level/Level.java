@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
+import com.cognitivethought.entity.enemy.Axel;
 import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
@@ -173,6 +174,14 @@ public class Level {
 					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es2);
 					es2.debugInfo();
+					System.out.println();
+					break;
+				case(-9072273):
+					EnemySpawner es3 = new EnemySpawner();
+					es3.addEnemy(new Axel(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es3.enemies, this), j*scale, -i*scale);
+					es3.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
+					addSpawner(es3);
+					es3.debugInfo();
 					System.out.println();
 					break;
 				case(-7649845):

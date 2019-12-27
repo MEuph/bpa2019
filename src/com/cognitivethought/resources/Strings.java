@@ -9,6 +9,7 @@ public class Strings {
 	public static final String DEV_LEVEL_DIR = LEVELS_DIR + "Development Level/";
 	public static final String MONSTERS_DIR = "assets/Monsters/";
 	public static final String TRASH_MONSTER_DIR = MONSTERS_DIR + "Trash Monster/";
+	public static final String AXEL_DIR = MONSTERS_DIR + "Axel/";
 	public static final String PLAYER_DIR = "assets/Player/";
 	public static final String TILESETS_DIR = "assets/Tilesets/";
 	public static final String DEV_TILESET_DIR = TILESETS_DIR + "Development Tileset/";

@@ -18,6 +18,9 @@ public class Resources {
 	public static Texture TRASH_DEATH;
 	public static Texture TRASH_JUMP;
 	public static Texture TRASH_MONSTER;
+	
+	public static Texture AXEL_MOVE;
+	public static Texture AXEL_ATTACK;
 
 	public static Texture PLAYER_ATTACK;
 	public static Texture PLAYER_BASE;
@@ -83,6 +86,9 @@ public class Resources {
 		PLAYER_DEATH = new Texture(Strings.PLAYER_DIR + "death.png");
 		PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
 		PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
+		
+		AXEL_MOVE = new Texture(Strings.AXEL_DIR + "Axel Idle.png");
+		AXEL_ATTACK = new Texture(Strings.AXEL_DIR + "Axel Basic Attack.png");
 
 		BARK = new Texture(Strings.UI_DIR + "bark.png");
 		EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");
