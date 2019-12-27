@@ -27,7 +27,7 @@ public class Axel extends Enemy {
 	float jumpTime;
 	float deathTime = 1f;
 	
-	final float propWidth = 72f+15*2, propHeight = 94.28571f+15*2;
+	final float propWidth = 72f+150, propHeight = 94.28571f+150;
 	
 	boolean deathThreadPaused;
 	
@@ -288,13 +288,14 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
+		this.setSize(propWidth, propHeight);
 		if (attacking && !deathThreadPaused && hb.health > 0f) {
 			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX(), false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth+45 : getX(), getY(), facingRight ? -this.propWidth -45: this.propWidth +45, this.propHeight);
 //			setTexture(idle);
 			//super.draw(batch);
 			if (attackTime > 1f) {
