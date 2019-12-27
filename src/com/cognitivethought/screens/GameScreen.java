@@ -70,7 +70,7 @@ public class GameScreen implements Screen {
 //		}
 		
 		c = new OrthographicCamera();
-		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
+		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to 1920x1080
 		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
 		
 		// Run new Thread that will process the fading in of the scene
@@ -223,7 +223,7 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void resize(int w, int h) {
-		// c.setToOrtho(false, w, h);
+		 c.setToOrtho(false, w, h);
 	}
 
 	@Override

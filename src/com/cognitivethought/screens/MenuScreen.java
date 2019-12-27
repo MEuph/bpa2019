@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,6 +23,8 @@ import com.cognitivethought.resources.Resources;
 
 public class MenuScreen implements Screen {
 	
+	OrthographicCamera c;
+	
 	ArrayList<Cloud> clouds = new ArrayList<Cloud>(); //arraylist for clouds
 	
 	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250); //initializing the buttons
@@ -29,10 +32,13 @@ public class MenuScreen implements Screen {
 	
 	SpriteBatch batch = new SpriteBatch(); //initializing the spritebatch
 	
-	float y; //
+	float y;
 	float fade;
 	
 	public MenuScreen() {  //main function for the Menu screen
+		c = new OrthographicCamera();
+		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
+
 		for (int i = 0; i < new Random().nextInt(20) + 10; i++) { //adds a random amount of clouds to the ArrayList
 			clouds.add(new Cloud()); 
 		}
@@ -80,6 +86,10 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
+		
+		batch.setProjectionMatrix(c.combined);
+		c.update();
+		
 		batch.draw(Resources.UI_BACKGROUND, 0, y, 1920, 1920);
 		batch.draw(Resources.TITLE, 900, y + 1250, 800, 800);
 		playButton.render(batch);
@@ -118,7 +128,6 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resize(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
