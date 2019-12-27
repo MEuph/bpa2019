@@ -186,19 +186,19 @@ public class Platform extends Sprite {
 		top = bottom = right = left = false;
 		
 		if (posY > 0) {
-			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408;
+			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408 && data[posY - 1][posX] != -20791;
 		}
 		
 		if (posY < data.length - 1) {
-			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408;
+			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408 && data[posY + 1][posX] != -20791;
 		}
 
 		if (posX > 0) {
-			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408;
+			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408 && data[posY][posX - 1] != -20791;
 		}
 
 		if (posX < data[posY].length - 1) {
-			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408;
+			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408 && data[posY][posX + 1] != -20791;
 		}
 
 		if (!top && !bottom && !right && left) {
