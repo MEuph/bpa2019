@@ -19,6 +19,7 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.ui.PauseScreen;
 
 public class GameScreen implements Screen {
 
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
 	
 	public HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt", hb);
+	public PauseScreen pause = new PauseScreen();
 	public boolean paused;
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by

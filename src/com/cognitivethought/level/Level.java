@@ -180,6 +180,9 @@ public class Level {
 					break;
 //				case(-13640667):
 //					
+				case(-12843677):
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampoline.png"), j*scale, -i*scale, scale, scale, true, true, true, false, false, false, true, true));
+					break;
 				}
 			}
 		}

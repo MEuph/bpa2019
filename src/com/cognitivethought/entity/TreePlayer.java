@@ -207,19 +207,35 @@ public class TreePlayer extends Sprite {
 				if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
 						.overlaps(getBoundingRectangle()) && dy < 0
 						&& getY() >= plat.getY() + (plat.getHeight() / 2) + dy && plat.collideTop) {
-					dy = 0; // Stop vertical movement
-					setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
-					jumps = 0; // Reset jump counter
-					if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
-															// being harmed
-						if (hb.bark >= 0) { // Decrease bark first
-							hb.bark--;
-							this.flashing = true;
-							this.flashTimer = 100f;
-						} else {
-							this.flashing = true;
-							this.flashTimer = 100f;
-							hb.health--; // Then decrease health after bark reaches 0
+					if (!plat.trampolineBehavior) {
+						dy = 0; // Stop vertical movement
+						setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
+						jumps = 0; // Reset jump counter
+						if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
+																// being harmed
+							if (hb.bark >= 0) { // Decrease bark first
+								hb.bark--;
+								this.flashing = true;
+								this.flashTimer = 100f;
+							} else {
+								this.flashing = true;
+								this.flashTimer = 100f;
+								hb.health--; // Then decrease health after bark reaches 0
+							}
+						}
+					} else {
+						dy = -dy; // Stop vertical movement
+						setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
+						if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
+							if (hb.bark >= 0) { // Decrease bark first
+								hb.bark--;
+								this.flashing = true;
+								this.flashTimer = 100f;
+							} else {
+								this.flashing = true;
+								this.flashTimer = 100f;
+								hb.health--; // Then decrease health after bark reaches 0
+							}
 						}
 					}
 				}
@@ -278,6 +294,7 @@ public class TreePlayer extends Sprite {
 					setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 				}
 				if (plat.endsLevel && getBoundingRectangle().overlaps(plat.getBoundingRectangle())) {
+					
 					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
 						levelsPassed = 1;
 						
@@ -318,12 +335,16 @@ public class TreePlayer extends Sprite {
 				flashTimer = 100f;
 			}
 
-			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-				shoot(l, b);
+			if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				shoot(l, b, true);
+			} else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+				shoot(l, b, false);
 			}
 			
-			if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-				hit(l);
+			if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
+				hit(l, true);
+			} else if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+				hit(l, false);
 			}
 			
 			for (Projectile p : projectiles) {
@@ -387,14 +408,14 @@ public class TreePlayer extends Sprite {
 	Projectile p;
 
 
-	void shoot(Level l, InventoryBar ib) {
+	void shoot(Level l, InventoryBar ib, boolean mouseTriggered) {
 		if (!canShoot) return;
 		
 		if (shootTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
 
-		facingRight = Gdx.input.getX() >= 1920 / 2;
+		if (mouseTriggered) facingRight = Gdx.input.getX() >= 1920 / 2;
 
 		if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.APPLE)
 				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
@@ -424,7 +445,8 @@ public class TreePlayer extends Sprite {
 
 				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
 				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
-				float vx = Gdx.input.getX() <= (1920 / 2) ? -10 : 10; // (((Gdx.input.getX() - 960f) * 2f) / div) :
+				float vx = mouseTriggered ? (Gdx.input.getX() <= (1920 / 2) ? -10 : 10)
+						: (facingRight ? 10 : -10); // (((Gdx.input.getX() - 960f) * 2f) / div) :
 																		// ((Gdx.input.getX() - 960f) * 2f / div);
 				float vy = 0;
 				p.dx = vx;
@@ -437,14 +459,14 @@ public class TreePlayer extends Sprite {
 		}.start();
 	}
 	
-	public void hit(Level l) {
+	public void hit(Level l, boolean mouseTriggered) {
 		if (!canShoot) return;
 		
 		if (attackTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
 
-		facingRight = Gdx.input.getX() >= 1920 / 2;
+		if (mouseTriggered) facingRight = Gdx.input.getX() >= 1920 / 2;
 
 		attackTime = 0.02f;
 		

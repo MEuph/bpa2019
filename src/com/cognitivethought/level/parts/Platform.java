@@ -16,9 +16,10 @@ public class Platform extends Sprite {
 	public boolean collideLeft;
 	public boolean canHarm;
 	public boolean endsLevel;
+	public boolean collidesEnemy;
+	public boolean trampolineBehavior;
 
 	private int posX, posY;
-	public boolean collidesEnemy;
 
 	/**
 	 * Basically just a placeholder of values for the player to interact with
@@ -99,7 +100,7 @@ public class Platform extends Sprite {
 		this.collideBottom = collideBottom;
 		this.canHarm = canHarm;
 	}
-
+	
 	/**
 	 * Basically just a placeholder of values for the player to interact with
 	 * 
@@ -133,6 +134,7 @@ public class Platform extends Sprite {
 		this.canHarm = canHarm;
 		this.endsLevel = endsLevel;
 	}
+	
 	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
 			boolean collideRight, boolean collideBottom, boolean canHarm, boolean endsLevel, boolean collideEnemy) {
 		super(t);
@@ -147,6 +149,23 @@ public class Platform extends Sprite {
 		this.endsLevel = endsLevel;
 		this.collidesEnemy = collideEnemy;
 	}
+	
+	public Platform(Texture t, float x, float y, float w, float h, boolean collideTop, boolean collideLeft,
+			boolean collideRight, boolean collideBottom, boolean canHarm, boolean endsLevel, boolean collideEnemy, boolean trampolineBehavior) {
+		super(t);
+		super.setX(x);
+		super.setY(y);
+		super.setSize(w, h);
+		this.collideTop = collideTop;
+		this.collideLeft = collideLeft;
+		this.collideRight = collideRight;
+		this.collideBottom = collideBottom;
+		this.canHarm = canHarm;
+		this.endsLevel = endsLevel;
+		this.collidesEnemy = collideEnemy;
+		this.trampolineBehavior = trampolineBehavior;
+	}
+	
 	public Platform(Texture t, float x, float y, float w, float h, int posX, int posY) {
 		super(t);
 		super.setX(x);
