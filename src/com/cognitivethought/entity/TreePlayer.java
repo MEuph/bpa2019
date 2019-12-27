@@ -488,8 +488,8 @@ public class TreePlayer extends Sprite {
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
-		for (Projectile p : projectiles) {
-			sb.draw(p, p.getX(), p.getY());
+		for (int i = 0; i < projectiles.size(); i++) {
+			sb.draw(projectiles.get(i), projectiles.get(i).getX(), projectiles.get(i).getY());
 		}
 
 		if (this.flashing && Math.random() > 0.75f && deathThreadPaused)

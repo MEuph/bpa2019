@@ -19,7 +19,6 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
-import com.cognitivethought.ui.PauseScreen;
 
 public class GameScreen implements Screen {
 
@@ -31,8 +30,7 @@ public class GameScreen implements Screen {
 	
 	public HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt", hb);
-	public PauseScreen pause = new PauseScreen();
-	public boolean paused;
+	public static boolean paused;
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
 	float timer = 0; // Timer for updating FPS counter
@@ -124,6 +122,8 @@ public class GameScreen implements Screen {
 			position.x += (level.getSpawnpoint().getPlayer().getX() - position.x) * smoothCamera;
 			position.y += (level.getSpawnpoint().getPlayer().getY() - position.y + 100) * smoothCamera;
 		}
+		
+		c.position.set(position);
 		c.update();
 		// End smooth camera fade
 		
@@ -206,11 +206,11 @@ public class GameScreen implements Screen {
 		}
 		
 		if (paused) {
-			pause.render(b, c, sp, InventoryBar.font, 1000, 700);
+			InventoryBar.pm.render(b, c, sp, InventoryBar.font, 500, 300);
 		}
 	}
 	
-	public void togglePause() {
+	public static void togglePause() {
 		if (paused) {
 			paused = false;
 			InventoryBar.paused = false;

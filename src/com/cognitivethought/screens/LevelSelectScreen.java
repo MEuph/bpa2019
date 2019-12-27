@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,6 +19,8 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 //screen to select the level
 public class LevelSelectScreen implements Screen {
+	OrthographicCamera c;
+	
 	LevelButton[] levels = new LevelButton[5]; //list that stores the level buttons
 	public static int levelNumber = 0;
 	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
@@ -29,6 +32,9 @@ public class LevelSelectScreen implements Screen {
 	float fade;
 	
 	public LevelSelectScreen() { //main method of the level selection
+		
+		c = new OrthographicCamera();
+		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
 		
 		for (int i = 0; i < levels.length; i++) { //adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
@@ -146,6 +152,9 @@ public class LevelSelectScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0.1f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		batch.setProjectionMatrix(c.combined);
+		c.update();
+		
 		batch.draw(background, 0, -805, 1920, 1920);
 
 		for(int i = 0; i < levels.length; i++) {
