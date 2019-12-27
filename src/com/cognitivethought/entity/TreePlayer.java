@@ -224,7 +224,7 @@ public class TreePlayer extends Sprite {
 							}
 						}
 					} else {
-						dy = -dy; // Stop vertical movement
+						dy = 8f;
 						setY(plat.getY() + plat.getHeight() - 2f); // Reset y position to the top of the platform
 						if (plat.canHarm && !this.flashing) { // If the platform can harm and the player is not already
 							if (hb.bark >= 0) { // Decrease bark first

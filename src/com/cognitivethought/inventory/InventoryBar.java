@@ -33,9 +33,8 @@ public class InventoryBar implements InputProcessor {
 
 	public HealthBar hb;
 
-	public BitmapFont font;
-
-	public BitmapFont smallFont;
+	public static BitmapFont font;
+	public static BitmapFont smallFont;
 
 	Rectangle craftingButton = new Rectangle(0, 0, 0, 0);
 

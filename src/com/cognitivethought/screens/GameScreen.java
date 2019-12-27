@@ -204,6 +204,10 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { 
 			togglePause();
 		}
+		
+		if (paused) {
+			pause.render(b, c, sp, InventoryBar.font, 1000, 700);
+		}
 	}
 	
 	public void togglePause() {
