@@ -39,6 +39,9 @@ public class Axel extends Enemy {
 	Animation<TextureRegion> attackAnimation;
 	Texture attackSheet;
 	
+	Animation<TextureRegion> majorAttackAnimation;
+	Texture majorAttackSheet;
+	
 	Animation<TextureRegion> deathAnimation;
 	Texture deathSheet;
 	
@@ -119,6 +122,7 @@ public class Axel extends Enemy {
 
 	void createAnimations() {
 		attackSheet = Resources.AXEL_ATTACK;
+		majorAttackSheet = Resources.AXEL_MAJOR;
 		moveSheet = Resources.AXEL_MOVE;
 		deathSheet = Resources.TRASH_DEATH;
 		
@@ -130,6 +134,15 @@ public class Axel extends Enemy {
 		for (int i = 0; i < attackRow; i++) {
 			for (int j = 0; j < attackCol; j++) {
 				attackFrames[x++] = tmp[i][j];
+			}
+		}
+		
+		tmp = TextureRegion.split(majorAttackSheet, majorAttackSheet.getWidth() / attackCol, majorAttackSheet.getHeight() / attackRow);
+		TextureRegion[] majorAttackFrames = new TextureRegion[attackCol * attackRow];
+		x = 0;
+		for (int i = 0; i < attackRow; i++) {
+			for (int j = 0; j < attackCol; j++) {
+				majorAttackFrames[x++] = tmp[i][j];
 			}
 		}
 		
@@ -153,6 +166,7 @@ public class Axel extends Enemy {
 		
 		jumpAnimation = new Animation<TextureRegion>((float)(new Random().nextInt(3) + 6) / 100f, jumpFrames);
 		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
+		majorAttackAnimation = new Animation<TextureRegion>(0.09f, majorAttackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		
 		attackTime = 0f;
@@ -296,7 +310,17 @@ public class Axel extends Enemy {
 		jumpTimer -= 1;
 		this.setSize(propWidth, propHeight);
 		if (jumpTimer <= 0) {
-			this.setTexture(deathSheet);
+			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = majorAttackAnimation.getKeyFrame(attackTime, true);
+//			System.out.println(facingRight);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX(), false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth+45 : getX(), getY(), facingRight ? -this.propWidth -45: this.propWidth +45, this.propHeight);
+//			setTexture(idle);
+			//super.draw(batch);
+			if (attackTime > 1f) {
+				attacking = false;
+			}
 		}
 		else if (attacking && !deathThreadPaused && hb.health > 0f) {
 			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
