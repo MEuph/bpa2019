@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Timer;
 import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
@@ -17,8 +18,10 @@ import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 
-public class Axel extends Enemy {
 
+
+public class Axel extends Enemy {
+	int jumpTimer = 1000;
 	final int attackCol = 3, attackRow = 1;
 	final int moveCol = 2, moveRow = 1;
 	final int deathCol = 3, deathRow = 4;
@@ -112,6 +115,7 @@ public class Axel extends Enemy {
 
 		createAnimations();
 	}
+	
 
 	void createAnimations() {
 		attackSheet = Resources.AXEL_ATTACK;
@@ -160,6 +164,7 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	void move(Level l) {
+		
 		// If the monster hits either the left bound or the right bound, just flip it
 		// Same collision detection code as the player
 		for (Platform plat : l.getPlatforms()) {
@@ -288,8 +293,12 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
+		jumpTimer -= 1;
 		this.setSize(propWidth, propHeight);
-		if (attacking && !deathThreadPaused && hb.health > 0f) {
+		if (jumpTimer <= 0) {
+			this.setTexture(deathSheet);
+		}
+		else if (attacking && !deathThreadPaused && hb.health > 0f) {
 			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
