@@ -261,6 +261,7 @@ public class Axel extends Enemy {
 		} else {
 			if (jumpTimer == 0) {
 				dx *= 3;
+				
 			}
 			if(jumpTimer >= -70) {
 				translateX(dx);
