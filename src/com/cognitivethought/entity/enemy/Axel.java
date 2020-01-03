@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.cognitivethought.entity.ItemDrop;
+import com.cognitivethought.entity.TreePlayer;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
@@ -23,6 +24,7 @@ import com.cognitivethought.ui.HealthBar;
 public class Axel extends Enemy {
 	int jumpTimer = 1000;
 	final int attackCol = 3, attackRow = 1;
+	final int majorCol = 14, majorRow = 2;
 	final int moveCol = 2, moveRow = 1;
 	final int deathCol = 3, deathRow = 4;
 	
@@ -30,7 +32,7 @@ public class Axel extends Enemy {
 	float jumpTime;
 	float deathTime = 1f;
 	
-	final float propWidth = 72f+150, propHeight = 94.28571f+150;
+	final float propWidth = 72f+100, propHeight = 94.28571f+100;
 	
 	boolean deathThreadPaused;
 	
@@ -57,6 +59,7 @@ public class Axel extends Enemy {
 	boolean movingLeft, movingRight;	// Whether or not the monster is moving right or left
 	boolean facingRight;				// Whether the monster is facing right or not
 	boolean attacking = false;
+	boolean majorAttacking = false;
 	
 	float pauseTimer;					// How long to pause in between movements
 	float dx, dy;						// The velocity of the monster
@@ -72,7 +75,7 @@ public class Axel extends Enemy {
 	 */
 	public Axel(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
-		this.speed = 2f - (float)Math.random();	// Default speed to 1f
+		this.speed = 1f;	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
 		this.idle = texture;
 		
@@ -137,11 +140,11 @@ public class Axel extends Enemy {
 			}
 		}
 		
-		tmp = TextureRegion.split(majorAttackSheet, majorAttackSheet.getWidth() / attackCol, majorAttackSheet.getHeight() / attackRow);
-		TextureRegion[] majorAttackFrames = new TextureRegion[attackCol * attackRow];
+		tmp = TextureRegion.split(majorAttackSheet, majorAttackSheet.getWidth() / majorCol, majorAttackSheet.getHeight() / majorRow);
+		TextureRegion[] majorAttackFrames = new TextureRegion[majorCol * majorRow];
 		x = 0;
-		for (int i = 0; i < attackRow; i++) {
-			for (int j = 0; j < attackCol; j++) {
+		for (int i = 0; i < majorRow; i++) {
+			for (int j = 0; j < majorCol; j++) {
 				majorAttackFrames[x++] = tmp[i][j];
 			}
 		}
@@ -209,7 +212,12 @@ public class Axel extends Enemy {
 			}
 		}
 	}
-	
+	public void majorAttackMovement() {
+		
+		if(jumpTimer >= -70) {
+			translateX(dx);
+		}
+	}
 	/**
 	 * Update the monster
 	 */
@@ -237,10 +245,31 @@ public class Axel extends Enemy {
 		}
 		
 		move(l); // Do movement code
+		if (jumpTimer > 0) {
+
+			if (TreePlayer.xPos <= this.getX() && facingRight == false) {
+				facingRight =true;
+				this.flip(true, false);
+				dx *= -1;
+				
+			}
+			if (TreePlayer.xPos >= this.getX() && facingRight == true) {
+				facingRight =false;
+				this.flip(true, false);
+				dx *= -1;
+				
+			}
+			translateY(dy); // Do translations
+			if (!attacking) translateX(dx);
 		
-		translateY(dy); // Do translations
-		if (!attacking) translateX(dx);
-		
+			
+		} else {
+			if (jumpTimer == 0) {
+				dx *= 3;
+			}
+			majorAttackMovement();
+			
+		}
 		attack(hb, l); // Do attacking
 	}
 	
@@ -258,9 +287,26 @@ public class Axel extends Enemy {
 		boolean canAttack =
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
+		boolean canMajorAttack =
+				this.getBoundingRectangle().overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
+		
+		if (majorAttacking && jumpTimer >= -70 && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
+			if (!l.getSpawnpoint().getPlayer().flashing) {
+//				this.setHealth(0);
+				if (hb.bark >= 0) {
+					hb.bark-=damageValue;
+					attackTimer=50f;
+				} else {
+					hb.health-=damageValue;
+					attackTimer=50f;
+				}
+				l.getSpawnpoint().getPlayer().flashing = true;
+				l.getSpawnpoint().getPlayer().flashTimer = 500f;
+			}
+		}
 		
 		// attack if the monster can attack
-		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
+		if (!majorAttacking && canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
@@ -310,17 +356,23 @@ public class Axel extends Enemy {
 		jumpTimer -= 1;
 		this.setSize(propWidth, propHeight);
 		if (jumpTimer <= 0) {
+			
+			majorAttacking = true;
+			
 			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = majorAttackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX(), false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth+45 : getX(), getY(), facingRight ? -this.propWidth -45: this.propWidth +45, this.propHeight);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);
 //			setTexture(idle);
 			//super.draw(batch);
-			if (attackTime > 1f) {
-				attacking = false;
+			if (jumpTimer <= -150) {
+				jumpTimer = 1000;
+				majorAttacking = false;
+				dx = 1;
 			}
+			
 		}
 		else if (attacking && !deathThreadPaused && hb.health > 0f) {
 			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
