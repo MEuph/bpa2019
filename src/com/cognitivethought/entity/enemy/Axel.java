@@ -75,13 +75,13 @@ public class Axel extends Enemy {
 	 */
 	public Axel(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
-		this.speed = 1f;	// Default speed to 1f
+		this.speed = 2f;	// Default speed to 2f
 		this.dx = -speed;	// Default movement to the left
 		this.idle = texture;
 		
 		Axel t = this;
 		
-		hb = new HealthBar(this, 3);
+		hb = new HealthBar(this, 10);
 		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
@@ -212,12 +212,7 @@ public class Axel extends Enemy {
 			}
 		}
 	}
-	public void majorAttackMovement() {
-		
-		if(jumpTimer >= -70) {
-			translateX(dx);
-		}
-	}
+	
 	/**
 	 * Update the monster
 	 */
@@ -267,7 +262,9 @@ public class Axel extends Enemy {
 			if (jumpTimer == 0) {
 				dx *= 3;
 			}
-			majorAttackMovement();
+			if(jumpTimer >= -70) {
+				translateX(dx);
+			}
 			
 		}
 		attack(hb, l); // Do attacking
@@ -370,7 +367,7 @@ public class Axel extends Enemy {
 			if (jumpTimer <= -150) {
 				jumpTimer = 1000;
 				majorAttacking = false;
-				dx = 1;
+				dx = 2f;
 			}
 			
 		}
