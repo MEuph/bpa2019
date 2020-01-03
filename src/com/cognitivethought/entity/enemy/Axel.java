@@ -361,7 +361,7 @@ public class Axel extends Enemy {
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX(), false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth, this.propHeight);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(), facingRight ? -this.propWidth : this.propWidth , this.propHeight +35);
 //			setTexture(idle);
 			//super.draw(batch);
 			if (jumpTimer <= -150) {
