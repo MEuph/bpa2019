@@ -268,6 +268,7 @@ public class Axel extends Enemy {
 			}
 			
 		}
+		move(l);
 		attack(hb, l); // Do attacking
 	}
 	
