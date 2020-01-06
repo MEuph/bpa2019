@@ -265,6 +265,7 @@ public class Platform extends Sprite {
 			collideRight = true;
 		} else if (top && bottom && right && left) {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
+			setFlip(Math.random() <= 0.5, Math.random() <= 0.5);
 		} else if (top && bottom && right && !left) {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
 			collideLeft = true;

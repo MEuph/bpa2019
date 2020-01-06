@@ -1,5 +1,6 @@
 package com.cognitivethought.entity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -19,6 +20,7 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
@@ -297,6 +299,12 @@ public class TreePlayer extends Sprite {
 				}
 				if (plat.endsLevel && getBoundingRectangle().overlaps(plat.getBoundingRectangle())) {
 					
+					try {
+						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
 					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
 						levelsPassed = 1;
 						
@@ -349,21 +357,21 @@ public class TreePlayer extends Sprite {
 				hit(l, false);
 			}
 			
-			for (Projectile p : projectiles) {
-				if (p.life <= 0) {
-					projectiles.remove(p);
+			for (int i = 0; i < projectiles.size(); i++) {
+				if (projectiles.get(i).life <= 0) {
+					projectiles.remove(i);
 					break;
 				}
-				p.update();
+				projectiles.get(i).update();
 				for (EnemySpawner es : l.getEnemySpawners()) {
 					for (Enemy e : es.enemies) {
-						if (p.checkHit(e) || p.hitWall(l.getPlatforms())) {
-							p.life = 0;
+						if (projectiles.get(i).checkHit(e) || projectiles.get(i).hitWall(l.getPlatforms())) {
+							projectiles.get(i).life = 0;
 							System.out.println("test");
 							break;
 						}
 					}
-					if (p.life <= 0) {
+					if (projectiles.get(i).life <= 0) {
 						break;
 					}
 				}

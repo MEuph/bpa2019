@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
 	OrthographicCamera c; // Camera
 	
 	public HealthBar hb = new HealthBar();
-	public InventoryBar ib = new InventoryBar("assets/Inventory/inv1.txt", hb);
+	public InventoryBar ib = new InventoryBar("assets/Inventory/inv.txt", hb);
 	public static boolean paused;
 	
 	float smoothCamera = .1f; // How much to smooth the camera's movement by
@@ -56,7 +56,7 @@ public class GameScreen implements Screen {
 		InventoryBar.grid.shown = false;
 		
 		try {
-			InventoryBar.i.read(Strings.INV_DIR + "/inv1.txt", InventoryBar.grid);
+			InventoryBar.i.read(Strings.INV_DIR + "/inv.txt", InventoryBar.grid);
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
