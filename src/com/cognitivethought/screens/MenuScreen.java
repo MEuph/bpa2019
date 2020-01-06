@@ -6,9 +6,11 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -38,7 +40,13 @@ public class MenuScreen implements Screen {
 	public MenuScreen() {  //main function for the Menu screen
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
-
+		
+		Texture t = new Texture("assets/cursor.png");
+		TextureData td = t.getTextureData();
+		if (!td.isPrepared()) td.prepare();
+		Cursor customCursor = Gdx.graphics.newCursor(td.consumePixmap(), 0, 0);
+		Gdx.graphics.setCursor(customCursor);
+		
 		for (int i = 0; i < new Random().nextInt(20) + 10; i++) { //adds a random amount of clouds to the ArrayList
 			clouds.add(new Cloud()); 
 		}

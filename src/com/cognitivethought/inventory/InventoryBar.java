@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.entity.TreePlayer;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.ui.PauseMenu;
 
 public class InventoryBar implements InputProcessor {
 
@@ -37,7 +38,9 @@ public class InventoryBar implements InputProcessor {
 	public static BitmapFont smallFont;
 
 	Rectangle craftingButton = new Rectangle(0, 0, 0, 0);
-
+	
+	public static PauseMenu pm = new PauseMenu();
+	
 	public int selected;
 	public int ammoSelected;
 
@@ -50,7 +53,7 @@ public class InventoryBar implements InputProcessor {
 
 	public InventoryBar(String invFile, HealthBar hb) {
 		this.hb = hb;
-
+		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(new FileHandle("assets/Fonts/times-new-roman.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
@@ -248,6 +251,8 @@ public class InventoryBar implements InputProcessor {
 					selected = 5;
 				}
 			}
+		} else {
+			pm.updateMove(mx, my);
 		}
 		return false;
 	}
@@ -398,6 +403,8 @@ public class InventoryBar implements InputProcessor {
 					currentlyHeldItem = new Item(Item.NONE, 0, 0);
 				}
 			}
+		} else {
+			pm.updateClick(mx, my);
 		}
 
 		return false;
