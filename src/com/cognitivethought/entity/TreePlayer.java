@@ -29,7 +29,9 @@ public class TreePlayer extends Sprite {
 	public final float timeToAttack = 0.5f;
 
 	final float timeToDie = 1f;
-
+	
+	public static float xPos;
+	
 	final int shootCol = 4, shootRow = 3;
 	final int deathCol = 2, deathRow = 11;
 	final int idleCol = 4, idleRow = 4;
@@ -485,6 +487,7 @@ public class TreePlayer extends Sprite {
 	 * @param sb The same SpriteBatch that is rendering other objects in the Screen
 	 */
 	public void render(SpriteBatch sb, boolean paused) {
+		xPos = this.getX();
 		// Facing right explanation: if the player is facing right, then draw the player
 		// at an increased x value, but with a negative width,
 		// otherwise just draw player normally
