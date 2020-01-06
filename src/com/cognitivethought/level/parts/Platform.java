@@ -237,6 +237,7 @@ public class Platform extends Sprite {
 			} else {
 				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
 			}
+			setFlip(Math.random() <= 0.5, false);
 			collideTop = collideRight = collideLeft = true;
 		} else if (!top && bottom && right && !left) {
 			if (grass) {
@@ -253,6 +254,7 @@ public class Platform extends Sprite {
 			collideBottom = collideLeft = collideRight = true;
 		} else if (top && !bottom && right && left) {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
+			setFlip(Math.random() <= 0.5, false);
 			collideBottom = true;
 		} else if (top && !bottom && right && !left) {
 			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));

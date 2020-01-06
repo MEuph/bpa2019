@@ -25,6 +25,8 @@ public class Axel extends Enemy {
 	final int moveCol = 2, moveRow = 1;
 	final int deathCol = 3, deathRow = 4;
 
+	boolean wall;
+
 	float attackTime;
 	float jumpTime;
 	float deathTime = 1f;
@@ -174,7 +176,6 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	void move(Level l) {
-
 		// If the monster hits either the left bound or the right bound, just flip it
 		// Same collision detection code as the player
 		for (Platform plat : l.getPlatforms()) {
@@ -199,20 +200,27 @@ public class Axel extends Enemy {
 			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0
 					&& getX() + getWidth() + dx >= leftOfPlatform.getX() && (plat.collideLeft || plat.collidesEnemy)
 					&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-				dx = 0;
+				dx *= -1;
+				translateX(-4);
 				facingRight = true;
 				this.flip(true, false);
+				wall = true;
+				return;
 			}
 
 			Rectangle rightOfPlatform = new Rectangle(plat.getX() + plat.getWidth() - 2f, plat.getY(), 2f,
 					plat.getHeight());
 			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth()
 					&& (plat.collideLeft || plat.collidesEnemy) && !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
-				dx = 0;
+				dx *= -1;
+				translateX(4);
 				facingRight = false;
 				this.flip(true, false);
+				wall = true;
+				return;
 			}
 		}
+		wall = false;
 	}
 
 	/**
@@ -220,6 +228,11 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	public void update(HealthBar hb, Level l) {
+		if (!(getBoundingRectangle().overlaps(new Rectangle(l.getSpawnpoint().getPlayer().getX() - 1920,
+				l.getSpawnpoint().getPlayer().getY() - 1080, 1920 * 2, 1080 * 2)))) {
+			return;
+		}
+
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 
@@ -243,26 +256,26 @@ public class Axel extends Enemy {
 
 		move(l); // Do movement code
 		if (jumpTimer > 0) {
+			if (!wall) {
+				if (TreePlayer.xPos <= this.getX() && facingRight == false) {
+					facingRight = true;
+					this.flip(true, false);
+					if (dx == 0)
+						dx = -3;
+					dx *= -1;
 
-			if (TreePlayer.xPos <= this.getX() && facingRight == false) {
-				facingRight = true;
-				this.flip(true, false);
-				if (dx == 0)
-					dx = -1;
-				dx *= -1;
-
+				}
+				if (TreePlayer.xPos >= this.getX() && facingRight == true) {
+					facingRight = false;
+					this.flip(true, false);
+					if (dx == 0)
+						dx = 3;
+					dx *= -1;
+				}
+				translateY(dy); // Do translations
+				if (!attacking)
+					translateX(dx);
 			}
-			if (TreePlayer.xPos >= this.getX() && facingRight == true) {
-				facingRight = false;
-				this.flip(true, false);
-				if (dx == 0)
-					dx = 1;
-				dx *= -1;
-			}
-			translateY(dy); // Do translations
-			if (!attacking)
-				translateX(dx);
-
 		} else {
 			if (jumpTimer == 0) {
 				dx *= 3;
@@ -273,6 +286,7 @@ public class Axel extends Enemy {
 			}
 
 		}
+
 		move(l);
 		attack(hb, l); // Do attacking
 	}
