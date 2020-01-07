@@ -49,7 +49,7 @@ public class DeathScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				try {
-					Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+					Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
 					Main.main.setScreen(toResetTo);
 				} catch (IOException e) {
 					e.printStackTrace();

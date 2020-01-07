@@ -1,9 +1,17 @@
 package com.cognitivethought.main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.CompleteScreen;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
@@ -11,6 +19,8 @@ import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.screens.MenuScreen;
 
 public class Main extends Game implements ApplicationListener {
+	
+	public static int levelsPassed = 0;
 	
 	// Used for static access of otherwise non-static items
 	public static Main main;
@@ -28,6 +38,7 @@ public class Main extends Game implements ApplicationListener {
 	
 	public CompleteScreen completeScreen;
 	
+	@SuppressWarnings("resource")
 	@Override
 	public void create() {
 		Resources.loadTextures();
@@ -39,8 +50,21 @@ public class Main extends Game implements ApplicationListener {
 		deathScreen 		= new DeathScreen(null);
 		completeScreen 		= new CompleteScreen(null);
 		setScreen(menuScreen);
+		
+		try {
+			levelsPassed = Integer.parseInt(new Scanner(new File(Strings.LEVELS_DIR + "leveldata.txt")).nextLine());
+		} catch (NumberFormatException | FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
+	
 
+	public static void save() throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(Strings.LEVELS_DIR + "leveldata.txt"));
+		writer.write(Integer.toString(Main.levelsPassed));
+		writer.close();
+	}
+	
 	@Override
 	public void dispose() {
 		main.getScreen().dispose();

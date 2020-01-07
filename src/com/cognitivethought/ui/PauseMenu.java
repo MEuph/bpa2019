@@ -1,5 +1,7 @@
 package com.cognitivethought.ui;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -37,6 +39,11 @@ public class PauseMenu {
 			break;
 		case 2:
 			Main.main.setScreen(Main.main.levelSelectScreen);
+			try {
+				Main.save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			GameScreen.togglePause();
 			break;
 		}
@@ -98,7 +105,7 @@ public class PauseMenu {
 		if (!b.isDrawing()) b.begin();
 		font.draw(b, "Resume", resumeButton.x + (quitButton.width / 2) - (new GlyphLayout(font, "Resume").width / 2), resumeButton.y + font.getData().lineHeight);
 		font.draw(b, "Settings", settingsButton.x + (quitButton.width / 2) - (new GlyphLayout(font, "Settings").width / 2), settingsButton.y + font.getData().lineHeight);
-		font.draw(b, "Quit", quitButton.x + (quitButton.width / 2) - (new GlyphLayout(font, "Quit").width / 2), quitButton.y + font.getData().lineHeight);
+		font.draw(b, "Save & Quit", quitButton.x + (quitButton.width / 2) - (new GlyphLayout(font, "Save & Quit").width / 2), quitButton.y + font.getData().lineHeight);
 		if (b.isDrawing()) b.end();
 		
 		Gdx.gl20.glDisable(GL20.GL_BLEND_SRC_ALPHA);

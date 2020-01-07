@@ -62,4 +62,8 @@ public class ImageButton {
 	public void setClickListener(ClickListener cl) {
 		this.listener = cl;
 	}
+	
+	public Sprite getSkin() {
+		return skin;
+	}
 }

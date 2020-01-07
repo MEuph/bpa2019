@@ -1,9 +1,5 @@
 package com.cognitivethought.screens;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,17 +10,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.ImageButton;
-import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 
 public class CompleteScreen implements Screen {
 
 Texture background; //the background texture
 	
-	ImageButton retryButton; //initializing the buttons
 	ImageButton nextButton;
 	
-	Animation<TextureRegion> retryAnimation;
 	Animation<TextureRegion> quitAnimation;
 	
 	SpriteBatch batch; //initializing the spritebatch
@@ -34,26 +27,12 @@ Texture background; //the background texture
 	public CompleteScreen(Screen toRestartTo) {  //main function for the Death screen
 		this.toResetTo = toRestartTo;
 		
-		retryAnimation = new Animation<TextureRegion>(0, new TextureRegion[0]);
 		quitAnimation = new Animation<TextureRegion>(0, new TextureRegion[0]);
 		
 		background = new Texture("assets/UI/placeholderbackground.png");
-		retryButton = new ImageButton(new Texture("assets/UI/Retry Button-1.png.png"), new Texture("assets/UI/Retry Button-2.png.png"), (1920 / 2) - (250 / 2), 500, 250, 250);
 		nextButton = new ImageButton(new Texture("assets/UI/Level Select-1.png.png"), new Texture("assets/UI/Level Select-2.png.png"), (1920 / 2) - (250 / 2), 150, 250, 250);
 		
 		batch = new SpriteBatch();
-		
-		retryButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				try {
-					Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
-					Main.main.setScreen(toResetTo);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 		
 		nextButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
@@ -89,11 +68,9 @@ Texture background; //the background texture
 		
 		batch.begin();
 //		batch.draw(background, 0, 0, 1920, 1920);
-		retryButton.render(batch);
 		nextButton.render(batch);
 		batch.end();
 		
-		retryButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 		nextButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 	}
 

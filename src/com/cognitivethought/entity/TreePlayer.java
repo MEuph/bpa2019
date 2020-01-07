@@ -39,7 +39,6 @@ public class TreePlayer extends Sprite {
 	final int idleCol = 4, idleRow = 4;
 	final int attackCol = 4, attackRow = 4;
 	
-	public static int levelsPassed = 0;
 	// The velocity of the player
 	public float dx, dy;
 
@@ -96,7 +95,7 @@ public class TreePlayer extends Sprite {
 		
 		attackTime = 0.02f;
 	}
-
+	
 	void createAnimations() {
 		shootSheet = Resources.PLAYER_THROW;
 		deathSheet = Resources.PLAYER_DEATH;
@@ -262,8 +261,8 @@ public class TreePlayer extends Sprite {
 							this.flashTimer = 100f; // Set the time to be flashing
 						} else {
 							hb.health--; // Then decrease health after bark reaches 0
-							if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
-								levelsPassed = 1;
+							if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+								Main.levelsPassed = 1;
 							}
 							this.flashing = true; // Set flashing to true because the player is being harmed
 							this.flashTimer = 100f; // Set the time to be flashing
@@ -301,32 +300,33 @@ public class TreePlayer extends Sprite {
 					
 					try {
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
+						Main.save();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					
-					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
-						levelsPassed = 1;
+					if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 1;
 						
 					}
 
-					if (LevelSelectScreen.levelNumber == 2 && levelsPassed < LevelSelectScreen.levelNumber) {
-						levelsPassed = 2;
+					if (LevelSelectScreen.levelNumber == 2 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 2;
 						
 					}
 
-					if (LevelSelectScreen.levelNumber == 3 && levelsPassed < LevelSelectScreen.levelNumber) {
-						levelsPassed = 3;
+					if (LevelSelectScreen.levelNumber == 3 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 3;
 					
 					}
 
-					if (LevelSelectScreen.levelNumber == 4 && levelsPassed < LevelSelectScreen.levelNumber) {
-						levelsPassed = 4;
+					if (LevelSelectScreen.levelNumber == 4 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 4;
 						
 					}
 
-					if (LevelSelectScreen.levelNumber == 5 && levelsPassed < LevelSelectScreen.levelNumber) {
-						levelsPassed = 5;
+					if (LevelSelectScreen.levelNumber == 5 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 5;
 						
 					}
 					Main.main.completeScreen.toResetTo = l.screen;

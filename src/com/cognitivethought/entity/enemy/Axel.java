@@ -21,7 +21,7 @@ import com.cognitivethought.ui.HealthBar;
 public class Axel extends Enemy {
 	int jumpTimer = 1000;
 	final int attackCol = 3, attackRow = 1;
-	final int majorCol = 14, majorRow = 2;
+	final int majorCol = 17, majorRow = 2;
 	final int moveCol = 2, moveRow = 1;
 	final int deathCol = 3, deathRow = 4;
 
@@ -263,7 +263,6 @@ public class Axel extends Enemy {
 					if (dx == 0)
 						dx = -3;
 					dx *= -1;
-
 				}
 				if (TreePlayer.xPos >= this.getX() && facingRight == true) {
 					facingRight = false;
@@ -351,6 +350,7 @@ public class Axel extends Enemy {
 		deathThreadPaused = false;
 		attacking = false;
 		deathTime = 0f;
+		dx = 0;
 	}
 
 	@Override
@@ -394,7 +394,7 @@ public class Axel extends Enemy {
 			if (jumpTimer <= -150) {
 				jumpTimer = 1000;
 				majorAttacking = false;
-				dx = 2f;
+				dx = deathThreadPaused ? 2f : 0f;
 			}
 
 		} else if (attacking && !deathThreadPaused && hb.health > 0f) {

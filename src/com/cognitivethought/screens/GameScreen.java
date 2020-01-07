@@ -22,11 +22,11 @@ import com.cognitivethought.ui.HealthBar;
 
 public class GameScreen implements Screen {
 
-	ShapeRenderer sp;
-	SpriteBatch b; // The batch renderer that helps to render sprites faster than usual
-	Level level; // Holds current level information
-	BitmapFont font; // For FPS Counter
-	OrthographicCamera c; // Camera
+	public ShapeRenderer sp;
+	public SpriteBatch b; // The batch renderer that helps to render sprites faster than usual
+	public Level level; // Holds current level information
+	public BitmapFont font; // For FPS Counter
+	public OrthographicCamera c; // Camera
 	
 	public HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv.txt", hb);
@@ -132,6 +132,11 @@ public class GameScreen implements Screen {
 		
 		if (!b.isDrawing()) b.begin();
 		background.draw(b);
+		background.translateX(background.getWidth());
+		background.flip(true, false);
+		background.draw(b);
+		background.translateX(-background.getWidth());
+		background.flip(true, false);
 		
 		if (b == null) {
 			System.out.println("batch");
