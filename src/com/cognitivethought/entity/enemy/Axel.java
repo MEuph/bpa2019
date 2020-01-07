@@ -28,7 +28,7 @@ public class Axel extends Enemy {
 	final int attackCol = 3, attackRow = 1;
 	final int majorCol = 14, majorRow = 2;
 	final int moveCol = 2, moveRow = 1;
-	final int deathCol = 3, deathRow = 4;
+	final int deathCol = 21, deathRow = 2;
 
 	boolean wall;
 
@@ -159,7 +159,7 @@ public class Axel extends Enemy {
 		attackSheet = Resources.AXEL_ATTACK;
 		majorAttackSheet = Resources.AXEL_MAJOR;
 		moveSheet = Resources.AXEL_MOVE;
-		deathSheet = Resources.TRASH_DEATH;
+		deathSheet = Resources.AXEL_DEATH;
 
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol,
 				attackSheet.getHeight() / attackRow);
