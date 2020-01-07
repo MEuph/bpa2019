@@ -1,5 +1,6 @@
 package com.cognitivethought.entity.enemy;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,10 +13,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.entity.TreePlayer;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.resources.Strings;
+import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
@@ -108,6 +113,39 @@ public class Axel extends Enemy {
 						l.getItemDrops().add(c);
 					}
 					enemies.remove(t);
+					try {
+						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					if (LevelSelectScreen.levelNumber == 1 && TreePlayer.levelsPassed < LevelSelectScreen.levelNumber) {
+						TreePlayer.levelsPassed = 1;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 2 && TreePlayer.levelsPassed < LevelSelectScreen.levelNumber) {
+						TreePlayer.levelsPassed = 2;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 3 && TreePlayer.levelsPassed < LevelSelectScreen.levelNumber) {
+						TreePlayer.levelsPassed = 3;
+					
+					}
+
+					if (LevelSelectScreen.levelNumber == 4 && TreePlayer.levelsPassed < LevelSelectScreen.levelNumber) {
+						TreePlayer.levelsPassed = 4;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 5 && TreePlayer.levelsPassed < LevelSelectScreen.levelNumber) {
+						TreePlayer.levelsPassed = 5;
+						
+					}
+					Main.main.completeScreen.toResetTo = l.screen;
+					Main.main.setScreen(Main.main.completeScreen);
+				
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
