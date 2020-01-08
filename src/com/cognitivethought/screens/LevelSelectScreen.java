@@ -67,11 +67,12 @@ public class LevelSelectScreen implements Screen {
 
 						if (Main.levelsPassed >= 1) {
 							try {
-								Main.main.setScreen(Main.main.gameScreen);
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level2.png")),
 										Main.main.gameScreen);
+								System.out.println(Main.main.gameScreen.level == null);
+								Main.main.setScreen(Main.main.gameScreen);
 								levelNumber = 2;
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -88,11 +89,11 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 3
 						if (Main.levelsPassed >= 2) {
 							try {
-								Main.main.setScreen(Main.main.gameScreen);
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
+								Main.main.setScreen(Main.main.gameScreen);
 								levelNumber = 3;
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -109,11 +110,11 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 4
 						if (Main.levelsPassed >= 3) {
 							try {
-								Main.main.setScreen(Main.main.gameScreen);
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level4.png")),
 										Main.main.gameScreen);
+								Main.main.setScreen(Main.main.gameScreen);
 								levelNumber = 4;
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -130,11 +131,11 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 5
 						if (Main.levelsPassed >= 4) {
 							try {
-								Main.main.setScreen(Main.main.gameScreen);
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level5.png")),
 										Main.main.gameScreen);
+								Main.main.setScreen(Main.main.gameScreen);
 								levelNumber = 5;
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -153,84 +154,6 @@ public class LevelSelectScreen implements Screen {
 					}
 				});
 				break;
-			}
-			switch (i) { //switch to determine which level the button takes you to 
-			  case 0:
-				  levels[i].level.setClickListener(new ClickListener() { 
-					  @Override
-					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 1
-						  try {
-							  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
-							  Main.main.setScreen(Main.main.gameScreen);
-							  levelNumber = 1;
-						  } catch (Exception e) {
-							  // TODO Auto-generated catch block
-							  e.printStackTrace();
-						  }
-					  }
-				  });
-			    break;
-			  case 1:
-				  levels[i].level.setClickListener(new ClickListener() {
-					  @Override
-					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 2
-						  
-						  if (Main.levelsPassed == 1) {
-							  try {
-								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")), Main.main.gameScreen);
-								  levelNumber = 2;
-							  } catch (IOException e) {
-								  // TODO Auto-generated catch block
-								  e.printStackTrace();
-							  }
-						  } 
-					  }
-				  });
-			    break;
-			  case 2:
-				  levels[i].level.setClickListener(new ClickListener() {
-					  @Override
-					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 3
-						  if (Main.levelsPassed == 2) {
-							  try {
-								  Main.main.setScreen(Main.main.gameScreen);
-								  Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level3.png")), Main.main.gameScreen);
-								  levelNumber = 3;
-							  } catch (IOException e) {
-								  // TODO Auto-generated catch block
-								  e.printStackTrace();
-							  }
-						  }
-					  }
-				  });
-			    break;
-			  case 3:
-				  levels[i].level.setClickListener(new ClickListener() {
-					  @Override
-					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 4
-						  Main.main.setScreen(Main.main.gameScreen);
-						  levelNumber = 4;
-					  }
-				  });
-			    break;
-			  case 4:
-				  levels[i].level.setClickListener(new ClickListener() {
-					  @Override
-					  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked for level 5
-						  Main.main.setScreen(Main.main.gameScreen);
-						  levelNumber = 5;
-					  }
-				  });
-			    break;
-			    default:
-					  levels[i].level.setClickListener(new ClickListener() {
-						  @Override
-						  public void clicked(InputEvent event, float x, float y) { //assigns the action that happens when the button is clicked as a default
-							  System.exit(0);
-						  }
-					  });
-				    break;
 			}
 			quitButton.setClickListener(new ClickListener() { // sets the actions to perform if the buttons are clicked
 				@Override

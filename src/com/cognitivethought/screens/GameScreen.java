@@ -69,6 +69,9 @@ public class GameScreen implements Screen {
 		
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to 1920x1080
+		if (c == null) System.out.println("c");
+		if (level == null) System.out.println("level");
+		if (level.getSpawnpoint() == null) System.out.println("spawn");
 		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
 		
 		// Run new Thread that will process the fading in of the scene
