@@ -299,13 +299,13 @@ public class TreePlayer extends Sprite {
 				}
 				if (plat.endsLevel && getBoundingRectangle().overlaps(plat.getBoundingRectangle())) {
 					
-					try {
+					try { //saves inventory
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					
-					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) {
+					if (LevelSelectScreen.levelNumber == 1 && levelsPassed < LevelSelectScreen.levelNumber) { //level completion detection
 						levelsPassed = 1;
 						
 					}

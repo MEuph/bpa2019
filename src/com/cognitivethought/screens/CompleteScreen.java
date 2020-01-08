@@ -46,7 +46,7 @@ Texture background; //the background texture
 		retryButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				try {
+				try { //checks which level tp go back to
 					if (LevelSelectScreen.levelNumber == 1) {
 						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
 						Main.main.setScreen(toResetTo);
