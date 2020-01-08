@@ -49,8 +49,26 @@ public class DeathScreen implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				try {
+					if (LevelSelectScreen.levelNumber == 1) {
 					Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);
 					Main.main.setScreen(toResetTo);
+					}
+					if (LevelSelectScreen.levelNumber == 2) {
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level2.png")), Main.main.gameScreen);
+						Main.main.setScreen(toResetTo);
+					}
+					if (LevelSelectScreen.levelNumber == 3) {
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level3.png")), Main.main.gameScreen);
+						Main.main.setScreen(toResetTo);
+					}
+					if (LevelSelectScreen.levelNumber == 4) {
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+						Main.main.setScreen(toResetTo);
+					}
+					if (LevelSelectScreen.levelNumber == 5) {
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+						Main.main.setScreen(toResetTo);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

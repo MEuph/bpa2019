@@ -1,5 +1,6 @@
 package com.cognitivethought.entity.enemy;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,10 +13,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.entity.TreePlayer;
+import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.resources.Strings;
+import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
