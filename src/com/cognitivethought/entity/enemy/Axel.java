@@ -27,7 +27,7 @@ public class Axel extends Enemy {
 	int jumpTimer = 1000; //initializes a timer for doing his major attack
 	final int attackCol = 3, attackRow = 1; //initializes variables for the animation spreadsheet rows and columns
 	final int majorCol = 14, majorRow = 2;
-	final int moveCol = 2, moveRow = 1;
+	final int moveCol = 3, moveRow = 2;
 	final int deathCol = 21, deathRow = 2;
 
 	boolean wall;
