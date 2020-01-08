@@ -24,11 +24,13 @@ import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
+
 	int jumpTimer = 1000;
 	final int attackCol = 3, attackRow = 1;
 	final int majorCol = 17, majorRow = 2;
-	final int moveCol = 2, moveRow = 1;
-	final int deathCol = 3, deathRow = 4;
+	final int moveCol = 3, moveRow = 2;
+	final int deathCol = 21, deathRow = 2;
+	
 
 	boolean wall;
 
@@ -36,7 +38,7 @@ public class Axel extends Enemy {
 	float jumpTime;
 	float deathTime = 1f;
 
-	final float propWidth = 72f + 100, propHeight = 94.28571f + 100;
+	final float propWidth = 72f + 100, propHeight = 94.28571f + 100; //sets scale for the sprite
 
 	boolean deathThreadPaused;
 
@@ -86,7 +88,7 @@ public class Axel extends Enemy {
 
 		hb = new HealthBar(this, 10);
 
-		deathThread = new Thread() {
+		deathThread = new Thread() { //defines the death thread and what to do
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
@@ -113,6 +115,40 @@ public class Axel extends Enemy {
 						l.getItemDrops().add(c);
 					}
 					enemies.remove(t);
+					
+					try { //saves inventory
+						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) { //sets level completion code
+						Main.levelsPassed = 1;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 2 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 2;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 3 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 3;
+					
+					}
+
+					if (LevelSelectScreen.levelNumber == 4 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 4;
+						
+					}
+
+					if (LevelSelectScreen.levelNumber == 5 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
+						Main.levelsPassed = 5;
+						
+					}
+					Main.main.completeScreen.toResetTo = l.screen;
+					Main.main.setScreen(Main.main.completeScreen);
+					
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -123,12 +159,12 @@ public class Axel extends Enemy {
 	}
 
 	void createAnimations() {
-		attackSheet = Resources.AXEL_ATTACK;
+		attackSheet = Resources.AXEL_ATTACK; //assigns the sprite animation textures
 		majorAttackSheet = Resources.AXEL_MAJOR;
 		moveSheet = Resources.AXEL_MOVE;
-		deathSheet = Resources.TRASH_DEATH;
+		deathSheet = Resources.AXEL_DEATH;
 
-		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol,
+		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, //creates texture region
 				attackSheet.getHeight() / attackRow);
 
 		TextureRegion[] attackFrames = new TextureRegion[attackCol * attackRow];
@@ -167,7 +203,7 @@ public class Axel extends Enemy {
 			}
 		}
 
-		jumpAnimation = new Animation<TextureRegion>((float) (new Random().nextInt(3) + 6) / 100f, jumpFrames);
+		jumpAnimation = new Animation<TextureRegion>((float) (new Random().nextInt(3) + 6) / 100f, jumpFrames); //assigns animations
 		attackAnimation = new Animation<TextureRegion>(0.09f, attackFrames);
 		majorAttackAnimation = new Animation<TextureRegion>(0.09f, majorAttackFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float) (deathRow * deathCol), deathFrames);
@@ -201,10 +237,10 @@ public class Axel extends Enemy {
 				break;
 			}
 
-			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());
+			Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight()); 
 			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0
 					&& getX() + getWidth() + dx >= leftOfPlatform.getX() && (plat.collideLeft || plat.collidesEnemy)
-					&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) {
+					&& !(getY() > (plat.getY() + plat.getHeight()) - 4)) { //detects if platform is bing collided with on left
 				dx *= -1;
 				translateX(-4);
 				facingRight = true;
@@ -260,9 +296,9 @@ public class Axel extends Enemy {
 		}
 
 		move(l); // Do movement code
-		if (jumpTimer > 0) {
+		if (jumpTimer > 0) { // do normal movement before the timer goes off
 			if (!wall) {
-				if (TreePlayer.xPos <= this.getX() && facingRight == false) {
+				if (TreePlayer.xPos <= this.getX() && facingRight == false) { //faces the player
 					facingRight = true;
 					this.flip(true, false);
 					if (dx == 0)
@@ -281,11 +317,11 @@ public class Axel extends Enemy {
 					translateX(dx);
 			}
 		} else {
-			if (jumpTimer == 0) {
+			if (jumpTimer == 0) { //set major attack speed
 				dx *= 3;
 
 			}
-			if (jumpTimer >= -70) {
+			if (jumpTimer >= -70) { //move only while jumping
 				translateX(dx);
 			}
 
@@ -312,15 +348,14 @@ public class Axel extends Enemy {
 		boolean canMajorAttack = this.getBoundingRectangle()
 				.overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 
-		if (majorAttacking && jumpTimer >= -70 && canMajorAttack && deathTime != 0f
-				&& !(l.getSpawnpoint().getPlayer().attackTime > 0f
-						&& l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
-			if (!l.getSpawnpoint().getPlayer().flashing) {
+		if (majorAttacking && jumpTimer >= -70 && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
+			//what to do when major attacking
+			if (!l.getSpawnpoint().getPlayer().flashing) { //if the player isnt already hurt then attack
 //				this.setHealth(0);
-				if (hb.bark >= 0) {
+				if (hb.bark >= 0) { // damage bark
 					hb.bark -= damageValue;
 					attackTimer = 50f;
-				} else {
+				} else { //damage health
 					hb.health -= damageValue;
 					attackTimer = 50f;
 				}
@@ -351,7 +386,7 @@ public class Axel extends Enemy {
 	float prevDx = 0f;
 
 	@Override
-	public void die() {
+	public void die() { //death code
 		deathThreadPaused = false;
 		attacking = false;
 		deathTime = 0f;
@@ -359,7 +394,7 @@ public class Axel extends Enemy {
 	}
 
 	@Override
-	public void hurt(int value, boolean byProjectile) {
+	public void hurt(int value, boolean byProjectile) { //what to do when hurt
 		if (hb.health <= 0f) {
 			die();
 			return;
@@ -372,7 +407,7 @@ public class Axel extends Enemy {
 		}
 		deathTime = 1f;
 		attacking = false;
-		hb.health -= value;
+		hb.health -= value;// take away the amt of health as damage
 	}
 
 	/**
@@ -380,9 +415,11 @@ public class Axel extends Enemy {
 	 */
 	@Override
 	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
-		jumpTimer -= 1;
+		if (!paused) {
+			jumpTimer -= 1; //ticks down the timer
+		}
 		this.setSize(propWidth, propHeight);
-		if (jumpTimer <= 0) {
+		if (jumpTimer <= 0) { // when the timer reaches zero...
 
 			majorAttacking = true;
 
@@ -396,10 +433,11 @@ public class Axel extends Enemy {
 					facingRight ? -this.propWidth : this.propWidth, this.propHeight + 35);
 //			setTexture(idle);
 			// super.draw(batch);
-			if (jumpTimer <= -150) {
+			if (jumpTimer <= -150) { // when full cycle is done end the major attack
 				jumpTimer = 1000;
 				majorAttacking = false;
-				dx = deathThreadPaused ? 2f : 0f;
+				
+				dx = deathThreadPaused ? 3f : 0f;
 			}
 
 		} else if (attacking && !deathThreadPaused && hb.health > 0f) {

@@ -298,7 +298,7 @@ public class TreePlayer extends Sprite {
 				}
 				if (plat.endsLevel && getBoundingRectangle().overlaps(plat.getBoundingRectangle())) {
 					
-					try {
+					try { //saves inventory
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 						Main.save();
 					} catch (IOException e) {
@@ -307,7 +307,6 @@ public class TreePlayer extends Sprite {
 					
 					if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 1;
-						
 					}
 
 					if (LevelSelectScreen.levelNumber == 2 && Main.levelsPassed < LevelSelectScreen.levelNumber) {

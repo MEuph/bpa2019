@@ -22,6 +22,7 @@ public class Resources {
 	public static Texture AXEL_MOVE;
 	public static Texture AXEL_ATTACK;
 	public static Texture AXEL_MAJOR;
+	public static Texture AXEL_DEATH;
 
 	public static Texture PLAYER_ATTACK;
 	public static Texture PLAYER_BASE;
@@ -88,9 +89,10 @@ public class Resources {
 		PLAYER_IDLE = new Texture(Strings.PLAYER_DIR + "idle.png");
 		PLAYER_THROW = new Texture(Strings.PLAYER_DIR + "throw.png");
 		
-		AXEL_MOVE = new Texture(Strings.AXEL_DIR + "Axel Idle.png");
+		AXEL_MOVE = new Texture(Strings.AXEL_DIR + "Axel Walk.png");
 		AXEL_ATTACK = new Texture(Strings.AXEL_DIR + "Axel Basic Attack.png");
 		AXEL_MAJOR = new Texture(Strings.AXEL_DIR + "Axel Major Attack.png");
+		AXEL_DEATH = new Texture(Strings.AXEL_DIR + "Axel Death.png");
 
 		BARK = new Texture(Strings.UI_DIR + "bark.png");
 		EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");

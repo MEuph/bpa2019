@@ -33,7 +33,6 @@ Texture background; //the background texture
 		nextButton = new ImageButton(new Texture("assets/UI/Level Select-1.png.png"), new Texture("assets/UI/Level Select-2.png.png"), (1920 / 2) - (250 / 2), 150, 250, 250);
 		
 		batch = new SpriteBatch();
-		
 		nextButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
