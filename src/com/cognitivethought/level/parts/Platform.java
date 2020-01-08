@@ -186,19 +186,19 @@ public class Platform extends Sprite {
 		top = bottom = right = left = false;
 		
 		if (posY > 0) {
-			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408 && data[posY - 1][posX] != -20791;
+			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408 && data[posY - 1][posX] != -20791 && data[posY - 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 		}
 		
 		if (posY < data.length - 1) {
-			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408 && data[posY + 1][posX] != -20791;
+			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408 && data[posY + 1][posX] != -20791 && data[posY + 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 		}
 
 		if (posX > 0) {
-			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408 && data[posY][posX - 1] != -20791;
+			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408 && data[posY][posX - 1] != -20791 && data[posY][posX - 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 		}
 
 		if (posX < data[posY].length - 1) {
-			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408 && data[posY][posX + 1] != -20791;
+			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408 && data[posY][posX + 1] != -20791 && data[posY][posX + 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 		}
 
 		if (!top && !bottom && !right && left) {
