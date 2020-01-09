@@ -46,12 +46,13 @@ public class LevelSelectScreen implements Screen {
 					public void clicked(InputEvent event, float x, float y) { // assigns the action that happens when
 																				// the button is clicked for level 1
 						try {
+							levelNumber = 1;
 							Main.main.gameScreen.level = new Level(
 									ImageIO.read(GameScreen.class
 											.getResourceAsStream("/Levels/Development Level/level1.png")),
 									Main.main.gameScreen);
 							Main.main.setScreen(Main.main.gameScreen);
-							levelNumber = 1;
+							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -67,13 +68,14 @@ public class LevelSelectScreen implements Screen {
 
 						if (Main.levelsPassed >= 1) {
 							try {
+								levelNumber = 2;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level2.png")),
 										Main.main.gameScreen);
 								System.out.println(Main.main.gameScreen.level == null);
 								Main.main.setScreen(Main.main.gameScreen);
-								levelNumber = 2;
+								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -89,12 +91,13 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 3
 						if (Main.levelsPassed >= 2) {
 							try {
+								levelNumber = 3;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								levelNumber = 3;
+								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -133,12 +136,13 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 5
 						if (Main.levelsPassed >= 4) {
 							try {
+								levelNumber = 5;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level5.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								levelNumber = 5;
+								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

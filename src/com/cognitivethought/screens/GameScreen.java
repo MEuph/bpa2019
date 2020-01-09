@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 			background = new Sprite(Resources.BG);
 		}
 		background.setSize(1920 * 4, 1080 * 2);
-		background.setPosition(-1920, -1080 * 2f);
+		background.setPosition(-1920, -1080 * 1.1f);
 		
 		InventoryBar.grid.shown = false;
 		
@@ -141,9 +141,11 @@ public class GameScreen implements Screen {
 		background.translateX(background.getWidth());
 		background.flip(true, false);
 		background.draw(b);
-		background.translateX(-background.getWidth());
+		background.translateX(background.getWidth());
 		background.flip(true, false);
 		background.draw(b);
+		background.translateX(-background.getWidth() * 2);
+		
 		
 		if (b == null) {
 			System.out.println("batch");
