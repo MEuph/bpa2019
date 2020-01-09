@@ -269,15 +269,12 @@ public class TreePlayer extends Sprite {
 						}
 					}
 				}
-
-				if (new Rectangle(plat.getX() + 1f, plat.getY() + 1f, plat.getWidth() - 2f, plat.getHeight() - 2f)
-						.overlaps(getBoundingRectangle()) && dy > 0
-						&& getY() + getHeight() >= plat.getY() + plat.getHeight() && plat.collideBottom) {
-					// System.out.println(getY() + getHeight() + " " + plat.getY()); // For
-					// debugging purposes
-					dy = 0; // Stop vertical movement
-					setY(plat.getY() - getHeight() + plat.getHeight() + 2f); // Reset y position to the bottom of
-																				// the platform
+				
+				Rectangle bottomOfPlatform = new Rectangle(plat.getX(), plat.getY() - 2, plat.getWidth(), 2f);
+				if (bottomOfPlatform.overlaps(getBoundingRectangle()) && dy > 0
+						&& getY() + getHeight() + dy >= bottomOfPlatform.getY() && plat.collideBottom) {
+					dy = 0; // Stop horizontal movement
+					setY(plat.getY() - getHeight()); // Reset x position to the left of the platform
 				}
 
 				Rectangle leftOfPlatform = new Rectangle(plat.getX(), plat.getY(), 2f, plat.getHeight());

@@ -62,11 +62,11 @@ public class DeathScreen implements Screen {
 						Main.main.setScreen(toResetTo);
 					}
 					if (LevelSelectScreen.levelNumber == 4) {
-						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level4.png")), Main.main.gameScreen);
 						Main.main.setScreen(toResetTo);
 					}
 					if (LevelSelectScreen.levelNumber == 5) {
-						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/tutoriallevel.png")), Main.main.gameScreen);
+						Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level5.png")), Main.main.gameScreen);
 						Main.main.setScreen(toResetTo);
 					}
 				} catch (IOException e) {
