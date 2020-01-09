@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.CompleteScreen;
+import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
@@ -38,6 +39,8 @@ public class Main extends Game implements ApplicationListener {
 	
 	public CompleteScreen completeScreen;
 	
+	public CutsceneScreen cutsceneScreen;
+	
 	@SuppressWarnings("resource")
 	@Override
 	public void create() {
@@ -49,6 +52,7 @@ public class Main extends Game implements ApplicationListener {
 		levelSelectScreen	= new LevelSelectScreen();
 		deathScreen 		= new DeathScreen(null);
 		completeScreen 		= new CompleteScreen(null);
+		cutsceneScreen		= new CutsceneScreen();
 		setScreen(menuScreen);
 		
 		try {
