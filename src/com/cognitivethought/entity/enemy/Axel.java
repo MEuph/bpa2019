@@ -25,7 +25,7 @@ import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
 
-	int jumpTimer = 1000;
+	int jumpTimer = 500;
 	final int attackCol = 3, attackRow = 1;
 	final int majorCol = 17, majorRow = 2;
 	final int moveCol = 3, moveRow = 2;
@@ -80,7 +80,7 @@ public class Axel extends Enemy {
 	 */
 	public Axel(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
-		this.speed = 2f; // Default speed to 2f
+		this.speed = 2f; // Default speed to 3f
 		this.dx = -speed; // Default movement to the left
 		this.idle = texture;
 
@@ -302,14 +302,14 @@ public class Axel extends Enemy {
 					facingRight = true;
 					this.flip(true, false);
 					if (dx == 0)
-						dx = -3;
+						dx = -2f;
 					dx *= -1;
 				}
 				if (TreePlayer.xPos >= this.getX() && facingRight == true) {
 					facingRight = false;
 					this.flip(true, false);
 					if (dx == 0)
-						dx = 3;
+						dx = 2f;
 					dx *= -1;
 				}
 				translateY(dy); // Do translations
@@ -423,21 +423,23 @@ public class Axel extends Enemy {
 
 			majorAttacking = true;
 
-			if (!paused)
+			if (!paused) {
 				attackTime += Gdx.graphics.getDeltaTime();
-			TextureRegion currentFrame = majorAttackAnimation.getKeyFrame(attackTime, true);
+				TextureRegion currentFrame = majorAttackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
-			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
-			this.setFlip(this.isFlipX(), false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth : getX(), getY(),
-					facingRight ? -this.propWidth : this.propWidth, this.propHeight + 35);
+				currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+				this.setFlip(this.isFlipX(), false);
+				batch.draw(currentFrame, facingRight ? getX() + this.propWidth +125: getX(), getY(),facingRight ? -this.propWidth -125: this.propWidth + 125, this.propHeight + 35);
 //			setTexture(idle);
 			// super.draw(batch);
-			if (jumpTimer <= -150) { // when full cycle is done end the major attack
-				jumpTimer = 1000;
-				majorAttacking = false;
-				
-				dx = deathThreadPaused ? 3f : 0f;
+			
+				if (jumpTimer <= -150) { // when full cycle is done end the major attack
+					jumpTimer = 1000;
+					majorAttacking = false;
+					dx = 2f;
+					
+					
+				}
 			}
 
 		} else if (attacking && !deathThreadPaused && hb.health > 0f) {

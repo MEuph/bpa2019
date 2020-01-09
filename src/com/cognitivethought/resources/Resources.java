@@ -67,6 +67,7 @@ public class Resources {
 	public static Texture GRAY_DOLLAR;
 
 	public static Texture BG;
+	public static Texture BGCITY;
 	public static Texture X;
 
 	public static void loadTextures() {
@@ -124,6 +125,7 @@ public class Resources {
 		WHITE_DOLLAR = new Texture(Strings.UI_DIR + "whitedollar.png");
 
 		BG = new Texture(Strings.UI_DIR + "background.png");
+		BGCITY = new Texture(Strings.UI_DIR + "CityBackround.png");
 
 		BIRD = new Texture(Strings.DEV_LEVEL_DIR + "tutbird.png");
 

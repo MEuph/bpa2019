@@ -112,12 +112,14 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 4
 						if (Main.levelsPassed >= 3) {
 							try {
+								levelNumber = 4;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level4.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								levelNumber = 4;
+								
+		
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

@@ -47,9 +47,12 @@ public class GameScreen implements Screen {
 		
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-		
-		background = new Sprite(Resources.BG);
-		
+		if (LevelSelectScreen.levelNumber == 4) {
+			background = new Sprite(Resources.BGCITY);
+		}
+		else {
+			background = new Sprite(Resources.BG);
+		}
 		background.setSize(1920 * 4, 1080 * 2);
 		background.setPosition(-1920, -1080 * 2f);
 		
@@ -140,6 +143,7 @@ public class GameScreen implements Screen {
 		background.draw(b);
 		background.translateX(-background.getWidth());
 		background.flip(true, false);
+		background.draw(b);
 		
 		if (b == null) {
 			System.out.println("batch");
