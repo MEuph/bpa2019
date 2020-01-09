@@ -143,6 +143,7 @@ public class GameScreen implements Screen {
 		background.draw(b);
 		background.translateX(-background.getWidth());
 		background.flip(true, false);
+		background.draw(b);
 		
 		if (b == null) {
 			System.out.println("batch");
