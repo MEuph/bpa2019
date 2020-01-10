@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.screens.GameScreen;
 
 public class PauseMenu {
@@ -42,6 +43,7 @@ public class PauseMenu {
 			try {
 				Main.save();
 			} catch (IOException e) {
+				DesktopLauncher.log();
 				e.printStackTrace();
 			}
 			GameScreen.togglePause();

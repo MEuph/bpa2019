@@ -10,6 +10,7 @@ import java.util.Scanner;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.CompleteScreen;
@@ -58,6 +59,7 @@ public class Main extends Game implements ApplicationListener {
 		try {
 			levelsPassed = Integer.parseInt(new Scanner(new File(Strings.LEVELS_DIR + "leveldata.txt")).nextLine());
 		} catch (NumberFormatException | FileNotFoundException e) {
+			DesktopLauncher.log();
 			e.printStackTrace();
 		}
 	}

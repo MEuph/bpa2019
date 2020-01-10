@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.ui.HealthBar;
 
 public class EnemySpawner {
@@ -59,6 +60,7 @@ public class EnemySpawner {
 					try {
 						enemies.get(i).deathThread.start();
 					} catch (IllegalThreadStateException itse) {
+						DesktopLauncher.log();
 						itse.printStackTrace();
 					}
 				}

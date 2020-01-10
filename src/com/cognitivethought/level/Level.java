@@ -23,6 +23,7 @@ import com.cognitivethought.gui.TextBubble;
 import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.ui.HealthBar;
 
 public class Level {
@@ -42,12 +43,6 @@ public class Level {
 	 * @throws FileNotFoundException
 	 * @throws URISyntaxException
 	 * 
-	 *                               Exceptions will be thrown in the event of an
-	 *                               error in parsing
-	 * 
-	 *                               PLEASE NOTE: PARSER WILL CHANGE. THIS IS NOT
-	 *                               PERMANENT. DO NOT MAKE ANY PERMAMENT LEVELS IN
-	 *                               THIS FILE FORMAT
 	 */
 	public Level(String s, Screen screen) throws FileNotFoundException, URISyntaxException {
 		this.screen = screen;
@@ -222,6 +217,7 @@ public class Level {
 					Main.main.deathScreen.toResetTo = screen;
 					Main.main.setScreen(Main.main.deathScreen);
 				} catch (Exception e) {
+					DesktopLauncher.log();
 					e.printStackTrace();
 				}
 			}

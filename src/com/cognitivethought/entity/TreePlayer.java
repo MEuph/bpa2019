@@ -19,6 +19,7 @@ import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.LevelSelectScreen;
@@ -299,6 +300,7 @@ public class TreePlayer extends Sprite {
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 						Main.save();
 					} catch (IOException e) {
+						DesktopLauncher.log();
 						e.printStackTrace();
 					}
 					
@@ -446,6 +448,7 @@ public class TreePlayer extends Sprite {
 				try {
 					sleep((int) (timeToAttack * 1000f));
 				} catch (InterruptedException e) {
+					DesktopLauncher.log();
 					e.printStackTrace();
 				}
 

@@ -16,6 +16,7 @@ import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 
 //screen to select the level
 public class LevelSelectScreen implements Screen {
@@ -55,7 +56,7 @@ public class LevelSelectScreen implements Screen {
 							Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
 							Main.main.setScreen(Main.main.cutsceneScreen);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
+							DesktopLauncher.log();
 							e.printStackTrace();
 						}
 					}
@@ -77,7 +78,7 @@ public class LevelSelectScreen implements Screen {
 								System.out.println(Main.main.gameScreen.level == null);
 								Main.main.setScreen(Main.main.gameScreen);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
+								DesktopLauncher.log();
 								e.printStackTrace();
 							}
 						}
@@ -98,7 +99,7 @@ public class LevelSelectScreen implements Screen {
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
+								DesktopLauncher.log();
 								e.printStackTrace();
 							}
 						}
@@ -121,7 +122,7 @@ public class LevelSelectScreen implements Screen {
 								
 		
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
+								DesktopLauncher.log();
 								e.printStackTrace();
 							}
 						}
@@ -142,7 +143,7 @@ public class LevelSelectScreen implements Screen {
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
+								DesktopLauncher.log();
 								e.printStackTrace();
 							}
 						}

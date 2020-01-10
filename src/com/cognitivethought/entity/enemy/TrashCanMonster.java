@@ -14,6 +14,7 @@ import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 
@@ -95,6 +96,7 @@ public class TrashCanMonster extends Enemy {
 					l.getItemDrops().add(coin);
 					enemies.remove(t);
 				} catch (InterruptedException e1) {
+					DesktopLauncher.log();
 					e1.printStackTrace();
 				}
 			}
