@@ -1,9 +1,8 @@
 package com.cognitivethought.main.desktop;
 
 import java.awt.Toolkit;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
@@ -14,32 +13,33 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.cognitivethought.main.Main;
 
 public class DesktopLauncher {
-	public static void main(String args[]) {
+	static File logFile;
+	static PrintStream err;
+	
+	public static void main(String args[]) throws IOException {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Casha | The Chosen One";
 		config.width = Toolkit.getDefaultToolkit().getScreenSize().width;
 		config.height = Toolkit.getDefaultToolkit().getScreenSize().height;
 		config.fullscreen = true;
 		config.vSyncEnabled = true;
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+		File f = new File("assets/Logs/" + dtf.format(LocalDateTime.now()) + ".txt");
 		
-		// For logging
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(baos);
-		System.setOut(ps);
+		f.createNewFile();			
+		
+		logFile = f;
+		
+		err = System.err;
+		
+		System.setOut(new PrintStream(new FileOutputStream(f)));
+		System.setErr(new PrintStream(new FileOutputStream(f)));
 		
 		new LwjglApplication(new Main(), config);
 	}
 	
 	public static void log() {
-		try {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
-			BufferedWriter writer = new BufferedWriter(new FileWriter("/Logs/" + dtf.format(LocalDateTime.now())));
-		    writer.write(System.out.toString());
-		    
-		    writer.close();
-		} catch (IOException e) {
-			DesktopLauncher.log();
-			e.printStackTrace();
-		}
+		err.println("Please email the following log file to bpamisd@gmail.com: " + logFile.getAbsolutePath());
 	}
 }
