@@ -11,6 +11,7 @@ public abstract class Enemy extends Sprite {
 	
 	protected float attackTimer;	// How long the enemy has between attacks
 	protected float damageValue;	// How hard the enemy hits. IE, how many hearts it takes from the player
+	protected float majorDamageValue;	// How hard the enemy hits on the major attack. IE, how many hearts it takes from the player
 	protected float detectionRange; // How far the detection range of the enemy is
 	protected float attackRange;	// How far away the enemy can attack from
 	protected float speed;			// The speed of the enemy
@@ -35,6 +36,14 @@ public abstract class Enemy extends Sprite {
 		this.movementBehavior = movementBehavior;
 		this.attackBehavior = attackBehavior;
 		this.damageValue = damageValue;
+		super.setSize(getTexture().getWidth(), getTexture().getHeight());
+	}
+	public Enemy(Behavior movementBehavior, Behavior attackBehavior, float damageValue, float majorDamageValue, Texture texture) {
+		super(texture);
+		this.movementBehavior = movementBehavior;
+		this.attackBehavior = attackBehavior;
+		this.damageValue = damageValue;
+		this.majorDamageValue = majorDamageValue;
 		super.setSize(getTexture().getWidth(), getTexture().getHeight());
 	}
 	
