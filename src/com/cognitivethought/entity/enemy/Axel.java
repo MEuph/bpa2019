@@ -93,8 +93,9 @@ public class Axel extends Enemy {
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
-					die();
 					dx = 0;
+					die();
+					
 					System.out.println("DIED!");
 					this.sleep(1950);
 					int organicMatterToDrop = new Random().nextInt(4);
@@ -116,7 +117,7 @@ public class Axel extends Enemy {
 						l.getItemDrops().add(c);
 					}
 					enemies.remove(t);
-					
+					this.sleep(5000);
 					try { //saves inventory
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 					} catch (IOException e) {
