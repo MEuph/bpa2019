@@ -23,6 +23,13 @@ public class Resources {
 	public static Texture AXEL_ATTACK;
 	public static Texture AXEL_MAJOR;
 	public static Texture AXEL_DEATH;
+	
+	public static Texture TYRONE_MOVE;
+	public static Texture TYRONE_ATTACK;
+	public static Texture TYRONE_MAJOR;
+	public static Texture TYRONE_DEATH;
+	
+	
 
 	public static Texture PLAYER_ATTACK;
 	public static Texture PLAYER_BASE;
@@ -94,6 +101,11 @@ public class Resources {
 		AXEL_ATTACK = new Texture(Strings.AXEL_DIR + "Axel Basic Attack.png");
 		AXEL_MAJOR = new Texture(Strings.AXEL_DIR + "Axel Major Attack.png");
 		AXEL_DEATH = new Texture(Strings.AXEL_DIR + "Axel Death.png");
+		
+		TYRONE_MOVE = new Texture(Strings.TYRONE_DIR + "Tyrone Walk.png");
+		
+		TYRONE_MAJOR = new Texture(Strings.TYRONE_DIR + "Tyrone Major Attack.png");
+		TYRONE_DEATH = new Texture(Strings.TYRONE_DIR + "Tyrone Death.png");
 
 		BARK = new Texture(Strings.UI_DIR + "bark.png");
 		EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");

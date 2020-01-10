@@ -23,13 +23,13 @@ import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
-public class Axel extends Enemy {
+public class Tyrone extends Enemy {
 
-	int jumpTimer = 500;
+	int majorTimer = 500;
 	final int attackCol = 3, attackRow = 1;
-	final int majorCol = 17, majorRow = 2;
-	final int moveCol = 3, moveRow = 2;
-	final int deathCol = 21, deathRow = 2;
+	final int majorCol = 5, majorRow = 2;
+	final int moveCol = 4, moveRow = 3;
+	final int deathCol = 29, deathRow = 1;
 	
 
 	boolean wall;
@@ -78,13 +78,13 @@ public class Axel extends Enemy {
 	 * @param texture     The appearance of this particular trash monster
 	 * @throws Exception
 	 */
-	public Axel(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
-		super(b, Behavior.MELEE, damageValue, texture);
+	public Tyrone(Behavior b, float damageValue, float majorDamageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
+		super(b, Behavior.MELEE, damageValue, majorDamageValue, texture);
 		this.speed = 2f; // Default speed to 3f
 		this.dx = -speed; // Default movement to the left
 		this.idle = texture;
 
-		Axel t = this;
+		Tyrone t = this;
 
 		hb = new HealthBar(this, 10);
 
@@ -160,9 +160,9 @@ public class Axel extends Enemy {
 
 	void createAnimations() {
 		attackSheet = Resources.AXEL_ATTACK; //assigns the sprite animation textures
-		majorAttackSheet = Resources.AXEL_MAJOR;
-		moveSheet = Resources.AXEL_MOVE;
-		deathSheet = Resources.AXEL_DEATH;
+		majorAttackSheet = Resources.TYRONE_MAJOR;
+		moveSheet = Resources.TYRONE_MOVE;
+		deathSheet = Resources.TYRONE_DEATH;
 
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, //creates texture region
 				attackSheet.getHeight() / attackRow);
@@ -296,7 +296,7 @@ public class Axel extends Enemy {
 		}
 
 		move(l); // Do movement code
-		if (jumpTimer > 0) { // do normal movement before the timer goes off
+		if (majorTimer > 0) { // do normal movement before the timer goes off
 			if (!wall) {
 				if (TreePlayer.xPos <= this.getX() && facingRight == false) { //faces the player
 					facingRight = true;
@@ -317,13 +317,13 @@ public class Axel extends Enemy {
 					translateX(dx);
 			}
 		} else {
-			if (jumpTimer == 0) { //set major attack speed
-				dx *= 3;
+			if (majorTimer == 0) { //set major attack speed
+				dx *= 4;
 
 			}
-			if (jumpTimer >= -70) { //move only while jumping
-				translateX(dx);
-			}
+			
+			translateX(dx);
+			
 
 		}
 
@@ -348,15 +348,15 @@ public class Axel extends Enemy {
 		boolean canMajorAttack = this.getBoundingRectangle()
 				.overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 
-		if (majorAttacking && jumpTimer >= -70 && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
+		if (majorAttacking && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			//what to do when major attacking
 			if (!l.getSpawnpoint().getPlayer().flashing) { //if the player isnt already hurt then attack
 //				this.setHealth(0);
 				if (hb.bark >= 0) { // damage bark
-					hb.bark -= damageValue;
+					hb.bark -= majorDamageValue;
 					attackTimer = 50f;
 				} else { //damage health
-					hb.health -= damageValue;
+					hb.health -= majorDamageValue;
 					attackTimer = 50f;
 				}
 				l.getSpawnpoint().getPlayer().flashing = true;
@@ -416,10 +416,10 @@ public class Axel extends Enemy {
 	@Override
 	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
 		if (!paused) {
-			jumpTimer -= 1; //ticks down the timer
+			majorTimer -= 1; //ticks down the timer
 		}
 		this.setSize(propWidth, propHeight);
-		if (jumpTimer <= 0) { // when the timer reaches zero...
+		if (majorTimer <= 0) { // when the timer reaches zero...
 
 			majorAttacking = true;
 
@@ -429,12 +429,12 @@ public class Axel extends Enemy {
 //			System.out.println(facingRight);
 				currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 				this.setFlip(this.isFlipX(), false);
-				batch.draw(currentFrame, facingRight ? getX() + this.propWidth +125: getX(), getY(),facingRight ? -this.propWidth -125: this.propWidth + 125, this.propHeight + 35);
+				batch.draw(currentFrame, facingRight ? getX() + this.propWidth: getX(), getY(),facingRight ? -this.propWidth: this.propWidth, this.propHeight);
 //			setTexture(idle);
 			// super.draw(batch);
 			
-				if (jumpTimer <= -150) { // when full cycle is done end the major attack
-					jumpTimer = 500;
+				if (majorTimer <= -50) { // when full cycle is done end the major attack
+					majorTimer = 500;
 					majorAttacking = false;
 					dx = 2f;
 					
