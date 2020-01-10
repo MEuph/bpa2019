@@ -26,6 +26,11 @@ public class Cutscene {
 		return completed;
 	}
 	
+	public void reset() {
+		currentFrame = 0;
+		completed = false;
+	}
+	
 	public void draw(SpriteBatch b) {
 		try {
 			Thread.sleep(currentFrame < images.length ? times[currentFrame] : 0);

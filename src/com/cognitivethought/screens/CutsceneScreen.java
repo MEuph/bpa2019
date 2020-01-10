@@ -74,8 +74,7 @@ public class CutsceneScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		currentCutscene.reset();
 	}
 	
 	public static Sprite[] breakdown(String path, int amount) {
