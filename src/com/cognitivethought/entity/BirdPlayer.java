@@ -17,6 +17,7 @@ import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
@@ -422,6 +423,7 @@ public class BirdPlayer extends Sprite {
 				try {
 					sleep((int) (timeToAttack * 1000f));
 				} catch (InterruptedException e) {
+					DesktopLauncher.log();
 					e.printStackTrace();
 				}
 

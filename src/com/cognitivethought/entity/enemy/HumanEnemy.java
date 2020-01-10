@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.ui.HealthBar;
 
 public class HumanEnemy extends Enemy {
@@ -75,6 +76,7 @@ public class HumanEnemy extends Enemy {
 					this.sleep(1950);
 					enemies.remove(t);
 				} catch (InterruptedException e1) {
+					DesktopLauncher.log();
 					e1.printStackTrace();
 				}
 			}

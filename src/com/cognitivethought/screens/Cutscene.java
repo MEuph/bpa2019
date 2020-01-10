@@ -2,6 +2,7 @@ package com.cognitivethought.screens;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 
 public class Cutscene {
 	
@@ -35,6 +36,7 @@ public class Cutscene {
 		try {
 			Thread.sleep(currentFrame < images.length ? times[currentFrame] : 0);
 		} catch (InterruptedException e) {
+			DesktopLauncher.log();
 			e.printStackTrace();
 		}
 		currentFrame++;

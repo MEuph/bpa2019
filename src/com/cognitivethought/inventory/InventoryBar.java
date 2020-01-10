@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.entity.TreePlayer;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.ui.PauseMenu;
@@ -65,6 +66,7 @@ public class InventoryBar implements InputProcessor {
 			grid = new CraftingGrid(Resources.CRAFTING_FILE, Resources.LVL1_SHOP_FILE);
 			i.read(invFile, grid);
 		} catch (FileNotFoundException e) {
+			DesktopLauncher.log();
 			e.printStackTrace();
 		}
 

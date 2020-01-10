@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 
 //Main title screen
 
@@ -70,6 +71,7 @@ public class DeathScreen implements Screen {
 						Main.main.setScreen(toResetTo);
 					}
 				} catch (IOException e) {
+					DesktopLauncher.log();
 					e.printStackTrace();
 				}
 			}

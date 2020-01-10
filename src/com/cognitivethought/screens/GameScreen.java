@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.Level;
+import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
@@ -61,6 +62,7 @@ public class GameScreen implements Screen {
 		try {
 			InventoryBar.i.read(Strings.INV_DIR + "/inv.txt", InventoryBar.grid);
 		} catch (FileNotFoundException e1) {
+			DesktopLauncher.log();
 			e1.printStackTrace();
 		}
 		
@@ -89,6 +91,7 @@ public class GameScreen implements Screen {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
+						DesktopLauncher.log();
 						e.printStackTrace();
 					}
 				}
