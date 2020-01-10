@@ -51,8 +51,9 @@ public class LevelSelectScreen implements Screen {
 									ImageIO.read(GameScreen.class
 											.getResourceAsStream("/Levels/Development Level/level1.png")),
 									Main.main.gameScreen);
-							Main.main.setScreen(Main.main.gameScreen);
-							
+							Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.LEVEL_1;
+							Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
+							Main.main.setScreen(Main.main.cutsceneScreen);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -75,7 +76,6 @@ public class LevelSelectScreen implements Screen {
 										Main.main.gameScreen);
 								System.out.println(Main.main.gameScreen.level == null);
 								Main.main.setScreen(Main.main.gameScreen);
-								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -97,7 +97,6 @@ public class LevelSelectScreen implements Screen {
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -142,7 +141,6 @@ public class LevelSelectScreen implements Screen {
 												.getResourceAsStream("/Levels/Development Level/level5.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
