@@ -61,28 +61,30 @@ public class GameScreen implements Screen {
 			e2.printStackTrace();
 		}
 		
-		String data = sc.nextLine();
-		String[] splitData = data.split(";");
-		
-		System.out.println(Arrays.toString(splitData));
-		
-		for (int i = 0; i < splitData.length; i+=3) {
-			int type = Integer.parseInt(splitData[i]);
-			System.out.println(i + ", " + type);
-			switch (type) {
-			case 0:
-				background.add(new Sprite(Resources.TREE_BG));
-				background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
-				background.get(i / 3).setSize(1800, 1240);
-				background.get(i / 3).translate(1800, 0);
-				if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
-				break;
-			case 1:
-				background.add(new Sprite(Resources.SMOKE_BG));
-				background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
-				background.get(i / 3).setSize(1800, 1240);
-				if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
-				break;
+		if (sc.hasNextLine()) {
+			String data = sc.nextLine();
+			String[] splitData = data.split(";");
+			
+			System.out.println(Arrays.toString(splitData));
+			
+			for (int i = 0; i < splitData.length; i+=3) {
+				int type = Integer.parseInt(splitData[i]);
+				System.out.println(i + ", " + type);
+				switch (type) {
+				case 0:
+					background.add(new Sprite(Resources.TREE_BG));
+					background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
+					background.get(i / 3).setSize(1800, 1240);
+					background.get(i / 3).translate(1800, 0);
+					if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
+					break;
+				case 1:
+					background.add(new Sprite(Resources.SMOKE_BG));
+					background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
+					background.get(i / 3).setSize(1800, 1240);
+					if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
+					break;
+				}
 			}
 		}
 		
@@ -149,12 +151,14 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0f,163f/255f,240f/255f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		ShapeRenderer sp = new ShapeRenderer();
-		sp.setProjectionMatrix(c.combined);
-		sp.begin(ShapeType.Filled);
-		sp.setColor(new Color(119f / 255f, 87f / 255f, 47f / 255f, 1));
-		sp.rect(background.get(0).getX(), background.get(0).getY() - 600, 50000, 610);
-		sp.end();
+		if (background.size() > 0) {
+			ShapeRenderer sp = new ShapeRenderer();
+			sp.setProjectionMatrix(c.combined);
+			sp.begin(ShapeType.Filled);
+			sp.setColor(new Color(119f / 255f, 87f / 255f, 47f / 255f, 1));
+			sp.rect(background.get(0).getX(), background.get(0).getY() - 600, 50000, 610);
+			sp.end();
+		}
 		
 		// Smooth camera fade
 		Vector3 position = c.position;
