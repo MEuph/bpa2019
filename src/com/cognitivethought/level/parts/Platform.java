@@ -277,5 +277,8 @@ public class Platform extends Sprite {
 				System.err.println("\n\n\n...what");
 			}
 		}
+		else {
+			
+		}
 	}
 }

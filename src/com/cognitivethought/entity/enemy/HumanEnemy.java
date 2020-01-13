@@ -10,24 +10,29 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.cognitivethought.entity.ItemDrop;
+import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.desktop.DesktopLauncher;
+import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
 
 public class HumanEnemy extends Enemy {
-
-	final int attackCol = 9, attackRow = 1;
-	final int jumpCol = 15, jumpRow = 1;
-	final int deathCol = 3, deathRow = 4;
+	
+	final int attackCol = 4, attackRow = 2;
+	final int jumpCol = 11, jumpRow = 1;
+	final int deathCol = 29, deathRow = 1;
 	
 	float attackTime;
 	float jumpTime;
-	float deathTime;
+	float deathTime = 1f;
 	
-	final float propWidth = 72f, propHeight = 94.28571f;
+	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
 	boolean deathThreadPaused;
+	
+	HealthBar hb;
 	
 	Animation<TextureRegion> attackAnimation;
 	Texture attackSheet;
@@ -58,8 +63,9 @@ public class HumanEnemy extends Enemy {
 	 * 		How much damage this particular trash monster will do
 	 * @param texture
 	 * 		The appearance of this particular trash monster
+	 * @throws Exception 
 	 */
-	public HumanEnemy(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies) {
+	public HumanEnemy(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
 		this.speed = 2f - (float)Math.random();	// Default speed to 1f
 		this.dx = -speed;	// Default movement to the left
@@ -67,13 +73,27 @@ public class HumanEnemy extends Enemy {
 		
 		HumanEnemy t = this;
 		
+		hb = new HealthBar(this, 3);
+		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
+					die();
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
+					int organicMatterToDrop = new Random().nextInt(4) + 1;
+					for (int i = 0; i < organicMatterToDrop; i++) {
+						ItemDrop om = new ItemDrop(Resources.ORGANIC_MATTER, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.ORGANIC_MATTER);
+						om.dy = 2f;
+						om.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
+						l.getItemDrops().add(om);
+					}
+					ItemDrop coin = new ItemDrop(Resources.COIN, (int)t.getX(), (int)t.getY(), 40, 40, Item.COIN);
+					coin.dy = 2f;
+					coin.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2);
+					l.getItemDrops().add(coin);
 					enemies.remove(t);
 				} catch (InterruptedException e1) {
 					DesktopLauncher.log();
@@ -81,14 +101,14 @@ public class HumanEnemy extends Enemy {
 				}
 			}
 		};
-		
+
 		createAnimations();
 	}
 
 	void createAnimations() {
-		attackSheet = new Texture("assets/Monsters/Trash Monster/attack.png");
-		jumpSheet = new Texture("assets/Monsters/Trash Monster/jump.png");
-		deathSheet = new Texture("assets/Monsters/Trash Monster/death.png");
+		attackSheet = new Texture("assets/Monsters/Human Monster/attack.png");
+		jumpSheet = new Texture("assets/Monsters/Human Monster/movin.png");
+		deathSheet = new Texture("assets/Monsters/Human Monster/death.png");
 		
 		TextureRegion[][] tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, 
 				attackSheet.getHeight() / attackRow);
@@ -124,7 +144,7 @@ public class HumanEnemy extends Enemy {
 		deathAnimation = new Animation<TextureRegion>(2f / (float)(deathRow * deathCol), deathFrames);
 		
 		attackTime = 0f;
-		deathTime = 0f;
+		deathTime = 1f;
 	}
 	
 	/**
@@ -153,9 +173,18 @@ public class HumanEnemy extends Enemy {
 				facingRight = true;
 				this.flip(true, false);
 			}
+			if (leftOfPlatform.overlaps(getBoundingRectangle()) && dx > 0 && getX() + getWidth() + dx >= leftOfPlatform.getX() && plat.collidesEnemy && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx *= -1;
+				facingRight = true;
+				this.flip(true, false);
+			}
 			
 			Rectangle rightOfPlatform = new Rectangle(plat.getX()+plat.getWidth()-2f, plat.getY(), 2f, plat.getHeight());
 			if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collideRight && !(getY()>(plat.getY()+plat.getHeight())-4)) {
+				dx *= -1;
+				facingRight = false;
+				this.flip(true, false);
+			}if (rightOfPlatform.overlaps(getBoundingRectangle()) && dx < 0 && getX() <= plat.getX() + plat.getWidth() && plat.collidesEnemy && !(getY()>(plat.getY()+plat.getHeight())-4)) {
 				dx *= -1;
 				facingRight = false;
 				this.flip(true, false);
@@ -171,8 +200,12 @@ public class HumanEnemy extends Enemy {
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 		
+		if (hurtTimer > 0f) {
+			hurtTimer--;
+		}
+		
 		if (attacking) {
-			attackTimer-=1f;
+			attackTimer-=2f;
 		}
 		
 		facingRight = dx < 0;
@@ -198,14 +231,24 @@ public class HumanEnemy extends Enemy {
 	 */
 	@Override
 	void attack(HealthBar hb, Level l) {
+		//if (l.getSpawnpoint().getPlayer().isAttacking) return;
+		
+		if (hb.health <= 0f) return;
+		
 		attackRange = 1f;
 		// if the player is in range, the monster can attack
 		boolean canAttack =
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
+		if (!canAttack) return;
+		
+//		System.out.println(canAttack);
+//		System.out.println(deathTime);
+//		System.out.println();
+		
 		// attack if the monster can attack
-		if (canAttack) {
+		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
@@ -224,13 +267,36 @@ public class HumanEnemy extends Enemy {
 	
 	float prevDx = 0f;
 	
+	@Override
+	public void die() {
+		deathThreadPaused = false;
+		attacking = false;
+		deathTime = 0f;
+	}
+	
+	@Override
+	public void hurt(int value, boolean byProjectile) {
+		if (hb.health <= 0f) {
+			die();
+			return;
+		}
+		if (hurtTimer > 0f) {
+			return;
+		} else {
+			if (!byProjectile) hurtTimer = 40f;
+		}
+		deathTime = 1f;
+		attacking = false;
+		hb.health -= value;
+	}
+	
 	/**
 	 * Draw the monster
 	 */
 	@Override
-	public void draw(Batch batch) {
-		if (attacking && !deathThreadPaused) {
-			attackTime+=Gdx.graphics.getDeltaTime();
+	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
+		if (attacking && !deathThreadPaused && hb.health > 0f) {
+			if (!paused) attackTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = attackAnimation.getKeyFrame(attackTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -241,9 +307,9 @@ public class HumanEnemy extends Enemy {
 			if (attackTime > 1f) {
 				attacking = false;
 			}
-		} else if (/*health > 0 &&*/ !deathThreadPaused) {
+		} else if (hb.health > 0 && !deathThreadPaused) {
 			attackTime = 0f;
-			jumpTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) jumpTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = jumpAnimation.getKeyFrame(jumpTime, true);
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -255,37 +321,27 @@ public class HumanEnemy extends Enemy {
 			if (jumpTime > 1f) {
 				jumpTime = 0f;
 			}
+		} else if (hb.health <= 0) {
+			attacking = false;
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
+			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
+			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
+			this.setFlip(this.isFlipX() || facingRight, false);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		} else {
 			attacking = false;
-			deathTime+=Gdx.graphics.getDeltaTime();
+			if (!paused) deathTime+=Gdx.graphics.getDeltaTime();
 			TextureRegion currentFrame = deathAnimation.getKeyFrame(deathTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX() || facingRight, false);
 			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 20 : getX(), getY(), facingRight ? -this.propWidth - 20 : this.propWidth + 20, this.propHeight + 10);
 		}
-	}
-
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
 		
+		hb.render(batch, c);
 	}
-
-	@Override
-	public void hurt(int value, boolean byProjectile) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	protected float getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void draw(Batch batch, OrthographicCamera c, boolean paused) {
-		// TODO Auto-generated method stub
-		
+		return hb.health;
 	}
 }

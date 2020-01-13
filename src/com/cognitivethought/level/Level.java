@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
 import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
+import com.cognitivethought.entity.enemy.HumanEnemy;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.entity.enemy.Tyrone;
@@ -23,6 +24,7 @@ import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
+import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Level {
@@ -157,15 +159,24 @@ public class Level {
 					break;
 				case(-6075996):
 					EnemySpawner es = new EnemySpawner();
-					es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies, this), j*scale, -i*scale);
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						es.addEnemy(new TrashMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies, this), j*scale, -i*scale);
+					} else {
+						es.addEnemy(new HumanEnemy(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es.enemies, this), j*scale, -i*scale);
+					}
 					es.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es);
 					es.debugInfo();
 					System.out.println();
 					break;
 				case(-20791):
+					
 					EnemySpawner es2 = new EnemySpawner();
-					es2.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies, this), j*scale, -i*scale);
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						es2.addEnemy(new TrashCanMonster(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies, this), j*scale, -i*scale);
+					} else {
+						es2.addEnemy(new HumanEnemy(Behavior.EDGE_TO_EDGE, 1f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es2.enemies, this), j*scale, -i*scale);
+					}
 					es2.enemies.get(0).setSize(scale * 1.5f, scale / (42f/55f) * 1.5f);
 					addSpawner(es2);
 					es2.debugInfo();
