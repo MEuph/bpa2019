@@ -1,6 +1,10 @@
 package com.cognitivethought.screens;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -37,10 +41,10 @@ public class GameScreen implements Screen {
 	float timer = 0; // Timer for updating FPS counter
 	float fade = 1f; // Timer/Opacity for screen fade-in
 	
-	Sprite background;
+	ArrayList<Sprite> background = new ArrayList<Sprite>();
 	
 	String fps = "FPS:"; // Shows the current FPS
-
+	
 	@Override
 	public void show() {
 		b = new SpriteBatch();
@@ -48,14 +52,39 @@ public class GameScreen implements Screen {
 		
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-		if (LevelSelectScreen.levelNumber == 4) {
-			background = new Sprite(Resources.BGCITY);
+		
+		Scanner sc;
+		try {
+			sc = new Scanner(new File(Strings.BG_DIR + "level" + Integer.toString(LevelSelectScreen.levelNumber)));
+		} catch (FileNotFoundException e2) {
+			sc = null;
+			e2.printStackTrace();
 		}
-		else {
-			background = new Sprite(Resources.BG);
+		
+		String data = sc.nextLine();
+		String[] splitData = data.split(";");
+		
+		System.out.println(Arrays.toString(splitData));
+		
+		for (int i = 0; i < splitData.length; i+=3) {
+			int type = Integer.parseInt(splitData[i]);
+			System.out.println(i + ", " + type);
+			switch (type) {
+			case 0:
+				background.add(new Sprite(Resources.TREE_BG));
+				background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
+				background.get(i / 3).setSize(1800, 1240);
+				background.get(i / 3).translate(1800, 0);
+				if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
+				break;
+			case 1:
+				background.add(new Sprite(Resources.SMOKE_BG));
+				background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
+				background.get(i / 3).setSize(1800, 1240);
+				if ((i / 3) % 2 == 0) background.get(i / 3).flip(true, false);
+				break;
+			}
 		}
-		background.setSize(1920 * 4, 1080 * 2);
-		background.setPosition(-1920, -1080 * 1.1f);
 		
 		InventoryBar.grid.shown = false;
 		
@@ -74,16 +103,13 @@ public class GameScreen implements Screen {
 		
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to 1920x1080
-		if (c == null) System.out.println("c");
-		if (level == null) System.out.println("level");
-		if (level.getSpawnpoint() == null) System.out.println("spawn");
-		c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY(), 0f);
 		
 		// Run new Thread that will process the fading in of the scene
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				c.position.set(new Vector3(c.position.x, c.position.y + 200, c.position.z));
+				System.out.println(level.getSpawnpoint().getPlayer().getX() + ", " + level.getSpawnpoint().getPlayer().getY());
+				c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY() + 200, 0f);
 				while (fade > 0f) {
 					fade -= .01f;
 //					System.out.println(fade);
@@ -120,8 +146,15 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float deltaTime) {
-		Gdx.gl.glClearColor(0f,0.1f,0f,1f);
+		Gdx.gl.glClearColor(0f,163f/255f,240f/255f,1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		ShapeRenderer sp = new ShapeRenderer();
+		sp.setProjectionMatrix(c.combined);
+		sp.begin(ShapeType.Filled);
+		sp.setColor(new Color(119f / 255f, 87f / 255f, 47f / 255f, 1));
+		sp.rect(background.get(0).getX(), background.get(0).getY() - 600, 50000, 610);
+		sp.end();
 		
 		// Smooth camera fade
 		Vector3 position = c.position;
@@ -140,15 +173,9 @@ public class GameScreen implements Screen {
 		b.setProjectionMatrix(c.combined);
 		
 		if (!b.isDrawing()) b.begin();
-		background.draw(b);
-		background.translateX(background.getWidth());
-		background.flip(true, false);
-		background.draw(b);
-		background.translateX(background.getWidth());
-		background.flip(true, false);
-		background.draw(b);
-		background.translateX(-background.getWidth() * 2);
-		
+		for (int i = 0; i < background.size(); i++) {
+			background.get(i).draw(b);
+		}
 		
 		if (b == null) {
 			System.out.println("batch");
@@ -187,22 +214,21 @@ public class GameScreen implements Screen {
 		if (!InventoryBar.grid.shown) ib.render(b, c, sp);
 		
 		b.end();
-
+		
 		// Enable transparency blending
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		// If still fading, then draw the black fade rectangle
 		if (fade > 0f || InventoryBar.grid.shown || paused) {
-			ShapeRenderer sp = new ShapeRenderer();
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
 			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown || paused ? 0.9f : fade));
 			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
 			sp.end();
 		}
-		// Disable transparency blending
+		
 		Gdx.gl.glDisable(GL20.GL_BLEND);
-
+		
 		if (InventoryBar.grid.shown) ib.render(b, c, sp);
 		
 		// Zoom In-Out Support

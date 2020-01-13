@@ -1,25 +1,28 @@
 package com.cognitivethought.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.cognitivethought.main.desktop.DesktopLauncher;
 
 public class Cutscene {
 	
 	public Sprite[] images;
 	public int[] times;
 	
-	int currentFrame;
+	int currentFrame = 0;
 	
 	boolean completed = false;
+	
+	int timer = 0;
 	
 	public Cutscene(int[] times, Sprite[] images) {
 		this.times = times;
 		this.images = images;
 		
 		for (int i = 0; i < images.length; i++) {
-			images[i].setPosition(0, 0);
-			images[i].setSize(1920, 1080);
+			images[i].setSize(1080, 1080);
+			images[i].setPosition(1920 / 2 - (images[i].getWidth() / 2), 1080 / 2 - (images[i].getHeight() / 2));
 		}
 	}
 	
@@ -33,13 +36,20 @@ public class Cutscene {
 	}
 	
 	public void draw(SpriteBatch b) {
-		try {
-			Thread.sleep(currentFrame < images.length ? times[currentFrame] : 0);
-		} catch (InterruptedException e) {
-			DesktopLauncher.log();
-			e.printStackTrace();
+		System.out.println(timer);
+		
+		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+			completed = true;
 		}
-		currentFrame++;
+		
+		if (currentFrame >= times.length) return;
+		
+		if (timer >= times[currentFrame]) {
+			timer = 0;
+			currentFrame++;
+		}
+		
+		timer += 10;
 		
 		if (currentFrame >= images.length) {
 			completed = true;

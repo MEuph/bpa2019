@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.entity.ItemDrop;
-import com.cognitivethought.entity.enemy.Axel;
 import com.cognitivethought.entity.enemy.Behavior;
 import com.cognitivethought.entity.enemy.EnemySpawner;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
@@ -183,8 +182,6 @@ public class Level {
 				case(-7649845):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false, true));
 					break;
-//				case(-13640667):
-//					
 				case(-12843677):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampoline.png"), j*scale, -i*scale, scale, scale, true, true, true, false, false, false, true, true));
 					break;

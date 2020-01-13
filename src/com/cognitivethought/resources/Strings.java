@@ -17,5 +17,6 @@ public class Strings {
 	public static final String TUT_TILESET_DIR = TILESETS_DIR + "Tutorial Tileset/";
 	public static final String UI_DIR = "assets/UI/";
 	public static final String BUTTONS_DIR = UI_DIR + "Buttons/";
+	public static final String BG_DIR = "assets/Background/";
 
 }
