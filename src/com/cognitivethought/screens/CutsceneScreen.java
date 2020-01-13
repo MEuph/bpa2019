@@ -1,6 +1,8 @@
 package com.cognitivethought.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +12,7 @@ public class CutsceneScreen implements Screen {
 
 	public SpriteBatch b;
 
-	public static final Cutscene LEVEL_1 = new Cutscene(new int[] { 1500, 250, 250, 250, 250, 250, 500, 5000, 1000,
+	public static final Cutscene LEVEL_1 = new Cutscene(new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000,
 			1000, 1500, 2500, 1500, 1500, 500, 500, 500, 500, 1000, 1000, 1000, 1000 },
 			breakdown("Cutscenes/Level1/scene_", 22));
 //	public static final Cutscene LEVEL_2 = 
@@ -29,6 +31,9 @@ public class CutsceneScreen implements Screen {
 
 	@Override
 	public void render(float arg0) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		if (currentCutscene.isCompleted()) {
 			Main.main.setScreen(toAdvanceTo);
 		}
