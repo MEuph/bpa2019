@@ -116,7 +116,7 @@ public class Axel extends Enemy {
 						l.getItemDrops().add(c);
 					}
 					enemies.remove(t);
-					
+					this.sleep(5000);
 					try { //saves inventory
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 					} catch (IOException e) {

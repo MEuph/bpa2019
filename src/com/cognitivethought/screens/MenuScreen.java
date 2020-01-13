@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.cognitivethought.gui.Cloud;
+
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
@@ -27,7 +27,7 @@ public class MenuScreen implements Screen {
 	
 	OrthographicCamera c;
 	
-	ArrayList<Cloud> clouds = new ArrayList<Cloud>(); //arraylist for clouds
+	
 	
 	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 250); //initializing the buttons
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
@@ -47,10 +47,7 @@ public class MenuScreen implements Screen {
 		Cursor customCursor = Gdx.graphics.newCursor(td.consumePixmap(), 0, 0);
 		Gdx.graphics.setCursor(customCursor);
 		
-		for (int i = 0; i < new Random().nextInt(20) + 10; i++) { //adds a random amount of clouds to the ArrayList
-			clouds.add(new Cloud()); 
-		}
-		
+
 		playButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -65,9 +62,7 @@ public class MenuScreen implements Screen {
 			}
 		});
 		
-		for (Cloud c : clouds) { //assigns the clouds with textures and size
-			c.cloud();
-		}
+	
 	}
 	
 	@Override
