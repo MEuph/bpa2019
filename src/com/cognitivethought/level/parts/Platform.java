@@ -177,7 +177,7 @@ public class Platform extends Sprite {
 	}
 
 	public void updateTexture(ArrayList<Platform> platforms, int[][] data) {
-		if(!(LevelSelectScreen.levelNumber == 4)) {
+		
 			boolean grass = this.getTexture().equals(GRASS);
 			boolean dirt = this.getTexture().equals(DIRT);
 			
@@ -276,9 +276,6 @@ public class Platform extends Sprite {
 			} else {
 				System.err.println("\n\n\n...what");
 			}
-		}
-		else {
-			
-		}
+		
 	}
 }

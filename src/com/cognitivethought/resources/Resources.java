@@ -107,6 +107,11 @@ public class Resources {
 			AXEL_ATTACK = new Texture(Strings.AXEL_DIR + "Axel Basic Attack.png");
 			AXEL_MAJOR = new Texture(Strings.AXEL_DIR + "Axel Major Attack.png");
 			AXEL_DEATH = new Texture(Strings.AXEL_DIR + "Axel Death.png");
+			
+			TYRONE_MOVE = new Texture(Strings.TYRONE_DIR + "Tyrone Walk.png");
+			TYRONE_ATTACK = new Texture(Strings.TYRONE_DIR + "Tyrone Basic Attack.png");
+			TYRONE_MAJOR = new Texture(Strings.TYRONE_DIR + "Tyrone Major Attack.png");
+			TYRONE_DEATH = new Texture(Strings.TYRONE_DIR + "Tyrone Death.png");
 	
 			BARK = new Texture(Strings.UI_DIR + "bark.png");
 			EXIT = new Texture(Strings.UI_DIR + "ExitButton.png");
