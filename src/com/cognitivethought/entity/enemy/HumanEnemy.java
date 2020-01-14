@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -34,8 +33,6 @@ public class HumanEnemy extends Enemy {
 	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
 	boolean deathThreadPaused;
-	
-	Sound sound;
 	
 	long sound_id;
 	
@@ -82,7 +79,11 @@ public class HumanEnemy extends Enemy {
 		
 		hb = new HealthBar(this, 3);
 		
-		sound = Sounds.chainsaw;
+		canPlaySound = true;
+		
+		sound_id = Sounds.chainsaw.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.chainsaw.setLooping(sound_id, true);
+		Sounds.chainsaw.pause(sound_id);
 		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
@@ -209,6 +210,10 @@ public class HumanEnemy extends Enemy {
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
 		
+		if (!canPlaySound) {
+			Sounds.chainsaw.pause(sound_id);
+		}
+		
 		if (hurtTimer > 0f) {
 			hurtTimer--;
 		}
@@ -251,9 +256,7 @@ public class HumanEnemy extends Enemy {
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
 		if (!canAttack) {
-			sound.stop(sound_id);
-			sound.setLooping(sound_id, false);
-			sound_id = 0;
+			Sounds.chainsaw.pause(sound_id);
 			return;
 		}
 		
@@ -264,10 +267,7 @@ public class HumanEnemy extends Enemy {
 		// attack if the monster can attack
 		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
-			if (sound_id == 0) {
-				sound_id = sound.play(SettingsScreen.VOL_SOUNDS);
-				sound.setLooping(sound_id, true);
-			}
+			if (canPlaySound) Sounds.chainsaw.resume(sound_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
 				if (hb.bark >= 0) {

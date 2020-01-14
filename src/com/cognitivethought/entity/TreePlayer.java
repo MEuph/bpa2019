@@ -23,7 +23,9 @@ import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.LevelSelectScreen;
+import com.cognitivethought.screens.SettingsScreen;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.sound.Sounds;
 
 public class TreePlayer extends Sprite {
 	
@@ -93,6 +95,9 @@ public class TreePlayer extends Sprite {
 		super(t);
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
 		createAnimations();
+		
+		Sounds.player_moving.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.player_moving.pause();
 		
 		attackTime = 0.02f;
 	}
@@ -169,6 +174,12 @@ public class TreePlayer extends Sprite {
 						}
 					}
 				}
+			}
+			
+			if ((left || right) && dy == 0) {
+				Sounds.player_moving.resume();
+			} else {
+				Sounds.player_moving.pause();
 			}
 			
 			if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)
@@ -397,11 +408,12 @@ public class TreePlayer extends Sprite {
 	}
 
 	public void die() {
+		Sounds.player_melee.stop();
 		deathThreadPaused = false;
 		shootTime = 0f;
 		deathTime = 0f;
 	}
-
+	
 	/**
 	 * Makes the player jump
 	 */
@@ -476,7 +488,9 @@ public class TreePlayer extends Sprite {
 					// attack time
 
 		if (mouseTriggered) facingRight = Gdx.input.getX() >= 1920 / 2;
-
+		
+		Sounds.player_melee.play(SettingsScreen.VOL_SOUNDS);
+		
 		attackTime = 0.02f;
 		
 		

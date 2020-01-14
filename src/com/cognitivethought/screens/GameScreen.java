@@ -53,10 +53,6 @@ public class GameScreen implements Screen {
 			Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
 		}
 		
-		if (hb.health <= 0) {
-			Sounds.chainsaw.stop();
-		}
-		
 		hb.health = 3;
 		hb.bark = 2;
 		
@@ -152,6 +148,13 @@ public class GameScreen implements Screen {
 	@Override
 	public void hide() {
 		Sounds.intro_music.stop(Sounds.intro_music_id);
+		
+		for (int i = 0; i < level.getEnemySpawners().size(); i++) {
+			for (int j = 0; j < level.getEnemySpawners().get(i).enemies.size(); j++) {
+				level.getEnemySpawners().get(i).enemies.get(j).canPlaySound = false;
+				Sounds.chainsaw.stop();
+			}
+		}
 		
 		dispose();
 	}

@@ -26,7 +26,7 @@ public class LevelSelectScreen implements Screen {
 	LevelButton[] levels = new LevelButton[5]; // list that stores the level buttons
 	public static int levelNumber = 0;
 	Texture background = new Texture("assets/UI/placeholderbackground.png"); // background texture
-	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
+	ImageButton quitButton = new ImageButton(new Texture("assets/UI/backbutton.png"), 100, 100);
 
 	SpriteBatch batch = new SpriteBatch(); // spritebatch initialization
 
@@ -37,7 +37,7 @@ public class LevelSelectScreen implements Screen {
 
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
-
+		
 		for (int i = 0; i < levels.length; i++) { // adds buttons to the list and sets the properties of each
 			levels[i] = new LevelButton();
 			levels[i].addButton(i);
@@ -167,12 +167,13 @@ public class LevelSelectScreen implements Screen {
 			quitButton.setClickListener(new ClickListener() { // sets the actions to perform if the buttons are clicked
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					System.exit(0);
+					Main.main.setScreen(Main.main.menuScreen);
 				}
 			});
 
 		}
-
+		
+		quitButton.getSkin().setSize(levels[0].level.getSkin().getWidth(), levels[0].level.getSkin().getHeight());
 	}
 
 	@Override

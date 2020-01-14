@@ -22,6 +22,7 @@ public abstract class Enemy extends Sprite {
 	
 	public Thread deathThread;
 	public int deathThreadTime;
+	public boolean canPlaySound;
 	
 	/**
 	 * The superclass of all enemies
