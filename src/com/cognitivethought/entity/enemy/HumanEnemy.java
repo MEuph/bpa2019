@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -16,6 +17,8 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class HumanEnemy extends Enemy {
@@ -31,6 +34,10 @@ public class HumanEnemy extends Enemy {
 	final float propWidth = 72f+15, propHeight = 94.28571f+15;
 	
 	boolean deathThreadPaused;
+	
+	Sound sound;
+	
+	long sound_id;
 	
 	HealthBar hb;
 	
@@ -74,6 +81,8 @@ public class HumanEnemy extends Enemy {
 		HumanEnemy t = this;
 		
 		hb = new HealthBar(this, 3);
+		
+		sound = Sounds.chainsaw;
 		
 		deathThread = new Thread() {
 			@SuppressWarnings("static-access")
@@ -241,7 +250,12 @@ public class HumanEnemy extends Enemy {
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
-		if (!canAttack) return;
+		if (!canAttack) {
+			sound.stop(sound_id);
+			sound.setLooping(sound_id, false);
+			sound_id = 0;
+			return;
+		}
 		
 //		System.out.println(canAttack);
 //		System.out.println(deathTime);
@@ -250,6 +264,10 @@ public class HumanEnemy extends Enemy {
 		// attack if the monster can attack
 		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
+			if (sound_id == 0) {
+				sound_id = sound.play(SettingsScreen.VOL_SOUNDS);
+				sound.setLooping(sound_id, true);
+			}
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
 				if (hb.bark >= 0) {

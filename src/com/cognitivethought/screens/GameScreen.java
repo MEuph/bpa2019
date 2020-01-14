@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 	public BitmapFont font; // For FPS Counter
 	public OrthographicCamera c; // Camera
 	
-	public HealthBar hb = new HealthBar();
+	public static HealthBar hb = new HealthBar();
 	public InventoryBar ib = new InventoryBar("assets/Inventory/inv.txt", hb);
 	public static boolean paused;
 	
@@ -52,6 +52,13 @@ public class GameScreen implements Screen {
 			Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
 			Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
 		}
+		
+		if (hb.health <= 0) {
+			Sounds.chainsaw.stop();
+		}
+		
+		hb.health = 3;
+		hb.bark = 2;
 		
 		b = new SpriteBatch();
 		sp = new ShapeRenderer();
