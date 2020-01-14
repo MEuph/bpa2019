@@ -177,7 +177,6 @@ public class Platform extends Sprite {
 	}
 
 	public void updateTexture(ArrayList<Platform> platforms, int[][] data) {
-
 		boolean grass = this.getTexture().equals(GRASS);
 		boolean dirt = this.getTexture().equals(DIRT);
 
