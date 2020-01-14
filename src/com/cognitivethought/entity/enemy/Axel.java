@@ -79,8 +79,8 @@ public class Axel extends Enemy {
 	 * @param texture     The appearance of this particular trash monster
 	 * @throws Exception
 	 */
-	public Axel(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
-		super(b, Behavior.MELEE, damageValue, texture);
+	public Axel(Behavior b, float damageValue, float majorDamageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
+		super(b, Behavior.MELEE, damageValue, majorDamageValue, texture);
 		this.speed = 2f; // Default speed to 3f
 		this.dx = -speed; // Default movement to the left
 		this.idle = texture;
