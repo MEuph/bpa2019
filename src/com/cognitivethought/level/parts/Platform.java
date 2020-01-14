@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.cognitivethought.screens.LevelSelectScreen;
 
 public class Platform extends Sprite {
 	
@@ -176,103 +177,108 @@ public class Platform extends Sprite {
 	}
 
 	public void updateTexture(ArrayList<Platform> platforms, int[][] data) {
-		boolean grass = this.getTexture().equals(GRASS);
-		boolean dirt = this.getTexture().equals(DIRT);
-		
-		if (!grass && !dirt)
-			return;
-		
-		boolean top, bottom, right, left;
-		top = bottom = right = left = false;
-		
-		if (posY > 0) {
-			top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408 && data[posY - 1][posX] != -20791 && data[posY - 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
-		}
-		
-		if (posY < data.length - 1) {
-			bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408 && data[posY + 1][posX] != -20791 && data[posY + 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
-		}
-
-		if (posX > 0) {
-			left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408 && data[posY][posX - 1] != -20791 && data[posY][posX - 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
-		}
-
-		if (posX < data[posY].length - 1) {
-			right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408 && data[posY][posX + 1] != -20791 && data[posY][posX + 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
-		}
-
-		if (!top && !bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"));
-			collideTop = true;
-		} else if (!top && !bottom && !right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassn.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtn.png"));
+		if(!(LevelSelectScreen.levelNumber == 4)) {
+			boolean grass = this.getTexture().equals(GRASS);
+			boolean dirt = this.getTexture().equals(DIRT);
+			
+			if (!grass && !dirt)
+				return;
+			
+			boolean top, bottom, right, left;
+			top = bottom = right = left = false;
+			
+			if (posY > 0) {
+				top = data[posY - 1][posX] != -1 && data[posY - 1][posX] != -7864299 && data[posY - 1][posX] != -16777216 && data[posY - 1][posX] != -6075996 && data[posY - 1][posX] != -65408 && data[posY - 1][posX] != -20791 && data[posY - 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 			}
-			collideTop = true;
-		} else if (!top && !bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"));
-			collideTop = true;
-		} else if (!top && !bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"));
-			collideTop = true;
-		} else if (!top && bottom && !right && left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassr.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+			
+			if (posY < data.length - 1) {
+				bottom = data[posY + 1][posX] != -1 && data[posY + 1][posX] != -7864299 && data[posY + 1][posX] != -16777216 && data[posY + 1][posX] != -6075996 && data[posY + 1][posX] != -65408 && data[posY + 1][posX] != -20791 && data[posY + 1][posX] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
 			}
-			collideTop = collideRight = true;
-		} else if (!top && bottom && !right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grasslr.png"));
-			} else {
+	
+			if (posX > 0) {
+				left = data[posY][posX - 1] != -1 && data[posY][posX - 1] != -7864299 && data[posY][posX - 1] != -16777216 && data[posY][posX - 1] != -6075996 && data[posY][posX - 1] != -65408 && data[posY][posX - 1] != -20791 && data[posY][posX - 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
+			}
+	
+			if (posX < data[posY].length - 1) {
+				right = data[posY][posX + 1] != -1 && data[posY][posX + 1] != -7864299 && data[posY][posX + 1] != -16777216 && data[posY][posX + 1] != -6075996 && data[posY][posX + 1] != -65408 && data[posY][posX + 1] != -20791 && data[posY][posX + 1] != -9072273 && data[posY - 1][posX] != -12843677 && data[posY - 1][posX] != -6837608;
+			}
+	
+			if (!top && !bottom && !right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"));
+				collideTop = true;
+			} else if (!top && !bottom && !right && !left) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassn.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtn.png"));
+				}
+				collideTop = true;
+			} else if (!top && !bottom && right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"));
+				collideTop = true;
+			} else if (!top && !bottom && right && !left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"));
+				collideTop = true;
+			} else if (!top && bottom && !right && left) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassr.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+				}
+				collideTop = collideRight = true;
+			} else if (!top && bottom && !right && !left) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grasslr.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+				}
+				collideTop = collideRight = collideLeft = true;
+			} else if (!top && bottom && right && left) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
+				}
+				setFlip(Math.random() <= 0.5, false);
+				collideTop = collideRight = collideLeft = true;
+			} else if (!top && bottom && right && !left) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassl.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttl.png"));
+				}
+				collideTop = collideLeft = true;
+			} else if (top && !bottom && !right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbr.png"));
+				collideBottom = collideRight = true;
+			} else if (top && !bottom && !right && !left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));
+				collideBottom = collideLeft = collideRight = true;
+			} else if (top && !bottom && right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
+				setFlip(Math.random() <= 0.5, false);
+				collideBottom = true;
+			} else if (top && !bottom && right && !left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));
+				collideBottom = collideLeft = true;
+			} else if (top && bottom && !right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtr.png"));
+				collideRight = true;
+			} else if (top && bottom && !right && !left) {
 				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
-			}
-			collideTop = collideRight = collideLeft = true;
-		} else if (!top && bottom && right && left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"));
+				collideRight = true;
+			} else if (top && bottom && right && left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
+				setFlip(Math.random() <= 0.5, Math.random() <= 0.5);
+			} else if (top && bottom && right && !left) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
+				collideLeft = true;
 			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
+				System.err.println("\n\n\n...what");
 			}
-			setFlip(Math.random() <= 0.5, false);
-			collideTop = collideRight = collideLeft = true;
-		} else if (!top && bottom && right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassl.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttl.png"));
-			}
-			collideTop = collideLeft = true;
-		} else if (top && !bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbr.png"));
-			collideBottom = collideRight = true;
-		} else if (top && !bottom && !right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));
-			collideBottom = collideLeft = collideRight = true;
-		} else if (top && !bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
-			setFlip(Math.random() <= 0.5, false);
-			collideBottom = true;
-		} else if (top && !bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));
-			collideBottom = collideLeft = true;
-		} else if (top && bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtr.png"));
-			collideRight = true;
-		} else if (top && bottom && !right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
-			collideRight = true;
-		} else if (top && bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
-			setFlip(Math.random() <= 0.5, Math.random() <= 0.5);
-		} else if (top && bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
-			collideLeft = true;
-		} else {
-			System.err.println("\n\n\n...what");
+		}
+		else {
+			
 		}
 	}
 }
