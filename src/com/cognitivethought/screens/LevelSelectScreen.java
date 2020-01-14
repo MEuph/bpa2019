@@ -17,6 +17,7 @@ import com.cognitivethought.gui.LevelButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
+import com.cognitivethought.sound.Sounds;
 
 //screen to select the level
 public class LevelSelectScreen implements Screen {
@@ -55,6 +56,7 @@ public class LevelSelectScreen implements Screen {
 							Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.LEVEL_1;
 							Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
 							Main.main.setScreen(Main.main.cutsceneScreen);
+							Sounds.intro_music.stop();
 						} catch (Exception e) {
 							DesktopLauncher.log();
 							e.printStackTrace();
@@ -77,6 +79,7 @@ public class LevelSelectScreen implements Screen {
 										Main.main.gameScreen);
 								System.out.println(Main.main.gameScreen.level == null);
 								Main.main.setScreen(Main.main.gameScreen);
+								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();
@@ -98,6 +101,7 @@ public class LevelSelectScreen implements Screen {
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
+								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();
@@ -119,8 +123,7 @@ public class LevelSelectScreen implements Screen {
 												.getResourceAsStream("/Levels/Development Level/level4.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
-								
-		
+								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();
@@ -142,6 +145,7 @@ public class LevelSelectScreen implements Screen {
 												.getResourceAsStream("/Levels/Development Level/level5.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
+								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();
@@ -179,8 +183,7 @@ public class LevelSelectScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		Sounds.intro_music.stop(Sounds.intro_music_id);
 	}
 
 	@Override

@@ -19,6 +19,8 @@ import com.cognitivethought.screens.DeathScreen;
 import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.screens.MenuScreen;
+import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 
 public class Main extends Game implements ApplicationListener {
 	
@@ -42,11 +44,14 @@ public class Main extends Game implements ApplicationListener {
 	
 	public CutsceneScreen cutsceneScreen;
 	
+	public SettingsScreen settingsScreen;
+	
 	@SuppressWarnings("resource")
 	@Override
 	public void create() {
 		Resources.loadTextures();
-
+		Sounds.load();
+		
 		main = this;
 		gameScreen 			= new GameScreen();
 		menuScreen			= new MenuScreen();
@@ -54,6 +59,7 @@ public class Main extends Game implements ApplicationListener {
 		deathScreen 		= new DeathScreen(null);
 		completeScreen 		= new CompleteScreen(null);
 		cutsceneScreen		= new CutsceneScreen();
+		settingsScreen 		= new SettingsScreen();
 		setScreen(menuScreen);
 		
 		try {
@@ -63,7 +69,6 @@ public class Main extends Game implements ApplicationListener {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public static void save() throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(Strings.LEVELS_DIR + "leveldata.txt"));

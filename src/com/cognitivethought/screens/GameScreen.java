@@ -24,6 +24,7 @@ import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.sound.Sounds;
 
 public class GameScreen implements Screen {
 
@@ -47,6 +48,11 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void show() {
+		if (LevelSelectScreen.levelNumber == 1) {
+			Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+			Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
+		}
+		
 		b = new SpriteBatch();
 		sp = new ShapeRenderer();
 		
@@ -136,6 +142,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
+		Sounds.intro_music.stop(Sounds.intro_music_id);
+		
 		dispose();
 	}
 
