@@ -26,7 +26,7 @@ import com.cognitivethought.ui.HealthBar;
 public class Tyrone extends Enemy {
 
 	int majorTimer = 500;
-	final int attackCol = 3, attackRow = 1;
+	final int attackCol = 4, attackRow = 2;
 	final int majorCol = 5, majorRow = 2;
 	final int moveCol = 4, moveRow = 3;
 	final int deathCol = 29, deathRow = 1;
@@ -161,7 +161,7 @@ public class Tyrone extends Enemy {
 	}
 
 	void createAnimations() {
-		attackSheet = Resources.AXEL_ATTACK; //assigns the sprite animation textures
+		attackSheet = Resources.TYRONE_ATTACK; //assigns the sprite animation textures
 		majorAttackSheet = Resources.TYRONE_MAJOR;
 		moveSheet = Resources.TYRONE_MOVE;
 		deathSheet = Resources.TYRONE_DEATH;
