@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -25,14 +26,21 @@ public class MenuScreen implements Screen {
 	
 	OrthographicCamera c;
 	
-	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 400);
-	ImageButton optnButton = new ImageButton(new Texture("assets/UI/optionsbutton.png"), 100, 250);
+	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 550);
+	ImageButton optnButton = new ImageButton(new Texture("assets/UI/optionsbutton.png"), 100, 400);
+	ImageButton credsButton = new ImageButton(new Texture("assets/UI/CreditsButton.png"), 100, 250);
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
 	
 	SpriteBatch batch = new SpriteBatch(); //initializing the spritebatch
 	
 	float y;
 	float fade;
+	
+	float credY = -6752;
+	
+	boolean showCredits = false;
+	
+	Sprite credits = new Sprite(new Texture("Cutscenes/credits.png"));
 	
 	public MenuScreen() {  //main function for the Menu screen
 		c = new OrthographicCamera();
@@ -67,7 +75,18 @@ public class MenuScreen implements Screen {
 			}
 		});
 		
+		credsButton.setClickListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				credY = -6752;
+				showCredits = true;
+			}
+		});
+		
+		credits.setSize(1920, 6752);
+		
 		optnButton.getSkin().setSize(playButton.getSkin().getWidth(), playButton.getSkin().getHeight());
+		credsButton.getSkin().setSize(playButton.getSkin().getWidth(), playButton.getSkin().getHeight());
 	}
 	
 	@Override
@@ -100,6 +119,7 @@ public class MenuScreen implements Screen {
 		playButton.render(batch);
 		optnButton.render(batch);
 		quitButton.render(batch);
+		credsButton.render(batch);
 		
 		batch.end();
 		
@@ -114,10 +134,11 @@ public class MenuScreen implements Screen {
 		
 		fade = 1-((float)y / -800f);
 		
-		if (fade <= 0f) {
+		if (fade <= 0f && !showCredits) {
 			playButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 			optnButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 			quitButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
+			credsButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 		}
 		
 		// Enable transparency blending
@@ -133,6 +154,22 @@ public class MenuScreen implements Screen {
 		}
 		// Disable transparency blending
 		Gdx.gl.glDisable(GL20.GL_BLEND);
+
+		if (showCredits) {
+			ShapeRenderer sp = new ShapeRenderer();
+			sp.begin(ShapeType.Filled);
+			sp.setColor(new Color(0, 0, 0, 1));
+			sp.rect(0f, 0f, 1920f, 1080f);
+			sp.end();
+			batch.begin();
+			credits.draw(batch);
+			credits.setY(credY);
+			credY += 5;
+			if (credits.getY() >= 1800) {
+				showCredits = false;
+			}
+			batch.end();
+		}
 	}
 
 	@Override
