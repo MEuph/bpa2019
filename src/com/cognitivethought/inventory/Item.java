@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.cognitivethought.resources.Resources;
 
 public class Item {
-	
+	/**
+	 * Handles assigning names and textures of each item
+	 * 
+	 * 
+	 */
 	public static final int SEED = 0;
 	public static final int APPLE = 1;
 	public static final int ORGANIC_MATTER = 2;

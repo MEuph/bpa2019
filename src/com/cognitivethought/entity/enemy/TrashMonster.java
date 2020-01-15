@@ -21,6 +21,15 @@ import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
+	/**
+	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
+	 *  - for the sake of the player's nose - contained in a trash can.
+	 * @param damageValue
+	 * 		How much damage this particular trash monster will do
+	 * @param texture
+	 * 		The appearance of this particular trash monster
+	 * @throws Exception 
+	 */
 	
 	final int attackCol = 9, attackRow = 1;
 	final int jumpCol = 15, jumpRow = 1;
@@ -60,15 +69,7 @@ public class TrashMonster extends Enemy {
 	float pauseTimer;					// How long to pause in between movements
 	float dx, dy;						// The velocity of the monster
 	
-	/**
-	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
-	 *  - for the sake of the player's nose - contained in a trash can.
-	 * @param damageValue
-	 * 		How much damage this particular trash monster will do
-	 * @param texture
-	 * 		The appearance of this particular trash monster
-	 * @throws Exception 
-	 */
+	
 	public TrashMonster(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
 		this.speed = 2f - (float)Math.random();	// Default speed to 1f

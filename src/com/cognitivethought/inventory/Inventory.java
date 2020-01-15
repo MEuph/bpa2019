@@ -13,6 +13,11 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.screens.LevelSelectScreen;
 
 public class Inventory {
+	/**
+	 * Handles saving the inventory data to an external file
+	 * 
+	 */
+	
 	
 	ArrayList<Item> items = new ArrayList<Item>();
 	

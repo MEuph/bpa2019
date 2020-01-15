@@ -9,7 +9,13 @@ import com.cognitivethought.resources.Resources;
 
 //Object class fot the level buttons
 public class LevelButton {
-
+	/**
+	 * Handles the level button visuals and textures
+	 * 
+	 * 
+	 */
+	
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // gets the screen size
 
 	public ImageButton level; // initializes an image button

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.cognitivethought.main.Main;
 
 public class Recipe {
-	
+	/**
+	 * determines whether or not something can be crafted or not
+	 * 
+	 */
 	int[] ids;
 	int[] amounts;
 	

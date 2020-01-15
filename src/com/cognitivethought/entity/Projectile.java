@@ -11,6 +11,11 @@ import com.cognitivethought.entity.enemy.Enemy;
 import com.cognitivethought.level.parts.Platform;
 
 public class Projectile extends Sprite {
+	/**
+	 * Defines how projectiles interact with the environment
+	 * 
+	 * Checks collision with enemies or tiles
+	 */
 	
 	public float life, size, dx, dy;
 	public int damageValue;
