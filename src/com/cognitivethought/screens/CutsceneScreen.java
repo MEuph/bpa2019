@@ -26,7 +26,8 @@ public class CutsceneScreen implements Screen {
 //			new Cutscene();
 
 	public Cutscene currentCutscene;
-	public Screen toAdvanceTo;
+	
+	public static Screen toAdvanceTo;
 
 	public CutsceneScreen() {
 		b = new SpriteBatch();

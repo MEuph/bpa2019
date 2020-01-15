@@ -48,8 +48,7 @@ public class GameScreen implements Screen {
 	
 	String fps = "FPS:"; // Shows the current FPS
 	
-	@Override
-	public void show() {
+	public void reset() {
 		if (LevelSelectScreen.levelNumber == 1) {
 			if (Sounds.intro_music_id == 0) {
 				Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
@@ -142,6 +141,11 @@ public class GameScreen implements Screen {
 		}).start();
 		
 		InventoryBar.currentlyHeldItem = new Item(Item.NONE, 0, 0);
+	}
+	
+	@Override
+	public void show() {
+		
 	}
 
 	public GameScreen() {
