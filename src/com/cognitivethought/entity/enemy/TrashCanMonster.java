@@ -79,6 +79,7 @@ public class TrashCanMonster extends Enemy {
 			@SuppressWarnings("static-access")
 			public void run() {
 				try {
+					canPlaySound = false;
 					die();
 					dx = 0;
 					System.out.println("DIED!");

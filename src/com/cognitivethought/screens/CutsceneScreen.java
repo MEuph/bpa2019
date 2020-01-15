@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.sound.Sounds;
 
 public class CutsceneScreen implements Screen {
 
@@ -77,6 +78,7 @@ public class CutsceneScreen implements Screen {
 
 	@Override
 	public void show() {
+		Sounds.intro_music.stop(Sounds.intro_music_id);
 		currentCutscene.reset();
 	}
 

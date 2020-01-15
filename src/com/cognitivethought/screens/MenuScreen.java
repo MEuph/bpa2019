@@ -145,7 +145,7 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void show() {
-		
+		Sounds.intro_music.resume(Sounds.intro_music_id);
 	}
 	
 }

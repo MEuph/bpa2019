@@ -90,6 +90,7 @@ public class TrashMonster extends Enemy {
 			public void run() {
 				try {
 					die();
+					canPlaySound = false;
 					dx = 0;
 					System.out.println("DIED!");
 					this.sleep(1950);
