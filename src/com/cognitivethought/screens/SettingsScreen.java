@@ -219,7 +219,7 @@ public class SettingsScreen implements Screen {
 		
 		font.draw(batch, "Music Volume: ", (1920 / 2) - 700, (1080 / 2) + 300);
 		font.draw(batch, "Sounds Volume: ", (1920 / 2) - 700, (1080 / 2) - 100);
-		if (changesApplied) font.draw(batch, "Changes Applied", (1920 / 2), 200);
+		if (changesApplied) font.draw(batch, "Changes Will be Applied on Next Restart", (1920 / 2), 200);
 		
 		bigFont.draw(batch, Integer.toString(VOL_MUSIC), (1920 / 2) + 150, (1080 / 2) + 300);
 		bigFont.draw(batch, Integer.toString(VOL_SOUNDS), (1920 / 2) + 150, (1080 / 2) - 100);
