@@ -172,7 +172,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float deltaTime) {
 		if (LevelSelectScreen.levelNumber == 1) {
-			Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+			Gdx.gl.glClearColor(11f/255f, 11f/255f, 11f/255f, 1f);
 		} else {
 			Gdx.gl.glClearColor(0f, 163f/255f, 240f/255f, 1f);
 		}
