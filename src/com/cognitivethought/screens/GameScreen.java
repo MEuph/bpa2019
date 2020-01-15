@@ -281,7 +281,7 @@ public class GameScreen implements Screen {
 		}
 		
 		if (paused) {
-			InventoryBar.pm.render(b, c, sp, InventoryBar.font, 500, 300);
+			InventoryBar.pm.render(b, c, sp, InventoryBar.font, 500, 400);
 		}
 	}
 	
