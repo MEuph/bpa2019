@@ -77,8 +77,9 @@ public class LevelSelectScreen implements Screen {
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level2.png")),
 										Main.main.gameScreen);
-								System.out.println(Main.main.gameScreen.level == null);
-								Main.main.setScreen(Main.main.gameScreen);
+								Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.SEQUOIA;
+								Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
+								Main.main.setScreen(Main.main.cutsceneScreen);
 								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();

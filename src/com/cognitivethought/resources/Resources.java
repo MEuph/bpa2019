@@ -78,7 +78,7 @@ public class Resources {
 	public static Texture BG;
 	public static Texture BGCITY;
 	public static Texture X;
-	
+	public static Texture FIRE_BG;
 	public static Texture TREE_BG;
 	public static Texture SMOKE_BG;
 
@@ -153,6 +153,7 @@ public class Resources {
 			
 			SMOKE_BG = new Texture(Strings.BG_DIR+ "smoke.png");
 			TREE_BG = new Texture(Strings.BG_DIR + "trees.png");
+			FIRE_BG = new Texture(Strings.BG_DIR + "firebg.png");
 		} catch (GdxRuntimeException e) {
 			e.printStackTrace();
 			DesktopLauncher.log();

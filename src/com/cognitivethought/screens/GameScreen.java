@@ -87,10 +87,12 @@ public class GameScreen implements Screen {
 				System.out.println(i + ", " + type);
 				switch (type) {
 				case 0:
-					if (!(LevelSelectScreen.levelNumber == 4)) {
+					if (!(LevelSelectScreen.levelNumber == 4) && !(LevelSelectScreen.levelNumber == 1)) {
 						background.add(new Sprite(Resources.TREE_BG));
-					} else {
+					} else if(LevelSelectScreen.levelNumber == 4) {
 						background.add(new Sprite(Resources.BGCITY));
+					} else {
+						background.add(new Sprite(Resources.FIRE_BG));
 					}
 					
 					background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
