@@ -431,7 +431,7 @@ public class Tyrone extends Enemy {
 //			System.out.println(facingRight);
 				currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 				this.setFlip(this.isFlipX(), false);
-				batch.draw(currentFrame, facingRight ? getX() + this.propWidth: getX(), getY(),facingRight ? -this.propWidth: this.propWidth, this.propHeight);
+				batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 30: getX(), getY(),facingRight ? -this.propWidth - 30: this.propWidth + 30, this.propHeight);
 //			setTexture(idle);
 			// super.draw(batch);
 			
@@ -451,8 +451,8 @@ public class Tyrone extends Enemy {
 //			System.out.println(facingRight);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
 			this.setFlip(this.isFlipX(), false);
-			batch.draw(currentFrame, facingRight ? getX() + this.propWidth + 45 : getX(), getY(),
-					facingRight ? -this.propWidth - 45 : this.propWidth + 45, this.propHeight);
+			batch.draw(currentFrame, facingRight ? getX() + this.propWidth: getX(), getY(),
+					facingRight ? -this.propWidth: this.propWidth, this.propHeight);
 //			setTexture(idle);
 			// super.draw(batch);
 			if (attackTime > 1f) {
