@@ -202,18 +202,18 @@ public class Level {
 				case(-3222991): //right movement explanation
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/right.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
-//				case(-5531560): //escape = pause explanation
-//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/escpause.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
-//					break;
-//				case(-14099560): //spike explanation
-//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spikeexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
-//					break;
-//				case(-10778712): //trampoline explanation
-//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
-//					break;
-//				case(-13323057): //more help explanation
-//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
-//					break;
+				case(-5531560): //escape = pause explanation
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/escpause.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+				case(-14099560): //spike explanation
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spikeexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+				case(-10778712): //trampoline explanation
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+				case(-13323057): //more help explanation
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/morehelp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
 
 				case(-6837608):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/finish.png"), j*scale, -i*scale, scale, scale, false, false, false, false, false, true));
