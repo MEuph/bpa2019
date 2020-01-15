@@ -21,6 +21,7 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
+import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
@@ -148,8 +149,9 @@ public class Axel extends Enemy {
 						Main.levelsPassed = 5;
 						
 					}
-					Main.main.completeScreen.toResetTo = l.screen;
-					Main.main.setScreen(Main.main.completeScreen);
+					Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.FINAL;
+					Main.main.cutsceneScreen.toAdvanceTo = Main.main.levelSelectScreen;
+					Main.main.setScreen(Main.main.cutsceneScreen);
 					
 				} catch (InterruptedException e1) {
 					DesktopLauncher.log();
