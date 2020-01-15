@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.cognitivethought.main.Main;
+import com.cognitivethought.screens.LevelSelectScreen;
+
 public class Inventory {
 	
 	ArrayList<Item> items = new ArrayList<Item>();
@@ -40,6 +43,8 @@ public class Inventory {
 	}
 	
 	public void save(String toSaveTo) throws IOException {
+		if (LevelSelectScreen.levelNumber > Main.levelsPassed) return;
+		
 		String data = "";
 		
 		for (Item i : items) {

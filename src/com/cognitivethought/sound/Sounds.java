@@ -10,6 +10,8 @@ public class Sounds {
 	
 	public static Sound city_music;
 	public static Sound intro_music;
+	public static Sound sequoia_council_music;
+	public static Sound level5_music;
 	
 	public static Sound player_melee;
 	public static Sound player_apple;
@@ -30,10 +32,15 @@ public class Sounds {
 	public static long city_music_id;
 	public static long player_melee_id;
 	public static long player_moving_id;
+	public static long sequoia_council_music_id;
+	public static long level5_music_id;
 	
 	public static void load() {
-		city_music = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/chainsaw.mp3")));
+		city_music = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/city_music.mp3")));
 		intro_music = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/intro_music.mp3")));
+		level5_music = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/level5_music.mp3")));
+		sequoia_council_music = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/sequoia_council.mp3")));
+		
 		intro_narration = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/intro_narration.mp3")));
 		sequoia_narration = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/sequoia_narration.mp3")));
 		

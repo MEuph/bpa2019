@@ -53,13 +53,29 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		if (shouldReset) {
-			if (LevelSelectScreen.levelNumber == 1) {
-				if (Sounds.intro_music_id == 0) {
-					Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
-					Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
-				}
+			switch (LevelSelectScreen.levelNumber) {
+			case 1:
+				Sounds.sequoia_council_music.stop();
+				Sounds.sequoia_council_music.play(SettingsScreen.VOL_MUSIC);
+				break;
+			case 2:
+				Sounds.intro_music.stop();
+				Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+				break;
+			case 3:
+				Sounds.intro_music.stop();
+				Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+				break;
+			case 4:
+				Sounds.city_music.stop();
+				Sounds.city_music.play(SettingsScreen.VOL_MUSIC);
+				break;
+			case 5:
+				Sounds.level5_music.stop();
+				Sounds.level5_music.play(SettingsScreen.VOL_MUSIC);
+				break;
 			}
-
+			
 			background.clear();
 
 			hb.health = 3;

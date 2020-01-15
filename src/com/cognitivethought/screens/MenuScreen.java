@@ -1,5 +1,9 @@
 package com.cognitivethought.screens;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -26,7 +30,8 @@ public class MenuScreen implements Screen {
 	
 	OrthographicCamera c;
 	
-	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 550);
+	ImageButton playButton = new ImageButton(new Texture("assets/UI/PlayButton.png"), 100, 700);
+	ImageButton newGameButton = new ImageButton(new Texture("assets/UI/NewGameButton.png"), 100, 550);
 	ImageButton optnButton = new ImageButton(new Texture("assets/UI/optionsbutton.png"), 100, 400);
 	ImageButton credsButton = new ImageButton(new Texture("assets/UI/CreditsButton.png"), 100, 250);
 	ImageButton quitButton = new ImageButton(new Texture("assets/UI/QuitButton.png"), 100, 100);
@@ -84,10 +89,36 @@ public class MenuScreen implements Screen {
 			}
 		});
 		
+		newGameButton.setClickListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				try {
+					String data = "5;0;0;5;0;1;5;0;2;5;0;3;5;0;4;5;0;5;";
+					
+					BufferedWriter writer;
+					writer = new BufferedWriter(new FileWriter("assets/Inventory/inv.txt"));
+					writer.write(data);
+					writer.close();
+					
+					data = "0";
+					writer = new BufferedWriter(new FileWriter("assets/Levels/leveldata.txt"));
+					writer.write(data);
+					writer.close();
+					
+					Main.main.levelSelectScreen = new LevelSelectScreen();
+					
+					Main.main.setScreen(Main.main.levelSelectScreen);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		credits.setSize(1920, 6752);
 		
 		optnButton.getSkin().setSize(playButton.getSkin().getWidth(), playButton.getSkin().getHeight());
 		credsButton.getSkin().setSize(playButton.getSkin().getWidth(), playButton.getSkin().getHeight());
+		newGameButton.getSkin().setSize(playButton.getSkin().getWidth(), playButton.getSkin().getHeight());
 	}
 	
 	@Override
@@ -120,6 +151,7 @@ public class MenuScreen implements Screen {
 		playButton.render(batch);
 		optnButton.render(batch);
 		quitButton.render(batch);
+		newGameButton.render(batch);
 		credsButton.render(batch);
 		
 		batch.end();
@@ -140,6 +172,7 @@ public class MenuScreen implements Screen {
 			optnButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 			quitButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 			credsButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
+			newGameButton.checkIfClicked(Gdx.input.getX(), Math.abs(1080-Gdx.input.getY()));
 		}
 		
 		// Enable transparency blending

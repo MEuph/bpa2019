@@ -18,6 +18,7 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 
 public class PauseMenu {
 
@@ -54,6 +55,10 @@ public class PauseMenu {
 			SettingsScreen.toResetTo = Main.main.gameScreen;
 			break;
 		case 2:
+			Sounds.intro_music.stop();
+			Sounds.city_music.stop();
+			Sounds.level5_music.stop();
+			Sounds.sequoia_council_music.stop();
 			Main.main.setScreen(Main.main.levelSelectScreen);
 			try {
 				Main.save();

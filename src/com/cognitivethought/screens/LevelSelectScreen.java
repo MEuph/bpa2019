@@ -78,9 +78,9 @@ public class LevelSelectScreen implements Screen {
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level2.png")),
 										Main.main.gameScreen);
+								Sounds.intro_music.stop();
 								Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.SEQUOIA;
 								Main.main.setScreen(Main.main.cutsceneScreen);
-								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();
@@ -97,13 +97,14 @@ public class LevelSelectScreen implements Screen {
 						if (Main.levelsPassed >= 2) {
 							try {
 								levelNumber = 3;
+								Main.main.gameScreen.shouldReset = true;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
+								Sounds.intro_music.stop();
 								Main.main.setScreen(Main.main.gameScreen);
 								Main.main.gameScreen.shouldReset = true;
-								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
 								e.printStackTrace();

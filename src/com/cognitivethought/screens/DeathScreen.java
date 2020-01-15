@@ -135,7 +135,10 @@ public class DeathScreen implements Screen {
 
 	@Override
 	public void show() {
-		Sounds.intro_music.pause(Sounds.intro_music_id);
+		Sounds.intro_music.stop();
+		Sounds.city_music.stop();
+		Sounds.level5_music.stop();
+		Sounds.sequoia_council_music.stop();
 	}
 	
 }
