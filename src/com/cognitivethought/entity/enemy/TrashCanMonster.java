@@ -101,6 +101,13 @@ public class TrashCanMonster extends Enemy {
 						om.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
 						l.getItemDrops().add(om);
 					}
+					int seedsToDrop = new Random().nextInt(3) + 2;
+					for (int i = 0; i < seedsToDrop; i++) {
+						ItemDrop s = new ItemDrop(Resources.SEED, (int)t.getX() + (int)(t.getWidth() / 2), (int)t.getY() + (int)(t.getHeight() / 2), 40, 40, Item.SEED);
+						s.dy = (float)(Math.random() * 2.0) + 1f;
+						s.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2) * (new Random().nextInt(2) + 1);
+						l.getItemDrops().add(s);
+					}
 					ItemDrop coin = new ItemDrop(Resources.COIN, (int)t.getX(), (int)t.getY(), 40, 40, Item.COIN);
 					coin.dy = 2f;
 					coin.dx = (float)(Math.random() * (Math.random() <= 0.5f ? -1 : 1) * 2);
