@@ -20,6 +20,7 @@ import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.screens.MenuScreen;
 import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.screens.TeamsScreen;
 import com.cognitivethought.sound.Sounds;
 
 public class Main extends Game implements ApplicationListener {
@@ -46,6 +47,8 @@ public class Main extends Game implements ApplicationListener {
 	
 	public SettingsScreen settingsScreen;
 	
+	public TeamsScreen teamsScreen;
+	
 	@SuppressWarnings("resource")
 	@Override
 	public void create() {
@@ -60,7 +63,9 @@ public class Main extends Game implements ApplicationListener {
 		completeScreen 		= new CompleteScreen(null);
 		cutsceneScreen		= new CutsceneScreen();
 		settingsScreen 		= new SettingsScreen();
-		setScreen(menuScreen);
+		teamsScreen 		= new TeamsScreen();
+		
+		setScreen(teamsScreen);
 		
 		try {
 			levelsPassed = Integer.parseInt(new Scanner(new File(Strings.LEVELS_DIR + "leveldata.txt")).nextLine());
