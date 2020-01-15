@@ -22,8 +22,9 @@ public class CutsceneScreen implements Screen {
 	public static final Cutscene SEQUOIA = new Cutscene(
 			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/sequoia/scene_", 6));
-//	public static final Cutscene LEVEL_4 = 
-//			new Cutscene();
+	public static final Cutscene ROAD = new Cutscene(
+			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
+			breakdown("Cutscenes/road/scene_", 7));
 
 	public Cutscene currentCutscene;
 	public Screen toAdvanceTo;

@@ -22,6 +22,7 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
+import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.screens.SettingsScreen;
 import com.cognitivethought.ui.HealthBar;
@@ -266,9 +267,7 @@ public class TreePlayer extends Sprite {
 							this.flashTimer = 100f; // Set the time to be flashing
 						} else {
 							hb.health--; // Then decrease health after bark reaches 0
-							if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
-								Main.levelsPassed = 1;
-							}
+							
 							this.flashing = true; // Set flashing to true because the player is being harmed
 							this.flashTimer = 100f; // Set the time to be flashing
 						}
@@ -319,11 +318,12 @@ public class TreePlayer extends Sprite {
 
 					if (LevelSelectScreen.levelNumber == 3 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 3;
-					
+						
 					}
 
 					if (LevelSelectScreen.levelNumber == 4 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 4;
+						
 						
 					}
 
