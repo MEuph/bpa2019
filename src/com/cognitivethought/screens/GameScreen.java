@@ -55,29 +55,29 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void show() {
+		switch (LevelSelectScreen.levelNumber) {
+		case 1:
+			Sounds.sequoia_council_music.stop();
+			Sounds.sequoia_council_music.setLooping(Sounds.sequoia_council_music.play(SettingsScreen.VOL_MUSIC), true);
+			break;
+		case 2:
+			Sounds.intro_music.stop();
+			Sounds.intro_music.setLooping(Sounds.intro_music.play(SettingsScreen.VOL_MUSIC), true);
+			break;
+		case 3:
+			Sounds.intro_music.stop();
+			Sounds.intro_music.setLooping(Sounds.intro_music.play(SettingsScreen.VOL_MUSIC), true);
+			break;
+		case 4:
+			Sounds.city_music.stop();
+			Sounds.intro_music.setLooping(Sounds.city_music.play(SettingsScreen.VOL_MUSIC), true);
+			break;
+		case 5:
+			Sounds.level5_music.stop();
+			Sounds.level5_music.setLooping(Sounds.level5_music.play(SettingsScreen.VOL_MUSIC), true);
+			break;
+		}
 		if (shouldReset) {
-			switch (LevelSelectScreen.levelNumber) {
-			case 1:
-				Sounds.sequoia_council_music.stop();
-				Sounds.sequoia_council_music.setLooping(Sounds.sequoia_council_music.play(SettingsScreen.VOL_MUSIC), true);
-				break;
-			case 2:
-				Sounds.intro_music.stop();
-				Sounds.intro_music.setLooping(Sounds.intro_music.play(SettingsScreen.VOL_MUSIC), true);
-				break;
-			case 3:
-				Sounds.intro_music.stop();
-				Sounds.intro_music.setLooping(Sounds.intro_music.play(SettingsScreen.VOL_MUSIC), true);
-				break;
-			case 4:
-				Sounds.city_music.stop();
-				Sounds.intro_music.setLooping(Sounds.city_music.play(SettingsScreen.VOL_MUSIC), true);
-				break;
-			case 5:
-				Sounds.level5_music.stop();
-				Sounds.level5_music.setLooping(Sounds.level5_music.play(SettingsScreen.VOL_MUSIC), true);
-				break;
-			}
 			
 			background.clear();
 

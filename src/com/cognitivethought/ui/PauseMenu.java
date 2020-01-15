@@ -62,6 +62,7 @@ public class PauseMenu {
 			Sounds.city_music.stop();
 			Sounds.level5_music.stop();
 			Sounds.sequoia_council_music.stop();
+			Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
 			Main.main.setScreen(Main.main.levelSelectScreen);
 			try {
 				Main.save();
