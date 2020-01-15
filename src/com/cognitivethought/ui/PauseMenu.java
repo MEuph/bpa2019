@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.screens.GameScreen;
+import com.cognitivethought.screens.SettingsScreen;
 
 public class PauseMenu {
 
@@ -49,7 +50,8 @@ public class PauseMenu {
 			GameScreen.togglePause();
 			break;
 		case 1:
-			// Settings
+			Main.main.setScreen(Main.main.settingsScreen);
+			SettingsScreen.toResetTo = Main.main.gameScreen;
 			break;
 		case 2:
 			Main.main.setScreen(Main.main.levelSelectScreen);

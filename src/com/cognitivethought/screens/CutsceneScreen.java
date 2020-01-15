@@ -27,7 +27,8 @@ public class CutsceneScreen implements Screen {
 			breakdown("Cutscenes/road/scene_", 7));
 
 	public Cutscene currentCutscene;
-	public Screen toAdvanceTo;
+	
+	public static Screen toAdvanceTo;
 
 	public CutsceneScreen() {
 		b = new SpriteBatch();

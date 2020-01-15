@@ -48,6 +48,8 @@ public class SettingsScreen implements Screen {
 	
 	OrthographicCamera c;
 	
+	public static Screen toResetTo;
+	
 	public static int VOL_MUSIC;
 	public static int VOL_SOUNDS;
 	
@@ -137,7 +139,7 @@ public class SettingsScreen implements Screen {
 		back.setClickListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Main.main.setScreen(Main.main.menuScreen);
+				Main.main.setScreen(toResetTo);
 			}
 		});
 	}

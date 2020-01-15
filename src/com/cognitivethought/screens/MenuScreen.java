@@ -71,6 +71,7 @@ public class MenuScreen implements Screen {
 		optnButton.setClickListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				SettingsScreen.toResetTo = Main.main.menuScreen;
 				Main.main.setScreen(Main.main.settingsScreen);
 			}
 		});
