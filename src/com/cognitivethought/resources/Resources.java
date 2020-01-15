@@ -11,6 +11,7 @@ import com.cognitivethought.main.desktop.DesktopLauncher;
  */
 public class Resources {
 
+	public static Texture BARK_ITEM;
 	public static Texture APPLE;
 	public static Texture ORGANIC_MATTER;
 	public static Texture SEED;
@@ -94,6 +95,7 @@ public class Resources {
 			COIN = new Texture(Strings.ITEMS_DIR + "coin.png");
 			NONE = new Texture(Strings.ITEMS_DIR + "none.png");
 			FERTILIZER = new Texture(Strings.ITEMS_DIR + "fertilizer.png");
+			BARK_ITEM = new Texture(Strings.ITEMS_DIR + "bark.png");
 	
 			TRASH_ATTACK = new Texture(Strings.TRASH_MONSTER_DIR + "attack.png");
 			TRASH_DEATH = new Texture(Strings.TRASH_MONSTER_DIR + "death.png");

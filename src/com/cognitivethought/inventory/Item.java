@@ -39,7 +39,7 @@ public class Item {
 		textureKey.put(COIN, Resources.COIN);
 		textureKey.put(NONE, Resources.NONE);
 		textureKey.put(FERTILIZER, Resources.FERTILIZER);
-		textureKey.put(BARK, Resources.FERTILIZER);
+		textureKey.put(BARK, Resources.BARK_ITEM);
 	}
 	
 	private int id;
