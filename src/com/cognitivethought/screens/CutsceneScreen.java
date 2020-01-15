@@ -23,7 +23,7 @@ public class CutsceneScreen implements Screen {
 			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/sequoia/scene_", 6));
 	public static final Cutscene ROAD = new Cutscene(
-			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
+			new int[] { 1500, 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/road/scene_", 7));
 
 	public Cutscene currentCutscene;
