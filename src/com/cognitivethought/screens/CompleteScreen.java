@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
+import com.cognitivethought.sound.Sounds;
 
 public class CompleteScreen implements Screen {
 
@@ -87,8 +88,7 @@ Texture background; //the background texture
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		Sounds.intro_music.pause(Sounds.intro_music_id);
 	}
 	
 }

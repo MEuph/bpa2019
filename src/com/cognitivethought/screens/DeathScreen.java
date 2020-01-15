@@ -135,8 +135,7 @@ public class DeathScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		Sounds.intro_music.pause(Sounds.intro_music_id);
 	}
 	
 }

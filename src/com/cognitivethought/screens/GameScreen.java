@@ -165,11 +165,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
-		Sounds.intro_music.stop(Sounds.intro_music_id);
-
-		Sounds.chainsaw.stop();
-		Sounds.trash_attack.stop();
-		Sounds.trashcan_attack.stop();
+		Sounds.chainsaw.pause();
+		Sounds.trash_attack.pause();
+		Sounds.trashcan_attack.pause();
 
 		dispose();
 	}
@@ -268,7 +266,7 @@ public class GameScreen implements Screen {
 		if (fade > 0f || InventoryBar.grid.shown || paused) {
 			sp.setProjectionMatrix(c.combined);
 			sp.begin(ShapeType.Filled);
-			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown || paused ? 0.9f : fade));
+			sp.setColor(new Color(0, 0, 0, InventoryBar.grid.shown || paused ? 0.95f : fade));
 			sp.rect(c.position.x - (c.viewportWidth / 2), c.position.y - (c.viewportHeight / 2), 1920, 1080);
 			sp.end();
 		}
