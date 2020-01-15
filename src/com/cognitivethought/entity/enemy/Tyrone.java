@@ -22,7 +22,9 @@ import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
+import com.cognitivethought.screens.SettingsScreen;
 import com.cognitivethought.ui.HealthBar;
+import com.cognitivethought.sound.Sounds;
 
 public class Tyrone extends Enemy {
 
@@ -78,7 +80,11 @@ public class Tyrone extends Enemy {
 
 	float pauseTimer; // How long to pause in between movements
 	float dx, dy; // The velocity of the monster
-
+	
+	long chainsaw_id;
+	long smash_id;
+	long run_id;
+	
 	/**
 	 * The first monster the player will encounter. A heaping mass of garbage that
 	 * is thankfully - for the sake of the player's nose - contained in a trash can.
@@ -95,8 +101,22 @@ public class Tyrone extends Enemy {
 
 		Tyrone t = this;
 
+		canPlaySound = true;
+		
+		chainsaw_id = Sounds.chainsaw.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.chainsaw.setLooping(chainsaw_id, true);
+		Sounds.chainsaw.pause(chainsaw_id);
+		
+		smash_id = Sounds.boss_smash.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.boss_smash.setLooping(smash_id, true);
+		Sounds.boss_smash.pause(smash_id);
+		
+		run_id = Sounds.boss_run.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.boss_run.setLooping(run_id, true);
+		Sounds.boss_run.pause(run_id);
+		
 		hb = new HealthBar(this, 10);
-
+		
 		deathThread = new Thread() { //defines the death thread and what to do
 			@SuppressWarnings("static-access")
 			public void run() {
@@ -287,7 +307,13 @@ public class Tyrone extends Enemy {
 
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
-
+		
+		if (!canPlaySound) {
+			Sounds.chainsaw.pause(chainsaw_id);
+			Sounds.boss_run.pause();
+			Sounds.boss_smash.pause();
+		}
+		
 		if (hurtTimer > 0f) {
 			hurtTimer--;
 		}
@@ -329,6 +355,7 @@ public class Tyrone extends Enemy {
 			}
 		} else {
 			if (majorTimer == 0) { //set major attack speed
+				Sounds.boss_run.resume(run_id);
 				dx *= 4;
 
 			}
@@ -358,9 +385,18 @@ public class Tyrone extends Enemy {
 				getHeight() + (attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		boolean canMajorAttack = this.getBoundingRectangle()
 				.overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
-
+		
+		if (!canAttack) {
+			Sounds.chainsaw.pause(chainsaw_id);
+		}
+		
+		if (!canMajorAttack) {
+			Sounds.boss_smash.pause(smash_id);
+		}
+		
 		if (majorAttacking && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			//what to do when major attacking
+			Sounds.boss_smash.resume(smash_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) { //if the player isnt already hurt then attack
 //				this.setHealth(0);
 				if (hb.bark >= 0) { // damage bark
@@ -378,6 +414,7 @@ public class Tyrone extends Enemy {
 		// attack if the monster can attack
 		if (!majorAttacking && canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f
 				&& l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
+			Sounds.chainsaw.resume(chainsaw_id);
 			attacking = true;
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
@@ -399,6 +436,7 @@ public class Tyrone extends Enemy {
 	@Override
 	public void die() { //death code
 		deathThreadPaused = false;
+		canPlaySound = false;
 		attacking = false;
 		deathTime = 0f;
 		dx = 0;

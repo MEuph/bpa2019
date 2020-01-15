@@ -24,8 +24,9 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.sound.Sounds;
 
-//Main title screen
-
+/**
+ * The Main title screen
+ */
 public class MenuScreen implements Screen {
 	
 	OrthographicCamera c;

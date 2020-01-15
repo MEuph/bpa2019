@@ -6,13 +6,18 @@ import java.awt.Toolkit;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
 
-
+/**
+ * 
+ * @author Callum Longenecker
+ * 
+ * The screen in which the Team Name and CTM logo is shown
+ *	
+ */
 public class TeamsScreen implements Screen{
 	
 	int timer = 200;

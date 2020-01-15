@@ -1,5 +1,8 @@
 package com.cognitivethought.resources;
 
+/**
+ * Allows for easy changing of directories
+ */
 public class Strings {
 
 	public static final String FONTS_DIR = "assets/Fonts/";

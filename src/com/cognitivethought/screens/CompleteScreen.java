@@ -13,6 +13,9 @@ import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.sound.Sounds;
 
+/**
+ * The screen a player is redirected to when the complete a level
+ */
 public class CompleteScreen implements Screen {
 
 Texture background; //the background texture

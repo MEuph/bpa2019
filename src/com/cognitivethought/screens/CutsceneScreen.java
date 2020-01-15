@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.sound.Sounds;
 
+/**
+ * The screen where all cutscenes are shown
+ */
 public class CutsceneScreen implements Screen {
 
 	public SpriteBatch b;

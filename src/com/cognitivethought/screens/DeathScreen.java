@@ -19,8 +19,9 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.sound.Sounds;
 
-//Main title screen
-
+/**
+ * Screen that player is redirected to when they die
+ */
 public class DeathScreen implements Screen {
 	
 	Texture background; //the background texture

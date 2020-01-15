@@ -19,7 +19,9 @@ import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.sound.Sounds;
 
-//screen to select the level
+/**
+ * The screen from which levels are navigated to
+ */
 public class LevelSelectScreen implements Screen {
 	OrthographicCamera c;
 

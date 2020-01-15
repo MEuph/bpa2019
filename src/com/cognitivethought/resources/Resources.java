@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 
+/**
+ * Makes it so that many resources only have to be loaded once
+ */
 public class Resources {
 
 	public static Texture APPLE;

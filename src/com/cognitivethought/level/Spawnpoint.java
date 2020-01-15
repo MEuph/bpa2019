@@ -4,6 +4,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.cognitivethought.entity.TreePlayer;
 
+/**
+ * The point where the player spawns
+ */
 public class Spawnpoint {
 
 	float x, y;
