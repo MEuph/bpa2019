@@ -37,6 +37,8 @@ public class MenuScreen implements Screen {
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to window size
 		
+		Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+		
 		Texture t = new Texture("assets/cursor.png");
 		TextureData td = t.getTextureData();
 		if (!td.isPrepared()) td.prepare();
@@ -69,7 +71,6 @@ public class MenuScreen implements Screen {
 	
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -80,7 +81,6 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -140,13 +140,12 @@ public class MenuScreen implements Screen {
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void show() {
-		Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+		
 	}
 	
 }
