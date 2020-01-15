@@ -25,6 +25,9 @@ public class CutsceneScreen implements Screen {
 	public static final Cutscene ROAD = new Cutscene(
 			new int[] { 1500, 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/road/scene_", 7));
+	public static final Cutscene TYRONE = new Cutscene(
+			new int[] { 3956, 12984, 5054, 500, 500, 500, 500, 500, 1500},
+			breakdown("Cutscenes/tyrone/scene_", 9));
 
 	public Cutscene currentCutscene;
 
@@ -35,6 +38,7 @@ public class CutsceneScreen implements Screen {
 		FINAL.toAdvanceTo = Main.main.levelSelectScreen;
 		SEQUOIA.toAdvanceTo = Main.main.gameScreen;
 		ROAD.toAdvanceTo = Main.main.gameScreen;
+		TYRONE.toAdvanceTo = Main.main.levelSelectScreen;
 	}
 
 	@Override
@@ -89,6 +93,7 @@ public class CutsceneScreen implements Screen {
 		if (currentCutscene == LEVEL_1) Sounds.intro_narration.play(1.0f);
 		if (currentCutscene == SEQUOIA) Sounds.sequoia_narration.play(1.0f);
 		if (currentCutscene == FINAL) Sounds.axel_exposition.play(1.0f);
+		if (currentCutscene == TYRONE) Sounds.tyrone_exposition.play(1.0f);
 		currentCutscene.reset();
 	}
 
