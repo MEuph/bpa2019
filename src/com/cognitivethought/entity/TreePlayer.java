@@ -29,22 +29,22 @@ import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.sound.Sounds;
 
 public class TreePlayer extends Sprite {
-	
+
 	public static boolean canShoot;
-	
+
 	public final float timeToAttack = 0.5f;
 
 	final float timeToDie = 1f;
-	
+
 	public static float xPos;
 
 	public static boolean paused;
-	
+
 	final int shootCol = 4, shootRow = 3;
 	final int deathCol = 2, deathRow = 11;
 	final int idleCol = 4, idleRow = 4;
 	final int attackCol = 4, attackRow = 4;
-	
+
 	// The velocity of the player
 	public float dx, dy;
 
@@ -85,7 +85,7 @@ public class TreePlayer extends Sprite {
 
 	Animation<TextureRegion> idleAnimation;
 	Texture idleSheet;
-	
+
 	public Thread deathThread;
 
 	/**
@@ -93,21 +93,21 @@ public class TreePlayer extends Sprite {
 	 * 
 	 * @param t The image of the player
 	 */
-	
+
 	public TreePlayer(Texture t, Screen s) {
 		super(t);
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
 		createAnimations();
-		
+
 		attackTime = 0.02f;
 	}
-	
+
 	void createAnimations() {
 		shootSheet = Resources.PLAYER_THROW;
 		deathSheet = Resources.PLAYER_DEATH;
 		idleSheet = Resources.PLAYER_IDLE;
 		attackSheet = Resources.PLAYER_ATTACK;
-		
+
 		TextureRegion[][] tmp = TextureRegion.split(shootSheet, shootSheet.getWidth() / shootCol,
 				shootSheet.getHeight() / shootRow);
 
@@ -136,7 +136,7 @@ public class TreePlayer extends Sprite {
 				idleFrames[x++] = tmp[i][j];
 			}
 		}
-		
+
 		tmp = TextureRegion.split(attackSheet, attackSheet.getWidth() / attackCol, attackSheet.getHeight() / attackRow);
 		TextureRegion[] attackFrames = new TextureRegion[attackCol * attackRow];
 		x = 0;
@@ -149,7 +149,7 @@ public class TreePlayer extends Sprite {
 		shootAnimation = new Animation<TextureRegion>(timeToAttack / (float) (shootRow * shootCol), shootFrames);
 		deathAnimation = new Animation<TextureRegion>(2f / (float) (deathRow * deathCol), deathFrames);
 		idleAnimation = new Animation<TextureRegion>(3f / (float) (idleRow * idleCol), idleFrames);
-		attackAnimation = new Animation<TextureRegion>(timeToAttack / (float)(attackCol * attackRow), attackFrames);
+		attackAnimation = new Animation<TextureRegion>(timeToAttack / (float) (attackCol * attackRow), attackFrames);
 	}
 
 	/**
@@ -164,9 +164,10 @@ public class TreePlayer extends Sprite {
 
 			float vxChange = .5f; // How much to increment horizontal movement during smooth-movement calculations
 			float maxSpeed = 5f; // The maximum absolute value that the horizontal velocity can ever be
-			
+
 			if (isAttacking) {
-				Rectangle bounds = new Rectangle(facingRight ? getX() : getX() - 80, getY(), facingRight ? getWidth() + 80 : getWidth(), getHeight());
+				Rectangle bounds = new Rectangle(facingRight ? getX() : getX() - 80, getY(),
+						facingRight ? getWidth() + 80 : getWidth(), getHeight());
 				for (EnemySpawner es : l.getEnemySpawners()) {
 					for (Enemy e : es.enemies) {
 						if (e.getBoundingRectangle().overlaps(bounds)) {
@@ -175,16 +176,18 @@ public class TreePlayer extends Sprite {
 					}
 				}
 			}
-			
+
 			if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)
 					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)
-							&& (dy == 0 && !(shootTime > 0f && shootTime <= timeToAttack) && (attackTime > 0f && (attackTime <= timeToAttack)))) {
+							&& (dy == 0 && !(shootTime > 0f && shootTime <= timeToAttack)
+									&& (attackTime > 0f && (attackTime <= timeToAttack)))) {
 				left = true;
 				right = false;
 				idleTime = 0f;
 			} else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)
 					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)
-							&& (dy == 0 && !(shootTime > 0f && shootTime <= timeToAttack)) && !(attackTime > 0f && (attackTime <= timeToAttack))) {
+							&& (dy == 0 && !(shootTime > 0f && shootTime <= timeToAttack))
+							&& !(attackTime > 0f && (attackTime <= timeToAttack))) {
 				right = true;
 				left = false;
 				idleTime = 0f;
@@ -199,8 +202,8 @@ public class TreePlayer extends Sprite {
 			}
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
-					|| Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8)
-							&& (shootTime > 0f && shootTime <= timeToAttack) && (attackTime > 0f && attackTime <= timeToAttack)) {
+					|| Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8) && (shootTime > 0f && shootTime <= timeToAttack)
+							&& (attackTime > 0f && attackTime <= timeToAttack)) {
 				jump();
 				jumps++;
 				idleTime = 0f;
@@ -267,13 +270,13 @@ public class TreePlayer extends Sprite {
 							this.flashTimer = 100f; // Set the time to be flashing
 						} else {
 							hb.health--; // Then decrease health after bark reaches 0
-							
+
 							this.flashing = true; // Set flashing to true because the player is being harmed
 							this.flashTimer = 100f; // Set the time to be flashing
 						}
 					}
 				}
-				
+
 				Rectangle bottomOfPlatform = new Rectangle(plat.getX(), plat.getY() - 2, plat.getWidth(), 2f);
 				if (bottomOfPlatform.overlaps(getBoundingRectangle()) && dy > 0
 						&& getY() + getHeight() + dy >= bottomOfPlatform.getY() && plat.collideBottom) {
@@ -298,38 +301,37 @@ public class TreePlayer extends Sprite {
 					setX(plat.getX() + plat.getWidth()); // Reset x position to the right of the platform
 				}
 				if (plat.endsLevel && getBoundingRectangle().overlaps(plat.getBoundingRectangle())) {
-					
-					try { //saves inventory
+
+					try { // saves inventory
 						InventoryBar.i.save(Strings.INV_DIR + "inv.txt");
 						Main.save();
 					} catch (IOException e) {
 						DesktopLauncher.log();
 						e.printStackTrace();
 					}
-					
+
 					if (LevelSelectScreen.levelNumber == 1 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 1;
 					}
 
 					if (LevelSelectScreen.levelNumber == 2 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 2;
-						
+
 					}
 
 					if (LevelSelectScreen.levelNumber == 3 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 3;
-						
+
 					}
 
 					if (LevelSelectScreen.levelNumber == 4 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 4;
-						
-						
+
 					}
 
 					if (LevelSelectScreen.levelNumber == 5 && Main.levelsPassed < LevelSelectScreen.levelNumber) {
 						Main.levelsPassed = 5;
-						
+
 					}
 					Main.main.completeScreen.toResetTo = l.screen;
 					Main.main.setScreen(Main.main.completeScreen);
@@ -352,13 +354,13 @@ public class TreePlayer extends Sprite {
 			} else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 				shoot(l, b, false);
 			}
-			
+
 			if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
 				hit(l, true);
 			} else if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 				hit(l, false);
 			}
-			
+
 			for (int i = 0; i < projectiles.size(); i++) {
 				if (projectiles.get(i).life <= 0) {
 					projectiles.remove(i);
@@ -409,7 +411,7 @@ public class TreePlayer extends Sprite {
 		shootTime = 0f;
 		deathTime = 0f;
 	}
-	
+
 	/**
 	 * Makes the player jump
 	 */
@@ -423,17 +425,19 @@ public class TreePlayer extends Sprite {
 
 	Projectile p;
 
-
 	void shoot(Level l, InventoryBar ib, boolean mouseTriggered) {
-		if (!canShoot) return;
-		
-		if (TreePlayer.paused) return;
-		
+		if (!canShoot)
+			return;
+
+		if (TreePlayer.paused)
+			return;
+
 		if (shootTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
 
-		if (mouseTriggered) facingRight = Gdx.input.getX() >= 1920 / 2;
+		if (mouseTriggered)
+			facingRight = Gdx.input.getX() >= 1920 / 2;
 
 		if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.APPLE)
 				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
@@ -466,9 +470,21 @@ public class TreePlayer extends Sprite {
 
 				p.setX(l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0));
 				p.setY(l.getSpawnpoint().getPlayer().getY() + getHeight() - 20);
-				float vx = mouseTriggered ? (Gdx.input.getX() <= (1920 / 2) ? -10 : 10)
-						: (facingRight ? 10 : -10); // (((Gdx.input.getX() - 960f) * 2f) / div) :
-																		// ((Gdx.input.getX() - 960f) * 2f / div);
+				float vx = mouseTriggered ? (Gdx.input.getX() <= (1920 / 2) ? -10 : 10) : (facingRight ? 10 : -10); // (((Gdx.input.getX()
+																													// -
+																													// 960f)
+																													// *
+																													// 2f)
+																													// /
+																													// div)
+																													// :
+																													// ((Gdx.input.getX()
+																													// -
+																													// 960f)
+																													// *
+																													// 2f
+																													// /
+																													// div);
 				float vy = 0;
 				p.dx = vx;
 				p.dy = vy;
@@ -479,29 +495,26 @@ public class TreePlayer extends Sprite {
 			}
 		}.start();
 	}
-	
+
 	public void hit(Level l, boolean mouseTriggered) {
-		if (!canShoot) return;
-		
+		if (!canShoot)
+			return;
+
 		if (attackTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
 					// attack time
 
-		if (mouseTriggered) facingRight = Gdx.input.getX() >= 1920 / 2;
-		
+		if (mouseTriggered)
+			facingRight = Gdx.input.getX() >= 1920 / 2;
+
 		Sounds.player_melee.play(SettingsScreen.VOL_SOUNDS);
-		
+
 		attackTime = 0.02f;
-		
-		
+
 	}
-	
+
 	TextureRegion currentFrame;
 
-	
-
-
-	
 	/**
 	 * Draws the player
 	 * 
@@ -524,7 +537,8 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			if (!paused) shootTime += Gdx.graphics.getDeltaTime();
+			if (!paused)
+				shootTime += Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
 			currentFrame = shootAnimation.getKeyFrame(shootTime, true);
 			currentFrame.flip(currentFrame.isFlipX() != this.isFlipX() ? this.isFlipX() : !this.isFlipX(), false);
@@ -541,7 +555,8 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			if (!paused) attackTime += Gdx.graphics.getDeltaTime();
+			if (!paused)
+				attackTime += Gdx.graphics.getDeltaTime();
 			isAttacking = true;
 			idleTime = 0f;
 			currentFrame = attackAnimation.getKeyFrame(attackTime, true);
@@ -556,7 +571,8 @@ public class TreePlayer extends Sprite {
 				attackTime = 0f;
 			}
 		} else if (deathThreadPaused) {
-			if (!paused) idleTime += Gdx.graphics.getDeltaTime();
+			if (!paused)
+				idleTime += Gdx.graphics.getDeltaTime();
 			isAttacking = false;
 			currentFrame = idleAnimation.getKeyFrame(idleTime < 3f ? idleTime : 0f, true);
 			// System.out.println(facingRight);
@@ -575,7 +591,8 @@ public class TreePlayer extends Sprite {
 			left = false;
 			right = false;
 			jumps = 3;
-			if (!paused) deathTime += Gdx.graphics.getDeltaTime();
+			if (!paused)
+				deathTime += Gdx.graphics.getDeltaTime();
 			idleTime = 0f;
 			shootTime = 0f;
 //			setSize(78*2, 70*1.75f);
