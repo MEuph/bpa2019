@@ -26,6 +26,8 @@ public class Sounds {
 	public static Sound chainsaw;
 	public static Sound intro_narration;
 	public static Sound sequoia_narration;
+	public static Sound axel_exposition;
+	public static Sound tyrone_exposition;
 	
 	public static long chainsaw_id;
 	public static long intro_music_id;
@@ -43,6 +45,8 @@ public class Sounds {
 		
 		intro_narration = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/intro_narration.mp3")));
 		sequoia_narration = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/sequoia_narration.mp3")));
+		axel_exposition = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/axel_exposition.mp3")));
+		tyrone_exposition = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/tyrone_exposition.mp3")));
 		
 		player_melee = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/player_melee.mp3")));
 		player_apple = Gdx.audio.newSound(new FileHandle(new File("assets/Sounds/player_apple.mp3")));

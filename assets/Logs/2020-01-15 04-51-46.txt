@@ -1,0 +1,11 @@
+Exception in thread "LWJGL Application" java.lang.NumberFormatException: For input string: "<<<<<<< HEAD
+5"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.cognitivethought.inventory.Inventory.read(Inventory.java:35)
+	at com.cognitivethought.inventory.InventoryBar.<init>(InventoryBar.java:68)
+	at com.cognitivethought.screens.GameScreen.<init>(GameScreen.java:40)
+	at com.cognitivethought.main.Main.create(Main.java:59)
+	at com.badlogic.gdx.backends.lwjgl.LwjglApplication.mainLoop(LwjglApplication.java:151)
+	at com.badlogic.gdx.backends.lwjgl.LwjglApplication$1.run(LwjglApplication.java:128)

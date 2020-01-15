@@ -20,6 +20,7 @@ import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
+import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
@@ -148,8 +149,8 @@ public class Tyrone extends Enemy {
 						Main.levelsPassed = 5;
 						
 					}
-					Main.main.completeScreen.toResetTo = l.screen;
-					Main.main.setScreen(Main.main.completeScreen);
+					Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.TYRONE;
+					Main.main.setScreen(Main.main.cutsceneScreen);
 					
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
