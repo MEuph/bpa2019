@@ -13,13 +13,12 @@ public class CutsceneScreen implements Screen {
 
 	public SpriteBatch b;
 
-	public static final Cutscene LEVEL_1 = new Cutscene(new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000,
-			1000, 1500, 2500, 1500, 1500, 500, 500, 500, 500, 1000, 1000, 1000, 1000 },
+	public static final Cutscene LEVEL_1 = new Cutscene(new int[] { 1416, 1245, 1245, 1245, 1245, 1, 1, 20951, 2939, 2939,
+			1400, 1400, 2248, 2990, 2815, 2815, 1434, 1434, 1902, 1902, 1902, 2500},
 			breakdown("Cutscenes/Level1/scene_", 22));
-	public static final Cutscene FINAL = 
-			new Cutscene(new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000,
-					1000, 1500, 2500},
-					breakdown("Cutscenes/final/final_", 12));
+	public static final Cutscene FINAL = new Cutscene(
+			new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000, 1000, 1500, 2500 },
+			breakdown("Cutscenes/final/final_", 12));
 //	public static final Cutscene LEVEL_3 = 
 //			new Cutscene();
 //	public static final Cutscene LEVEL_4 = 
@@ -36,7 +35,7 @@ public class CutsceneScreen implements Screen {
 	public void render(float arg0) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		if (currentCutscene.isCompleted()) {
 			Main.main.setScreen(toAdvanceTo);
 		}
@@ -56,8 +55,7 @@ public class CutsceneScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		Sounds.intro_narration.stop();
 	}
 
 	@Override
@@ -81,6 +79,7 @@ public class CutsceneScreen implements Screen {
 	@Override
 	public void show() {
 		Sounds.intro_music.stop(Sounds.intro_music_id);
+		if (currentCutscene == LEVEL_1) Sounds.intro_narration.play(1.0f);
 		currentCutscene.reset();
 	}
 

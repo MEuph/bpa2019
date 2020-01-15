@@ -49,7 +49,7 @@ public class Cutscene {
 			currentFrame++;
 		}
 		
-		timer += 10;
+		timer += 17;
 		
 		if (currentFrame >= images.length) {
 			completed = true;
