@@ -43,7 +43,7 @@ public class Inventory {
 	}
 	
 	public void save(String toSaveTo) throws IOException {
-		if (LevelSelectScreen.levelNumber > Main.levelsPassed) return;
+		if (LevelSelectScreen.levelNumber - 1 > Main.levelsPassed) return;
 		
 		String data = "";
 		
