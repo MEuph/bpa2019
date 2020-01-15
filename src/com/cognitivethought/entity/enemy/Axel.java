@@ -426,6 +426,7 @@ public class Axel extends Enemy {
 	@Override
 	public void die() { //death code
 		deathThreadPaused = false;
+		Sounds.level5_music.pause();
 		canPlaySound = false;
 		attacking = false;
 		deathTime = 0f;

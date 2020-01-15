@@ -437,6 +437,7 @@ public class Tyrone extends Enemy {
 	public void die() { //death code
 		deathThreadPaused = false;
 		canPlaySound = false;
+		Sounds.city_music.pause();
 		attacking = false;
 		deathTime = 0f;
 		dx = 0;

@@ -158,7 +158,10 @@ public class SettingsScreen implements Screen {
 			writer.close();
 			changesApplied = true;
 			System.out.println("test");
-			Sounds.intro_music.setVolume(Sounds.intro_music_id, (float)VOL_MUSIC / 10f);
+			Sounds.intro_music.setVolume(Sounds.intro_music_id, SettingsScreen.VOL_MUSIC / 10f);
+			Sounds.city_music.setVolume(Sounds.city_music_id, SettingsScreen.VOL_MUSIC / 10f);
+			Sounds.level5_music.setVolume(Sounds.level5_music_id, SettingsScreen.VOL_MUSIC / 10f);
+			Sounds.sequoia_council_music.setVolume(Sounds.sequoia_council_music_id, SettingsScreen.VOL_MUSIC / 10f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
