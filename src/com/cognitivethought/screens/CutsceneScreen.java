@@ -17,7 +17,7 @@ public class CutsceneScreen implements Screen {
 			1400, 1400, 2248, 2990, 2815, 2815, 1434, 1434, 1902, 1902, 1902, 2500},
 			breakdown("Cutscenes/Level1/scene_", 22));
 	public static final Cutscene FINAL = new Cutscene(
-			new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000, 1000, 1500, 2500 },
+			new int[] { 864, 864, 864, 864, 864, 21876, 500, 500, 500, 500, 500, 2500},
 			breakdown("Cutscenes/final/final_", 12));
 	public static final Cutscene SEQUOIA = new Cutscene(
 			new int[] { 2072, 2072, 2072, 17050, 1500, 1500},
@@ -88,6 +88,7 @@ public class CutsceneScreen implements Screen {
 		Sounds.intro_music.stop(Sounds.intro_music_id);
 		if (currentCutscene == LEVEL_1) Sounds.intro_narration.play(1.0f);
 		if (currentCutscene == SEQUOIA) Sounds.sequoia_narration.play(1.0f);
+		if (currentCutscene == FINAL) Sounds.axel_exposition.play(1.0f);
 		currentCutscene.reset();
 	}
 
