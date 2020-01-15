@@ -173,6 +173,8 @@ public class GameScreen implements Screen {
 	public void render(float deltaTime) {
 		if (LevelSelectScreen.levelNumber == 1) {
 			Gdx.gl.glClearColor(11f/255f, 11f/255f, 11f/255f, 1f);
+		} else if(LevelSelectScreen.levelNumber == 4) {
+			Gdx.gl.glClearColor(36f/255f, 147f/255f, 155f/255f, 1f);
 		} else {
 			Gdx.gl.glClearColor(0f, 163f/255f, 240f/255f, 1f);
 		}
