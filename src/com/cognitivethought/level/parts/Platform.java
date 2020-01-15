@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.cognitivethought.screens.LevelSelectScreen;
 
 public class Platform extends Sprite {
 
 	public static final Texture GRASS = new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png");
 	public static final Texture DIRT = new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png");
+	public static final Texture ROAD = new Texture("assets/Tilesets/City Tileset/road.png");
+	public static final Texture CONC = new Texture("assets/Tilesets/City Tileset/concrete.png");
 
 	public boolean collideTop;
 	public boolean collideBottom;
@@ -179,8 +182,10 @@ public class Platform extends Sprite {
 	public void updateTexture(ArrayList<Platform> platforms, int[][] data) {
 		boolean grass = this.getTexture().equals(GRASS);
 		boolean dirt = this.getTexture().equals(DIRT);
+		boolean road = this.getTexture().equals(ROAD);
+		boolean conc = this.getTexture().equals(CONC);
 
-		if (!grass && !dirt)
+		if (!grass && !dirt && !road && !conc)
 			return;
 
 		boolean top, bottom, right, left;
@@ -215,74 +220,159 @@ public class Platform extends Sprite {
 		}
 
 		if (!top && !bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/rightbeam.png"));
+			}
 			collideTop = true;
 		} else if (!top && !bottom && !right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassn.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtn.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassn.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtn.png"));
+				}
+			}	else {
+				
+				if (road) {
+					setTexture(new Texture("assets/Tilesets/City Tileset/road.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+				}
 			}
 			collideTop = true;
 		} else if (!top && !bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/middlebeam.png"));
+			}
 			collideTop = true;
 		} else if (!top && !bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/leftbeam.png"));
+			}
 			collideTop = true;
 		} else if (!top && bottom && !right && left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassr.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassr.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttr.png"));
+				}
+			}	else {
+				if (road) {
+					setTexture(new Texture("assets/Tilesets/City Tileset/road.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+				}
 			}
 			collideTop = collideRight = true;
 		} else if (!top && bottom && !right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grasslr.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grasslr.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+				}
+			}	else {
+				if (road) {
+					setTexture(new Texture("assets/Tilesets/City Tileset/road.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+				}
 			}
 			collideTop = collideRight = collideLeft = true;
 		} else if (!top && bottom && right && left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
-			}
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtt.png"));
+				}
+			}	else {
+				if (road) {
+					setTexture(new Texture("assets/Tilesets/City Tileset/road.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+				}
+			}	
 			setFlip(Math.random() <= 0.5, false);
 			collideTop = collideRight = collideLeft = true;
 		} else if (!top && bottom && right && !left) {
-			if (grass) {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassl.png"));
-			} else {
-				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttl.png"));
-			}
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				if (grass) {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/grassl.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirttl.png"));
+				}
+			}	else {
+				if (road) {
+					setTexture(new Texture("assets/Tilesets/City Tileset/road.png"));
+				} else {
+					setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+				}
+			}		
 			collideTop = collideLeft = true;
 		} else if (top && !bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbr.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideBottom = collideRight = true;
 		} else if (top && !bottom && !right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtblr.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideBottom = collideLeft = collideRight = true;
 		} else if (top && !bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtb.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			setFlip(Math.random() <= 0.5, false);
 			collideBottom = true;
 		} else if (top && !bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtbl.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideBottom = collideLeft = true;
 		} else if (top && bottom && !right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtr.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideRight = true;
 		} else if (top && bottom && !right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtlr.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideRight = true;
 		} else if (top && bottom && right && left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/filledplat.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			setFlip(Math.random() <= 0.5, Math.random() <= 0.5);
 		} else if (top && bottom && right && !left) {
-			setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
+			if (!(LevelSelectScreen.levelNumber == 4)) {
+				setTexture(new Texture("assets/Tilesets/Tutorial Tileset/variants/dirtl.png"));
+			}	else {
+				setTexture(new Texture("assets/Tilesets/City Tileset/concrete.png"));
+			}
 			collideLeft = true;
 		} else {
 			System.err.println("\n\n\n...what");

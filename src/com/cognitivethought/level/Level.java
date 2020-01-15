@@ -98,41 +98,87 @@ public class Level {
 //					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
 					break;
 				case(-1237980):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, false));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/ground.png"), j*scale,-i*scale,scale,scale, true, true, true, false));
+					} else {
+						addPlatform(new Platform(Platform.ROAD, j*scale, -i*scale, scale, scale, j, i));
+					}	
 					break;
 				case(-14503604):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"), j*scale, -i*scale, scale, scale));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/rightplat.png"), j*scale, -i*scale, scale, scale));
+					} else {
+						addPlatform(new Platform(new Texture("assets/Tilesets/City Tileset/rightbeam.png"), j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-3620889):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topright.png"), j*scale, -i*scale, scale, scale, true, false, true, false));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topright.png"), j*scale, -i*scale, scale, scale, true, false, true, false));
+					} else {
+						addPlatform(new Platform(Platform.ROAD, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-16744416):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topleft.png"), j*scale,-i*scale,scale,scale, true, true, false, false));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/topleft.png"), j*scale,-i*scale,scale,scale, true, true, false, false));
+					} else {
+						addPlatform(new Platform(Platform.ROAD, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-16744384):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"), j*scale, -i*scale, scale, scale));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/leftplat.png"), j*scale, -i*scale, scale, scale));
+					} else {
+						addPlatform(new Platform(new Texture("assets/Tilesets/City Tileset/leftbeam.png"), j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;	
 				case(-32985):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"), j*scale, -i*scale, scale, scale));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/normalplat.png"), j*scale, -i*scale, scale, scale));
+					}	else {
+						addPlatform(new Platform(new Texture("assets/Tilesets/City Tileset/middlebeam.png"), j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-16760768):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomleft.png"), j*scale, -i*scale, scale, scale, false, true, false, false));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomleft.png"), j*scale, -i*scale, scale, scale, false, true, false, false));
+					} else {
+						addPlatform(new Platform(Platform.CONC, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-4856291):
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/bottomright.png"), j*scale, -i*scale, scale, scale, false, false, true, true));
+					} else {
+						addPlatform(new Platform(Platform.CONC, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-3584):
-					addPlatform(new Platform(Platform.GRASS, j*scale, -i*scale, scale, scale, j, i));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(Platform.GRASS, j*scale, -i*scale, scale, scale, j, i));
+					} else {
+						addPlatform(new Platform(Platform.ROAD, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-4621737):
-					addPlatform(new Platform(Platform.DIRT, j*scale, -i*scale, scale, scale, j, i));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						addPlatform(new Platform(Platform.DIRT, j*scale, -i*scale, scale, scale, j, i));
+					} else {
+						addPlatform(new Platform(Platform.CONC, j*scale, -i*scale, scale, scale, j, i));
+					}
 					break;
 				case(-16735512):
+					
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/wall.png"), j*scale, -i*scale, scale, scale, true, true, true, true));
 					break;
 				case(-7864299):
-				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));
-					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
+					if (!(LevelSelectScreen.levelNumber == 4) && !(LevelSelectScreen.levelNumber == 1)) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spike.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
+					} else if (LevelSelectScreen.levelNumber == 4) {
+						addPlatform(new Platform(new Texture("assets/Tilesets/City Tileset/cone.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
+					} else {
+						addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/fire.png"), j*scale, -i*scale, scale, scale, true, false, false, false, true));
+					}
 					break;
 				case(-16777216):
 				//	addPlatform(new Platform(new Texture("assets/backgroundtile.png"), j*scale,-i*scale,scale,scale, false, false, false, false));

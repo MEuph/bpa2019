@@ -85,7 +85,12 @@ public class GameScreen implements Screen {
 				System.out.println(i + ", " + type);
 				switch (type) {
 				case 0:
-					background.add(new Sprite(Resources.TREE_BG));
+					if (!(LevelSelectScreen.levelNumber == 4)) {
+						background.add(new Sprite(Resources.TREE_BG));
+					} else {
+						background.add(new Sprite(Resources.BGCITY));
+					}
+					
 					background.get(i / 3).setPosition(Integer.parseInt(splitData[i+1]), Integer.parseInt(splitData[i+2]));
 					background.get(i / 3).setSize(1800, 1240);
 					background.get(i / 3).translate(1800, 0);
