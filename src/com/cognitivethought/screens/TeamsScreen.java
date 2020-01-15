@@ -45,7 +45,7 @@ public class TeamsScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		if (timer == 0) {
-			background = Resources.AXEL_DEATH;
+			background = new Texture("Company and Team/GRLogo.jpg");
 		} else if (timer <= -200) {
 			Main.main.setScreen(Main.main.menuScreen);
 		}

@@ -18,6 +18,11 @@ import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 
 public class CraftingGrid {
+	/**
+	 * Sets up the in-game crafting menu as well as the shop
+	 * 
+	 * reads the files that store crafting recipes and store the shop's items and prices
+	 */
 
 	public boolean shown;
 	public boolean clickInGrid;

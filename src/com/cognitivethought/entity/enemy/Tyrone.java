@@ -26,6 +26,14 @@ import com.cognitivethought.ui.HealthBar;
 
 public class Tyrone extends Enemy {
 
+	/**
+	 * The final boss of the game
+	 * 
+	 * This class handles creation of animations and collision detection
+	 * 
+	 * Attack damage and event timers are also set
+	 */
+
 	int majorTimer = 500;
 	final int attackCol = 4, attackRow = 2;
 	final int majorCol = 5, majorRow = 2;

@@ -8,6 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ImageButton {
+	/**
+	 * A class that creates an image button from scratch
+	 * 
+	 * handles clicks on the buttons
+	 * 
+	 */
+	
 	
 	Texture unHighlighted;
 	Texture highlighted;

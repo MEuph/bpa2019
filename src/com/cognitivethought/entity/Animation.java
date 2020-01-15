@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Animation {
+	/**
+	 * 
+	 */
 	
-	public Texture spriteSheet;
+	public Texture spriteSheet; 
 	
 	float timer;
 	

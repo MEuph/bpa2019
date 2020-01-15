@@ -16,6 +16,12 @@ import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 
 public class InventoryInteract {
+	/**
+	 * class that creates the inventory interaction hotbar
+	 * 
+	 * 
+	 */
+	
 	public Inventory i = InventoryBar.i;
 	public BitmapFont font;
 	public int selected;

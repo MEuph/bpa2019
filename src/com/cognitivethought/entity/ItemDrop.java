@@ -10,6 +10,11 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 
 public class ItemDrop extends Sprite {
+	/**
+	 *  Defines how items drop and makes sure they collide with tiles
+	 *  
+	 *  Also defines the pickup method for the items
+	 */
 	
 	public Texture t;
 	

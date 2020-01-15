@@ -21,6 +21,13 @@ import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class HumanEnemy extends Enemy {
+	/**
+	 * A human chainsaw operator that patrols the city
+	 * 
+	 * This class handles creation of animations and collision detection
+	 * 
+	 * Attack damage is set
+	 */
 	
 	final int attackCol = 4, attackRow = 2;
 	final int jumpCol = 11, jumpRow = 1;
@@ -60,15 +67,7 @@ public class HumanEnemy extends Enemy {
 	float pauseTimer;					// How long to pause in between movements
 	float dx, dy;						// The velocity of the monster
 	
-	/**
-	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
-	 *  - for the sake of the player's nose - contained in a trash can.
-	 * @param damageValue
-	 * 		How much damage this particular trash monster will do
-	 * @param texture
-	 * 		The appearance of this particular trash monster
-	 * @throws Exception 
-	 */
+	
 	public HumanEnemy(Behavior b, float damageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, texture);
 		this.speed = 2f - (float)Math.random();	// Default speed to 1f

@@ -20,7 +20,7 @@ import com.cognitivethought.entity.enemy.HumanEnemy;
 import com.cognitivethought.entity.enemy.TrashCanMonster;
 import com.cognitivethought.entity.enemy.TrashMonster;
 import com.cognitivethought.entity.enemy.Tyrone;
-import com.cognitivethought.gui.TextBubble;
+
 import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.Main;
@@ -34,7 +34,7 @@ public class Level {
 	ArrayList<Platform> platforms = new ArrayList<Platform>();
 	ArrayList<EnemySpawner> es = new ArrayList<>();
 	ArrayList<ItemDrop> itemDrops = new ArrayList<ItemDrop>();
-	ArrayList<TextBubble> bubbles = new ArrayList<TextBubble>();
+	
 	
 	Spawnpoint sp;
 	public Screen screen;
@@ -247,7 +247,7 @@ public class Level {
 					EnemySpawner es3 = new EnemySpawner();
 					if(!(LevelSelectScreen.levelNumber == 4)) {
 						
-						es3.addEnemy(new Axel(Behavior.EDGE_TO_EDGE, 1f, 3f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es3.enemies, this), j*scale, -i*scale);
+						es3.addEnemy(new Axel(Behavior.EDGE_TO_EDGE, 2f, 3f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es3.enemies, this), j*scale, -i*scale);
 					}
 					else {
 						es3.addEnemy(new Tyrone(Behavior.EDGE_TO_EDGE, 1f, 3f, new Texture("assets/Monsters/Trash Monster/trashmonster.png"), es3.enemies, this), j*scale, -i*scale);

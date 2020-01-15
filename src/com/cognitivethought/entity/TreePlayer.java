@@ -29,6 +29,18 @@ import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.sound.Sounds;
 
 public class TreePlayer extends Sprite {
+	/**
+	 * The Player class
+	 * 
+	 * This class handles all of the important player functions such as how the player moves
+	 * 
+	 * Collision detection is also handled here
+	 * 
+	 * What to do on death is defined in a thread called deathThread
+	 * 
+	 * Animations are created here too
+	 */
+	
 
 	public static boolean canShoot;
 

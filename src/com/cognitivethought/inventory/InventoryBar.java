@@ -26,6 +26,13 @@ import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.ui.PauseMenu;
 
 public class InventoryBar implements InputProcessor {
+	/**
+	 * Defines what each item can do and sets up the inventory hotbar and crafting grid
+	 * 
+	 * Handles interaction with the inventory bar
+	 * 
+	 */
+	
 
 	public static Item currentlyHeldItem;
 	public static Inventory i = new Inventory();

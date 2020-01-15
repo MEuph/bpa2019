@@ -26,6 +26,13 @@ import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
+	/**
+	 * The final boss of the game
+	 * 
+	 * This class handles creation of animations and collision detection
+	 * 
+	 * Attack damage and event timers are also set
+	 */
 
 	int jumpTimer = 500;
 	final int attackCol = 3, attackRow = 1;
@@ -72,14 +79,7 @@ public class Axel extends Enemy {
 	float pauseTimer; // How long to pause in between movements
 	float dx, dy; // The velocity of the monster
 
-	/**
-	 * The first monster the player will encounter. A heaping mass of garbage that
-	 * is thankfully - for the sake of the player's nose - contained in a trash can.
-	 * 
-	 * @param damageValue How much damage this particular trash monster will do
-	 * @param texture     The appearance of this particular trash monster
-	 * @throws Exception
-	 */
+	
 	public Axel(Behavior b, float damageValue, float majorDamageValue, Texture texture, ArrayList<Enemy> enemies, Level l) {
 		super(b, Behavior.MELEE, damageValue, majorDamageValue, texture);
 		this.speed = 2f; // Default speed to 3f
