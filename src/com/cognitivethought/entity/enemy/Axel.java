@@ -150,7 +150,6 @@ public class Axel extends Enemy {
 						
 					}
 					Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.FINAL;
-					Main.main.cutsceneScreen.toAdvanceTo = Main.main.levelSelectScreen;
 					Main.main.setScreen(Main.main.cutsceneScreen);
 					
 				} catch (InterruptedException e1) {

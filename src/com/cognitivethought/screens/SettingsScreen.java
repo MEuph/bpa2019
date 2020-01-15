@@ -139,6 +139,9 @@ public class SettingsScreen implements Screen {
 		back.setClickListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				if (toResetTo == Main.main.gameScreen) {
+					Main.main.gameScreen.shouldReset = false;
+				}
 				Main.main.setScreen(toResetTo);
 			}
 		});

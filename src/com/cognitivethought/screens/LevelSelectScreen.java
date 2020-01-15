@@ -49,9 +49,8 @@ public class LevelSelectScreen implements Screen {
 																				// the button is clicked for level 1
 						try {
 							levelNumber = 1;
-							Main.main.gameScreen.reset();
+							Main.main.gameScreen.shouldReset = true;
 							Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.LEVEL_1;
-							CutsceneScreen.toAdvanceTo = Main.main.gameScreen;
 							Main.main.gameScreen.level = new Level(
 									ImageIO.read(GameScreen.class
 											.getResourceAsStream("/Levels/Development Level/level1.png")),
@@ -74,13 +73,12 @@ public class LevelSelectScreen implements Screen {
 						if (Main.levelsPassed >= 1) {
 							try {
 								levelNumber = 2;
-								Main.main.gameScreen.reset();
+								Main.main.gameScreen.shouldReset = true;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level2.png")),
 										Main.main.gameScreen);
 								Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.SEQUOIA;
-								CutsceneScreen.toAdvanceTo = Main.main.gameScreen;
 								Main.main.setScreen(Main.main.cutsceneScreen);
 								Sounds.intro_music.stop();
 							} catch (IOException e) {
@@ -99,12 +97,12 @@ public class LevelSelectScreen implements Screen {
 						if (Main.levelsPassed >= 2) {
 							try {
 								levelNumber = 3;
-								Main.main.gameScreen.reset();
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level3.png")),
 										Main.main.gameScreen);
 								Main.main.setScreen(Main.main.gameScreen);
+								Main.main.gameScreen.shouldReset = true;
 								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
@@ -122,13 +120,12 @@ public class LevelSelectScreen implements Screen {
 						if (Main.levelsPassed >= 3) {
 							try {
 								levelNumber = 4;
-								Main.main.gameScreen.reset();
+								Main.main.gameScreen.shouldReset = true;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level4.png")),
 										Main.main.gameScreen);
 								Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.ROAD;
-								Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
 								Main.main.setScreen(Main.main.cutsceneScreen);
 								Sounds.intro_music.stop();
 							} catch (IOException e) {
@@ -147,7 +144,7 @@ public class LevelSelectScreen implements Screen {
 						if (Main.levelsPassed >= 4) {
 							try {
 								levelNumber = 5;
-								Main.main.gameScreen.reset();
+								Main.main.gameScreen.shouldReset = true;
 								Main.main.gameScreen.level = new Level(
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level5.png")),

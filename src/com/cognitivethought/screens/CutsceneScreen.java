@@ -23,15 +23,18 @@ public class CutsceneScreen implements Screen {
 			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/sequoia/scene_", 6));
 	public static final Cutscene ROAD = new Cutscene(
-			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
+			new int[] { 1500, 1500, 1500, 1500, 1500, 1500, 1500},
 			breakdown("Cutscenes/road/scene_", 7));
 
 	public Cutscene currentCutscene;
-	
-	public static Screen toAdvanceTo;
 
 	public CutsceneScreen() {
 		b = new SpriteBatch();
+		
+		LEVEL_1.toAdvanceTo = Main.main.gameScreen;
+		FINAL.toAdvanceTo = Main.main.levelSelectScreen;
+		SEQUOIA.toAdvanceTo = Main.main.gameScreen;
+		ROAD.toAdvanceTo = Main.main.gameScreen;
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class CutsceneScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (currentCutscene.isCompleted()) {
-			Main.main.setScreen(toAdvanceTo);
+			Main.main.setScreen(currentCutscene.toAdvanceTo);
 		}
 
 		if (currentCutscene != null) {
