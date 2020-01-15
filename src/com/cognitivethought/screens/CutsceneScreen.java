@@ -67,6 +67,9 @@ public class CutsceneScreen implements Screen {
 	public void hide() {
 		Sounds.intro_narration.stop();
 		Sounds.sequoia_narration.stop();
+		Sounds.axel_exposition.stop();
+		Sounds.tyrone_exposition.stop();
+		
 	}
 
 	@Override
