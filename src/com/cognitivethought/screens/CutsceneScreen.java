@@ -20,7 +20,7 @@ public class CutsceneScreen implements Screen {
 			new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000, 1000, 1500, 2500 },
 			breakdown("Cutscenes/final/final_", 12));
 	public static final Cutscene SEQUOIA = new Cutscene(
-			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
+			new int[] { 2072, 2072, 2072, 17050, 1500, 1500},
 			breakdown("Cutscenes/sequoia/scene_", 6));
 	public static final Cutscene ROAD = new Cutscene(
 			new int[] { 1500, 1500, 1500, 1500, 1500, 1500, 1500},
@@ -59,6 +59,7 @@ public class CutsceneScreen implements Screen {
 	@Override
 	public void hide() {
 		Sounds.intro_narration.stop();
+		Sounds.sequoia_narration.stop();
 	}
 
 	@Override
@@ -83,6 +84,7 @@ public class CutsceneScreen implements Screen {
 	public void show() {
 		Sounds.intro_music.stop(Sounds.intro_music_id);
 		if (currentCutscene == LEVEL_1) Sounds.intro_narration.play(1.0f);
+		if (currentCutscene == SEQUOIA) Sounds.sequoia_narration.play(1.0f);
 		currentCutscene.reset();
 	}
 
