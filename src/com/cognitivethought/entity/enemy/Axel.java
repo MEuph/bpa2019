@@ -38,7 +38,7 @@ public class Axel extends Enemy {
 
 	int jumpTimer = 500;
 	final int attackCol = 3, attackRow = 1;
-	final int majorCol = 17, majorRow = 2;
+	final int majorCol = 34, majorRow = 1;
 	final int moveCol = 3, moveRow = 2;
 	final int deathCol = 21, deathRow = 2;
 	
