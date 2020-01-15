@@ -49,9 +49,13 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		if (LevelSelectScreen.levelNumber == 1) {
-			Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
-			Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
+			if (Sounds.intro_music_id == 0) {
+				Sounds.intro_music_id = Sounds.intro_music.play(SettingsScreen.VOL_MUSIC);
+				Sounds.intro_music.setLooping(Sounds.intro_music_id, true);
+			}
 		}
+		
+		background.clear();
 		
 		hb.health = 3;
 		hb.bark = 2;

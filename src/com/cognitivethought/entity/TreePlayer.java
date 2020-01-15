@@ -96,9 +96,6 @@ public class TreePlayer extends Sprite {
 		setSize(getWidth() * 2.5f, getHeight() * 2.5f); // Make sure the player isn't incredibly small
 		createAnimations();
 		
-		Sounds.player_moving.play(SettingsScreen.VOL_SOUNDS);
-		Sounds.player_moving.pause();
-		
 		attackTime = 0.02f;
 	}
 	
@@ -174,12 +171,6 @@ public class TreePlayer extends Sprite {
 						}
 					}
 				}
-			}
-			
-			if ((left || right) && dy == 0) {
-				Sounds.player_moving.resume();
-			} else {
-				Sounds.player_moving.pause();
 			}
 			
 			if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)

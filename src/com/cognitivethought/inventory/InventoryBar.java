@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.entity.TreePlayer;
+import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.ui.HealthBar;
@@ -363,7 +364,7 @@ public class InventoryBar implements InputProcessor {
 				if (slot1.contains(relMousePos.x, relMousePos.y) || slot2.contains(relMousePos.x, relMousePos.y)
 						|| slot3.contains(relMousePos.x, relMousePos.y) | slot4.contains(relMousePos.x, relMousePos.y)
 						|| slot5.contains(relMousePos.x, relMousePos.y)
-						|| slot6.contains(relMousePos.x, relMousePos.y)) {
+						|| slot6.contains(relMousePos.x, relMousePos.y) && Main.main.getScreen() == Main.main.gameScreen) {
 //					if (selected != currentlyHeldItem.getPosition()) {
 						if (InventoryBar.i.getItems().get(selected).getId() == currentlyHeldItem.getId()) {
 							for (int i = 0; i < currentlyHeldItem.getQuantity(); i++) {

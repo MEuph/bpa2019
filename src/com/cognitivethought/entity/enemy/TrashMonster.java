@@ -16,6 +16,8 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashMonster extends Enemy {
@@ -45,6 +47,8 @@ public class TrashMonster extends Enemy {
 	
 	Texture idle;
 	
+	long sound_id;
+	
 	private final float g = 0.198f;	 	// Gravitational constant
 	
 	Platform toBeOn;					// The platform the monster should be on
@@ -72,6 +76,12 @@ public class TrashMonster extends Enemy {
 		this.idle = texture;
 		
 		TrashMonster t = this;
+		
+		canPlaySound = true;
+		
+		sound_id = Sounds.trash_attack.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.trash_attack.setLooping(sound_id, true);
+		Sounds.trash_attack.pause(sound_id);
 		
 		hb = new HealthBar(this, 3);
 		
@@ -205,6 +215,10 @@ public class TrashMonster extends Enemy {
 			hurtTimer--;
 		}
 		
+		if (!canPlaySound) {
+			Sounds.trash_attack.pause(sound_id);
+		}
+		
 		if (attacking) {
 			attackTimer-=2f;
 		}
@@ -242,9 +256,15 @@ public class TrashMonster extends Enemy {
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
+		if (!canAttack) {
+			Sounds.chainsaw.pause(sound_id);
+			return;
+		}
+		
 		// attack if the monster can attack
 		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
+			if (canPlaySound) Sounds.chainsaw.resume(sound_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
 				if (hb.bark >= 0) {

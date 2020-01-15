@@ -37,6 +37,6 @@ public class DesktopLauncher {
 	}
 	
 	public static void log() {
-		err.println("Please email the following log file to bpamisd@gmail.com: " + logFile.getAbsolutePath());
+//		err.println("Please email the following log file to bpamisd@gmail.com: " + logFile.getAbsolutePath());
 	}
 }

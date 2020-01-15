@@ -43,7 +43,6 @@ public class MenuScreen implements Screen {
 		Cursor customCursor = Gdx.graphics.newCursor(td.consumePixmap(), 0, 0);
 		Gdx.graphics.setCursor(customCursor);
 		
-
 		playButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
