@@ -399,7 +399,10 @@ public class TreePlayer extends Sprite {
 	}
 
 	public void die() {
+		Sounds.chainsaw.stop();
+		Sounds.trash_attack.stop();
 		Sounds.player_melee.stop();
+		Sounds.trashcan_attack.stop();
 		deathThreadPaused = false;
 		shootTime = 0f;
 		deathTime = 0f;

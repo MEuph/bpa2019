@@ -17,6 +17,7 @@ import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.main.desktop.DesktopLauncher;
+import com.cognitivethought.sound.Sounds;
 
 //Main title screen
 
@@ -49,6 +50,7 @@ public class DeathScreen implements Screen {
 		retryButton.setClickListener(new ClickListener() { //sets the actions to perform if the buttons are clicked
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Sounds.intro_music_id = Sounds.intro_music.play();
 				try {
 					if (LevelSelectScreen.levelNumber == 1) {
 					Main.main.gameScreen.level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), Main.main.gameScreen);

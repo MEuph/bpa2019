@@ -19,12 +19,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.cognitivethought.inventory.InventoryBar;
+import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
-import com.cognitivethought.ui.HealthBar;
 import com.cognitivethought.sound.Sounds;
+import com.cognitivethought.ui.HealthBar;
 
 public class GameScreen implements Screen {
 
@@ -143,6 +144,8 @@ public class GameScreen implements Screen {
 				}
 			}
 		}).start();
+		
+		InventoryBar.currentlyHeldItem = new Item(Item.NONE, 0, 0);
 	}
 
 	public GameScreen() {
@@ -158,12 +161,9 @@ public class GameScreen implements Screen {
 	public void hide() {
 		Sounds.intro_music.stop(Sounds.intro_music_id);
 		
-		for (int i = 0; i < level.getEnemySpawners().size(); i++) {
-			for (int j = 0; j < level.getEnemySpawners().get(i).enemies.size(); j++) {
-				level.getEnemySpawners().get(i).enemies.get(j).canPlaySound = false;
-				Sounds.chainsaw.stop();
-			}
-		}
+		Sounds.chainsaw.stop();
+		Sounds.trash_attack.stop();
+		Sounds.trashcan_attack.stop();
 		
 		dispose();
 	}

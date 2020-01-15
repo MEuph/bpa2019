@@ -16,6 +16,8 @@ import com.cognitivethought.level.Level;
 import com.cognitivethought.level.parts.Platform;
 import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.resources.Resources;
+import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class TrashCanMonster extends Enemy {
@@ -56,6 +58,8 @@ public class TrashCanMonster extends Enemy {
 	float pauseTimer;					// How long to pause in between movements
 	float dx, dy;						// The velocity of the monster
 	
+	long sound_id;
+	
 	/**
 	 * The first monster the player will encounter. A heaping mass of garbage that is thankfully
 	 *  - for the sake of the player's nose - contained in a trash can.
@@ -72,6 +76,12 @@ public class TrashCanMonster extends Enemy {
 		this.idle = texture;
 		
 		TrashCanMonster t = this;
+		
+		canPlaySound = true;
+		
+		sound_id = Sounds.trashcan_attack.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.trashcan_attack.setLooping(sound_id, true);
+		Sounds.trashcan_attack.pause(sound_id);
 		
 		hb = new HealthBar(this, 3);
 		
@@ -205,6 +215,10 @@ public class TrashCanMonster extends Enemy {
 			hurtTimer--;
 		}
 		
+		if (!canPlaySound) {
+			Sounds.trashcan_attack.pause(sound_id);
+		}
+		
 		if (attacking) {
 			attackTimer-=2f;
 		}
@@ -242,7 +256,10 @@ public class TrashCanMonster extends Enemy {
 			new Rectangle(getX() - attackRange, getY() - attackRange, getWidth() + (attackRange * 2), getHeight() + 
 			(attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		
-		if (!canAttack) return;
+		if (!canAttack) {
+			Sounds.trashcan_attack.pause(sound_id);
+			return;
+		}
 		
 //		System.out.println(canAttack);
 //		System.out.println(deathTime);
@@ -251,6 +268,7 @@ public class TrashCanMonster extends Enemy {
 		// attack if the monster can attack
 		if (canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
+			if (canPlaySound) Sounds.trashcan_attack.resume(sound_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
 				if (hb.bark >= 0) {
