@@ -1,4 +1,4 @@
-2;1;1;20;6;1;15;2;3;1;5;5;
+2;1;1;20;6;1;15;2;7;1;5;2;
 Every 4 numbers is one slot
 #1 is the item to buy
 #2 is the quantity per purchase

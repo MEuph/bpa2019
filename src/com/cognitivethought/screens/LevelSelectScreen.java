@@ -127,7 +127,9 @@ public class LevelSelectScreen implements Screen {
 										ImageIO.read(GameScreen.class
 												.getResourceAsStream("/Levels/Development Level/level4.png")),
 										Main.main.gameScreen);
-								Main.main.setScreen(Main.main.gameScreen);
+								Main.main.cutsceneScreen.currentCutscene = CutsceneScreen.ROAD;
+								Main.main.cutsceneScreen.toAdvanceTo = Main.main.gameScreen;
+								Main.main.setScreen(Main.main.cutsceneScreen);
 								Sounds.intro_music.stop();
 							} catch (IOException e) {
 								DesktopLauncher.log();
