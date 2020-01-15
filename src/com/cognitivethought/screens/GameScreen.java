@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
+import com.cognitivethought.entity.TreePlayer;
 import com.cognitivethought.inventory.InventoryBar;
 import com.cognitivethought.inventory.Item;
 import com.cognitivethought.level.Level;
@@ -168,7 +169,12 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float deltaTime) {
-		Gdx.gl.glClearColor(0f,163f/255f,240f/255f,1f);
+		if (LevelSelectScreen.levelNumber == 1) {
+			Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		} else {
+			Gdx.gl.glClearColor(0f, 163f/255f, 240f/255f, 1f);
+		}
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if (background.size() > 0) {
@@ -279,13 +285,16 @@ public class GameScreen implements Screen {
 	
 	public static void togglePause() {
 		if (paused) {
+			TreePlayer.paused = false;
 			paused = false;
 			InventoryBar.paused = false;
 		} else {
 			if (!InventoryBar.grid.shown) {
+				TreePlayer.paused = true;
 				paused = true;
 				InventoryBar.paused = true;
 			} else {
+				TreePlayer.paused = true;
 				InventoryBar.paused = false;
 				InventoryBar.grid.shown = false;
 			}

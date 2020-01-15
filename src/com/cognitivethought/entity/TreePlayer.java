@@ -36,6 +36,8 @@ public class TreePlayer extends Sprite {
 	final float timeToDie = 1f;
 	
 	public static float xPos;
+
+	public static boolean paused;
 	
 	final int shootCol = 4, shootRow = 3;
 	final int deathCol = 2, deathRow = 11;
@@ -424,6 +426,8 @@ public class TreePlayer extends Sprite {
 
 	void shoot(Level l, InventoryBar ib, boolean mouseTriggered) {
 		if (!canShoot) return;
+		
+		if (TreePlayer.paused) return;
 		
 		if (shootTime > 0.01f)
 			return; // Due to potential floating point rounding errors, there is a .01 tolerance in
