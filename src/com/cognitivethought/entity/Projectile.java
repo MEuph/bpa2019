@@ -54,7 +54,7 @@ public class Projectile extends Sprite {
 
 	public boolean hitWall(ArrayList<Platform> platforms) {
 		for (Platform p : platforms) {
-			if (p.collideBottom && p.collideTop && p.collideRight && p.collideLeft) {
+			if (p.collideBottom || p.collideTop || p.collideRight || p.collideLeft) {
 				if (p.getBoundingRectangle().overlaps(getBoundingRectangle())) {
 					return true;
 				}

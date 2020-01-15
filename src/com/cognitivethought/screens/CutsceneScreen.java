@@ -19,8 +19,9 @@ public class CutsceneScreen implements Screen {
 	public static final Cutscene FINAL = new Cutscene(
 			new int[] { 1500, 250, 250, 250, 250, 250, 500, 7500, 1000, 1000, 1500, 2500 },
 			breakdown("Cutscenes/final/final_", 12));
-//	public static final Cutscene LEVEL_3 = 
-//			new Cutscene();
+	public static final Cutscene SEQUOIA = new Cutscene(
+			new int[] { 1500, 1500, 1500, 1500, 1500, 1500},
+			breakdown("Cutscenes/sequoia/scene_", 6));
 //	public static final Cutscene LEVEL_4 = 
 //			new Cutscene();
 
