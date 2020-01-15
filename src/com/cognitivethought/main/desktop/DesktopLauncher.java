@@ -30,7 +30,7 @@ public class DesktopLauncher {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
 		File f = new File("assets/Logs/" + dtf.format(LocalDateTime.now()) + ".txt");
 		
-		f.createNewFile();			
+		f.createNewFile();
 		
 		logFile = f;
 		

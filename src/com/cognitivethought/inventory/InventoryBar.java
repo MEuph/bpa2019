@@ -366,6 +366,7 @@ public class InventoryBar implements InputProcessor {
 							}
 						} else if (currentlyHeldItem.getId() == Item.BARK) {
 							TreePlayer.canShoot = false;
+							
 							if ((hb.health - 1) == hb.bark) {
 								hb.health += 4;
 							} else {
@@ -374,7 +375,11 @@ public class InventoryBar implements InputProcessor {
 							if (hb.bark > 10) {
 								hb.bark = 10;
 							}
-
+							
+							if (hb.health > 10) {
+								hb.health = 10;
+							}
+							
 							currentlyHeldItem.decrement();
 							if (currentlyHeldItem.getQuantity() <= 0) {
 								currentlyHeldItem = new Item(Item.NONE, 0, 0);
