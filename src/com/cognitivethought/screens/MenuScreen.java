@@ -106,9 +106,9 @@ public class MenuScreen implements Screen {
 					writer.write(data);
 					writer.close();
 					
-					Main.main.levelSelectScreen = new LevelSelectScreen();
 					
-					Main.main.setScreen(Main.main.levelSelectScreen);
+					
+					System.exit(0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
