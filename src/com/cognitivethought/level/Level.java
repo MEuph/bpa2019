@@ -185,21 +185,35 @@ public class Level {
 					addSpawnpoint(new Spawnpoint(j*scale,-i*scale, s));
 					
 					break;
-				case(-16760431):
+				case(-12351296): //jump movement explanation
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/jump.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
-				case(-16479106):
+				case(-4511270): //left movement explanation
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/left.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
 
-				case(-8025339):
+				case(-9029939): //shoot explanation
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/shoot.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
-
-				case(-16419701):
+				case(-10966182): //melee explanation
+					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/melee.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+					break;
+				case(-3222991): //right movement explanation
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/right.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
 					break;
+//				case(-5531560): //escape = pause explanation
+//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/escpause.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+//					break;
+//				case(-14099560): //spike explanation
+//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/spikeexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+//					break;
+//				case(-10778712): //trampoline explanation
+//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+//					break;
+//				case(-13323057): //more help explanation
+//					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/trampexp.png"), j*scale, -i*scale, scale*2, scale*2, false, false, false, false, false, false));
+//					break;
 
 				case(-6837608):
 					addPlatform(new Platform(new Texture("assets/Tilesets/Tutorial Tileset/finish.png"), j*scale, -i*scale, scale, scale, false, false, false, false, false, true));
