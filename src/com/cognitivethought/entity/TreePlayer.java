@@ -433,12 +433,14 @@ public class TreePlayer extends Sprite {
 
 		if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.APPLE)
 				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
+			Sounds.player_apple.play(SettingsScreen.VOL_SOUNDS);
 			p = new Projectile(Item.getTexture(Item.APPLE),
 					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
 					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 2);
 			InventoryBar.i.getItems().get(ib.ammoSelected).decrement();
 		} else if (Item.getTexture(InventoryBar.i.getItems().get(ib.ammoSelected).getId()) == Item.getTexture(Item.SEED)
 				&& InventoryBar.i.getItems().get(ib.ammoSelected).getQuantity() > 0) {
+			Sounds.player_seed.play(SettingsScreen.VOL_SOUNDS);
 			p = new Projectile(Item.getTexture(Item.SEED),
 					l.getSpawnpoint().getPlayer().getX() + (facingRight ? 20 : 0),
 					l.getSpawnpoint().getPlayer().getY() + getHeight() - 20, 0, 0, 400, 100, 1);

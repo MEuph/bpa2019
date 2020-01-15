@@ -116,12 +116,6 @@ public class GameScreen implements Screen {
 			e1.printStackTrace();
 		}
 		
-//		try {
-//			level = new Level(ImageIO.read(GameScreen.class.getResourceAsStream("/Levels/Development Level/level1.png")), this); // Initialize level with 'testlevel.level'
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
 		c = new OrthographicCamera();
 		c.setToOrtho(false, 1920, 1080); // Create camera, and set size to 1920x1080
 		
@@ -133,7 +127,6 @@ public class GameScreen implements Screen {
 				c.position.set(level.getSpawnpoint().getPlayer().getX(), level.getSpawnpoint().getPlayer().getY() + 200, 0f);
 				while (fade > 0f) {
 					fade -= .01f;
-//					System.out.println(fade);
 					c.translate(0, -1f, 0);
 					try {
 						Thread.sleep(5);

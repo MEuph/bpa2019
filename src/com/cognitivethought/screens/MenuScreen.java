@@ -1,6 +1,7 @@
 package com.cognitivethought.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
@@ -99,15 +100,16 @@ public class MenuScreen implements Screen {
 		playButton.render(batch);
 		optnButton.render(batch);
 		quitButton.render(batch);
-//		for (Cloud c : clouds) {
-//			c.animateBackground(c.cloud);
-//			c.cloud.setY((y+c.cloud.getY()) + 1920 / 2 - 100);
-//			c.cloud.draw(batch, delta);
-//		}
+		
 		batch.end();
 		
 		if (y >= -800) { //scrolls up the screen y value
 			y-=2;
+		}
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			fade = 0;
+			y = -800;
 		}
 		
 		fade = 1-((float)y / -800f);
