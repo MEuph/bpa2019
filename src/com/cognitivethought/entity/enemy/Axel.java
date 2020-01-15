@@ -23,6 +23,8 @@ import com.cognitivethought.resources.Resources;
 import com.cognitivethought.resources.Strings;
 import com.cognitivethought.screens.CutsceneScreen;
 import com.cognitivethought.screens.LevelSelectScreen;
+import com.cognitivethought.screens.SettingsScreen;
+import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
 public class Axel extends Enemy {
@@ -33,6 +35,9 @@ public class Axel extends Enemy {
 	final int moveCol = 3, moveRow = 2;
 	final int deathCol = 21, deathRow = 2;
 	
+	long smash_id;
+	long run_id;
+	long swipe_id;
 
 	boolean wall;
 
@@ -89,7 +94,20 @@ public class Axel extends Enemy {
 		Axel t = this;
 
 		hb = new HealthBar(this, 10);
-
+		
+		swipe_id = Sounds.boss_swipe.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.boss_swipe.setLooping(swipe_id, true);
+		Sounds.boss_swipe.pause(swipe_id);
+		
+		smash_id = Sounds.boss_smash.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.boss_smash.setLooping(smash_id, true);
+		Sounds.boss_smash.pause(smash_id);
+		
+		run_id = Sounds.boss_run.play(SettingsScreen.VOL_SOUNDS);
+		Sounds.boss_run.setLooping(run_id, true);
+		Sounds.boss_run.pause(run_id);
+		
+		
 		deathThread = new Thread() { //defines the death thread and what to do
 			@SuppressWarnings("static-access")
 			public void run() {
@@ -280,7 +298,13 @@ public class Axel extends Enemy {
 
 		if (dy > -15f)
 			dy -= g; // Simulate gravity constantly, with terminal velocity set to 15f
-
+		
+		if (!canPlaySound) {
+			Sounds.boss_run.pause(run_id);
+			Sounds.boss_swipe.pause(swipe_id);
+			Sounds.boss_smash.pause(smash_id);
+		}
+		
 		if (hurtTimer > 0f) {
 			hurtTimer--;
 		}
@@ -351,9 +375,18 @@ public class Axel extends Enemy {
 				getHeight() + (attackRange * 2)).overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
 		boolean canMajorAttack = this.getBoundingRectangle()
 				.overlaps(l.getSpawnpoint().getPlayer().getBoundingRectangle());
-
+		
+		if (!canAttack) {
+			Sounds.boss_swipe.pause(swipe_id);
+		}
+		
+		if (!canMajorAttack) {
+			Sounds.boss_smash.pause(smash_id);
+		}
+		
 		if (majorAttacking && jumpTimer >= -70 && canMajorAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f && l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			//what to do when major attacking
+			Sounds.boss_smash.resume(smash_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) { //if the player isnt already hurt then attack
 //				this.setHealth(0);
 				if (hb.bark >= 0) { // damage bark
@@ -372,6 +405,7 @@ public class Axel extends Enemy {
 		if (!majorAttacking && canAttack && deathTime != 0f && !(l.getSpawnpoint().getPlayer().attackTime > 0f
 				&& l.getSpawnpoint().getPlayer().attackTime <= l.getSpawnpoint().getPlayer().timeToAttack)) {
 			attacking = true;
+			Sounds.boss_swipe.resume(swipe_id);
 			if (!l.getSpawnpoint().getPlayer().flashing) {
 //				this.setHealth(0);
 				if (hb.bark >= 0) {
@@ -392,6 +426,7 @@ public class Axel extends Enemy {
 	@Override
 	public void die() { //death code
 		deathThreadPaused = false;
+		canPlaySound = false;
 		attacking = false;
 		deathTime = 0f;
 		dx = 0;
