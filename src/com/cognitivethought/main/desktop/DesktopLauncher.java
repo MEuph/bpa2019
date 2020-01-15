@@ -12,6 +12,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.cognitivethought.main.Main;
 
+/**
+ * Main class. IE The class that is actually run
+ */
 public class DesktopLauncher {
 	static File logFile;
 	static PrintStream err;

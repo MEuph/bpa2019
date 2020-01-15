@@ -27,8 +27,12 @@ import com.cognitivethought.gui.ImageButton;
 import com.cognitivethought.main.Main;
 import com.cognitivethought.sound.Sounds;
 
-//Main title screen
-
+/**
+ * @author christopherm_harris
+ *
+ * The screen in which the player can control the volumes of sounds and music separately
+ * 
+ */
 public class SettingsScreen implements Screen {
 	
 	ImageButton decMusic = new ImageButton(new Texture("assets/UI/Buttons/left.png"), (1920 / 2) - 300, (1080 / 2) + 200); //initializing the buttons

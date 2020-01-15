@@ -23,6 +23,9 @@ import com.cognitivethought.screens.SettingsScreen;
 import com.cognitivethought.screens.TeamsScreen;
 import com.cognitivethought.sound.Sounds;
 
+/**
+ * The class where the main game loop is
+ */
 public class Main extends Game implements ApplicationListener {
 	
 	public static int levelsPassed = 0;

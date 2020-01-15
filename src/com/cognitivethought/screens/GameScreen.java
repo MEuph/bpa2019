@@ -28,6 +28,9 @@ import com.cognitivethought.resources.Strings;
 import com.cognitivethought.sound.Sounds;
 import com.cognitivethought.ui.HealthBar;
 
+/**
+ * The screen where gameplay occurs, for all levels.
+ */
 public class GameScreen implements Screen {
 
 	public ShapeRenderer sp;

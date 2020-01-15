@@ -6,6 +6,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 
+/**
+ * 
+ * @author christopherm_harris
+ * 
+ * The class that holds all of the sounds that are used in the game, that way they are only loaded once
+ * 
+ */
 public class Sounds {
 	
 	public static Sound city_music;

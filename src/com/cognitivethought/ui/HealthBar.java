@@ -6,6 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.cognitivethought.entity.enemy.Enemy;
 
+/**
+ * 
+ * @author christopherm_harris
+ *
+ * A UI Overlay that shows the Health and Bark levels of players and enemies
+ */
 public class HealthBar {
 	
 	public int health = 3;

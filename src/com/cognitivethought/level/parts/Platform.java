@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.cognitivethought.screens.LevelSelectScreen;
 
+/**
+ * An individual tile in the tilemap
+ */
 public class Platform extends Sprite {
 
 	public static final Texture GRASS = new Texture("assets/Tilesets/Tutorial Tileset/filledtopplat.png");

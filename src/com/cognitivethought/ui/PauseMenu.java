@@ -20,6 +20,9 @@ import com.cognitivethought.screens.GameScreen;
 import com.cognitivethought.screens.SettingsScreen;
 import com.cognitivethought.sound.Sounds;
 
+/**
+ * An overlay rendered in the GameScreen when pausing is enabled
+ */
 public class PauseMenu {
 
 	Rectangle resumeButton = new Rectangle(0, 0, 0, 0);

@@ -12,6 +12,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cognitivethought.resources.Resources;
 
+/**
+ * An individual slot in the shop menu
+ */
 public class ShopSlot {
 
 	public Item toBuy = new Item(Item.NONE, 0, 0);

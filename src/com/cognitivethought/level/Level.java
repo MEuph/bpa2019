@@ -28,6 +28,9 @@ import com.cognitivethought.main.desktop.DesktopLauncher;
 import com.cognitivethought.screens.LevelSelectScreen;
 import com.cognitivethought.ui.HealthBar;
 
+/**
+ * Where the enemies, tiles, and items are stored
+ */
 public class Level {
 
 	// All the platforms in the level
